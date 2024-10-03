@@ -2,20 +2,23 @@
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
+const db = require('./src/config/db');
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
+const  userRouts  = require('./src/routs/userRouts');
 
 const app = express();
 const port = process.env.PORT || 3001;
 const api = express.Router();
-const db = require('./src/db');
+api.use(express.json());
+
+app.use('/api', userRouts);
 
 app.use('/api', api);
-api.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-api.get('/generate', (req, res) => {
+api.get('/signUp', (req, res) => {
 
 	res.json('hello world!');
 });
