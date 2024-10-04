@@ -1,6 +1,6 @@
 
 export const postData = async (url, data, method = 'POST') => {
-	try {
+
 		const response = await fetch(url, {
 			method: method,
 			credentials: 'include',
@@ -10,13 +10,12 @@ export const postData = async (url, data, method = 'POST') => {
 			body: JSON.stringify(data)
 		});
 
-		if (!response.ok) {
-			throw new Error(`Error: ${response.status}`);
-		}
+		// if (!response.ok) {
+		// 	const errorPayload = await response.json();
+		// 	// console.error(errorPayload);
+		// 	throw new Error(errorPayload.error);
+		// }
 
-		return await response.json();
-	} catch (error) {
-		console.error("Error while request send:", error);
-		throw error;
-	}
+		// return await response.json();
+		return response;
 };

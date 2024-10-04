@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {MDBBtn, MDBInput} from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
-import {postData} from "web/src/Requests";
+import { postData } from "../Requests";
 
 function SignUp() {
 
-	const [singUpData, setSingUpData] = React.useState([]);
+	const [singUpData, setSingUpData] = useState([]);
+	const [message, setMessage] = useState('');
 
 	const handleFormChange = (field, value) => {
 		setSingUpData((prevState) => ({...prevState, [field]: value}));
@@ -14,11 +15,17 @@ function SignUp() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = postData('api/signUp', singUpData);
+			const response = await postData('api/signUp', singUpData);
 			const data = await response.json();
-			console.log("Registered successfully:", data);
+
+			if (response.ok) {
+				console.log("Registered successfully:", data);
+			} else {
+				console.log("Registered failed:", data.error);
+				setMessage(data.error);
+			}
 		}catch (error) {
-			console.log("Registered failed:", error);
+			console.log("Registered failed:", error.message);
 		}
 	}
 
@@ -36,7 +43,7 @@ function SignUp() {
 					  <div className="col-lg-8">
 						  <h2 className="fw-bold mb-5">Sign up now</h2>
 						  <form
-							  onClick={handleSubmit}
+							  onSubmit={handleSubmit}
 						  >
 							  <div className="form-outline mb-4">
 								  <MDBInput
@@ -80,6 +87,11 @@ function SignUp() {
 									  Sign In
 								  </Link>
 							  </div>
+							  {message && (
+								  <div className="alert alert-danger mt-3" role="alert">
+									  {message}
+								  </div>
+							  )}
 							  <div className="text-center">
 								  <p>or sign up with:</p>
 								  <button type="button" data-mdb-button-init data-mdb-ripple-init
