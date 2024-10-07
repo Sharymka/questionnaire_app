@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 html, body {
   height: 100%;
@@ -12,4 +13,35 @@ html, body {
   code {
     font-family: $code-font-family;
   }
+
+
+
+  .appBackground {
+    background-image: $background;
+  }
+
+  .screen_max_425 {
+    width: 100%;
+    @include sm-devices-max {
+      @include flex-col-center;
+    }
+  }
+
+  .screen_max_425_block_width {
+    @include sm-devices-max {width: 100%;}
+  }
+
+  .screen_min_425 {
+    @include sm-devices-min {
+      @include flex-row-center;
+    }
+  }
+
+  .container_min_1200 {
+    @include lg-devices-min {
+     @include custom_container_900;
+    }
+  }
+
+
 }

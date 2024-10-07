@@ -4,19 +4,37 @@ const path = require('path');
 const dotenv = require('dotenv');
 const db = require('./src/config/db');
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
-const createUser = require("./src/controllers/userController");
+const {signUp, signIn} = require("./src/controllers/userController");
+const session = require('express-session');
+const isAuthenticated = require("./src/middlewares/isAuthenticated");
 
 
 const app = express();
 const port = process.env.PORT || 3001;
 const api = express.Router();
+
+app.use(session({
+	secret: 'supersecretkey',
+	resave: false,
+	saveUninitialized: false,
+	rolling: true,
+	cookie: {
+		maxAge: 3600000,
+		secure: false,
+		httpOnly: true,
+		sameSite: 'lax'
+	}
+}));
+
 api.use(express.json());
 
 app.use('/api', api);
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-api.post('/signUp', createUser);
+api.post('/signUp', signUp);
+
+api.post('/signIn', signIn);
 
 
 app.get('/*', function (req, res) {
