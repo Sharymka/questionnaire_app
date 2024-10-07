@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import {MDBBtn, MDBInput} from "mdb-react-ui-kit";
-import {Link} from "react-router-dom";
+import { MDBInput} from "mdb-react-ui-kit";
+import {Link, useNavigate} from "react-router-dom";
 import { postData } from "../Requests";
 
 function SignUp() {
+
+	const navigate = useNavigate();
 
 	const [singUpData, setSingUpData] = useState([]);
 	const [message, setMessage] = useState('');
@@ -20,6 +22,8 @@ function SignUp() {
 
 			if (response.ok) {
 				console.log("Registered successfully:", data);
+				setMessage('');
+				navigate('/home');
 			} else {
 				console.log("Registered failed:", data.error);
 				setMessage(data.error);

@@ -1,0 +1,47 @@
+@mixin flex-row-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+@mixin custom_container_900 {
+  margin: 0 auto;
+  width: 900px;
+}
+
+@mixin sm-devices-max {
+  @media (max-width: 425px) {
+    @content;
+  }
+}
+@mixin sm-devices-min {
+  @media (min-width: 425px) {
+    @content;
+  }
+}
+
+@mixin md-devices-max {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+@mixin lg-devices-max {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin lg-devices-min {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}

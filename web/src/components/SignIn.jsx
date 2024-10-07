@@ -1,12 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {MDBInput} from "mdb-react-ui-kit";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {postData} from "../Requests";
 
 function SignIn() {
-    const [loginData, setLoginData] = React.useState([]);
+    const [signInData, setSignInData] = React.useState([]);
+    const [message, setMessage] = useState('');
+
+    const navigate = useNavigate();
 
     const handleFormChange = (field, value) => {
-        setLoginData((prevState) => ({...prevState, [field]: value}));
+        setSignInData((prevState) => ({...prevState, [field]: value}));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await postData('api/signIn', signInData);
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log("SignIn successfully:", data);
+                setMessage('');
+                navigate('/home');
+            } else {
+                console.log("SignIn failed:", data.error);
+                setMessage(data.error);
+            }
+        }catch (error) {
+            console.log("SignIn failed:", error.message);
+        }
     }
 
   return (
@@ -22,10 +45,13 @@ function SignIn() {
             <div className="row d-flex justify-content-center">
               <div className="col-lg-8">
                 <h2 className="fw-bold mb-5">Sign in</h2>
-                  <form>
+                  <form
+                      onSubmit={handleSubmit}
+                  >
                       <div className="form-outline mb-4">
                           <MDBInput
                               type="email"
+                              name="email"
                               className="form-control form-control-lg"
                               label='Email address'
                               onChange={(event) => handleFormChange('email', event.target.value)}

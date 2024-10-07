@@ -3,23 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install:api": "cd api && npm install",
-    "start:api": "cd api && npm run start",
-    "start:api:dev": "cd api && npm run dev",
-    "install:web": "cd web && npm install",
-    "prepare:static": "cp -r web/build api",
-    "build:web": "cd web && npm run build",
-    "build:web:dev": "npm run build:web && npm run prepare:static",
+    "install": "cd api && npm run install && cd web && npm run install",
+    "build": " cd web && npm run build && prepare:static",
+    "start": " cd api && npm run dev",
 
-    "install": "npm run install:api && npm run install:web",
-    "build": "npm run build:web && prepare:static",
-    "start": "npm run start:api",
-    "watch:static": "nodemon --watch api/build",
+    "start:api:dev": "cd api && npm run dev",
+    "build:web:dev": "cd web && npm run watch:build",
+    "watch:api": "nodemon --watch api/build --exec  \"npm run start\"",
     "serve": "concurrently \"npm start\" \"npm run watch:static\""
   },
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "nodemon": "^3.1.7"
   }
 }
