@@ -8,30 +8,30 @@ import Select  from '@mui/material/Select';
 import {useContext} from "react";
 import {TemplateContext} from "./TemplateContext";
 
-import {answerTypeName} from "../../const/const";
+import {questionTopics} from "../../const/const";
 
-const names = Object.keys(answerTypeName);
+const topics = Object.keys(questionTopics);
 
-export default function SelectAnswerType () {
+export default function SelectTopic () {
 
-	const { setAnswerType } = useContext(TemplateContext);
+	const {setTopic} = useContext(TemplateContext);
 	const[selectedType, setSelectedType] = React.useState('');
 
 	const handleChange = (event) => {
 		setSelectedType(event.target.value);
-		setAnswerType(answerTypeName[event.target.value]);
+		setTopic(questionTopics[event.target.value]);
 	};
 
 	return (
 		<div>
 			<FormControl style={{width: "100%"}} >
-				<InputLabel>Ответы</InputLabel>
+				<InputLabel>Тема</InputLabel>
 				<Select
 					value={selectedType}
 					onChange={handleChange}
 					input={<OutlinedInput label="Ответы" />}
 				>
-					{names.map((name,index) => (
+					{topics.map((name,index) => (
 						<MenuItem key={name} value={name}>
 							<ListItemText primary={name} />
 						</MenuItem>

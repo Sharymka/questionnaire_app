@@ -1,0 +1,52 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: blue;
+}
+html code, body code {
+  font-family: Roboto, Helvetica, Arial, sans-serif, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+html .appBackground, body .appBackground {
+  background-image: url("https://oir.mobi/uploads/posts/2021-03/1616426621_12-p-belo-goluboi-fon-16.jpg");
+}
+html .screen_max_425, body .screen_max_425 {
+  width: 100%;
+}
+@media (max-width: 425px) {
+  html .screen_max_425, body .screen_max_425 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+}
+@media (max-width: 425px) {
+  html .screen_max_425_block_width, body .screen_max_425_block_width {
+    width: 100%;
+  }
+}
+@media (min-width: 425px) {
+  html .screen_min_425, body .screen_min_425 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+}
+@media (min-width: 1024px) {
+  html .container_min_1200, body .container_min_1200 {
+    margin: 0 auto;
+    width: 900px;
+  }
+}
+html .text-field-class .MuiInputBase-input, body .text-field-class .MuiInputBase-input {
+  user-select: text !important;
+  cursor: text !important;
+}
+
+/*# sourceMappingURL=style.css.map */
