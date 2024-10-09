@@ -43,5 +43,9 @@ html, body {
     }
   }
 
+  .text-field-class .MuiInputBase-input {
+    user-select: text !important;  // Разрешаем выделение текста
+    cursor: text !important;       // Устанавливаем курсор "I-beam"
+  }
 
 }
