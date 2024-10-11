@@ -1,35 +1,49 @@
 import React, {useContext, useState} from 'react';
 import {
-	Autocomplete,
-	FormControlLabel, Radio,
+	Button, FormControlLabel, IconButton, Radio, RadioGroup,
 	TextField,
 	Typography,
 } from '@mui/material';
-
 import SelectAnswerType from "./selectAnswerType";
 import {TemplateContext} from "./TemplateContext";
 import CheckBoxes from "./CheckBoxes";
 import SelectTopic from "./Theme";
 import MarkdownEditor from "./MarkdownEditor";
-import FixedTags from "./test2";
-
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import AutocompletePrivateUsers from "./AutocompletePrivateUsers";
+import AutocompleteTags from "./AutocompleteTags";
+import SidePanel from "./SidePanel";
+import ToolBlock from "./toolBlock";
+import QuestionTextField from "./TextFields/QuestionTextField";
+import AnswerTextField from "./TextFields/AnswerTextField";
+import CheckboxTextField from "./TextFields/CheckboxTextField";
+import QuestionList from "./QuestionBlock/QuestionList";
 
 function Template() {
 
-	const { description, answerType, handleSetName, handleSetDescription, handleSetTopic,handleSetQuestion } = useContext(TemplateContext);
-	const [checked, setChecked] = useState(false);
+	const { answerType, handleSetName, handleSetDescription, handleSetQuestion, questions, accessLevel, setAccessLevel, setSelectedUsers, checkboxOptions } = useContext(TemplateContext);
 	const [editor, setEditor] = useState(true);
-	const[privateUsers, setPrivateUsers] = React.useState([]);
 	const [showUsers , setShowUsers] = React.useState(false);
-	const handleChange = (event) => {
-		setChecked(event.target.checked);
-	};
-	const handleSetShowUsers = () => {
-		setShowUsers(!showUsers);
+	const [editorAnchor, setEditorAnchor] = useState(false);
+
+
+	const handleAccessLevel = (event) => {
+		const newAccessLevel = event.target.value;
+		setAccessLevel(newAccessLevel);
+		if(newAccessLevel === 'public'){
+			setShowUsers(false);
+			setSelectedUsers([]);
+		}else {
+			setShowUsers(true);
+		}
 	}
+
 	return (
 		<div className="d-flex flex-column gap-1">
-			<div className="p-4 card ">
+			<div className="p-4 card">
 				<Typography variant="h5">Новая форма</Typography>
 				<div className="p-4 d-flex flex-row justify-content-between align-items-center gap-5">
 					<div className="flex-grow-1">
@@ -45,6 +59,7 @@ function Template() {
 						<SelectTopic/>
 					</div>
 				</div>
+				<SidePanel/>
 			</div>
 			<div className="p-4  card">
 				<TextField
@@ -79,8 +94,13 @@ function Template() {
 				)
 			}
 			</div>
-	<div className="p-4 card d-flex flex-row justify-content-between align-items-center gap-5">
-		<div className="flex-grow-1">
+			<QuestionList
+				editorAnchor={editorAnchor}
+				setEditorAnchor={setEditorAnchor}
+				showUsers={showUsers}
+			/>
+			<div className="p-4 card d-flex flex-row justify-content-between align-items-center gap-5">
+				<div className="flex-grow-1">
 					<TextField
 						label="задайте вопрос"
 						fullWidth
@@ -90,48 +110,53 @@ function Template() {
 					/>
 				</div>
 				<div className="flex-grow-1">
-						<SelectAnswerType/>
+					<SelectAnswerType/>
 				</div>
 			</div>
-				<div className="p-4 card">
-					{
-						answerType === 'checkboxes' && (
-							<CheckBoxes/>
-						)
-					}
-				</div>
-				<div className="p-4 card">
-					<FormControlLabel
-						control={<Radio checked={showUsers}/>}
-						onClick={handleSetShowUsers}
-						label="ограничить доступ"
-					/>
+			<div className="p-4 card">
+				{
+					answerType === 'checkboxes' && (
+						<CheckBoxes/>
+					)
+				}
+			</div>
+			<div className="p-4 card">
+					<FormControl sx={{width: "50%"}}  variant="outlined">
+						<InputLabel id="access-level-label">Уровень доступа</InputLabel>
+						<Select
+							labelId="access-level-label"
+							id="access-level"
+							value={accessLevel || ''}
+							onChange={handleAccessLevel}
+							label="Уровень доступа"
+						>
+							<MenuItem value="public">Общедоступный</MenuItem>
+							<MenuItem value="restricted">Ограниченный</MenuItem>
+						</Select>
+					</FormControl>
+				<div style={{width: "50%"}}>
 					{
 						showUsers && (
-							<FixedTags/>
-
-							// <Autocomplete renderInput={(params) => (
-							// 	<TextField  variant="outlined" label="Выберите пользователей" />
-							// )}/>
-							// <PrivateUsersBlock setShowUsers={setShowUsers} showUsers={showUsers}/>
-							// <UserSelection/>
+							<AutocompletePrivateUsers/>
 						)
 					}
-					{/*<Switch*/}
-					{/*	checked={checked}*/}
-					{/*	onChange={handleChange}*/}
-					{/*	inputProps={{ 'aria-label': 'controlled' }}*/}
-					{/*/>*/}
-					{/*<FormControlLabel*/}
-					{/*	control={*/}
-					{/*		<Switch*/}
-					{/*			checked={required}*/}
-					{/*			onChange={(event) => setRequired(event.target.checked)}*/}
-					{/*		/>*/}
-					{/*	}*/}
-					{/*	label="Обязательный вопрос"*/}
-					{/*/>*/}
 				</div>
+			</div>
+			<div className="p-4 card">
+				<div style={{width: "50%"}}>
+					<AutocompleteTags/>
+				</div>
+				{/*<div className="d-flex flex-row justify-content-end align-items-center gap-5">*/}
+				{/*	<Button*/}
+				{/*		className='btn-primary btn-block'*/}
+				{/*		// onClick={handleAddOption}*/}
+				{/*		variant="contained"*/}
+				{/*		style={{margin: '16px 0', width: '20%'}}*/}
+				{/*	>*/}
+				{/*		Сохранить вопрос*/}
+				{/*	</Button>*/}
+				{/*</div>*/}
+			</div>
 		</div>
 	);
 }

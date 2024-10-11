@@ -7,17 +7,22 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   color: blue;
 }
-html code, body code {
-  font-family: Roboto, Helvetica, Arial, sans-serif, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+
+code {
+  font-family: Roboto, Helvetica, Arial, sans-serif, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace, body1;
 }
-html .appBackground, body .appBackground {
+
+.appBackground {
   background-image: url("https://oir.mobi/uploads/posts/2021-03/1616426621_12-p-belo-goluboi-fon-16.jpg");
+  background-size: cover;
+  min-height: 100vh;
 }
-html .screen_max_425, body .screen_max_425 {
+
+.screen_max_425 {
   width: 100%;
 }
 @media (max-width: 425px) {
-  html .screen_max_425, body .screen_max_425 {
+  .screen_max_425 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -25,28 +30,90 @@ html .screen_max_425, body .screen_max_425 {
     gap: 10px;
   }
 }
+
 @media (max-width: 425px) {
-  html .screen_max_425_block_width, body .screen_max_425_block_width {
+  .screen_max_425_block_width {
     width: 100%;
   }
 }
+
 @media (min-width: 425px) {
-  html .screen_min_425, body .screen_min_425 {
+  .screen_min_425 {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
   }
 }
+
 @media (min-width: 1024px) {
-  html .container_min_1200, body .container_min_1200 {
+  .container_min_1200 {
     margin: 0 auto;
     width: 900px;
   }
 }
-html .text-field-class .MuiInputBase-input, body .text-field-class .MuiInputBase-input {
+
+.text-field-class .MuiInputBase-input {
   user-select: text !important;
   cursor: text !important;
+}
+
+.checkbox_style {
+  font-size: 1rem;
+  color: #555;
+}
+.checkbox_style .MuiRadio-root {
+  color: #464d53;
+}
+.checkbox_style .MuiRadio-root.Mui-checked {
+  color: #53575b;
+}
+
+.relativePosition {
+  position: relative;
+}
+
+.sidePanelPosition {
+  position: fixed;
+  top: 28%;
+  right: 13%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.toolBlockPosition {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.text-field-underline-none .MuiInput-underline:before {
+  border-bottom: none;
+}
+.text-field-underline-none .MuiInput-underline:after {
+  border-bottom: none;
+}
+.text-field-underline-none:hover:not(.Mui-disabled) .MuiInput-underline:before {
+  border-bottom: none;
+}
+
+.text-field-underline-dashed .MuiInput-underline:before {
+  border-bottom: 1px dashed lightgray;
+}
+.text-field-underline-dashed .MuiInput-underline:after {
+  border-bottom: 1px dashed lightgray;
+}
+.text-field-underline-dashed:hover:not(.Mui-disabled) .MuiInput-underline:before {
+  border-bottom: 1px dashed lightgray;
 }
 
 /*# sourceMappingURL=style.css.map */

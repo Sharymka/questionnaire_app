@@ -8,7 +8,7 @@ function Home() {
     const [addTemp, setAddTemp] = React.useState(false);
   return (
    <div className="h-100 appBackground">
-    <div className=" pt-5 container container_min_1200">
+    <div className=" p-5 container container_min_1200">
         <div className=" screen_max_425 screen_min_425">
             <Link
                 type="btn"
