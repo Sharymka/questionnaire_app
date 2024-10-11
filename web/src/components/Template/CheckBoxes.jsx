@@ -25,7 +25,7 @@ function CheckBoxes() {
             <IconButton onClick={() => handleDeleteOption(index)} aria-label="delete">
               <img
                   style={{maxWidth: '20px', maxHeight: '20px'}}
-                  src="https://res.cloudinary.com/dewxfivxh/image/upload/v1728332370/delete-svgrepo-com_x0mcqv.svg"
+                  src="https://res.cloudinary.com/dewxfivxh/image/upload/v1728645223/cross-svgrepo-com_oq7fmk.svg"
                   alt="Delete icon"
               />
             </IconButton>

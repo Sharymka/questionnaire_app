@@ -14,16 +14,21 @@ const names = Object.keys(answerTypeName);
 
 export default function SelectAnswerType () {
 
-	const { setAnswerType } = useContext(TemplateContext);
+	const { setAnswerType, setCheckboxOptions } = useContext(TemplateContext);
 	const[selectedType, setSelectedType] = React.useState('');
 
 	const handleChange = (event) => {
-		setSelectedType(event.target.value);
-		setAnswerType(answerTypeName[event.target.value]);
+		const selectedAnswerType = event.target.value;
+		setSelectedType(selectedAnswerType);
+		setAnswerType(answerTypeName[selectedAnswerType]);
+		if(selectedAnswerType !== 'checkboxes') {
+			setCheckboxOptions([]);
+		}
+
 	};
 
 	return (
-		<div>
+		<div className="flex-grow-1">
 			<FormControl style={{width: "100%"}} >
 				<InputLabel>Ответы</InputLabel>
 				<Select
