@@ -5,20 +5,29 @@ import TextField from "@mui/material/TextField";
 
 function CustomAutoComplete(props) {
 
-const {value, customOptions, label, placeholder, handleValue, deleteTag, getOptionLabel, getTagLabel, sortBy} = props;
+const {
+    value,
+    customOptions,
+    label,
+    placeholder,
+    handleValue,
+    deleteTag,
+    getOptionLabel,
+    getTagLabel,
+    sortBy
+} = props;
 
   return (
       <Autocomplete
-          sx={{width: '100% !important'}}
+          // sx={{width: "100% !important"}}
           multiple
-          className=' d-flex diraction-row w-90'
+          className="d-flex diraction-row w-100"
           id="fixed-tags-demo"
           value={value}
           onChange={(event, newSelectedOption) => {
               handleValue(newSelectedOption)
           }}
           options={customOptions}
-          // getOptionLabel={(option) => option.first_name + '' + option.last_name}
           getOptionLabel={getOptionLabel}
 
           renderTags={(tagValue, getTagProps) =>
@@ -28,7 +37,6 @@ const {value, customOptions, label, placeholder, handleValue, deleteTag, getOpti
                     <Chip
                         key={key}
                         label={getTagLabel(option, sortBy)}
-                        // label={sortBy ==='name' || sortBy === ''? option.first_name + '' + option.last_name: option.email}
                         {...tagProps}
                         onDelete={(event) => {
                           event.preventDefault();

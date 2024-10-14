@@ -1,16 +1,17 @@
 import React, {useContext} from 'react';
 import {IconButton} from "@mui/material";
+import {QuestionContext} from "./contexts/QuestionContext";
 
 function ToolBlock(props) {
 
-  const { setEditorAnchor } = props;
+  const { handleEditorAnchor } = useContext(QuestionContext);
 
   return (<div className="d-flex justify-content-center toolBlockPosition">
     <IconButton
         sx={{
           padding: '1px'
         }}
-        onClick={() => setEditorAnchor(true)}
+        onClick={handleEditorAnchor}
         aria-label="edit"
     >
       <img

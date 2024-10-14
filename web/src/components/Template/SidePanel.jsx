@@ -14,10 +14,8 @@ const SidePanel = () => {
 		<Box
 			className="sidePanelPosition"
 		>
-			<IconButton>
-				<AddIcon
-				onClick={handleAddQuestion}
-				/>
+			<IconButton onClick={handleAddQuestion}>
+				<AddIcon/>
 			</IconButton>
 			<IconButton>
 				<DescriptionIcon />

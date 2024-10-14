@@ -2,10 +2,9 @@ import React, {useContext} from 'react';
 import QuestionCard from "./QistionCard";
 import {TemplateContext} from "../TemplateContext";
 
-function QuestionsList(props) {
+function QuestionsList() {
 
-	const { checkboxOptions, questions } = useContext(TemplateContext);
-	const { setEditorAnchor, editorAnchor, showUsers } = props;
+	const { questions } = useContext(TemplateContext);
 
 	return (
 		<div className='card d-flex flex-column'>
@@ -13,11 +12,7 @@ function QuestionsList(props) {
 				<QuestionCard
 					key={index}
 					question={question}
-					checkboxOptions={checkboxOptions}
-					setEditorAnchor={setEditorAnchor}
-					editorAnchor={editorAnchor}
 					indexValue={index}
-					showUsers={showUsers}
 				/>
 			))}
 		</div>

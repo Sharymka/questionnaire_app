@@ -63,7 +63,7 @@ code {
   color: #555;
 }
 .checkbox_style .MuiRadio-root {
-  color: #464d53;
+  color: #181a1a;
 }
 .checkbox_style .MuiRadio-root.Mui-checked {
   color: #53575b;
@@ -74,16 +74,50 @@ code {
 }
 
 .sidePanelPosition {
-  position: fixed;
-  top: 28%;
-  right: 13%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
   background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 8px;
+}
+@media (min-width: 768px) and (max-width: 1440px) {
+  .sidePanelPosition {
+    position: fixed;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+    top: 27%;
+    right: 2%;
+  }
+}
+@media (min-width: 1450px) and (max-width: 1900px) {
+  .sidePanelPosition {
+    position: fixed;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+    top: 27%;
+    right: 13%;
+  }
+}
+@media (min-width: 1900px) {
+  .sidePanelPosition {
+    position: fixed;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+    top: 27%;
+    right: 23%;
+  }
 }
 
 .toolBlockPosition {
@@ -114,6 +148,21 @@ code {
 }
 .text-field-underline-dashed:hover:not(.Mui-disabled) .MuiInput-underline:before {
   border-bottom: 1px dashed lightgray;
+}
+
+.text-field-underline-solid .MuiInput-underline:before {
+  border-bottom: 1px solid lightgray;
+}
+.text-field-underline-solid .MuiInput-underline:after {
+  border-bottom: 1px solid lightgray;
+}
+.text-field-underline-solid:hover:not(.Mui-disabled) .MuiInput-underline:before {
+  border-bottom: 1px solid lightgray;
+}
+
+.block_size_max_20_20 {
+  max-width: 20px;
+  max-height: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */
