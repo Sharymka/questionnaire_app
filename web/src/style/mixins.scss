@@ -18,6 +18,12 @@
   width: 900px;
 }
 
+@mixin xs-devices-max {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
 @mixin sm-devices-max {
   @media (max-width: 425px) {
     @content;
@@ -30,10 +36,17 @@
 }
 
 @mixin md-devices-max {
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     @content;
   }
 }
+
+@mixin md-devices-min {
+  @media (min-width: 767px) {
+    @content;
+  }
+}
+
 @mixin lg-devices-max {
   @media (max-width: 1024px) {
     @content;
@@ -46,8 +59,52 @@
   }
 }
 
+@mixin xl-devices-min {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin xxl-devices-min {
+  @media (min-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin xxl-devices-max {
+  @media (max-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin devices-1900_min {
+  @media (min-width: 1900px) {
+    @content;
+  }
+}
+
+@mixin screen_size($min, $max) {
+  @media (min-width: #{$min}) and (max-width: #{$max}) {
+    @content;
+  }
+}
+
 @mixin block-width-50 {
   position:absolute;
   top: 20px;
   right: 20px;
+}
+
+//стили боковой панели
+
+@mixin position_fixed {
+  position: fixed;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 5px;
+  @content;
 }

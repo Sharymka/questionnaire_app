@@ -1,0 +1,1 @@
+export const DELETE_ICON_URL = 'https://res.cloudinary.com/dewxfivxh/image/upload/v1728645223/cross-svgrepo-com_oq7fmk.svg';

@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState} from "react";
 import {postData} from "../../Requests";
 
 export const TemplateContext = React.createContext(null);
 
 function TemplateProvider({children}) {
 
-	const [name, setName] = React.useState('');
+	const [title, setTitle] = React.useState('');
 	const [topic, setTopic] = React.useState('');
 	const [description, setDescription] = React.useState('');
 	const [question, setQuestion] = React.useState('');
@@ -18,7 +18,7 @@ function TemplateProvider({children}) {
 
 	const handleSentTemplateDate = async ()=> {
 		const requestData = {
-			name:name,
+			name:title,
 			topic:topic,
 			description:description,
 			question:question,
@@ -45,6 +45,10 @@ function TemplateProvider({children}) {
 
 	}
 
+	const handleTopic= (event) => {
+		setTopic(event.target.value);
+	}
+
 	const handleOptionChange = (event) => {
 		setCheckboxOptions((prevState) =>
 			prevState.map((option) => ({
@@ -54,21 +58,30 @@ function TemplateProvider({children}) {
 		);
 	};
 
-	const handleSetName = (event) => {
-		setName(event.target.value);
+	const handleTitle = (event) => {
+		setTitle(event.target.value);
 	};
 
 	const handleSetTopic = (event) => {
 		setDescription(event.target.value);
 	};
 
-	const handleSetDescription = (event) => {
+	const handleDescription = (event) => {
 		setDescription(event.target.value);
 	};
 
 	const handleSetQuestion = (event) => {
 		setQuestion(event.target.value);
 	};
+
+	const handleAnswerType = (event) => {
+		const newAnswerType = event.target.value;
+		setAnswerType(newAnswerType);
+		if(newAnswerType !== 'checkboxes') {
+			setCheckboxOptions([]);
+		}
+	}
+
 
 	const handleAddOption = () => {
 		setCheckboxOptions([...checkboxOptions, { value: '', selected: false }]);
@@ -88,8 +101,23 @@ function TemplateProvider({children}) {
 		setQuestions((prevState) => [...prevState, {
 			name: question,
 			answerType: answerType,
-			checkboxOptions: checkboxOptions
+			checkboxOptions: checkboxOptions,
+			access: accessLevel,
+			selectedUsers: selectedUsers,
+			selectedTags: selectedTags,
 		}])
+
+		resetInitialStates();
+
+	}
+
+	const resetInitialStates = ()=> {
+		setQuestion('')
+		setAnswerType('');
+		setAccessLevel('public');
+		setCheckboxOptions([]);
+		setSelectedUsers([]);
+		setSelectedTags([]);
 	}
 
 	const handleEditQuestion = (newValue, selectedIndex, field) => {
@@ -105,7 +133,7 @@ function TemplateProvider({children}) {
 
   return (
 	  <TemplateContext.Provider value={{
-		  setAnswerType,
+		  handleAnswerType,
 		  answerType,
 		  checkboxOptions,
 		  setCheckboxOptions,
@@ -113,10 +141,11 @@ function TemplateProvider({children}) {
 		  handleOptionTextChange,
 		  handleAddOption,
 		  handleDeleteOption,
-		  setTopic,
+		  handleTopic,
 		  topic,
-		  handleSetName,
-		  handleSetDescription,
+		  handleTitle,
+		  title,
+		  handleDescription,
 		  handleSetTopic,
 		  handleSetQuestion,
 		  description,

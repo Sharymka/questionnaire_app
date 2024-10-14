@@ -2,8 +2,19 @@ import React from 'react';
 import {TextField} from "@mui/material";
 
 function CustomTextField(props) {
+  const {
+      label,
+      classes,
+      value,
+      placeholder,
+      onChange,
+      variant,
+      multiline =false,
+      minRows='',
+      maxRows='',
+      rows='',
 
-  const { label='', classes, value='', placeholder='', onChange , variant, multiline =false, minRows='', maxRows='', rows=''} = props;
+  } = props;
   return (
       <TextField
           className={classes}
@@ -13,7 +24,7 @@ function CustomTextField(props) {
           margin="normal"
           variant={variant}
           value={value}
-          onChange={onChange}
+          onChange={(event) => onChange(event)}
           multiline={multiline}
           minRows={minRows}
           maxRows={maxRows}

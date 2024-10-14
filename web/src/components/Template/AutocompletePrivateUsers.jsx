@@ -44,7 +44,8 @@ export default function AutocompletePrivateUsers() {
 					label={LABEL_USERS}
 					handleValue={handleSelectedUsers}
 					sortBy={sortBy}
-					deleteTag={deleteTag} placeholder=''
+					deleteTag={deleteTag}
+					placeholder=''
 				/>
 		</>
 

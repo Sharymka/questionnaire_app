@@ -6,17 +6,18 @@ function QuestionTextField(props) {
 
     const { question, indexValue, editorAnchor } = props;
     const { handleEditQuestion } = useContext(TemplateContext);
-    const classes = 'block-width-50 text-field-underline-none'
-    const variant="standard"
-    const name = "name"
+    const underlineNone = 'block-width-50 text-field-underline-none'
+    const underlineSolid = 'text-field-underline-solid';
+    const variant="standard";
+    const name = "name";
 
 
   return (
       <div className='flex-grow-1'>
           <CustomTextField
-              classes={classes}
+              classes={editorAnchor? underlineSolid : underlineNone }
               variant={variant}
-              label=''
+              label= ''
               value={question}
               onChange={editorAnchor? (event) => handleEditQuestion(event.target.value, indexValue, name): null}
 

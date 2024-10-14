@@ -1,7 +1,7 @@
 import ToolBlock from "../toolBlock";
 import QuestionTextField from "../TextFields/QuestionTextField";
 import AnswerField from "./AnswerField";
-import SelectAnswerType from "../selectAnswerType";
+import AnswerTypeSelector from "../FormControlSelectors/AnswerTypeSelector";
 import React, {useContext} from "react";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,26 +10,26 @@ import MenuItem from "@mui/material/MenuItem";
 import AutocompletePrivateUsers from "../AutocompletePrivateUsers";
 import AutocompleteTags from "../AutocompleteTags";
 import {TemplateContext} from "../TemplateContext";
+import {QuestionContext} from "../contexts/QuestionContext";
 
 function QuestionCard(props){
 
-	const { accessLevel, handleAccessLevel } = useContext(TemplateContext);
-	const { showUsers, question, checkboxOptions, setEditorAnchor, editorAnchor, indexValue } = props;
+	const { accessLevel, handleAccessLevel, checkboxOptions } = useContext(TemplateContext);
+	const { editorAnchor, showUsers } = useContext(QuestionContext);
+	const { question, indexValue } = props;
 
 	return (
 		<>
 			<div className='d-flex flex-column'>
-				<div className="p-4 d-flex relativePosition">
-					<ToolBlock setEditorAnchor={setEditorAnchor}/>
-					<QuestionTextField question={question.name} editorAnchor={editorAnchor} indexValue={indexValue}/>
-					{editorAnchor && (<SelectAnswerType/>)}
+				<ToolBlock/>
+				<div className="d-flex relativePosition">
+					<QuestionTextField question={question.name} indexValue={indexValue}/>
+					{editorAnchor && (<AnswerTypeSelector/>)}
 				</div>
-				<AnswerField
-					question={question}
-					checkboxOptions={checkboxOptions}
-					editorAnchor={editorAnchor}
-					indexValue={indexValue}
-				/>
+					<AnswerField
+						question={question}
+						indexValue={indexValue}
+					/>
 				{
 					editorAnchor&& (
 						<div>

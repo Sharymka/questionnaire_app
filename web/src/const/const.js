@@ -8,21 +8,26 @@ export const NUMBER ='number';
 export const CHECKBOXES ='checkboxes';
 
 export const answerTypeName = {
-	'Текст (строка)': SINGLE_LINE,
-	'Текст (абзац)': PARAGRAPH,
-	'Число': NUMBER,
-	'Флажки': CHECKBOXES,
+	[SINGLE_LINE]:'Текст (строка)',
+	[PARAGRAPH]: 'Текст (абзац)',
+	[NUMBER]:'Число',
+	[CHECKBOXES]:'Флажки',
 };
 
 
 
 
 export const questionTopics = {
-	'Образование': 'education',
-	'Работа': 'work',
-	'Викторина': 'quiz',
-	'Другое': 'other',
+	'education':'Образование',
+	'work':'Работа',
+	'quiz':'Викторина',
+	'other':'Другое',
 };
+
+export const accessOptions = {
+	'public':'Общедоступный',
+	'restricted':'Ограниченный'
+}
 export const LABEL_USERS='пользователи';
 export const LABEL_TAGS='теги';
 
