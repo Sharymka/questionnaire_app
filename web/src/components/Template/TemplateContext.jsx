@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {postData} from "../../Requests";
 
 export const TemplateContext = React.createContext(null);
@@ -6,22 +6,49 @@ export const TemplateContext = React.createContext(null);
 function TemplateProvider({children}) {
 
 	const [title, setTitle] = React.useState('');
-	const [topic, setTopic] = React.useState('');
+	const [topic, setTopic] = React.useState('education');
 	const [description, setDescription] = React.useState('');
 	const [question, setQuestion] = React.useState('');
-	const [answerType, setAnswerType] = React.useState('singleLine');
-	const [checkboxOptions, setCheckboxOptions] = React.useState([]);
-	const [selectedUsers, setSelectedUsers] = React.useState([]);
-	const [accessLevel, setAccessLevel] =  useState('public');
-	const [selectedTags, setSelectedTags] = useState([]);
 	const [questions, setQuestions] = useState([]);
+	const [answerType, setAnswerType] = React.useState('singleLine');
+	const [checkboxOptions, setCheckboxOptions] = React.useState([ { value: '', selected: false }]);
+	const [accessLevel, setAccessLevel] =  useState('public');
+	const [selectedUsers, setSelectedUsers] = React.useState([]);
+	const [selectedTags, setSelectedTags] = useState([]);
+	const [editorAnchor, setEditorAnchor] = React.useState(
+		questions && questions.length > 0
+			? questions.map((question, index) => ({ id: index, editorAnchorValue: false }))
+			: []
+	);
+	const [showUsers , setShowUsers] = React.useState(false);
+	const [privateUsersAnchor, setPrivateUsersAnchor] = React.useState(questions && questions.length > 0
+		? questions.map((question, index) => ({ id: index, privateUsersAnchorValue: true }))
+		: [] );
+
+
+	useEffect(() => {
+		if (questions.length > editorAnchor.length) {
+			setEditorAnchor((prevState) => [
+				...prevState,
+				{ id: questions.length - 1, editorAnchorValue: false },
+			]);
+		}
+
+		setPrivateUsersAnchor(
+			questions.map((question, index) => ({
+				id: index,
+				privateUsersAnchorValue: question.access === "restricted"
+			}))
+		);
+
+	}, [questions]); // Следим за изменениями questions
 
 	const handleSentTemplateDate = async ()=> {
 		const requestData = {
 			name:title,
 			topic:topic,
 			description:description,
-			question:question,
+			questions:question,
 			answerType:answerType,
 			checkboxOptions:checkboxOptions,
 			accessLevel:accessLevel,
@@ -45,32 +72,19 @@ function TemplateProvider({children}) {
 
 	}
 
-	const handleTopic= (event) => {
-		setTopic(event.target.value);
-	}
-
-	const handleOptionChange = (event) => {
-		setCheckboxOptions((prevState) =>
-			prevState.map((option) => ({
-				...option,
-				selected: option.value === event.target.value
-			}))
-		);
-	};
-
 	const handleTitle = (event) => {
 		setTitle(event.target.value);
 	};
 
-	const handleSetTopic = (event) => {
-		setDescription(event.target.value);
-	};
+	const handleTopic= (event) => {
+		setTopic(event.target.value);
+	}
 
 	const handleDescription = (event) => {
 		setDescription(event.target.value);
 	};
 
-	const handleSetQuestion = (event) => {
+	const handleQuestion = (event) => {
 		setQuestion(event.target.value);
 	};
 
@@ -82,16 +96,24 @@ function TemplateProvider({children}) {
 		}
 	}
 
+	const handleCheckboxes = (event) => {
+		setCheckboxOptions((prevState) =>
+			prevState.map((option) => ({
+				...option,
+				selected: option.value === event.target.value
+			}))
+		);
+	};
 
-	const handleAddOption = () => {
+	const handleAddCheckboxOption = () => {
 		setCheckboxOptions([...checkboxOptions, { value: '', selected: false }]);
 	};
 
-	const handleDeleteOption = (selecteDindex) => {
+	const handleDeleteCheckboxOption = (selecteDindex) => {
 		setCheckboxOptions(prevState => (prevState.filter((option, index)=> index!== selecteDindex)));
 	};
 
-	const handleOptionTextChange = (event, selectedIndex)=> {
+	const handleCheckboxTextField = (event, selectedIndex)=> {
 		setCheckboxOptions((prevState) => (
 			prevState.map((option, index)=> selectedIndex === index? {...option, value: event.target.value}  : option )
 		));
@@ -106,18 +128,27 @@ function TemplateProvider({children}) {
 			selectedUsers: selectedUsers,
 			selectedTags: selectedTags,
 		}])
-
 		resetInitialStates();
+		resetEditorAnchor();
+	}
 
+	const handleDeleteQuestion = (questionIndex) => {
+		setQuestions(prevState => prevState.filter((question, index) => index !== questionIndex))
 	}
 
 	const resetInitialStates = ()=> {
-		setQuestion('')
-		setAnswerType('');
+		setQuestion('');
+		setAnswerType('singleLine');
 		setAccessLevel('public');
 		setCheckboxOptions([]);
 		setSelectedUsers([]);
 		setSelectedTags([]);
+	}
+
+	const resetEditorAnchor = () => {
+		setEditorAnchor((prevState) => prevState.map((option, index)=> {
+			return {...option, editorAnchorValue: false};
+		}))
 	}
 
 	const handleEditQuestion = (newValue, selectedIndex, field) => {
@@ -128,37 +159,62 @@ function TemplateProvider({children}) {
 					: option
 			)
 		);
+	}
+	const handleAccessLevel = (event) => {
+		setAccessLevel(event.target.value);
+		if(event.target.value === 'public'){
+			setShowUsers(false);
+			setSelectedUsers([]);
+		}else {
+			setShowUsers(true);
+		}
+	}
 
+	const handleEditorAnchor = (questionIndex) => {
+		setEditorAnchor((prevState) =>
+			prevState.map((item) => {
+				if(item.id === questionIndex) {
+					return {...item, editorAnchorValue: !item.editorAnchorValue}
+				}else {
+					return {...item, editorAnchorValue: false};
+				}
+			}));
 	}
 
   return (
 	  <TemplateContext.Provider value={{
-		  handleAnswerType,
-		  answerType,
-		  checkboxOptions,
-		  setCheckboxOptions,
-		  handleOptionChange,
-		  handleOptionTextChange,
-		  handleAddOption,
-		  handleDeleteOption,
-		  handleTopic,
-		  topic,
-		  handleTitle,
 		  title,
-		  handleDescription,
-		  handleSetTopic,
-		  handleSetQuestion,
+		  handleTitle,
+		  topic,
+		  handleTopic,
 		  description,
-		  selectedUsers,
-		  setSelectedUsers,
+		  handleDescription,
+		  handleQuestion,
+		  answerType,
+		  handleAnswerType,
+		  checkboxOptions,
+		  handleCheckboxes,
+		  handleAddCheckboxOption,
+		  handleDeleteCheckboxOption,
+		  handleCheckboxTextField,
 		  accessLevel,
 		  setAccessLevel,
+		  selectedUsers,
+		  setSelectedUsers,
 		  selectedTags,
 		  setSelectedTags,
 		  handleSentTemplateDate,
 		  questions,
+		  setQuestions,
 		  handleAddQuestion,
-		  handleEditQuestion
+		  handleEditQuestion,
+		  handleEditorAnchor,
+		  handleDeleteQuestion,
+		  editorAnchor,
+		  handleAccessLevel,
+		  showUsers,
+		  privateUsersAnchor,
+		  setPrivateUsersAnchor
 	  }}>
 		  {children}
 	  </TemplateContext.Provider>

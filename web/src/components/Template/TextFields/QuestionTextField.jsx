@@ -4,8 +4,8 @@ import {TemplateContext} from "../TemplateContext";
 
 function QuestionTextField(props) {
 
-    const { question, indexValue, editorAnchor } = props;
-    const { handleEditQuestion } = useContext(TemplateContext);
+    const { question, indexValue } = props;
+    const { handleEditQuestion, editorAnchor } = useContext(TemplateContext);
     const underlineNone = 'block-width-50 text-field-underline-none'
     const underlineSolid = 'text-field-underline-solid';
     const variant="standard";

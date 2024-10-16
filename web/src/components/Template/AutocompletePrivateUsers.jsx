@@ -1,7 +1,4 @@
-import * as React from 'react';
-import Chip from '@mui/material/Chip';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import React from 'react';
 import {LABEL_USERS, users} from '../../const/const';
 import {useContext, useState} from "react";
 import {TemplateContext} from "./TemplateContext";
@@ -9,8 +6,8 @@ import NameOrEmailSorter from "./NameOrEmailSorter";
 import CustomAutoComplete from "./ReusableComponents/CustomAutoComplete";
 
 export default function AutocompletePrivateUsers() {
-	const {selectedUsers, setSelectedUsers} =  useContext(TemplateContext);
-	const [sortBy, setSortBy] = useState('');
+	const { selectedUsers, setSelectedUsers } =  useContext(TemplateContext);
+	const [ sortBy, setSortBy ] = useState('');
 
 	const handleSelectedUsers = (newUser) => {
 		if (newUser.length === 0) {
@@ -27,7 +24,7 @@ export default function AutocompletePrivateUsers() {
 		})
 	}
 
-	const deleteTag = (optionId)=> {
+	const deleteUser = (optionId)=> {
 		setSelectedUsers((prevState) => prevState.filter((user)=> user.id !== optionId))
 	}
 	const getOptionLabel = (option) => `${option.first_name} ${option.last_name}`;
@@ -44,7 +41,7 @@ export default function AutocompletePrivateUsers() {
 					label={LABEL_USERS}
 					handleValue={handleSelectedUsers}
 					sortBy={sortBy}
-					deleteTag={deleteTag}
+					deleteTag={deleteUser}
 					placeholder=''
 				/>
 		</>

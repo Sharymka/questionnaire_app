@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CustomTextField from "../ReusableComponents/CustomTextField";
 
 function AnswerTextField(props) {
 
-	const { answerType } = props;
+	const { question } = props;
 
+
+
+	useEffect(() => {
+		console.log(question.answerType);
+	}, []);
 	const classes='text-field-underline-dashed';
-	const placeholder = answerType === 'singleLine' ? "краткий ответ" : "развернутый ответ";
+	const placeholder = question.answerType === 'singleLine' ? "краткий ответ": question.answerType === 'number' ? "числовой ответ" : "развернутый ответ";
 	const variant="standard"
-	const multiline= answerType === 'paragraph';
-	const minRows= answerType === 'paragraph' ? 4 : 1;
-	const maxRows= answerType === 'paragraph' ? Infinity : 1;
-	const rows= answerType === 'paragraph' ? 4 : 1;
+	const multiline= question.answerType === 'paragraph';
+	const minRows= question.answerType === 'paragraph' ? 2 : 1;
+	const maxRows= question.answerType === 'paragraph' ? Infinity : 1;
+	// const rows= answerType === 'paragraph' ? 4 : 1;
 	const handleValue = () => {
 
 	}
@@ -26,7 +31,7 @@ function AnswerTextField(props) {
 		  multiline={multiline}
 		  minRows={minRows}
 		  maxRows={maxRows}
-		  rows={rows}
+		  // rows={rows}
 	  />
   );
 }

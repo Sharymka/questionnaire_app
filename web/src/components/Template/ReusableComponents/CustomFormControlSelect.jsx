@@ -24,7 +24,7 @@ function CustomFormControlSelect(props) {
 			  <Select
 				  value={value}
 				  displayEmpty
-				  onChange={ onChange}
+				  onChange={onChange}
 				  input={<OutlinedInput label={name} />}
 			  >
 				  {Object.keys(options).map((name,index) => (

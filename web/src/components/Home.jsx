@@ -3,7 +3,6 @@ import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import Template from "./Template/Template";
 import TemplateProvider from "./Template/TemplateContext";
-import QuestionContextProvider from "./Template/contexts/QuestionContext";
 
 function Home() {
     const [addTemp, setAddTemp] = React.useState(false);
@@ -36,9 +35,7 @@ function Home() {
             <div className=" mt-3" role="alert">
                 <Link className="col-lg-3 screen_max_425_block_width text-primary">
                     <TemplateProvider>
-                        <QuestionContextProvider>
-                            <Template/>
-                        </QuestionContextProvider>
+                        <Template/>
                     </TemplateProvider>
                 </Link>
             </div>

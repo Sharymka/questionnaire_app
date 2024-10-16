@@ -1,54 +1,52 @@
 import AnswerTextField from "../TextFields/AnswerTextField";
-import {Button, FormControlLabel, IconButton, Radio, RadioGroup} from "@mui/material";
-import CheckboxTextField from "../TextFields/CheckboxTextField";
-import {PARAGRAPH, SINGLE_LINE, CHECKBOXES}  from "../../../const/const";
-import React from "react";
+import {PARAGRAPH, SINGLE_LINE, CHECKBOXES, NUMBER}  from "../../../const/const";
+import React, {useContext} from "react";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import {Checkbox, List, ListItem} from "@mui/material";
+import ListItemText from "@mui/material/ListItemText";
+import {TemplateContext} from "../TemplateContext";
+import CheckBoxesCard from "../CheckBoxesCard";
 
 const AnswerField = (props) => {
 
-	const { question, checkboxOptions, editorAnchor } = props;
-	switch (question.answerType) {
+	const { question, questionIndex } = props;
+	const { setQuestions, questions, editorAnchor } = useContext(TemplateContext);
+	const handleDeleteOption = (optionIndex) => {
+		setQuestions((prevstate) => prevstate.map((question, index) =>({
+			...question,
+			checkBoxes: question.checkBoxes.filter((option, index) => index !== optionIndex)
+		})));
+	}
+
+
+	switch (questions.find((question, index)=> questionIndex === index).answerType) {
 		case SINGLE_LINE:
 		case PARAGRAPH:
-			return <AnswerTextField answerType={question.answerType} />;
+		case NUMBER:
+			return <AnswerTextField question={question} questionIndex={questionIndex} />;
+
 
 		case CHECKBOXES:
 			return (
-				<>
-					<RadioGroup className="col-md-6">
-						{checkboxOptions.map((option, index) => (
-							<div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
-								<FormControlLabel
-									value={option.value}
-									control={<Radio checked={option.selected} />}
-									label=""
-								/>
-								<span style={{ color: 'black', marginRight: '8px' }}>{index + 1}.</span>
-								<CheckboxTextField option={option.value} />
-								{editorAnchor && (
-									<IconButton onClick={() => handleDeleteOption(index)} aria-label="delete">
-										<img
-											style={{ maxWidth: '20px', maxHeight: '20px' }}
-											src="https://res.cloudinary.com/dewxfivxh/image/upload/v1728645223/cross-svgrepo-com_oq7fmk.svg"
-											alt="Delete icon"
-										/>
-									</IconButton>
-								)}
-							</div>
+				editorAnchor.find(item => item.id === questionIndex)?.editorAnchorValue ? (
+					<CheckBoxesCard question={question} questionIndex={questionIndex}/>
+				): (
+					<List>
+						{question.checkboxOptions.map((option, index) => (
+							<ListItem key={index}>
+								<ListItemIcon>
+									<Checkbox
+										edge="start"
+										tabIndex={-1}
+										disableRipple
+										checked={option.selected}
+									/>
+								</ListItemIcon>
+								<ListItemText primary={option.value} />
+							</ListItem>
 						))}
-					</RadioGroup>
-					{
-						editorAnchor && (
-							<Button className='btn-primary btn-block' onClick={handleAddOption} variant="contained" style={{margin: '16px 0'}}>
-								Добавить вариант
-							</Button>
-						)
-					}
-
-				</>
-
-
-
+					</List>
+				)
 			);
 
 		default:

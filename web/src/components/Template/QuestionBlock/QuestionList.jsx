@@ -7,12 +7,12 @@ function QuestionsList() {
 	const { questions } = useContext(TemplateContext);
 
 	return (
-		<div className='card d-flex flex-column'>
+		<div className='d-flex flex-column gap-2'>
 			{questions.map((question, index) => (
 				<QuestionCard
 					key={index}
 					question={question}
-					indexValue={index}
+					questionIndex={index}
 				/>
 			))}
 		</div>

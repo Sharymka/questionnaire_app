@@ -4,11 +4,11 @@ import QuestionTemplateTextField from "./TextFields/QuestionTemplateTextField";
 
 function QuestionTemplate() {
   return (
-      <div className="d-flex flex-row justify-content-between align-items-center gap-5">
-          <div className="flex-grow-1">
+      <div className="d-flex flex-row justify-content-between align-items-center gap-3">
+          <div className="flex-grow-08">
               <QuestionTemplateTextField/>
           </div>
-          <div className="flex-grow-1">
+          <div className="flex-grow-07 margin-right-70">
               <AnswerTypeSelector/>
           </div>
 

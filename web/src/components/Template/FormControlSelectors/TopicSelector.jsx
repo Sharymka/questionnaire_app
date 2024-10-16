@@ -5,12 +5,12 @@ import {TemplateContext} from "../TemplateContext";
 
 function TopicSelector() {
 
-    const {handleTopic, topic} = useContext(TemplateContext);
+    const { handleTopic, topic } = useContext(TemplateContext);
 
 
   return (
       <CustomFormControlSelect
-      name='Темы'
+      name="Темы"
       value={topic}
       onChange={handleTopic}
       options={questionTopics}

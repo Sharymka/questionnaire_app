@@ -4,7 +4,7 @@ import {TemplateContext} from "../TemplateContext";
 
 function DescriptionTextField() {
 
-	const {handleDescription, description} = useContext(TemplateContext);
+	const { handleDescription, description } = useContext(TemplateContext);
   return (
 	  <CustomTextField
 		  placeholder="Введите текст"

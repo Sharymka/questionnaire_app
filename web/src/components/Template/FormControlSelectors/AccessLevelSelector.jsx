@@ -1,11 +1,11 @@
 import React, {useContext} from 'react';
 import CustomFormControlSelect from "../ReusableComponents/CustomFormControlSelect";
-import {QuestionContext} from "../contexts/QuestionContext";
 import {accessOptions} from '../../../const/const';
+import {TemplateContext} from "../TemplateContext";
 
 function AccessLevelSelector() {
 
-  const { accessLevel, handleAccessLevel } = useContext(QuestionContext);
+  const { accessLevel, handleAccessLevel } = useContext(TemplateContext);
 
   return (
       <CustomFormControlSelect

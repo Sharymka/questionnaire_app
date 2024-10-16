@@ -1,15 +1,19 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import CustomTextField from "../ReusableComponents/CustomTextField";
 import {TemplateContext} from "../TemplateContext";
 
 function QuestionTemplateTextField() {
 
-	const { handleSetQuestion } = useContext(TemplateContext);
+	const { handleQuestion, question } = useContext(TemplateContext);
+
   return (
 	  <CustomTextField
+		  key={question}
 		  label="задайте вопрос"
 		  variant="standard"
-		  onChange={handleSetQuestion}
+		  value={question}
+		  onChange={handleQuestion}
+		  placeholder={question || 'Введите вопрос'}
 	  />
   );
 }

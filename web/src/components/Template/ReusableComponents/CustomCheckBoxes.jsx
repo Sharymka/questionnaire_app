@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, FormControlLabel, IconButton, Radio, RadioGroup} from "@mui/material";
 import CustomTextField from "../ReusableComponents/CustomTextField";
 import {DELETE_ICON_URL} from "../../../url/url";
+import {TemplateContext} from "../TemplateContext";
 
 function CustomCheckBoxes(props) {
+
+    const { editorAnchor } = useContext(TemplateContext);
 
   const {
         onChange,
@@ -13,9 +16,9 @@ function CustomCheckBoxes(props) {
         addOptionOnClick,
         btnName
   } = props;
+
   return (
       <RadioGroup
-          className="col-md-6"
           onChange={onChange}
       >
         {options.map((option, index) => (
@@ -44,12 +47,17 @@ function CustomCheckBoxes(props) {
               </IconButton>
             </div>
         ))}
-        <Button className='p-3 btn-primary btn-block'
-                onClick={addOptionOnClick}
-                variant="contained"
-        >
-            {btnName}
-        </Button>
+          {
+
+              <Button className='p-3 btn-primary btn-block'
+                      onClick={addOptionOnClick}
+                      variant="contained"
+              >
+                  {btnName}
+              </Button>
+
+          }
+
       </RadioGroup>
   );
 }
