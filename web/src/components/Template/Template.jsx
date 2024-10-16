@@ -12,15 +12,14 @@ import QuestionList from "./QuestionBlock/QuestionList";
 import TitleTextField from "./TextFields/TitleTextField";
 import TopicSelector from "./FormControlSelectors/TopicSelector";
 import DescriptionTextField from "./TextFields/DescriptionTextField";
-import {QuestionContext} from "./contexts/QuestionContext";
 import QuestionTemplate from "./QuestionTemplate";
 import AccessLevelSelector from "./FormControlSelectors/AccessLevelSelector";
 
 function Template() {
 
-	const { answerType } = useContext(TemplateContext);
-	const { showUsers } = useContext(QuestionContext);
+	const { answerType, showUsers } = useContext(TemplateContext);
 	const [markdownAnchor, setMarkdownAnchor] = React.useState(null);
+
 
 	return (
 		<div className="d-flex flex-column gap-1">
@@ -37,9 +36,9 @@ function Template() {
 				</div>
 				<div>
 					<DescriptionTextField/>
-					{
-						markdownAnchor && (<MarkdownEditor className={`markdown-editor ${markdownAnchor ? 'visible' : ''}`}/>)
-					}
+					{/*{*/}
+					{/*	markdownAnchor && (<MarkdownEditor className={`markdown-editor ${markdownAnchor ? 'visible' : ''}`}/>)*/}
+					{/*}*/}
 				</div>
 			</div>
 				<QuestionList/>
@@ -48,7 +47,10 @@ function Template() {
 					<QuestionTemplate/>
 					{
 						answerType === 'checkboxes' && (
-							<CheckBoxes/>
+							<div className="width-50">
+								<CheckBoxes/>
+							</div>
+
 						)
 					}
 				</div>

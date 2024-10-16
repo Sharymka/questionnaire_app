@@ -14,12 +14,11 @@ const {
     deleteTag,
     getOptionLabel,
     getTagLabel,
-    sortBy
+    sortBy,
 } = props;
 
   return (
       <Autocomplete
-          // sx={{width: "100% !important"}}
           multiple
           className="d-flex diraction-row w-100"
           id="fixed-tags-demo"
@@ -39,7 +38,7 @@ const {
                         label={getTagLabel(option, sortBy)}
                         {...tagProps}
                         onDelete={(event) => {
-                          event.preventDefault();
+                            event.preventDefault();
                           deleteTag(option.id)
                         }}
                     />

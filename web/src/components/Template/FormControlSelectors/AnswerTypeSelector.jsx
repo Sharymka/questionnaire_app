@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {TemplateContext} from "../TemplateContext";
-import {answerTypeName, LABEL_TAGS} from "../../../const/const";
+import {answerTypeName} from "../../../const/const";
 import CustomFormControlSelect from "../ReusableComponents/CustomFormControlSelect";
 
  function AnswerTypeSelector () {
@@ -8,13 +8,15 @@ import CustomFormControlSelect from "../ReusableComponents/CustomFormControlSele
 	const { handleAnswerType, answerType } = useContext(TemplateContext);
 
 	return (
-		<CustomFormControlSelect
-			name="ответы"
-			value={answerType}
-			label="ответы"
-			onChange={handleAnswerType}
-			options={answerTypeName}
-		/>
+		<div className="flex-grow-08 margin-right-60">
+			<CustomFormControlSelect
+				name="Ответы"
+				value={answerType}
+				onChange={handleAnswerType}
+				options={answerTypeName}
+			/>
+		</div>
+
 	);
 }
 

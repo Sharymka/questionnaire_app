@@ -10,7 +10,6 @@ function NameOrEmailSorter(props) {
 		} else {
 			setSortBy('');
 		}
-		// setSortBy('name');
 	}
 
 	const sortedUsers = (sortBy)=> {

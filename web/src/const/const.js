@@ -28,8 +28,8 @@ export const accessOptions = {
 	'public':'Общедоступный',
 	'restricted':'Ограниченный'
 }
-export const LABEL_USERS='пользователи';
-export const LABEL_TAGS='теги';
+export const LABEL_USERS='Пользователи';
+export const LABEL_TAGS='Теги';
 
 export const users = [
 	{

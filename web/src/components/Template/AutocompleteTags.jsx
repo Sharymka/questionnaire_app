@@ -3,19 +3,19 @@ import {TemplateContext} from "./TemplateContext";
 import CustomAutoComplete from "./ReusableComponents/CustomAutoComplete";
 import {LABEL_TAGS, tags} from "../../const/const";
 
-function AutocompleteTags(props) {
-	const {selectedTags, setSelectedTags} =  useContext(TemplateContext);
+function AutocompleteTags() {
+	const { selectedTags, setSelectedTags } =  useContext(TemplateContext);
 
-	const handleSelectedUsers = (newTag) => {
+	const handleSelectedTags = (newTag) => {
 		if (newTag.length === 0) {
 			setSelectedTags([]);
 		}
-		newTag.forEach((user) => {
+		newTag.forEach((tag) => {
 			setSelectedTags((prevState) => {
-				if (prevState.includes(user)) {
+				if (prevState.includes(tag)) {
 					return prevState;
 				} else {
-					return [...prevState, user];
+					return [...prevState, tag];
 				}
 			});
 		})
@@ -34,7 +34,7 @@ function AutocompleteTags(props) {
 			getOptionLabel={getOptionLabel}
 			getTagLabel={getTagLabel}
 			label={LABEL_TAGS}
-			handleValue={handleSelectedUsers}
+			handleValue={handleSelectedTags}
 			sortBy=''
 			deleteTag={deleteTag} placeholder=''
 		/>

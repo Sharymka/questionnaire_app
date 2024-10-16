@@ -24,7 +24,7 @@ function CustomTextField(props) {
           margin="normal"
           variant={variant}
           value={value}
-          onChange={(event) => onChange(event)}
+          onChange={onChange}
           multiline={multiline}
           minRows={minRows}
           maxRows={maxRows}

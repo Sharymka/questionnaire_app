@@ -10,7 +10,6 @@ function TitleTextField() {
 	  <CustomTextField
 		  placeholder="Введите текст"
 		  label='Название'
-		  // className={"text-field-underline-solid"}
 		  variant="standard"
 		  onChange={handleTitle}
 		  value={title}
