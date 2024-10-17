@@ -19,3 +19,16 @@ export const postData = async (url, data, method = 'POST') => {
 		// return await response.json();
 		return response;
 };
+
+export const getData = async (url, method = 'GET') => {
+
+	const response = await fetch(url, {
+		method: method,
+		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+	});
+
+	return response;
+};

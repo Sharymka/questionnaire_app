@@ -1,13 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {LABEL_USERS, users} from '../../const/const';
 import {useContext, useState} from "react";
 import {TemplateContext} from "./TemplateContext";
 import NameOrEmailSorter from "./NameOrEmailSorter";
 import CustomAutoComplete from "./ReusableComponents/CustomAutoComplete";
+import {getData, postData} from "../../Requests";
 
 export default function AutocompletePrivateUsers() {
 	const { selectedUsers, setSelectedUsers } =  useContext(TemplateContext);
 	const [ sortBy, setSortBy ] = useState('');
+
+	const [users, setUsers] = useState([]);
+
+
+	useEffect(() => {
+		const getUsers = async() => {
+			try {
+				const response = await postData('api/users',{fields:['id', 'first_name', 'last_name', 'email']});
+				const data = await response.json();
+
+				if(response.ok) {
+					console.log("template was saved successfully");
+					setUsers(data);
+				} else {
+					console.log("template saving failed");
+					console.log(data.error);
+				}
+			} catch(error){
+				console.log("template saving failed");
+			}
+		}
+		getUsers();
+	}, [])
 
 	const handleSelectedUsers = (newUser) => {
 		if (newUser.length === 0) {
