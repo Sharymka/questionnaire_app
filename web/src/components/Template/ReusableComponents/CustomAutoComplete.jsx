@@ -15,12 +15,13 @@ const {
     getOptionLabel,
     getTagLabel,
     sortBy,
+    variant="outlined",
 } = props;
 
   return (
       <Autocomplete
           multiple
-          className="d-flex diraction-row w-100"
+          className="w-100"
           id="fixed-tags-demo"
           value={value}
           onChange={(event, newSelectedOption) => {
@@ -34,6 +35,9 @@ const {
                 const {key, ...tagProps} = getTagProps({index});
                 return (
                     <Chip
+                        sx={{
+                            marginBottom: variant === "standard" ? '8px!important' : '0px'
+                        }}
                         key={key}
                         label={getTagLabel(option, sortBy)}
                         {...tagProps}
@@ -47,7 +51,12 @@ const {
           }
           style={{width: 500 }}
           renderInput={(params) => (
-              <TextField {...params} label={label} placeholder={placeholder} />
+              <TextField
+                  {...params}
+                  variant={variant}
+                  label={label}
+                  placeholder={placeholder}
+              />
           )}
       />
   );
