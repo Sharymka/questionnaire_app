@@ -75,9 +75,9 @@ function QuestionCard(props){
 								}
 
 							</div>
-							<div className="width-50">
-								<AutocompleteTagsCard question={question} questionIndex={questionIndex}/>
-							</div>
+							{/*<div className="width-50">*/}
+							{/*	<AutocompleteTagsCard question={question} questionIndex={questionIndex}/>*/}
+							{/*</div>*/}
 						</div>
 					)
 				}

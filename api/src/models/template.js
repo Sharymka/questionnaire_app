@@ -33,6 +33,10 @@ const Template = sequelize.define('Template', {
 			}
 		}
 	},
+	tags: {
+		type: DataTypes.JSON,
+		allowNull: true,
+	},
 	questions: {
 		type: DataTypes.JSON,
 		allowNull: false,

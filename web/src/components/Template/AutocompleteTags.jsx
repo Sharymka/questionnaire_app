@@ -36,7 +36,9 @@ function AutocompleteTags() {
 			label={LABEL_TAGS}
 			handleValue={handleSelectedTags}
 			sortBy=''
-			deleteTag={deleteTag} placeholder=''
+			deleteTag={deleteTag}
+			variant="standard"
+			placeholder=''
 		/>
 	);
 }

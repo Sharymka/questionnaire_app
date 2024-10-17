@@ -49,11 +49,7 @@ function TemplateProvider({children}) {
 			topic:topic,
 			description:description,
 			questions:questions,
-			// answerType:answerType,
-			// checkboxOptions:checkboxOptions,
-			// accessLevel:accessLevel,
-			// selectedUsers:selectedUsers,
-			// selectedTags:selectedTags,
+			tags:selectedTags,
 		}
 		try {
 			const response = await postData('api/template', requestData);
@@ -69,6 +65,14 @@ function TemplateProvider({children}) {
 		}catch (error) {
 			console.log("Registered failed:", error.message);
 		}
+
+		resetInitialStates();
+		setTitle('');
+		setTopic('education');
+		setDescription('');
+		setQuestions([]);
+		setSelectedTags([]);
+
 
 	}
 
@@ -126,7 +130,6 @@ function TemplateProvider({children}) {
 			checkboxOptions: checkboxOptions,
 			access: accessLevel,
 			selectedUsers: selectedUsers,
-			selectedTags: selectedTags,
 		}])
 		resetInitialStates();
 		resetEditorAnchor();
@@ -142,7 +145,6 @@ function TemplateProvider({children}) {
 		setAccessLevel('public');
 		setCheckboxOptions([]);
 		setSelectedUsers([]);
-		setSelectedTags([]);
 	}
 
 	const resetEditorAnchor = () => {

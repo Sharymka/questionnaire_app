@@ -35,14 +35,21 @@ function Template() {
 						<TopicSelector/>
 					</div>
 				</div>
-				<div>
-					<DescriptionTextField/>
-					{/*{*/}
-					{/*	markdownAnchor && (<MarkdownEditor className={`markdown-editor ${markdownAnchor ? 'visible' : ''}`}/>)*/}
-					{/*}*/}
+				<DescriptionTextField/>
+				<AutocompleteTags/>
+				<div className="d-flex flex-row justify-content-between align-items-center gap-5">
+					<div className="flex-grow-1">
+
+						{/*{*/}
+						{/*	markdownAnchor && (<MarkdownEditor className={`markdown-editor ${markdownAnchor ? 'visible' : ''}`}/>)*/}
+						{/*}*/}
+					</div>
+					<div className="flex-grow-1">
+
+					</div>
 				</div>
 			</div>
-				<QuestionList/>
+			<QuestionList/>
 			<div className="p-4 card d-flex flex-column gap-5">
 				<div>
 					<QuestionTemplate/>
@@ -62,9 +69,6 @@ function Template() {
 							<AutocompletePrivateUsers/>
 						)
 					}
-				</div>
-				<div className='width-50'>
-					<AutocompleteTags/>
 				</div>
 				<div className="align-self-end">
 					<Button className='p-3 btn-primary btn-block'
