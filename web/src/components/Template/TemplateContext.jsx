@@ -43,20 +43,20 @@ function TemplateProvider({children}) {
 
 	}, [questions]); // Следим за изменениями questions
 
-	const handleSentTemplateDate = async ()=> {
+	const saveTemplate = async ()=> {
 		const requestData = {
-			name:title,
+			title:title,
 			topic:topic,
 			description:description,
-			questions:question,
-			answerType:answerType,
-			checkboxOptions:checkboxOptions,
-			accessLevel:accessLevel,
-			selectedUsers:selectedUsers,
-			selectedTags:selectedTags,
+			questions:questions,
+			// answerType:answerType,
+			// checkboxOptions:checkboxOptions,
+			// accessLevel:accessLevel,
+			// selectedUsers:selectedUsers,
+			// selectedTags:selectedTags,
 		}
 		try {
-			const response = await postData('/template', requestData);
+			const response = await postData('api/template', requestData);
 
 			const responseData = await response.json();
 
@@ -203,7 +203,6 @@ function TemplateProvider({children}) {
 		  setSelectedUsers,
 		  selectedTags,
 		  setSelectedTags,
-		  handleSentTemplateDate,
 		  questions,
 		  setQuestions,
 		  handleAddQuestion,
@@ -214,7 +213,8 @@ function TemplateProvider({children}) {
 		  handleAccessLevel,
 		  showUsers,
 		  privateUsersAnchor,
-		  setPrivateUsersAnchor
+		  setPrivateUsersAnchor,
+		  saveTemplate
 	  }}>
 		  {children}
 	  </TemplateContext.Provider>

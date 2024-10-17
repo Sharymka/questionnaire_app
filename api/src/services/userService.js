@@ -3,6 +3,20 @@ const bcrypt = require("bcrypt") ;
 const  User  = require('../models/user');
 
 class UserService {
+
+	static async findAllUsers(fields = []) {
+
+		const attributes = fields.length > 0 ? fields : {exclude: ['password']};
+
+		const users = await User.findAll({
+			attributes: attributes,
+		});
+		if (!users || users.length === 0) {
+			throw new Error('Users not found');
+		}
+		return users;
+	}
+
 	static async createUsers(firstName, lastName, email, password) {
 
 		const existingUser = await User.findOne({ where: { email } });

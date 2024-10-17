@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import {
+	Button,
 	Typography,
 } from '@mui/material';
 import {TemplateContext} from "./TemplateContext";
@@ -17,7 +18,7 @@ import AccessLevelSelector from "./FormControlSelectors/AccessLevelSelector";
 
 function Template() {
 
-	const { answerType, showUsers } = useContext(TemplateContext);
+	const { answerType, showUsers, saveTemplate } = useContext(TemplateContext);
 	const [markdownAnchor, setMarkdownAnchor] = React.useState(null);
 
 
@@ -56,16 +57,25 @@ function Template() {
 				</div>
 				<div className='width-50'>
 					<AccessLevelSelector/>
-						{
-							showUsers && (
-								<AutocompletePrivateUsers/>
-							)
-						}
+					{
+						showUsers && (
+							<AutocompletePrivateUsers/>
+						)
+					}
 				</div>
 				<div className='width-50'>
 					<AutocompleteTags/>
 				</div>
+				<div className="align-self-end">
+					<Button className='p-3 btn-primary btn-block'
+						onClick={saveTemplate}
+						    variant="contained"
+					>
+						сохранить шаблон
+					</Button>
+				</div>
 			</div>
+
 		</div>
 	);
 }

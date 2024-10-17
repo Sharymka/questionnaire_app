@@ -4,7 +4,8 @@ const path = require('path');
 const dotenv = require('dotenv');
 const db = require('./src/config/db');
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
-const {signUp, signIn} = require("./src/controllers/userController");
+const {signUp, signIn, getUsers} = require("./src/controllers/userController");
+const {create} = require("./src/controllers/templateController");
 const session = require('express-session');
 const isAuthenticated = require("./src/middlewares/isAuthenticated");
 
@@ -35,6 +36,10 @@ app.use(express.static(path.join(__dirname, 'build')));
 api.post('/signUp', signUp);
 
 api.post('/signIn', signIn);
+
+api.post('/users', getUsers);
+
+api.post('/template', create);
 
 
 app.get('/*', function (req, res) {
