@@ -1,18 +1,16 @@
-import React, {useContext} from 'react';
-import CustomFormControlSelect from "../ReusableComponents/CustomFormControlSelect";
+import React from 'react';
+import CustomFormControlSelect from "../../ReusableComponents/CustomFormControlSelect";
 import {questionTopics} from "../../../const/const";
-import {TemplateContext} from "../TemplateContext";
 
-function TopicSelector() {
+function TopicSelector(props) {
 
-    const { handleTopic, topic } = useContext(TemplateContext);
-
+    const { onChange, topic } = props;
 
   return (
       <CustomFormControlSelect
       name="Темы"
       value={topic}
-      onChange={handleTopic}
+      onChange={onChange}
       options={questionTopics}
       />
   );

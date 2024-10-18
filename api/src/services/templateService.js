@@ -2,6 +2,10 @@ const Template = require("../models/template");
 
 class TemplateService {
 
+	static async getTemplate() {
+
+		return  await Template.findAll();
+	}
 	static async createTemplate(
 		title,
 		topic,

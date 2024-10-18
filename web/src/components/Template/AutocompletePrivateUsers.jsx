@@ -3,7 +3,7 @@ import {LABEL_USERS, users} from '../../const/const';
 import {useContext, useState} from "react";
 import {TemplateContext} from "./TemplateContext";
 import NameOrEmailSorter from "./NameOrEmailSorter";
-import CustomAutoComplete from "./ReusableComponents/CustomAutoComplete";
+import CustomAutoComplete from "../ReusableComponents/CustomAutoComplete";
 import {getData, postData} from "../../Requests";
 
 export default function AutocompletePrivateUsers() {

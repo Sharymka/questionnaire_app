@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import CustomTextField from "../ReusableComponents/CustomTextField";
+import CustomTextField from "../../ReusableComponents/CustomTextField";
 
 function CheckboxTextField(props) {
 	const { option } = props;

@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {TemplateContext} from "../TemplateContext";
 import {answerTypeName} from "../../../const/const";
-import CustomFormControlSelect from "../ReusableComponents/CustomFormControlSelect";
+import CustomFormControlSelect from "../../ReusableComponents/CustomFormControlSelect";
 
  function AnswerTypeSelector () {
 
