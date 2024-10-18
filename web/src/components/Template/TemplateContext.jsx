@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import {postData} from "../../Requests";
 
 export const TemplateContext = React.createContext(null);
@@ -186,10 +186,13 @@ function TemplateProvider({children}) {
   return (
 	  <TemplateContext.Provider value={{
 		  title,
+		  setTitle,
 		  handleTitle,
 		  topic,
+		  setTopic,
 		  handleTopic,
 		  description,
+		  setDescription,
 		  handleDescription,
 		  handleQuestion,
 		  answerType,

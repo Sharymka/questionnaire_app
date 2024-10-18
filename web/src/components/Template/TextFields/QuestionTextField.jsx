@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import CustomTextField from "../ReusableComponents/CustomTextField";
+import CustomTextField from "../../ReusableComponents/CustomTextField";
 import {TemplateContext} from "../TemplateContext";
 
 function QuestionTextField(props) {

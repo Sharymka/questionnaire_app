@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {TemplateContext} from "./TemplateContext";
-import CustomCheckBoxes from "./ReusableComponents/CustomCheckBoxes";
+import CustomCheckBoxes from "../ReusableComponents/CustomCheckBoxes";
 function CheckBoxes(props) {
 
 	const { questionIndex } = props;

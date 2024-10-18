@@ -1,17 +1,16 @@
-import React, {useContext} from 'react';
-import CustomTextField from "../ReusableComponents/CustomTextField";
-import {TemplateContext} from "../TemplateContext";
+import React from 'react';
+import CustomTextField from "../../ReusableComponents/CustomTextField";
 
-function TitleTextField() {
+function TitleTextField(props) {
 
-	const { handleTitle, title } = useContext(TemplateContext);
+  const { title, onChange } = props;
 
   return (
 	  <CustomTextField
 		  placeholder="Введите текст"
 		  label='Название'
 		  variant="standard"
-		  onChange={handleTitle}
+		  onChange={onChange}
 		  value={title}
 	  />
   );

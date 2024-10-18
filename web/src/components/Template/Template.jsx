@@ -18,7 +18,7 @@ import AccessLevelSelector from "./FormControlSelectors/AccessLevelSelector";
 
 function Template() {
 
-	const { answerType, showUsers, saveTemplate } = useContext(TemplateContext);
+	const { answerType, showUsers, saveTemplate, title, handleTitle, handleTopic, topic, description, handleDescription } = useContext(TemplateContext);
 	const [markdownAnchor, setMarkdownAnchor] = React.useState(null);
 
 
@@ -29,13 +29,13 @@ function Template() {
 				<Typography variant="h5">Новая форма</Typography>
 				<div className="d-flex flex-row justify-content-between align-items-center gap-5">
 					<div className="flex-grow-1">
-						<TitleTextField/>
+						<TitleTextField title={title} onChange={handleTitle}/>
 					</div>
 					<div className="flex-grow-1">
-						<TopicSelector/>
+						<TopicSelector topic={topic} onChange={handleTopic} />
 					</div>
 				</div>
-				<DescriptionTextField/>
+				<DescriptionTextField description={description} onChange={handleDescription} />
 				<AutocompleteTags/>
 				<div className="d-flex flex-row justify-content-between align-items-center gap-5">
 					<div className="flex-grow-1">

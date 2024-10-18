@@ -9,12 +9,14 @@ import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
 import {TemplateContext} from "./TemplateContext";
 
 const SidePanel = () => {
-	const {handleAddQuestion } = useContext(TemplateContext);
+	const { handleAddQuestion } = useContext(TemplateContext);
 	return (
 		<Box
 			className="sidePanelPosition"
 		>
-			<IconButton onClick={handleAddQuestion}>
+			<IconButton
+				onClick={handleAddQuestion}
+			>
 				<AddIcon/>
 			</IconButton>
 			<IconButton>

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {TemplateContext} from "./TemplateContext";
-import CustomAutoComplete from "./ReusableComponents/CustomAutoComplete";
+import CustomAutoComplete from "../ReusableComponents/CustomAutoComplete";
 import {LABEL_TAGS, tags} from "../../const/const";
 
 function AutocompleteTagsCard(props) {

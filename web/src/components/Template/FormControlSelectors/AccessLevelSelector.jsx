@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import CustomFormControlSelect from "../ReusableComponents/CustomFormControlSelect";
+import CustomFormControlSelect from "../../ReusableComponents/CustomFormControlSelect";
 import {accessOptions} from '../../../const/const';
 import {TemplateContext} from "../TemplateContext";
 

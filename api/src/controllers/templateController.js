@@ -1,5 +1,20 @@
 
-const { createTemplate } = require('../services/templateService');
+const { getTemplate, createTemplate } = require('../services/templateService');
+
+async function get(req, res) {
+	try {
+		const templates = await getTemplate();
+		console.log(templates);
+		if(templates) {
+			res.status(200).json(templates);
+		}else {
+			res.status(404).json({ message: 'No templates found' });
+		}
+	}catch (error) {
+		res.status(500).json({ error: error.message});
+	}
+}
+
 async function create(req, res) {
 	try {
 		const {
@@ -7,11 +22,6 @@ async function create(req, res) {
 			topic,
 			description,
 			questions,
-			// answerType,
-			// checkboxes,
-			// accessLevel,
-			// selectedUsers,
-			// selectedTags
 		} = req.body;
 
 		const template = await createTemplate(
@@ -23,10 +33,12 @@ async function create(req, res) {
 
 		if(template) {
 			res.status(200).json('template saved successfully');
+		}else {
+			res.status(404).json({ message: 'No template found' });
 		}
 	} catch (error) {
 		res.status(500).json({ error: error.message});
     }
 }
 
-module.exports = {create};
+module.exports = {get, create};

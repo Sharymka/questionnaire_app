@@ -2,7 +2,7 @@ import * as React from 'react';
 import {LABEL_USERS, users} from '../../const/const';
 import {useContext, useState} from "react";
 import NameOrEmailSorter from "./NameOrEmailSorter";
-import CustomAutoComplete from "./ReusableComponents/CustomAutoComplete";
+import CustomAutoComplete from "../ReusableComponents/CustomAutoComplete";
 import {TemplateContext} from "./TemplateContext";
 
  function AutocompletePrivateUsersCard(props) {

@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {Button, FormControlLabel, IconButton, Radio, RadioGroup} from "@mui/material";
-import CustomTextField from "../ReusableComponents/CustomTextField";
-import {DELETE_ICON_URL} from "../../../url/url";
-import {TemplateContext} from "../TemplateContext";
+import CustomTextField from "./CustomTextField";
+import {DELETE_ICON_URL} from "../../url/url";
+import {TemplateContext} from "../Template/TemplateContext";
 
 function CustomCheckBoxes(props) {
 

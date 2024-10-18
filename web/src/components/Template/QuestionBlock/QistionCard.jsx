@@ -1,19 +1,18 @@
-import ToolBlock from "../ToolBlock";
 import AnswerField from "./AnswerField";
 import React, {useContext} from "react";
 import {TemplateContext} from "../TemplateContext";
-import CustomFormControlSelect from "../ReusableComponents/CustomFormControlSelect";
+import CustomFormControlSelect from "../../ReusableComponents/CustomFormControlSelect";
 import {accessOptions} from "../../../const/const";
-import AutocompleteTagsCard from "../AutocompleteTagsCard";
 import AutocompletePrivateUsersCard from "../AutoCompletePrivateUsersCard";
 import AnswerTypeSelectorCard from "../AnswerTypeSelectorCard";
 import QuestionTextFieldCard from "../QuestionTextFielCard";
 import {Typography} from "@mui/material";
+import CustomToolBlock from "../../ReusableComponents/CustomToolBlock";
 
 function QuestionCard(props){
 
 	const { question, questionIndex } = props;
-	const { questions, setQuestions , editorAnchor, setPrivateUsersAnchor, privateUsersAnchor} = useContext(TemplateContext);
+	const { handleEditorAnchor, handleDeleteQuestion, questions, setQuestions , editorAnchor,  privateUsersAnchor} = useContext(TemplateContext);
 	const foundQuestion = questions.find((item, index) =>index === questionIndex);
 	const accessLevel = foundQuestion ? foundQuestion.access : null;
 
@@ -33,7 +32,13 @@ function QuestionCard(props){
 	return (
 		<div className=" p-4 card">
 			<div className='d-flex flex-column gap-3'>
-				<ToolBlock questionIndex={questionIndex}/>
+				<CustomToolBlock
+					classes="toolBlockPosition"
+					valueIndex={questionIndex}
+					onDeleteClick={handleDeleteQuestion}
+					onEditOrSaveOnClick={handleEditorAnchor}
+					anchor={ editorAnchor.find(item => item.id === questionIndex)?.editorAnchorValue}
+				/>
 				<div className="d-flex justify-content-start gap-3 relativePosition">
 					{
 						editorAnchor.find(item => item.id === questionIndex)?.editorAnchorValue ? (

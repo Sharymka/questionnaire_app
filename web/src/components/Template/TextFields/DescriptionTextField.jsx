@@ -1,16 +1,16 @@
 import React, {useContext} from 'react';
-import CustomTextField from "../ReusableComponents/CustomTextField";
+import CustomTextField from "../../ReusableComponents/CustomTextField";
 import {TemplateContext} from "../TemplateContext";
 
-function DescriptionTextField() {
+function DescriptionTextField(props) {
 
-	const { handleDescription, description } = useContext(TemplateContext);
+	const { onChange, description} = props;
   return (
 	  <CustomTextField
 		  placeholder="Введите текст"
 		  label="Описание"
 		  variant="standard"
-	      onChange={handleDescription}
+	      onChange={onChange}
 		  value={description}
 	  />
   );
