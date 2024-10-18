@@ -73,7 +73,7 @@ export const tags = [
 	{ id: 9, label: "Финансы" },
 	{ id: 10, label: "Кулинария" },
 	{ id: 11, label: "Искусство" },
-	{ id: 12, label: "История" },
+	{ id: 12, label: "Мероприятие" },
 	{ id: 13, label: "Экология" },
 	{ id: 14, label: "Литература" },
 	{ id: 15, label: "Музыка" },

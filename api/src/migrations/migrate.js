@@ -1,7 +1,7 @@
 // migrate.js
-const sequelize = require('./config/db');
-const User = require('./models/user');
-const Template = require('./models/template');
+const sequelize = require('../config/db');
+const User = require('../models/user');
+const Template = require('../models/template');
 
 
 async function migrate() {
