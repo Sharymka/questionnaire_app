@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start:db": " docker compose up -d\n",
     "install": "cd api && npm run install && cd web && npm run install",
     "build": " cd web && npm run build && prepare:static",
     "start": " cd api && npm run dev",

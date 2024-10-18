@@ -135,6 +135,10 @@ code {
   margin-right: 70px;
 }
 
+flex-grow-1_1 {
+  flex-grow: 1.1;
+}
+
 .flex-grow-08 {
   flex-grow: 0.8;
 }
