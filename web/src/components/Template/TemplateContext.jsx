@@ -27,17 +27,22 @@ function TemplateProvider({children}) {
 
 
 	useEffect(() => {
-		if (questions.length > editorAnchor.length) {
-			setEditorAnchor((prevState) => [
-				...prevState,
-				{ id: questions.length - 1, editorAnchorValue: false },
-			]);
+		resetInitialStates();
+		// Проверяем, изменилось ли количество вопросов
+		if (questions.length !== editorAnchor.length) {
+			// Обновляем editorAnchor только если количество вопросов изменилось
+			setEditorAnchor(
+				questions.map((question, index) => ({
+					id: index,
+					editorAnchorValue: editorAnchor[index]?.editorAnchorValue || false
+				}))
+			);
 		}
 
 		setPrivateUsersAnchor(
 			questions.map((question, index) => ({
 				id: index,
-				privateUsersAnchorValue: question.access === "restricted"
+				privateUsersAnchorValue: question?.access === "restricted"
 			}))
 		);
 
@@ -72,8 +77,6 @@ function TemplateProvider({children}) {
 		setDescription('');
 		setQuestions([]);
 		setSelectedTags([]);
-
-
 	}
 
 	const handleTitle = (event) => {

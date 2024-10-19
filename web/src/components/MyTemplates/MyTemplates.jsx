@@ -10,12 +10,29 @@ import {templates} from "../../const/templates";
 
 function MyTemplates(props) {
 
-	const navigate = useNavigate();
-	const { setTitle, setTopic, setDescription, setTags, setQuestions } = useContext(TemplateContext);
 	const [editorAnchor, setEditorAnchor] = useState(false);
 	const [temp, setTemp] = useState(templates);
 	const [selectedTemplate, setSelectedTemplate] = useState(null);
 
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await getData("api/template");
+				const data = await response.json();
+				if(response.ok) {
+					console.log(data);
+					setTemp(data);
+					console.log("templates were fetched successfully");
+				} else {
+					console.log(data.error);
+					console.log("template getting failed");
+				}
+			}catch(error) {
+				console.log("template getting failed" + error.message);
+			}
+		}
+		fetchData();
+	}, []);
 	const handleDeleteTemplate = async(id) => {
 		try {
 			const response = await postData(`api/template/${id}`, 'DELETE');
@@ -30,36 +47,16 @@ function MyTemplates(props) {
 		}
 	}
 
-	const handleEditorAnchor = (template) => {
-		console.log("handleEditorAnchor", template);
-		setSelectedTemplate(template);
+	const handleEditorAnchor = (templateId) => {
+		setSelectedTemplate(templates.find((item, index) => item.id === templateId));
+		console.log("handleEditorAnchor", selectedTemplate);
 		setEditorAnchor(true);
 	};
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await getData("api/template");
-				const data = await response.json();
-				if(response.ok) {
-					console.log(data);
-					// setTemplates(data);
-					console.log("templates were fetched successfully");
-				} else {
-					console.log(data.error);
-					console.log("template getting failed");
-				}
-			}catch(error) {
-				console.log("template getting failed" + error.message);
-			}
-		}
-		fetchData();
-	}, []);
 
   return (<div>
 	  {
 		  editorAnchor? (
-			  <TemplateEditor selectedTemplate={selectedTemplate}/>
+			  <TemplateEditor setSelectedTemplate={setSelectedTemplate} selectedTemplate={selectedTemplate}/>
 		  ): (
 		  <TableContainer component={Paper}>
 		  <Table sx={{ minWidth: 650 }} aria-label=" border-radius-8 forms table">
@@ -73,7 +70,7 @@ function MyTemplates(props) {
 				  </TableRow>
 			  </TableHead>
 			  <TableBody>
-				  {templates.map((template, index) => (
+				  {temp.map((template, index) => (
 					  <TableRow   className="table-row" key={template.title}>
 						  <TableCell  component="th" scope="row">
 							  {template.title}

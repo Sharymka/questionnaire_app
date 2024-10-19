@@ -8,8 +8,9 @@ import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
 import {TemplateContext} from "./TemplateContext";
 
-const SidePanel = () => {
-	const { handleAddQuestion } = useContext(TemplateContext);
+const SidePanel = (props) => {
+
+	const { handleAddQuestion } = props;
 	return (
 		<Box
 			className="sidePanelPosition"

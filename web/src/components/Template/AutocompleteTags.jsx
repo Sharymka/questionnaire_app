@@ -3,8 +3,9 @@ import {TemplateContext} from "./TemplateContext";
 import CustomAutoComplete from "../ReusableComponents/CustomAutoComplete";
 import {LABEL_TAGS, tags} from "../../const/const";
 
-function AutocompleteTags() {
-	const { selectedTags, setSelectedTags } =  useContext(TemplateContext);
+function AutocompleteTags(props) {
+
+	const { selectedTags, setSelectedTags } = props;
 
 	const handleSelectedTags = (newTag) => {
 		if (newTag.length === 0) {

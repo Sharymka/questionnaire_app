@@ -2,9 +2,9 @@ import React, {useContext} from 'react';
 import QuestionCard from "./QistionCard";
 import {TemplateContext} from "../TemplateContext";
 
-function QuestionsList() {
+function QuestionsList(props) {
 
-	const { questions } = useContext(TemplateContext);
+	const { questions } = props;
 
 	return (
 		<div className='d-flex flex-column gap-2'>

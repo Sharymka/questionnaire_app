@@ -15,16 +15,29 @@ import TopicSelector from "./FormControlSelectors/TopicSelector";
 import DescriptionTextField from "./TextFields/DescriptionTextField";
 import QuestionTemplate from "./QuestionTemplate";
 import AccessLevelSelector from "./FormControlSelectors/AccessLevelSelector";
+import QuestionTemplateBlock from "./QuestionBlock/QuestionTemplateBlock";
 
 function Template() {
 
-	const { answerType, showUsers, saveTemplate, title, handleTitle, handleTopic, topic, description, handleDescription } = useContext(TemplateContext);
+	const {
+		answerType,
+		questions,
+		showUsers,
+		saveTemplate,
+		title,
+		handleTitle,
+		handleTopic,
+		topic,
+		description,
+		handleDescription,
+		handleAddQuestion,
+	} = useContext(TemplateContext);
 	const [markdownAnchor, setMarkdownAnchor] = React.useState(null);
 
 
 	return (
 		<div className="d-flex flex-column gap-1">
-			<SidePanel/>
+			<SidePanel handleAddQuestion={handleAddQuestion}/>
 			<div className="p-4 card">
 				<Typography variant="h5">Новая форма</Typography>
 				<div className="d-flex flex-row justify-content-between align-items-center gap-5">
@@ -49,27 +62,28 @@ function Template() {
 					</div>
 				</div>
 			</div>
-			<QuestionList/>
+			<QuestionList questions={questions}/>
 			<div className="p-4 card d-flex flex-column gap-5">
-				<div>
-					<QuestionTemplate/>
-					{
-						answerType === 'checkboxes' && (
-							<div className="width-50">
-								<CheckBoxes/>
-							</div>
+				<QuestionTemplateBlock/>
+				{/*<div>*/}
+				{/*	<QuestionTemplate/>*/}
+				{/*	{*/}
+				{/*		answerType === 'checkboxes' && (*/}
+				{/*			<div className="width-50">*/}
+				{/*				<CheckBoxes/>*/}
+				{/*			</div>*/}
 
-						)
-					}
-				</div>
-				<div className='width-50'>
-					<AccessLevelSelector/>
-					{
-						showUsers && (
-							<AutocompletePrivateUsers/>
-						)
-					}
-				</div>
+				{/*		)*/}
+				{/*	}*/}
+				{/*</div>*/}
+				{/*<div className='width-50'>*/}
+				{/*	<AccessLevelSelector/>*/}
+				{/*	{*/}
+				{/*		showUsers && (*/}
+				{/*			<AutocompletePrivateUsers/>*/}
+				{/*		)*/}
+				{/*	}*/}
+				{/*</div>*/}
 				<div className="align-self-end">
 					<Button className='p-3 btn-primary btn-block'
 						onClick={saveTemplate}

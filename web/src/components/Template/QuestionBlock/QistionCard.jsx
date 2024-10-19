@@ -42,9 +42,9 @@ function QuestionCard(props){
 				<div className="d-flex justify-content-start gap-3 relativePosition">
 					{
 						editorAnchor.find(item => item.id === questionIndex)?.editorAnchorValue ? (
-							<QuestionTextFieldCard question={question.name} questionIndex={questionIndex}/>) : (
+							<QuestionTextFieldCard question={question?.name || "Неизвестное имя"} questionIndex={questionIndex}/>) : (
 							<Typography variant="body1" className="color_grey">
-								{question.name}
+								{question?.name || "Неизвестное имя"}
 							</Typography>
 						)
 					}

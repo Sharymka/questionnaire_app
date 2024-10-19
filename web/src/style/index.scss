@@ -88,6 +88,13 @@ html, body {
   }
 }
 
+.absolute_right_corner_pos {
+  @include position_absolute {
+    top: 4%;
+    right: 1%;
+  }
+}
+
 
 .toolBlockPosition {
   position:absolute;

@@ -120,6 +120,13 @@ code {
   }
 }
 
+.absolute_right_corner_pos {
+  position: absolute;
+  padding: 5px;
+  top: 4%;
+  right: 1%;
+}
+
 .toolBlockPosition {
   position: absolute;
   top: 20px;
