@@ -48,7 +48,10 @@ function Home() {
                 className=" flex-grow-1 screen_max_425_block_width text-primary"
                 // onClick={()=> setAddTempAnchor(true)}
 
-                onClick={()=> setCurrentView('addTemplate')}
+                onClick={()=> {
+
+                    setCurrentView('addTemplate')}
+                }
             >
                 <MDBCard className="card-body">
                     <h5 className="card-title">добавить шаблон</h5>

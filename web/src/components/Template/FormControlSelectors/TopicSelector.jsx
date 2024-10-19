@@ -12,6 +12,7 @@ function TopicSelector(props) {
       value={topic}
       onChange={onChange}
       options={questionTopics}
+      variant="standard"
       />
   );
 }

@@ -2,15 +2,14 @@ import React from 'react';
 import {Typography} from "@mui/material";
 
 const TemplateHeader = ({
-	                    title,
 	                    LeftComponent,
 	                    RightComponent,
 	                    DescriptionComponent,
 	                    TagsComponent,
                     }) => {
 	return (
-		<div className="p-4 card">
-			<Typography variant="h5">{title}</Typography>
+		<div className="p-4 card mb-3">
+			<Typography variant="h5">Шаблон</Typography>
 			<div className="d-flex flex-row justify-content-between align-items-center gap-5">
 				<div className="flex-grow-1">
 					{LeftComponent}

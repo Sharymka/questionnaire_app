@@ -19,7 +19,7 @@ const AnswerField = (props) => {
 	}
 
 
-	switch (questions.find((question, index)=> questionIndex === index).answerType) {
+	switch (questions.find((question, index)=> questionIndex === index)?.answerType) {
 		case SINGLE_LINE:
 		case PARAGRAPH:
 		case NUMBER:

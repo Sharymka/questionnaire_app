@@ -25,6 +25,7 @@ const {
           id="fixed-tags-demo"
           value={value}
           onChange={(event, newSelectedOption) => {
+              event.preventDefault();
               handleValue(newSelectedOption)
           }}
           options={customOptions}

@@ -12,6 +12,7 @@ import {TemplateContext} from "./TemplateContext";
 	const [sortBy, setSortBy] = useState('');
 
 	const handleSelectedUsers = (newUser) => {
+		console.log(newUser);
 		if (newUser.length === 0) {
 			setQuestions((prevState) =>
 				prevState.map((question) => ({ ...question, selectedUsers: [] }))
@@ -26,6 +27,8 @@ import {TemplateContext} from "./TemplateContext";
 							} else {
 								return { ...question, selectedUsers: [...question.selectedUsers, user] };
 							}
+						} else {
+							return question;
 						}
 					})
 				);

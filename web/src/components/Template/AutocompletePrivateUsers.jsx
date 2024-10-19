@@ -6,11 +6,11 @@ import NameOrEmailSorter from "./NameOrEmailSorter";
 import CustomAutoComplete from "../ReusableComponents/CustomAutoComplete";
 import {getData, postData} from "../../Requests";
 
+
 export default function AutocompletePrivateUsers() {
 	const { selectedUsers, setSelectedUsers } =  useContext(TemplateContext);
 	const [ sortBy, setSortBy ] = useState('');
-
-	const [users, setUsers] = useState([]);
+	const [usersData, setUsersData] = useState(users);
 
 
 	useEffect(() => {
@@ -21,7 +21,7 @@ export default function AutocompletePrivateUsers() {
 
 				if(response.ok) {
 					console.log("template was saved successfully");
-					setUsers(data);
+					setUsersData(data);
 				} else {
 					console.log("template saving failed");
 					console.log(data.error);
@@ -59,7 +59,7 @@ export default function AutocompletePrivateUsers() {
 			<NameOrEmailSorter selectedUsers={selectedUsers} sortBy={sortBy} setSortBy={setSortBy} />
 				<CustomAutoComplete
 					value={selectedUsers}
-					customOptions={users}
+					customOptions={usersData}
 					getOptionLabel={getOptionLabel}
 					getTagLabel={getTagLabel}
 					label={LABEL_USERS}
