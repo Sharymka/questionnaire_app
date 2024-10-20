@@ -210,4 +210,14 @@ code {
   background-color: #e0e0e0;
 }
 
+.custom-markdown {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.1s ease, transform 0.3s ease;
+}
+.custom-markdown.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /*# sourceMappingURL=style.css.map */
