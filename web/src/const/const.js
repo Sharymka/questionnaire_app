@@ -61,7 +61,7 @@ export const users = [
 	},
 	]
 
-export const tags = [
+export let tags = [
 	{ id: 1, label: "Наука" },
 	{ id: 2, label: "Технологии" },
 	{ id: 3, label: "Искусственный интеллект" },
