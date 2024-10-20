@@ -6,3 +6,7 @@ export const SAVE_ICON_URL= "https://res.cloudinary.com/dewxfivxh/image/upload/v
 export const EDIT_ICON_URL= "https://res.cloudinary.com/dewxfivxh/image/upload/v1728643368/edit-2-svgrepo-com_zvrazo.svg";
 
 export const DELETE_ICON_BASKET_URL = "https://res.cloudinary.com/dewxfivxh/image/upload/v1728644862/delete-svgrepo-com_2_hucmdi.svg";
+
+export const SAVE_EDITED_TEMPLATE_URL = 'api/template';
+
+export const SAVE_TEMPLATE_URL="api/template";

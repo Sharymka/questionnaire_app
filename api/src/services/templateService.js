@@ -1,4 +1,5 @@
 const Template = require("../models/template");
+const {id} = require("nodemon");
 
 class TemplateService {
 
@@ -20,6 +21,14 @@ class TemplateService {
 			description:description,
 			questions:questions,
 		})
+	}
+
+	static async updateTemplate(editedTemplate , id) {
+		return await Template.update(editedTemplate, { where: {id: id}, returning: true });
+	}
+
+	static async removeTemplate(id) {
+		return await Template.destroy({where: {id: id}});
 	}
 }
 
