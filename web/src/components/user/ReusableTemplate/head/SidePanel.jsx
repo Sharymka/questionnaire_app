@@ -9,7 +9,7 @@ import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
 
 const SidePanel = (props ) => {
 
-	const { handleAddQuestion } = props;
+	const { handleAddQuestion, setShowModalAnchor} = props;
 	return (
 		<Box
 			className="sidePanelPosition"
@@ -19,21 +19,23 @@ const SidePanel = (props ) => {
 			>
 				<AddIcon/>
 			</IconButton>
-			<IconButton>
-				<DescriptionIcon />
+			{/*<IconButton>*/}
+			{/*	<DescriptionIcon />*/}
+			{/*</IconButton>*/}
+			{/*<IconButton>*/}
+			{/*	<TextFieldsIcon />*/}
+			{/*</IconButton>*/}
+			<IconButton
+				onClick={() => setShowModalAnchor(true)}
+			>
+				<ImageIcon/>
 			</IconButton>
-			<IconButton>
-				<TextFieldsIcon />
-			</IconButton>
-			<IconButton>
-				<ImageIcon />
-			</IconButton>
-			<IconButton>
-				<VideoLibraryIcon />
-			</IconButton>
-			<IconButton>
-				<ViewHeadlineIcon />
-			</IconButton>
+			{/*<IconButton>*/}
+			{/*	<VideoLibraryIcon />*/}
+			{/*</IconButton>*/}
+			{/*<IconButton>*/}
+			{/*	<ViewHeadlineIcon />*/}
+			{/*</IconButton>*/}
 		</Box>
 	);
 };

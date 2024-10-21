@@ -9,14 +9,6 @@ export const postData = async (url, data, method = 'POST') => {
 			},
 			body: JSON.stringify(data)
 		});
-
-		// if (!response.ok) {
-		// 	const errorPayload = await response.json();
-		// 	// console.error(errorPayload);
-		// 	throw new Error(errorPayload.error);
-		// }
-
-		// return await response.json();
 		return response;
 };
 
