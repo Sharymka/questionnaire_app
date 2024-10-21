@@ -16,18 +16,18 @@ function TemplateHeader(props) {
         description,
         selectedTags,
         setSelectedTags,
-        handleTitle,
         handleTopic,
-        handleDescription
+        setDescription,
+        setTitle,
     } =  useContext(TemplateContext);
 
   return (
           <HeaderBlock
               headerName={headerName}
               title={title}
-              LeftComponent={<TitleTextField onChange={handleTitle} title={title}/>}
+              LeftComponent={<TitleTextField onChange={setTitle} title={title}/>}
               RightComponent={<TopicSelector onChange={handleTopic} topic ={topic}/>}
-              DescriptionComponent={<DescriptionTextField onChange={handleDescription} description={description}/>}
+              DescriptionComponent={<DescriptionTextField onChange={setDescription} description={description}/>}
               TagsComponent={<AutocompleteTags setSelectedTags={setSelectedTags} selectedTags={selectedTags}/>}
           />
   );

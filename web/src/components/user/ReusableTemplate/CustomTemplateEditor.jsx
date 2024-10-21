@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import TemplateHeader from "./head/TemplateHeader";
 import QuestionList from "./body/realQuestions/QuestionList";
 import SidePanel from "./head/SidePanel";
@@ -6,10 +6,13 @@ import QuestionTemplateBlock from "./body/questionTemplate/QuestionTemplateBlock
 import {Box, Button, IconButton} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {TemplateContext} from "../contexts/TemplateContext";
+import ImageUploadModal from "./head/ImageUploadModal";
 
 function CustomTemplateEditor(props) {
 
   const {selectedTemplate, url, btnName, headerName } = props;
+
+  const [showModalAnchor, setShowModalAnchor] = useState(false);
 
   const {
       questions,
@@ -23,7 +26,12 @@ function CustomTemplateEditor(props) {
 
   return (
       <div>
-          <SidePanel handleAddQuestion={setQuestionTemplateAnchor}/>
+          <SidePanel setShowModalAnchor={setShowModalAnchor} handleAddQuestion={setQuestionTemplateAnchor}/>
+          {
+              showModalAnchor && (
+                  <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor}/>
+              )
+          }
           <TemplateHeader headerName={headerName}/>
           <QuestionList setQuestions={setQuestions} questions={questions}/>
           <div className="card d-flex p-4 mt-3 flex-column">

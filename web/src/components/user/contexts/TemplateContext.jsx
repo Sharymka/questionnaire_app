@@ -8,6 +8,7 @@ function TemplateProvider({children}) {
 	const [title, setTitle] = React.useState('');
 	const [topic, setTopic] = React.useState('education');
 	const [description, setDescription] = React.useState('');
+	const [imgUrl, setImgUrl] = React.useState('');
 	const [question, setQuestion] = React.useState('');
 	const [questions, setQuestions] = useState([]);
 	const [answerType, setAnswerType] = React.useState('singleLine');
@@ -215,6 +216,8 @@ function TemplateProvider({children}) {
 		  handleTopic,
 		  description,
 		  setDescription,
+		  imgUrl,
+		  setImgUrl,
 		  handleDescription,
 		  handleQuestion,
 		  answerType,
