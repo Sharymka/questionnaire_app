@@ -12,11 +12,13 @@ function Template(props) {
 		setDescription,
 		setSelectedTags,
 		setQuestions,
+		setImgUrl
 
 	} = useContext(TemplateContext);
 
 	useEffect(() => {
 		if (selectedTemplate) {
+			setImgUrl(selectedTemplate.img);
 			setTitle(selectedTemplate.title);
 			setTopic(selectedTemplate.topic);
 			setDescription(selectedTemplate.description);

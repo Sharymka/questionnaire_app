@@ -63,7 +63,7 @@ code {
   color: #555;
 }
 .checkbox_style .MuiRadio-root {
-  color: #181a1a;
+  color: #1b1c1c;
 }
 .checkbox_style .MuiRadio-root.Mui-checked {
   color: #53575b;
@@ -159,7 +159,7 @@ code {
 }
 
 .color_grey {
-  color: #181a1a;
+  color: #1b1c1c;
 }
 
 .text-field-underline-none .MuiInput-underline:before {

@@ -9,7 +9,9 @@ import Template from "../ReusableTemplate/Template";
 
 function MyTemplates(props) {
 
-	const [editorAnchor, setEditorAnchor] = useState(false);
+	const { editorAnchor, setEditorAnchor } = props;
+
+
 	const [temp, setTemp] = useState(templates);
 	const [selectedTemplate, setSelectedTemplate] = useState(null);
 

@@ -6,6 +6,7 @@ module.exports = {
 			{
 				id:1,
 				userId: 1,
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729586264/planet_mvfsx5.jpg",
 				title: 'Шаблон на тему "Экология"',
 				topic: 'Экология',
 				description: 'Этот шаблон охватывает важные аспекты темы "Экология". Вопросы помогут вам глубже понять различные мнения и подходы к данной теме.',
@@ -46,6 +47,7 @@ module.exports = {
 			{
 				id:2,
 				userId: 1,
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729586264/merry_njpuyv.jpg",
 				title: 'Шаблон на тему "Свадьба"',
 				topic: 'Свадьба',
 				description: 'Этот шаблон охватывает важные аспекты организации свадеб. Вопросы помогут вам понять, что необходимо для успешного проведения мероприятия.',
@@ -86,6 +88,7 @@ module.exports = {
 			{
 				id:3,
 				userId: 1,
+				img:"https://res.cloudinary.com/dewxfivxh/image/upload/v1729586265/family_ggc73k.jpg",
 				title: 'Шаблон на тему "Родительство"',
 				topic: 'Родительство',
 				description: 'Этот шаблон охватывает важные аспекты хорошего родительства. Вопросы помогут вам понять различные подходы к воспитанию детей.',

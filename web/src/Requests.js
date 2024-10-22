@@ -12,6 +12,16 @@ export const postData = async (url, data, method = 'POST') => {
 		return response;
 };
 
+export const postFileData = async (url, data, method = 'POST') => {
+
+	const response = await fetch(url, {
+		method: method,
+		credentials: 'include',
+		body: data
+	});
+	return response;
+};
+
 export const getData = async (url, method = 'GET') => {
 
 	const response = await fetch(url, {

@@ -1,44 +1,56 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import {
 	Button,
 	Modal,
 	Box,
 	Typography,
-	TextField,
+	TextField, IconButton,
 } from '@mui/material';
-import axios from "axios";
-import {postData} from "../../../../Requests";
-import {TemplateContext} from "../../contexts/TemplateContext";
+import { postFileData } from "../../../../Requests";
+import { TemplateContext } from "../../contexts/TemplateContext";
+import AddIcon from "@mui/icons-material/Add";
+import imageCompression from 'browser-image-compression';
 
-// Стили для модального окна
 const style = {
 	position: 'absolute',
 	top: '50%',
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
-	width: 400,
+	minWidth: 400,
 	bgcolor: 'background.paper',
-	border: '2px solid #000',
+	border: '1px solid #3e3d3d',
+	borderRadius: '8px',
 	boxShadow: 24,
 	p: 4,
 };
 
-const ImageUploadModal = ({ open, handleClose }) => {
+const ImageUploadModal = (props) => {
+
+	const { open, handleClose } = props;
 
 	const { imgUrl, setImgUrl } =  useContext(TemplateContext);
-
 	const [image, setImage] = useState(false);
-	const [imageName, setImageName] = useState('');
-	const [uploading, setUploading] = useState(false);
-	const [error, setError] = useState('');
 
-	const handleImageChange = (event) => {
+	const handleImageChange = async (event) => {
 		const file = event.target.files[0];
 		console.log("file - " + file);
 		if (file) {
-			setImage(file);
-			setImageName(file.name);
-			setError(''); // Сбрасываем ошибку при новом выборе файла
+			const options = {
+				maxSizeMB: 1,
+				maxWidthOrHeight: 1024,
+				useWebWorker: true,
+			};
+
+			try {
+				const compressedFile = await imageCompression(file, {
+					maxSizeMB: 1,
+					maxWidthOrHeight: 1024,
+					useWebWorker: true,
+				});
+				setImage(compressedFile);
+			} catch (error) {
+				console.error('Error during image compression:', error);
+			}
 		}
 	};
 
@@ -47,24 +59,35 @@ const ImageUploadModal = ({ open, handleClose }) => {
 		formData.append('image', image);
 
 		try {
-			const response = await fetch('api/upload', { // Укажите URL вашего сервера
-				method: 'POST',
-				body: formData
-			});
+			const response = await postFileData('api/upload', formData);
+			handleClose(!open);
+			if (response.status === 202) {
+				const { uploadId } = await response.json();
+				handleClose(false);
+				console.log('File hase been accepted, uploading is continuing.  Upload ID:', uploadId);
 
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
+				// Периодически проверяем статус загрузки
+				const checkUploadStatus = async () => {
+					const statusResponse = await fetch(`/api/upload-status/${uploadId}`);
+					const statusData = await statusResponse.json();
+
+					if (statusData.url) {
+						console.log('Uploading successfully finished. URL:', statusData.url);
+						setImgUrl(statusData.url);
+					} else if (statusData.error) {
+						console.log('Uploading failed.');
+					} else {
+						setTimeout(checkUploadStatus, 1000);
+					}
+				};
+
+				checkUploadStatus();
 			}
-			const data = await response.json();
-			setImgUrl(data.url);
-			handleClose(false);
-			console.log('Uploaded image URL:', data.url); // URL загруженного изображения
-			document.getElementById('uploadedImage').innerHTML = `<img src="${data.url}" alt="Uploaded Image" style="max-width: 300px;" />`;
 		} catch (error) {
 			console.error('Error uploading image:', error);
-			// alert('Image upload failed!');
 		}
 	};
+
 
 	return (
 		<Modal
@@ -73,19 +96,26 @@ const ImageUploadModal = ({ open, handleClose }) => {
 			aria-labelledby="modal-title"
 			aria-describedby="modal-description"
 		>
-			<Box sx={style}>
-				<Typography  className="d-flex flex-column aligh-items-center justify-content-center" id="modal-title" variant="h6" component="h2">
+			<Box sx={style} className="d-flex flex-column align-items-center justify-content-center ">
+				<div className="absolute_right_corner_pos">
+					<Box>
+						<IconButton
+							onClick={() => handleClose(false)}
+						>
+							<AddIcon/>
+						</IconButton>
+					</Box>
+				</div>
+				<Typography className="d-flex flex-column align-items-center justify-content-center" id="modal-title"
+				            variant="h6" component="h2">
 					Загрузить изображение
 				</Typography>
-				<TextField
+				<input
 					type="file"
+					id="upload-button"
+					style={{display: 'none'}}
 					onChange={handleImageChange}
-					sx={{ mt: 2,  accept: 'image/*' }}
 				/>
-				<Typography variant="body2" sx={{ mt: 1 }}>
-					Выбранный файл: {imageName}
-				</Typography>
-
 				{image && (
 					<Box
 						component="img"
@@ -94,25 +124,35 @@ const ImageUploadModal = ({ open, handleClose }) => {
 						sx={{
 							mt: 2,
 							maxWidth: '100%',
-							maxHeight: 300,
+							maxHeight: '300px',
 							border: '1px solid #ccc',
 							borderRadius: '4px',
 						}}
 					/>
 				)}
-
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={handleUpload}
-					sx={{ mt: 2 }}
-					disabled={!image}
-				>
-					Загрузить
-				</Button>
+				<label htmlFor="upload-button" className="col-5">
+					<Button
+						variant="contained"
+						component="span"
+						className="w-100 mt-4"
+					>
+						Обзор
+					</Button>
+				</label>
+				<label htmlFor="upload-button" className="col-5">
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleUpload}
+						className="w-100 mt-3"
+						disabled={!image}
+					>
+						Загрузить
+					</Button>
+				</label>
 			</Box>
 		</Modal>
-	);
+);
 };
 
 export default ImageUploadModal;

@@ -15,10 +15,6 @@ const HeaderBlock = ({
 	return (
 		<div className="p-4 card mb-3">
 			<Typography variant="h5">{headerName}</Typography>
-			<img style={{maxWidth: '22px', maxHeight: '25px'}}
-			     src={imgUrl}
-			     alt="Save icon"
-			/>
 			<div className="d-flex flex-row justify-content-between align-items-center gap-5">
 
 

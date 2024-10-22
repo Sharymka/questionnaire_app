@@ -60,6 +60,8 @@ api.post('/template/:id', update);
 
 api.delete('/template/:id', remove);
 
+let uploadStatus = {}; // объект для отслеживания статусов загрузки
+
 api.post('/upload', upload.single('image'), async (req, res) => {
 	try {
 		const file = req.file;
@@ -68,16 +70,37 @@ api.post('/upload', upload.single('image'), async (req, res) => {
 			return res.status(400).json({ error: 'No file uploaded' });
 		}
 
+		const uploadId = Date.now(); // уникальный идентификатор загрузки
+		uploadStatus[uploadId] = 'processing';
+
+		// Отправляем ответ сразу после получения файла
+		res.status(202).json({ message: 'File received, processing upload', uploadId });
+
+		// Загружаем файл асинхронно в Cloudinary
 		const result = await cloudinary.uploader.upload(file.path, {
 			upload_preset: 'questionnaire'
 		});
-		res.status(200).json({ url: result.secure_url });
+
+		uploadStatus[uploadId] = { url: result.secure_url }; // сохраняем URL после загрузки
 
 	} catch (error) {
 		console.error('Ошибка при загрузке:', error);
-		res.status(500).json({ error: 'Ошибка при загрузке изображения' });
+		uploadStatus[uploadId] = 'error'; // сохраняем статус ошибки
 	}
 });
+
+// Маршрут для проверки статуса загрузки
+api.get('/upload-status/:id', (req, res) => {
+	const uploadId = req.params.id;
+	const status = uploadStatus[uploadId];
+
+	if (status) {
+		res.status(200).json(status);
+	} else {
+		res.status(404).json({ error: 'Upload not found' });
+	}
+});
+
 
 app.get('/*', function (req, res) {
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));

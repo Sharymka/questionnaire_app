@@ -1,25 +1,22 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import CustomTextField from "../../reusableSimpleComp/CustomTextField";
 import {TemplateContext} from "../../../contexts/TemplateContext";
 
 function QuestionTemplateTextField() {
 
-	const { handleQuestion, question } = useContext(TemplateContext);
-	const [, setForceUpdate] = useState(0);
+	const { setQuestion, question } = useContext(TemplateContext);
+	// const [forceUpdate, setForceUpdate] = useState(0);
 
-	useEffect(() => {
-		console.log('сработал useEffect');
-		setForceUpdate(prev => prev + 1);
-
-		// console.log("Question updated:", question);
-	}, [question]);
+	// useEffect(() => {
+	// 	setForceUpdate(prev => prev + 1);
+	// }, [question]);
 
   return (
 	  <CustomTextField
 		  label="задайте вопрос"
 		  variant="standard"
 		  value={question}
-		  onChange={handleQuestion}
+		  onChange={setQuestion}
 		  placeholder={question || 'Введите вопрос'}
 	  />
   );
