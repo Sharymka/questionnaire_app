@@ -6,6 +6,9 @@ const Template = sequelize.define('Template', {
 		type: DataTypes.INTEGER,
 		allowNull: false,
 	},
+	img: {
+		type: DataTypes.STRING,
+	},
 	title: {
 		type: DataTypes.STRING,
 		allowNull: false,

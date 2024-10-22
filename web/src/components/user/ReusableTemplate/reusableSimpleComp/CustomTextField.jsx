@@ -85,6 +85,13 @@ function CustomTextField(props) {
         };
     }, []);
 
+    const handleChange = (event) => {
+        if (typeof onChange === 'function') {
+            onChange(event.target.value);
+        } else {
+            console.error('onChange is not a function:', onChange);
+        }
+    };
 
   return (
     <div ref={parentBlockRef}>
@@ -97,7 +104,7 @@ function CustomTextField(props) {
             margin="normal"
             variant={variant}
             value={value}
-            onChange={(event) => onChange(event.target.value)}
+            onChange={handleChange}
             multiline={multiline}
             minRows={minRows}
             maxRows={maxRows}
@@ -109,7 +116,7 @@ function CustomTextField(props) {
                 {hover &&
                     <>
                         <CustomMarkDown applyFormat={applyFormat}/>
-                        <ReactMarkdown>{value}</ReactMarkdown>
+                        {/*<ReactMarkdown>{value}</ReactMarkdown>*/}
                     </>
                 }
 

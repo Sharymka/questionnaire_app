@@ -16,6 +16,7 @@ function TemplateProvider({children}) {
 	const [accessLevel, setAccessLevel] =  useState('public');
 	const [selectedUsers, setSelectedUsers] = React.useState([]);
 	const [selectedTags, setSelectedTags] = useState([]);
+	const [message, setMessage] = React.useState();
 	const [editorAnchor, setEditorAnchor] = React.useState(
 		questions && questions.length > 0
 			? questions.map((question, index) => ({ id: index, editorAnchorValue: false }))
@@ -63,6 +64,7 @@ function TemplateProvider({children}) {
 			description:description,
 			questions:questions,
 			tags:selectedTags,
+			img:imgUrl
 		}
 		try {
 			const response = await postData(url, requestData);
@@ -70,11 +72,17 @@ function TemplateProvider({children}) {
 			const responseData = await response.json();
 
 			if (response.ok) {
-				console.log("Save template successfully:", responseData);
+				setMessage({success: "Template was saved successfully"});
+				console.log("Template was saved successfully:", responseData);
 			}else {
-				console.log("template saving failed:", responseData.error);
-				// setMessage(data.error);
+				setMessage({error: "Template saving failed"});
+				console.log("Template saving failed:", responseData.error);
+
 			}
+			setTimeout(() => {
+				setMessage(null);
+			}, 3000);
+
 		}catch (error) {
 			console.log("Registered failed:", error.message);
 		}
@@ -84,21 +92,9 @@ function TemplateProvider({children}) {
 
 	}
 
-	const handleTitle = (event) => {
-		setTitle(event.target.value);
-	};
-
 	const handleTopic= (event) => {
 		setTopic(event.target.value);
 	}
-
-	const handleDescription = (event) => {
-		setDescription(event.target.value);
-	};
-
-	const handleQuestion = (event) => {
-		setQuestion(event.target.value);
-	};
 
 	const handleAnswerType = (event) => {
 		const newAnswerType = event.target.value;
@@ -210,16 +206,15 @@ function TemplateProvider({children}) {
 	  <TemplateContext.Provider value={{
 		  title,
 		  setTitle,
-		  handleTitle,
 		  topic,
 		  setTopic,
 		  handleTopic,
 		  description,
 		  setDescription,
+		  setQuestion,
+		  question,
 		  imgUrl,
 		  setImgUrl,
-		  handleDescription,
-		  handleQuestion,
 		  answerType,
 		  handleAnswerType,
 		  checkboxOptions,
@@ -246,7 +241,8 @@ function TemplateProvider({children}) {
 		  setPrivateUsersAnchor,
 		  saveTemplate,
 		  questionTemplateAnchor,
-		  setQuestionTemplateAnchor
+		  setQuestionTemplateAnchor,
+		  message
 	  }}>
 		  {children}
 	  </TemplateContext.Provider>
