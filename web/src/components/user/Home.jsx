@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import TemplateProvider from "./contexts/TemplateContext";
@@ -7,8 +7,11 @@ import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./ReusableTemplate/Template";
 
 function Home() {
+
     const [currentView, setCurrentView] = React.useState(null);
     const [editorAnchor, setEditorAnchor] = useState(false);
+    const [showFormsTableAnchor, setShowFormsTableAnchor] = useState(false);
+    const [showFilledFormAnchor, setShowFilledFormAnchor] = useState(false);
 
     const renderComponent = () => {
         switch (currentView) {
@@ -29,7 +32,14 @@ function Home() {
                 return (
                     <div className="mt-3" role="alert">
                         <TemplateProvider  key={currentView}>
-                            <MyTemplates editorAnchor={editorAnchor} setEditorAnchor={setEditorAnchor}/>
+                            <MyTemplates
+                                editorAnchor={editorAnchor}
+                                setEditorAnchor={setEditorAnchor}
+                                showFormsTableAnchor={showFormsTableAnchor}
+                                setShowFormsTableAnchor={setShowFormsTableAnchor}
+                                setShowFilledFormAnchor={setShowFilledFormAnchor}
+                                showFilledFormAnchor={showFilledFormAnchor}
+                            />
                         </TemplateProvider>
                     </div>
                 );
@@ -68,7 +78,9 @@ function Home() {
                 className="flex-grow-1 screen_max_425_block_width text-primary"
                 onClick={()=> {
                     setCurrentView('myTemplates')
-                    setEditorAnchor(false);
+                    setEditorAnchor(false)
+                    setShowFormsTableAnchor(false)
+                    setShowFilledFormAnchor(false)
                     }
                 }
             >

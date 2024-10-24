@@ -9,6 +9,7 @@ export const templates = [
 		selectedTags: [{id:1, label: 'Экология'}, {id:1, label: 'Наука'}],
 		questions: [
 			{
+				id:1,
 				name: "Что такое экология?",
 				access: "public",
 				answerType: "paragraph",
@@ -16,6 +17,7 @@ export const templates = [
 				checkboxOptions: []
 			},
 			{
+				id:2,
 				name: "Как экология влияет на наше здоровье?",
 				access: "public",
 				answerType: "paragraph",
@@ -23,6 +25,7 @@ export const templates = [
 				checkboxOptions: []
 			},
 			{
+				id:3,
 				name: "Какие основные проблемы экологии существуют?",
 				access: "public",
 				answerType: "paragraph",
@@ -30,6 +33,7 @@ export const templates = [
 				checkboxOptions: []
 			},
 			{
+				id:4,
 				name: "Что можно сделать для улучшения состояния экологии?",
 				access: "public",
 				answerType: "paragraph",
@@ -48,6 +52,7 @@ export const templates = [
 		selectedTags: ['Свадьба', 'Праздник'],
 		questions: [
 			{
+				id:1,
 				name: "Как вы планируете бюджет свадьбы?",
 				access: "public",
 				answerType: "singleLine",
@@ -55,6 +60,7 @@ export const templates = [
 				checkboxOptions: []
 			},
 			{
+				id:2,
 				name: "Какие места для проведения свадьбы вы рассматриваете?",
 				access: "public",
 				answerType: "checkboxes",
@@ -62,6 +68,7 @@ export const templates = [
 				checkboxOptions: [{ value: "Зал" }, { value: "На природе" }, { value: "Дома" }]
 			},
 			{
+				id:3,
 				name: "Какой стиль свадьбы вам нравится?",
 				access: "public",
 				answerType: "singleLine",
@@ -69,6 +76,7 @@ export const templates = [
 				checkboxOptions: []
 			},
 			{
+				id:4,
 				name: "Как вы выбираете дату свадьбы?",
 				access: "public",
 				answerType: "paragraph",
@@ -87,6 +95,7 @@ export const templates = [
 		selectedTags: ['Семья'],
 		questions: [
 			{
+				id:1,
 				name: "Как вы определяете хорошее родительство?",
 				access: "public",
 				answerType: "paragraph",
@@ -94,6 +103,7 @@ export const templates = [
 				checkboxOptions: []
 			},
 			{
+				id:2,
 				name: "Как вы помогаете своему ребенку развивать навыки?",
 				access: "restricted",
 				answerType: "singleLine",
@@ -101,6 +111,7 @@ export const templates = [
 				checkboxOptions: []
 			},
 			{
+				id:3,
 				name: "Как вы выбираете книги для своего ребенка?",
 				access: "public",
 				answerType: "checkboxes",
@@ -108,6 +119,7 @@ export const templates = [
 				checkboxOptions: [{ value: "Сказки" }, { value: "Образовательные книги" }, { value: "Приключенческие книги" }]
 			},
 			{
+				id:4,
 				name: "Что для вас самое важное в воспитании детей?",
 				access: "public",
 				answerType: "paragraph",

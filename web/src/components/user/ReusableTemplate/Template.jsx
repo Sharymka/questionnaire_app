@@ -5,7 +5,15 @@ import CustomTemplateEditor from "./CustomTemplateEditor";
 
 function Template(props) {
 
-	const { selectedTemplate, url, btnName, headerName } = props;
+	const {
+		showFormsTableAnchor,
+		setShowFormsTableAnchor,
+		selectedTemplate,
+		url,
+		btnName,
+		headerName,
+		showFilledFormAnchor
+	} = props;
 	const {
 		setTitle,
 		setTopic,
@@ -13,7 +21,6 @@ function Template(props) {
 		setSelectedTags,
 		setQuestions,
 		setImgUrl
-
 	} = useContext(TemplateContext);
 
 	useEffect(() => {
@@ -33,6 +40,9 @@ function Template(props) {
 		  btnName={btnName}
 		  headerName={headerName}
 		  selectedTemplate={selectedTemplate}
+		  showFilledFormAnchor={showFilledFormAnchor}
+		  showFormsTableAnchor={showFormsTableAnchor}
+		  setShowFormsTableAnchor={setShowFormsTableAnchor}
 	  />
   );
 }
