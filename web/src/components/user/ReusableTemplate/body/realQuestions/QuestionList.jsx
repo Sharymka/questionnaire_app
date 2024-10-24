@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {DragDropContext, Draggable, Droppable} from '@hello-pangea/dnd';
 import QuestionCard from "./QistionCard";
 
 function QuestionsList(props) {
@@ -8,11 +8,9 @@ function QuestionsList(props) {
 	const handleOnDragEnd = (result) => {
 
 		if (!result.destination) return;
-
 		const items = Array.from(questions);
 		const [reorderedItem] = items.splice(result.source.index, 1);
 		items.splice(result.destination.index, 0, reorderedItem);
-
 		setQuestions(items);
 
 	};
@@ -27,7 +25,7 @@ function QuestionsList(props) {
 						ref={provided.innerRef}
 					>
 						{questions.map((question, index) => (
-							<Draggable key={index} draggableId={String(index)} index={index}>
+							<Draggable key={question.id} draggableId={String(question.id)} index={index}>
 								{(provided) => (
 									<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 										<QuestionCard
@@ -38,7 +36,7 @@ function QuestionsList(props) {
 								)}
 							</Draggable>
 						))}
-						{provided.placeholder} {/* Место для заполнения, чтобы избежать изменения размера при перетаскивании */}
+						{provided.placeholder}
 					</div>
 				)}
 			</Droppable>

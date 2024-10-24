@@ -95,6 +95,13 @@ html, body {
   }
 }
 
+.absolute_right_bottom_corner {
+  @include position_absolute {
+    top: 60%;
+    right: 3%;
+  }
+}
+
 
 .toolBlockPosition {
   position:absolute;
@@ -202,7 +209,64 @@ html, body {
   }
 }
 
-//модальное окно для загрузки изображения
-.template_backgroung {
+// стили для фона шаблона
 
+.card-background {
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+// стили для сообщения сохранился ли шаблон
+.message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+
+  &.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+  }
+
+  &.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+// стили для надвания темы описания заполненного шаблона
+.label {
+  color: lightgray;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.separator {
+  width: 80%;
+  height: 1px;
+  background-color: lightgray;
+  margin: 0.5rem 0;
+}
+
+.font_size_1rem{
+  font-size: 1rem;
+}
+
+.font_size_08rem {
+  font-size: 0.8rem;
+}
+
+.darkGrey_color {
+  color: #464646;
 }
