@@ -2,25 +2,22 @@ import React, { useContext, useState } from 'react';
 import {
 	AppBar,
 	Toolbar,
-	Typography,
 	IconButton,
-	Button,
 	TextField,
 	Switch,
 	Box,
-	Select,
-	MenuItem,
 } from '@mui/material';
 import { Search as SearchIcon, DarkMode, LightMode } from '@mui/icons-material';
 import SignOutBtn from './SignOutBtn';
 import SignInBtn from './SignInBtn';
 import SignUpBtn from './SignUpBtn';
 import { AuthContext } from '../context/AuthContext';
+import LanguageSelector from "./LanguageSelector";
 
 function Header() {
 	const { isAuthenticated, user } = useContext(AuthContext);
 	const [isDarkMode, setIsDarkMode] = useState(false);
-	const [language, setLanguage] = useState('ru');
+	const [language, setLanguage] = useState('EN');
 	const [searchText, setSearchText] = useState('');
 
 	const handleThemeChange = () => {
@@ -38,28 +35,25 @@ function Header() {
 	return (
 		<AppBar
 			position="static"
-			sx={{
-				bgcolor: isDarkMode ? 'primary.dark' : 'linear-gradient(to right, #ffffff, #f0f0f0)',
-				boxShadow: 3,
-			}}
-		>
-			<Toolbar>
-				<Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold', color: 'black' }}>
-					My Application
-				</Typography>
+			sx={{ bgcolor: isDarkMode ? '#4A5568' : '#ffffff',
+				boxShadow: 2,
+				height: '9%',
+			}}>
+			<Toolbar
+			className="justify-content-between h-100"
+			>
 				<Box
 					sx={{
 						display: 'flex',
 						alignItems: 'center',
 						mr: 2,
-						bgcolor: 'white',
-						borderRadius: 1,
-						boxShadow: 1,
-						px: 1,
-						border: 'none',
+						borderBottom: "1px solid #A0AEC0",
+						px: 1
 					}}
 				>
-					<SearchIcon color="action" sx={{ mr: 1 }} />
+					<SearchIcon
+						sx= {{ mr: 1, color: isDarkMode ? '#b9baba' : '#727476' }}
+						/>
 					<TextField
 						variant="standard"
 						size="small"
@@ -67,48 +61,28 @@ function Header() {
 						value={searchText}
 						onChange={handleSearchChange}
 						InputProps={{
-							disableUnderline: false,
-							sx: { color: 'black' },
+							disableUnderline: true,
+							sx: { color: isDarkMode ? '#f9fafb' : '#727476' }
 						}}
-						sx={{ '& .MuiInputBase-root': { borderRadius: 1, bgcolor: 'white', border: 'none' } }}
 					/>
 				</Box>
-				<IconButton onClick={handleThemeChange} color="inherit" sx={{ mx: 1 }}>
-					{isDarkMode ? <DarkMode sx={{ color: 'black' }} /> : <LightMode sx={{ color: 'yellow' }} />}
-				</IconButton>
-				<Switch checked={isDarkMode} onChange={handleThemeChange} color="default" />
-				<Select
-					value={language}
-					onChange={handleLanguageChange}
-					variant="outlined"
-					size="small"
-					sx={{
-						mx: 2,
-						minWidth: 80,
-						bgcolor: 'white',
-						color: 'black',
-						borderRadius: 1,
-						boxShadow: 1,
-						'& .MuiSelect-icon': { color: 'primary.main' },
-						'& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-					}}
-				>
-					<MenuItem value="ru">RU</MenuItem>
-					<MenuItem value="en">EN</MenuItem>
-				</Select>
-				{isAuthenticated ? (
-					<Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-						<Typography variant="body1" sx={{ mr: 2, color: 'black', fontWeight: 'bold' }}>
-							Привет, {user.first_name} {user.last_name}!
-						</Typography>
-						<SignOutBtn />
-					</Box>
-				) : (
-					<Box sx={{ display: 'flex', ml: 2 }}>
-						<SignInBtn />
-						<SignUpBtn />
-					</Box>
-				)}
+				<Toolbar>
+					<IconButton onClick={handleThemeChange} color="inherit" sx={{ mx: 1 }}>
+						{isDarkMode ? <DarkMode sx={{ color: '#A0AEC0' }} /> : <LightMode sx={{ color: '#4b525d' }} />}
+					</IconButton>
+					<Switch checked={isDarkMode} onChange={handleThemeChange} color="default" />
+					<LanguageSelector isDarkMode={isDarkMode} handleLanguageChange={handleLanguageChange} language={language}/>
+					{isAuthenticated ? (
+						<Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+						<SignOutBtn/>
+						</Box>
+					) : (
+						<Box sx={{ display: 'flex', ml: 2 }}>
+							<SignInBtn/>
+							<SignUpBtn/>
+						</Box>
+					)}
+				</Toolbar>
 			</Toolbar>
 		</AppBar>
 	);

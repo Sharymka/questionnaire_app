@@ -13,9 +13,9 @@ import {questionTopics} from "../../../const/const";
 import {TemplateContext} from "../contexts/TemplateContext";
 
 function MyTemplates(props) {
-
-	const { refresh } = useContext(TemplateContext);
 	const {
+		temp,
+		setTemp,
 		editorAnchor,
 		setEditorAnchor,
 		showFormsTableAnchor,
@@ -24,29 +24,12 @@ function MyTemplates(props) {
 		showFilledFormAnchor
 	} = props;
 
-	const [temp, setTemp] = useState(templates);
+
 	const [selectedTemplate, setSelectedTemplate] = useState({});
 	const [forms, setForms] = useState(filledForms);
 	const [filledForm,setFilledForm] = useState({});
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await getData("api/template");
-				const data = await response.json();
-				if(response.ok) {
-					setTemp(data);
-					console.log("templates were fetched successfully");
-				} else {
-					console.log(data.error);
-					console.log("template getting failed");
-				}
-			}catch(error) {
-				console.log("template getting failed" + error.message);
-			}
-		}
-		fetchData();
-	}, [refresh]);
+
 
 	const handleDeleteTemplate = async(id) => {
 		try {
