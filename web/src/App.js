@@ -1,17 +1,20 @@
-import SignUp from "./components/user/SignUp";
+import SignUp from "./components/mainPage/SignUp";
 import {Route, Routes} from "react-router-dom";
-import SignIn from "./components/user/SignIn";
-import Home from "./components/user/Home";
+import SignIn from "./components/mainPage/SignIn";
+import Home from "./components/userPage/Home";
+import MainPage from "./components/mainPage/MainPage";
+import AuthProvider from "./components/mainPage/context/AuthContext";
 
 function App() {
   return (
-      <div>
-          <Routes>
-              <Route path="/signUp" element={<SignUp />} />
-              <Route path="/signIn" element={<SignIn/>} />
-              <Route path="/home" element={<Home/>} />
-          </Routes>
-      </div>
+<AuthProvider>
+    <Routes>
+        <Route path="/" element={<MainPage/>} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/signIn" element={<SignIn/>} />
+        <Route path="/home" element={<Home/>} />
+    </Routes>
+</AuthProvider>
   );
 }
 

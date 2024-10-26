@@ -2,7 +2,7 @@
 @import 'mixins';
 
 html, body {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
   font-family: $default-font-family;
@@ -269,4 +269,53 @@ html, body {
 
 .darkGrey_color {
   color: #464646;
+}
+
+//стили для шапки
+
+.header {
+  background-color: $light-bg;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &.dark-mode {
+    background-color: $dark-bg;
+    color: $dark-text;
+
+    .search-bar {
+      background-color: $search-bg-dark;
+    }
+
+    .button {
+      background-color: $button-bg-dark;
+      color: $dark-text;
+
+      &:hover {
+        background-color: $button-hover-dark;
+      }
+    }
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 4px;
+    margin-right: 16px;
+  }
+
+  .button {
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-left: 8px;
+
+    &.light {
+      background-color: $button-bg-light;
+      color: $light-text;
+
+      &:hover {
+        background-color: $button-hover-light;
+      }
+    }
+  }
 }

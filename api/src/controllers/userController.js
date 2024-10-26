@@ -33,6 +33,15 @@ async function signIn(req, res) {
 	}
 }
 
+async function signOut(req, res) {
+	try {
+		req.session.userId = null;
+		res.status(200).json({ message: 'Logged out successfully' });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+}
+
 async function getUsers(req, res) {
 
 	const fields = req.body.fields;
@@ -48,4 +57,4 @@ async function getUsers(req, res) {
 	}
 }
 
-module.exports = {signUp, signIn, getUsers};
+module.exports = {signUp, signIn, signOut, getUsers};

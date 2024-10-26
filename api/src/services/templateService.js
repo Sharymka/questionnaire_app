@@ -11,15 +11,18 @@ class TemplateService {
 		title,
 		topic,
 		description,
-		questions
+		questions,
+		img,
+		tags
 	) {
-
 		return  await Template.create({
 			userId: 1,
 			title:title,
 			topic:topic,
 			description:description,
 			questions:questions,
+			tags:tags,
+			img:img
 		})
 	}
 
