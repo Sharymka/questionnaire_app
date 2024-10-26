@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 function SignInBtn(props) {
 
   const navigate = useNavigate();
+    const { isDarkMode } = props;
   const onSignIn = () => {
       console.log("on signIn page");
     navigate("/signIn");
@@ -15,16 +16,16 @@ function SignInBtn(props) {
           color="inherit"
           onClick={onSignIn}
           sx={{
-            bgcolor: 'success.main',
-            color: 'white',
-            '&:hover': { bgcolor: 'success.dark' },
-            fontWeight: 'bold',
-            borderRadius: 2,
-            px: 2,
-            mx: 1
+              bgcolor: isDarkMode ? '#A0AEC0' : '#e7f6fa',
+              color: isDarkMode ? '#2D3748' : '#4b525d',
+              '&:hover': { bgcolor: isDarkMode ? '#718096' : '#a2dbfe' },
+              fontWeight: 'bold',
+              borderRadius: 1,
+              px: 2,
+              mx: 1
           }}
       >
-        Вход
+          Sign In
       </Button>
   );
 }

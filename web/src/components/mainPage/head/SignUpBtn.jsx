@@ -4,6 +4,8 @@ import {Button} from "@mui/material";
 
 function SignUpBtn(props) {
     const navigate = useNavigate();
+
+    const { isDarkMode } = props;
   const onSignUp = () => {
     navigate('/signUp');
   }
@@ -13,15 +15,13 @@ function SignUpBtn(props) {
           color="inherit"
           onClick={onSignUp}
           sx={{
-            bgcolor: 'info.main',
-            color: 'white',
-            '&:hover': { bgcolor: 'info.dark' },
-            fontWeight: 'bold',
-            borderRadius: 2,
-            px: 2
+              color: isDarkMode ? '#fdfdfe' : '#4b525d',
+              '&:hover': { bgcolor: isDarkMode ? '#a2dbfe' : '#b8dcfe' },
+              fontWeight: 'bold',
+              px: 2
           }}
       >
-        Sign Up
+          Sign Out
       </Button>
   );
 }

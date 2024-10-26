@@ -2,9 +2,10 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 
-function SignOutBtn() {
+function SignOutBtn(props) {
 
 	const navigate = useNavigate();
+	const { isDarkMode } = props;
 
 	const onLogout = async () => {
 		localStorage.removeItem('userId');
@@ -22,12 +23,9 @@ function SignOutBtn() {
 		  color="inherit"
 		  onClick={onLogout}
 		  sx={{
-			  bgcolor: 'error.main',
-			  color: 'white',
-			  '&:hover': { bgcolor: 'error.dark' },
-			  fontWeight: 'bold',
-			  borderRadius: 2,
-			  px: 2,
+			  color: isDarkMode ? '#F7FAFC' : '#51565a',
+			  '&:hover': { bgcolor: isDarkMode ? '#4A5568' : '#d5e7fd' },
+			  px: 2
 		  }}
 	  >
 		  Log Out
