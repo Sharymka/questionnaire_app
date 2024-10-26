@@ -1,5 +1,5 @@
 html, body {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -281,6 +281,45 @@ code {
 
 .darkGrey_color {
   color: #464646;
+}
+
+.header {
+  background-color: #E2E8F0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.header.dark-mode {
+  background-color: #4A5568;
+  color: #E2E8F0;
+}
+.header.dark-mode .search-bar {
+  background-color: #E2E8F0;
+}
+.header.dark-mode .button {
+  background-color: #718096;
+  color: #E2E8F0;
+}
+.header.dark-mode .button:hover {
+  background-color: #3c4758;
+}
+.header .search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 4px;
+  margin-right: 16px;
+}
+.header .button {
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-left: 8px;
+}
+.header .button.light {
+  background-color: #a0aca4;
+  color: #1A202C;
+}
+.header .button.light:hover {
+  background-color: #6a7f4c;
 }
 
 /*# sourceMappingURL=style.css.map */

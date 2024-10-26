@@ -21,13 +21,17 @@ async function create(req, res) {
 			topic,
 			description,
 			questions,
+			img,
+			tags
 		} = req.body;
 
 		const template = await createTemplate(
 			title,
 			topic,
 			description,
-			questions
+			questions,
+			img,
+			tags
 		);
 
 		if(template) {
@@ -61,6 +65,8 @@ async function update(req, res) {
 			topic,
 			description,
 			questions,
+			tags,
+			img
 		} = req.body;
 
 		const editedTemplate = {
@@ -68,6 +74,8 @@ async function update(req, res) {
 			topic:topic,
 			description:description,
 			questions:questions,
+			tags:tags,
+			img:img
 		}
 
 		const id = req.params.id;

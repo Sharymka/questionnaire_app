@@ -21,7 +21,11 @@ export const questionTopics = {
 	'education':'Образование',
 	'work':'Работа',
 	'quiz':'Викторина',
-	'other':'Другое',
+	'ecology': 'Экология',
+	'event':'Мероприятие',
+	'wedding': 'Свадба',
+	'parenting': 'Родительство',
+	'other':'Другое'
 };
 
 export const accessOptions = {
@@ -61,7 +65,7 @@ export const users = [
 	},
 	]
 
-export let tags = [
+export const initialTags = [
 	{ id: 1, label: "Наука" },
 	{ id: 2, label: "Технологии" },
 	{ id: 3, label: "Искусственный интеллект" },
@@ -81,5 +85,10 @@ export let tags = [
 	{ id: 17, label: "Семья" },
 	{ id: 18, label: "Психология" },
 	{ id: 19, label: "Маркетинг" },
-	{ id: 20, label: "Социальные сети" }
+	{ id: 20, label: "Социальные сети" },
+	{ id: 21, label: "Праздник" },
+	{ id: 22, label: "День Рождение" },
+	{ id: 23, label: "Приглашение" },
+
+
 ];
