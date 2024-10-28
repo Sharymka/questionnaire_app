@@ -9,15 +9,8 @@ import CheckBoxesCard from "./CheckBoxesCard";
 
 const AnswerField = (props) => {
 
-	const { question, questionIndex } = props;
-	const { setQuestions, questions, editorAnchor } = useContext(TemplateContext);
-	const handleDeleteOption = (optionIndex) => {
-		setQuestions((prevstate) => prevstate.map((question, index) =>({
-			...question,
-			checkboxes: question.checkboxes.filter((option, index) => index !== optionIndex)
-		})));
-	}
-
+	const { question, questionIndex, questions } = props;
+	const { editorAnchor } = useContext(TemplateContext);
 
 	switch (questions.find((question, index)=> questionIndex === index)?.answerType) {
 		case SINGLE_LINE:

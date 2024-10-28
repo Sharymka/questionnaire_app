@@ -43,6 +43,11 @@ const Template = sequelize.define('Template', {
 	questions: {
 		type: DataTypes.JSON,
 		allowNull: false,
+	},
+	disable: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: true,
+		allowNull: false,
 	}
 }, {
 	timestamps: true,

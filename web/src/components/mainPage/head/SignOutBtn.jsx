@@ -1,22 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
+import {AuthContext} from "../context/AuthContext";
 
 function SignOutBtn(props) {
 
+	const { signOut } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const { isDarkMode } = props;
 
 	const onLogout = async () => {
 		localStorage.removeItem('userId');
-		localStorage.removeItem('nickname');
 
 		await fetch('api/signOut', {
 			method: 'POST',
 			credentials: 'include',
 		});
 
-		navigate('/signIn');
+		signOut();
 	};
   return (
 	  <Button
@@ -28,7 +29,7 @@ function SignOutBtn(props) {
 			  px: 2
 		  }}
 	  >
-		  Log Out
+		  Sign Out
 	  </Button>
   );
 }

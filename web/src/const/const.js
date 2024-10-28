@@ -89,6 +89,4 @@ export const initialTags = [
 	{ id: 21, label: "Праздник" },
 	{ id: 22, label: "День Рождение" },
 	{ id: 23, label: "Приглашение" },
-
-
 ];

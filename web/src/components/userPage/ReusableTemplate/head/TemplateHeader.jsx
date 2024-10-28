@@ -6,10 +6,12 @@ import HeaderBlock from "./HeaderBlock";
 import AutocompleteTags from "../reusableSimpleComp/AutocompleteTags";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import CustomTypography from "../reusableSimpleComp/CustomTypography";
+import {questionTopics} from "../../../../const/const";
 
 function TemplateHeader(props) {
 
-    const { headerName, filledForm, showFilledFormAnchor } = props;
+    const { headerName, filledForm, selectedTemplate, showFilledFormAnchor } = props;
+    const { showSelectedTemplate } = useContext(TemplateContext);
 
     const {
         title,
@@ -24,13 +26,13 @@ function TemplateHeader(props) {
 
   return (
           <HeaderBlock
-              headerName={headerName}
-              title={title}
               filledForm={filledForm}
-              LeftComponent={showFilledFormAnchor? <CustomTypography value={{title: filledForm.template.title}}/> : <TitleTextField onChange={setTitle} title={title}/>}
-              RightComponent={showFilledFormAnchor? <CustomTypography value={{topic: filledForm.template.topic}}/> : <TopicSelector onChange={handleTopic} topic={topic}/>}
-              DescriptionComponent={ showFilledFormAnchor? <CustomTypography value={{description: filledForm.template.description}}/> : <DescriptionTextField onChange={setDescription} description={description}/>}
-              TagsComponent={showFilledFormAnchor? null : <AutocompleteTags setSelectedTags={setSelectedTags} selectedTags={selectedTags}/>}
+              headerName={headerName}
+              title={selectedTemplate ? selectedTemplate.title: title}
+              LeftComponent={showFilledFormAnchor || showSelectedTemplate ? <CustomTypography value={{title: selectedTemplate ? selectedTemplate.title: filledForm?.template.title}}/> : <TitleTextField onChange={setTitle} title={title}/>}
+              RightComponent={showFilledFormAnchor || showSelectedTemplate ? <CustomTypography value={{topic: selectedTemplate ? questionTopics[selectedTemplate.topic]: filledForm?.template.topic}}/> : <TopicSelector onChange={handleTopic} topic={topic}/>}
+              DescriptionComponent={ showFilledFormAnchor || showSelectedTemplate ? <CustomTypography value={{description: selectedTemplate ? selectedTemplate.description: filledForm?.template.description}}/> : <DescriptionTextField onChange={setDescription} description={description}/>}
+              TagsComponent={showFilledFormAnchor || showSelectedTemplate? null : <AutocompleteTags setSelectedTags={setSelectedTags} selectedTags={selectedTags}/>}
           />
   );
 }

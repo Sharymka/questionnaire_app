@@ -1,8 +1,9 @@
 @mixin flex-row-center {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 @mixin flex-col-center {

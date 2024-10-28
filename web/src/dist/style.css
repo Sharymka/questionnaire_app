@@ -40,9 +40,10 @@ code {
 @media (min-width: 425px) {
   .screen_min_425 {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 }
 

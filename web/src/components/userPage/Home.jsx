@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext,  useState} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import TemplateProvider, {TemplateContext} from "./contexts/TemplateContext";
@@ -6,61 +6,39 @@ import MyTemplates from "./MyTemplates/MyTemplates";
 import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./ReusableTemplate/Template";
 import Header from "../mainPage/head/Header";
-import {templates} from "../../const/templates";
-import {getData} from "../../Requests";
 import AllTemplatesBlock from "./AllTemplatesBlock";
 
 function Home() {
 
-    const { refresh } = useContext(TemplateContext);
-    const [temp, setTemp] = useState(templates);
+    const { filteredTemp, setTemp } = useContext(TemplateContext);
+    const { showAllTemplates, temp } = useContext(TemplateContext);
     const [currentView, setCurrentView] = React.useState(null);
     const [editorAnchor, setEditorAnchor] = useState(false);
     const [showFormsTableAnchor, setShowFormsTableAnchor] = useState(false);
     const [showFilledFormAnchor, setShowFilledFormAnchor] = useState(false);
-    const [showAllTemplates, setShowAllTemplates] = useState(true);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getData("api/template");
-                const data = await response.json();
-                if(response.ok) {
-                    setTemp(data);
-                    console.log("templates were fetched successfully");
-                } else {
-                    console.log(data.error);
-                    console.log("template getting failed");
-                }
-            }catch(error) {
-                console.log("template getting failed" + error.message);
-            }
-        }
-        fetchData();
-    }, [refresh]);
 
     const renderComponent = () => {
         switch (currentView) {
             case 'addTemplate':
                 return (
                     <div className="mt-3" role="alert">
-                        <TemplateProvider  key={currentView}>
                             <Template
+                                key={currentView}
                                 headerName="Новая форма"
                                 url={SAVE_TEMPLATE_URL}
                                 btnName="Сохранить шаблон"
-
                             />
-                        </TemplateProvider>
                     </div>
                 );
             case 'myTemplates':
                 return (
                     <div className="mt-3" role="alert">
-                        <TemplateProvider  key={currentView}>
+                        <TemplateProvider  key="TemplateProvider">
                             <MyTemplates
-                                temp={temp}
+                                key="MyTemplates"
+                                filteredTemp={filteredTemp}
                                 setTemp={setTemp}
+                                temp={temp}
                                 editorAnchor={editorAnchor}
                                 setEditorAnchor={setEditorAnchor}
                                 showFormsTableAnchor={showFormsTableAnchor}
@@ -75,7 +53,7 @@ function Home() {
                 return (
                     <div className="mt-3" role="alert">
                         myForms
-                        <TemplateProvider key={currentView}>
+                        <TemplateProvider  key="TemplateProvider">
                             {/*<Template />*/}
                         </TemplateProvider>
                     </div>
@@ -86,11 +64,11 @@ function Home() {
     };
   return (
       <>
-          <Header/>
+          <Header key="Header"/>
           {
-              showAllTemplates ? (<AllTemplatesBlock temp={temp}/>): (
+              showAllTemplates ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
                   <>
-                      <div className="h-100 appBackground">
+                      <div className=" appBackground">
                           <div className=" p-5 container container_min_1200">
                               <div className=" screen_max_425 screen_min_425">
                                   <Link
@@ -119,9 +97,9 @@ function Home() {
                                       </MDBCard>
                                   </Link>
                               </div>
+                              {renderComponent()}
                           </div>
                       </div>
-                      {renderComponent()}
                   </>
               )
           }

@@ -5,7 +5,7 @@ class TemplateService {
 
 	static async getTemplate() {
 
-		return  await Template.findAll();
+		return  await Template.findAll({where: {disable: true}});
 	}
 	static async createTemplate(
 		title,
@@ -31,7 +31,7 @@ class TemplateService {
 	}
 
 	static async removeTemplate(id) {
-		return await Template.destroy({where: {id: id}});
+		return await Template.update({ disable: false },{where: {id: id}});
 	}
 }
 

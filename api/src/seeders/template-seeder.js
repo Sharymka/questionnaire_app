@@ -6,51 +6,6 @@ module.exports = {
 			{
 				id: 1,
 				userId: 1,
-				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729586264/planet_mvfsx5.jpg",
-				title: 'Шаблон на тему "Экология"',
-				topic: 'ecology',
-				description: 'Этот шаблон охватывает важные аспекты темы "Экология". Вопросы помогут вам глубже понять различные мнения и подходы к данной теме.',
-				tags: JSON.stringify([{ id: 13, label: 'Экология' }, { id: 1, label: 'Наука' }]),
-				questions: JSON.stringify([
-					{
-						id: 1,
-						name: "Что такое экология?",
-						access: "public",
-						answerType: "paragraph",
-						selectedUsers: [],
-						checkboxes: []
-					},
-					{
-						id: 2,
-						name: "Как экология влияет на наше здоровье?",
-						access: "public",
-						answerType: "paragraph",
-						selectedUsers: [],
-						checkboxes: []
-					},
-					{
-						id: 3,
-						name: "Какие основные проблемы экологии существуют?",
-						access: "public",
-						answerType: "paragraph",
-						selectedUsers: [],
-						checkboxes: []
-					},
-					{
-						id: 4,
-						name: "Что можно сделать для улучшения состояния экологии?",
-						access: "public",
-						answerType: "paragraph",
-						selectedUsers: [],
-						checkboxes: []
-					},
-				]),
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
-			{
-				id: 2,
-				userId: 1,
 				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729586264/merry_njpuyv.jpg",
 				title: 'Шаблон на тему "Свадьба"',
 				topic: 'wedding',
@@ -94,6 +49,53 @@ module.exports = {
 						checkboxes: []
 					},
 				]),
+				disable: true,
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
+			{
+				id: 2,
+				userId: 1,
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729586264/planet_mvfsx5.jpg",
+				title: 'Шаблон на тему "Экология"',
+				topic: 'ecology',
+				description: 'Этот шаблон охватывает важные аспекты темы "Экология". Вопросы помогут вам глубже понять различные мнения и подходы к данной теме.',
+				tags: JSON.stringify([{ id: 13, label: 'Экология' }, { id: 1, label: 'Наука' }]),
+				questions: JSON.stringify([
+					{
+						id: 1,
+						name: "Что такое экология?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 2,
+						name: "Как экология влияет на наше здоровье?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 3,
+						name: "Какие основные проблемы экологии существуют?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 4,
+						name: "Что можно сделать для улучшения состояния экологии?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+				]),
+				disable: true,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
@@ -143,6 +145,159 @@ module.exports = {
 						checkboxes: []
 					},
 				]),
+				disable: true,
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
+			{
+				id: 4,
+				userId: 2,
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1730099489/education_ebzc7v.jpg",
+				title: 'Шаблон на тему "Образование"',
+				topic: 'education',
+				description: 'Этот шаблон охватывает вопросы, связанные с образованием и обучением.',
+				tags: JSON.stringify([{ id: 5, label: 'Образование' }, { id: 1, label: 'Наука' }]),
+				questions: JSON.stringify([
+					{
+						id: 1,
+						name: "Какую роль образование играет в вашей жизни?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 2,
+						name: "Какие навыки вы хотели бы освоить?",
+						access: "public",
+						answerType: "singleLine",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 3,
+						name: "Какой уровень образования для вас важен?",
+						access: "public",
+						answerType: "checkboxes",
+						selectedUsers: [],
+						checkboxes: [
+							{ id: 1, value: "Среднее", selected: false },
+							{ id: 2, value: "Высшее", selected: false },
+							{ id: 3, value: "Дополнительное", selected: false }
+						]
+					},
+					{
+						id: 4,
+						name: "Какой формат обучения вам предпочтителен?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+				]),
+				disable: true,
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
+			// Новый шаблон для userId = 2 на тему "Работа"
+			{
+				id: 5,
+				userId: 2,
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1730099490/work_whopuu.jpg",
+				title: 'Шаблон на тему "Работа"',
+				topic: 'work',
+				description: 'Вопросы о карьере, профессиональном росте и работе.',
+				tags: JSON.stringify([{ id: 2, label: 'Технологии' }, { id: 19, label: 'Маркетинг' }]),
+				questions: JSON.stringify([
+					{
+						id: 1,
+						name: "Как вы описали бы свою идеальную работу?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 2,
+						name: "Какие навыки необходимы в вашей профессии?",
+						access: "public",
+						answerType: "checkboxes",
+						selectedUsers: [],
+						checkboxes: [
+							{ id: 1, value: "Коммуникация", selected: false },
+							{ id: 2, value: "Управление временем", selected: false },
+							{ id: 3, value: "Технические навыки", selected: false }
+						]
+					},
+					{
+						id: 3,
+						name: "Что вас вдохновляет в работе?",
+						access: "public",
+						answerType: "singleLine",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 4,
+						name: "Какие факторы влияют на ваш карьерный рост?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+				]),
+				disable: true,
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
+			// Новый шаблон для userId = 2 на тему "Мероприятие"
+			{
+				id: 6,
+				userId: 2,
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1730099489/event_nt6jym.jpg",
+				title: 'Шаблон на тему "Мероприятие"',
+				topic: 'event',
+				description: 'Шаблон для планирования и проведения мероприятий.',
+				tags: JSON.stringify([{ id: 12, label: 'Мероприятие' }, { id: 21, label: 'Праздник' }]),
+				questions: JSON.stringify([
+					{
+						id: 1,
+						name: "Какое мероприятие вы планируете?",
+						access: "public",
+						answerType: "singleLine",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 2,
+						name: "Какие ресурсы необходимы для проведения?",
+						access: "public",
+						answerType: "paragraph",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 3,
+						name: "Сколько гостей вы ожидаете?",
+						access: "public",
+						answerType: "singleLine",
+						selectedUsers: [],
+						checkboxes: []
+					},
+					{
+						id: 4,
+						name: "Какой стиль мероприятия вам нравится?",
+						access: "public",
+						answerType: "checkboxes",
+						selectedUsers: [],
+						checkboxes: [
+							{ id: 1, value: "Классический", selected: false },
+							{ id: 2, value: "Современный", selected: false },
+							{ id: 3, value: "Тематический", selected: false }
+						]
+					},
+				]),
+				disable: true,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
