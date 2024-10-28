@@ -1,18 +1,17 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {MDBInput} from "mdb-react-ui-kit";
 import {Link, useNavigate} from "react-router-dom";
 import {postData} from "../../Requests";
 import {AuthContext} from "./context/AuthContext";
 
 function SignIn() {
-    const { signIn } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const { signIn , isAuthenticated } = useContext(AuthContext);
     const [signInData, setSignInData] = React.useState({
         email: 'john.doe@example.com',
         password: '123'
     });
-    const [message, setMessage] = useState('');
-
-    const navigate = useNavigate();
 
     const handleFormChange = (field, value) => {
         setSignInData((prevState) => ({...prevState, [field]: value}));
@@ -26,18 +25,22 @@ function SignIn() {
 
             if (response.ok) {
                 console.log("SignIn successfully:", data);
-                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('userId', data.id);
                 signIn(data);
-                setMessage('');
-                navigate('/home');
             } else {
                 console.log("SignIn failed:", data.error);
-                setMessage(data.error);
             }
         }catch (error) {
             console.log("SignIn failed:", error.message);
         }
     }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            console.log(" userId in localStorage" + localStorage.getItem('userId'));
+            navigate('/home');
+        }
+    }, [isAuthenticated, navigate]);
 
   return (
       <section

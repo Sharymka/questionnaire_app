@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
-import {postData} from "../../../Requests";
-import {questionTopics} from "../../../const/const";
+import {getData, postData} from "../../../Requests";
+import {templates} from "../../../const/templates";
 
 export const TemplateContext = React.createContext(null);
 
@@ -11,6 +11,8 @@ function TemplateProvider({children}) {
 	const [description, setDescription] = React.useState('');
 	const [imgUrl, setImgUrl] = React.useState('');
 	const [question, setQuestion] = React.useState('');
+	const [temp, setTemp] = useState(templates);
+	const [filteredTemp, setFilteredTemp] = useState(templates);
 	const [questions, setQuestions] = useState([]);
 	const [answerType, setAnswerType] = React.useState('singleLine');
 	const [checkboxes, setCheckboxes] = React.useState([]);
@@ -30,6 +32,8 @@ function TemplateProvider({children}) {
 	const [questionTemplateAnchor, setQuestionTemplateAnchor ] = useState(false);
 	const [markdownHover, setMarkdownHover] = React.useState([]);
 	const [refresh, setRefresh] = React.useState(true);
+	const [showAllTemplates, setShowAllTemplates] = useState(false);
+	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
 
 	useEffect(() => {
 		resetTemplateStates();
@@ -63,7 +67,27 @@ function TemplateProvider({children}) {
 			);
 		}
 
-	}, [questions, checkboxes]); // Следим за изменениями questions
+	}, [questions, checkboxes]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await getData("api/template");
+				const data = await response.json();
+				if(response.ok) {
+					setTemp(data);
+					setFilteredTemp(data);
+					console.log("templates were fetched successfully");
+				} else {
+					console.log(data.error);
+					console.log("template getting failed");
+				}
+			}catch(error) {
+				console.log("template getting failed" + error.message);
+			}
+		}
+		fetchData();
+	}, [refresh]);
 
 	const saveTemplate = async (url)=> {
 		const requestData = {
@@ -193,6 +217,19 @@ function TemplateProvider({children}) {
 			)
 		);
 	}
+
+	const handleFilteredTemplate = (substring) => {
+
+		if(substring === '') {
+			setFilteredTemp(temp);
+			setShowAllTemplates(false);
+		}
+
+		const selectedTemplates = temp.filter((temp) => temp.tags.some((tag) => tag.label.toLowerCase().includes(substring.toLowerCase())));
+		setFilteredTemp(selectedTemplates);
+	};
+
+
 	const handleAccessLevel = (event) => {
 		setAccessLevel(event.target.value);
 		if(event.target.value === 'public'){
@@ -253,6 +290,9 @@ function TemplateProvider({children}) {
 		  setSelectedTags,
 		  questions,
 		  setQuestions,
+		  temp,
+		  setTemp,
+		  handleFilteredTemplate,
 		  handleAddQuestion,
 		  handleEditQuestion,
 		  handleEditorAnchor,
@@ -269,7 +309,12 @@ function TemplateProvider({children}) {
 		  markdownHover,
 		  setMarkdownHover,
 		  handleHoverMarkdown,
-		  refresh
+		  refresh,
+		  showAllTemplates,
+		  setShowAllTemplates,
+		  filteredTemp,
+		  showSelectedTemplate,
+		  setShowSelectedTemplate,
 	  }}>
 		  {children}
 	  </TemplateContext.Provider>

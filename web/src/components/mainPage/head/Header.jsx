@@ -5,7 +5,7 @@ import {
 	IconButton,
 	TextField,
 	Switch,
-	Box,
+	Box, Menu,
 } from '@mui/material';
 import { Search as SearchIcon, DarkMode, LightMode } from '@mui/icons-material';
 import SignOutBtn from './SignOutBtn';
@@ -13,9 +13,13 @@ import SignInBtn from './SignInBtn';
 import SignUpBtn from './SignUpBtn';
 import { AuthContext } from '../context/AuthContext';
 import LanguageSelector from "./LanguageSelector";
+import MenuComponent from "./MenuComponent";
+import {TemplateContext} from "../../userPage/contexts/TemplateContext";
+import MainPage from "../MainPage";
 
 function Header() {
 	const { isAuthenticated, user } = useContext(AuthContext);
+	const { handleFilteredTemplate, setShowAllTemplates } = useContext(TemplateContext);
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const [language, setLanguage] = useState('EN');
 	const [searchText, setSearchText] = useState('');
@@ -25,7 +29,9 @@ function Header() {
 	};
 
 	const handleSearchChange = (event) => {
+		setShowAllTemplates(true);
 		setSearchText(event.target.value);
+		handleFilteredTemplate(event.target.value);
 	};
 
 	const handleLanguageChange = (event) => {
@@ -34,6 +40,7 @@ function Header() {
 
 	return (
 		<AppBar
+			data-context="Header"
 			position="static"
 			sx={{ bgcolor: isDarkMode ? '#4A5568' : '#ffffff',
 				boxShadow: 2,
@@ -42,30 +49,34 @@ function Header() {
 			<Toolbar
 			className="justify-content-between h-100"
 			>
-				<Box
-					sx={{
-						display: 'flex',
-						alignItems: 'center',
-						mr: 2,
-						borderBottom: "1px solid #A0AEC0",
-						px: 1
-					}}
-				>
-					<SearchIcon
-						sx= {{ mr: 1, color: isDarkMode ? '#b9baba' : '#727476' }}
-						/>
-					<TextField
-						variant="standard"
-						size="small"
-						placeholder="Search..."
-						value={searchText}
-						onChange={handleSearchChange}
-						InputProps={{
-							disableUnderline: true,
-							sx: { color: isDarkMode ? '#f9fafb' : '#727476' }
+				<Toolbar>
+					<MenuComponent/>
+					<Box
+						sx={{
+							display: 'flex',
+							alignItems: 'center',
+							mr: 2,
+							borderBottom: "1px solid #A0AEC0",
+							px: 1
 						}}
-					/>
-				</Box>
+					>
+
+						<SearchIcon
+							sx= {{ mr: 1, color: isDarkMode ? '#b9baba' : '#727476' }}
+						/>
+						<TextField
+							variant="standard"
+							size="small"
+							placeholder="Search..."
+							value={searchText}
+							onChange={handleSearchChange}
+							InputProps={{
+								disableUnderline: true,
+								sx: { color: isDarkMode ? '#f9fafb' : '#727476' }
+							}}
+						/>
+					</Box>
+				</Toolbar>
 				<Toolbar>
 					<IconButton onClick={handleThemeChange} color="inherit" sx={{ mx: 1 }}>
 						{isDarkMode ? <DarkMode sx={{ color: '#A0AEC0' }} /> : <LightMode sx={{ color: '#4b525d' }} />}

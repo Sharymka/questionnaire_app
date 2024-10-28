@@ -11,7 +11,6 @@ import MessageBlock from "./reusableSimpleComp/MessageBlock";
 
 function CustomTemplateEditor(props) {
 
-  const { message } = useContext(TemplateContext);
   const {
       selectedTemplate,
       url,
@@ -22,18 +21,18 @@ function CustomTemplateEditor(props) {
       showFilledFormAnchor
   } = props;
 
+    const {
+        questions,
+        setQuestions,
+        saveTemplate,
+        handleAddQuestion,
+        questionTemplateAnchor,
+        setQuestionTemplateAnchor,
+        imgUrl,
+        message
+    } = useContext(TemplateContext);
+
   const [showModalAnchor, setShowModalAnchor] = useState(false);
-
-  const {
-      questions,
-      setQuestions,
-      saveTemplate,
-      handleAddQuestion,
-      questionTemplateAnchor,
-      setQuestionTemplateAnchor,
-      imgUrl
-  } = useContext(TemplateContext);
-
 
   return (
       <div>

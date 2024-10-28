@@ -15,14 +15,14 @@ function FilledForm(props) {
 	return (
 		<div>
 			<div className="card mb-2 card-background"
-			     style={{backgroundImage: `url(${filledForm.template.img})`}}></div>
+			     style={{backgroundImage: `url(${filledForm.template.img})`}}>
+			</div>
 			<TemplateHeader filledForm={filledForm} showFilledFormAnchor={showFilledFormAnchor}/>
 
 			<div className="d-flex flex-column gap-1">
 				{
 					filledForm.questions.map((question, index) => (
-						<>
-							<div className="card p-3">
+							<div key={index} className="card p-3">
 								<Typography
 									component="h6"
 									variant="h6"
@@ -38,9 +38,6 @@ function FilledForm(props) {
 								<div className="width-50 separator">
 								</div>
 							</div>
-
-						</>
-
 					))
 				}
 			</div>

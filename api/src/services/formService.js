@@ -14,7 +14,7 @@ class FormService {
 				},
 				{
 					model: Template,
-					attributes: ['topic', 'title'],
+					attributes: ['img', 'topic', 'title', 'description'],
 					as: 'template'
 				}
 			]

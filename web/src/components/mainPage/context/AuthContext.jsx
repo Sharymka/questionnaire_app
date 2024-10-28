@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
 
+	const navigate = useNavigate();
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [user, setUser] = useState({});
 
@@ -15,6 +17,7 @@ export const AuthProvider = ({ children }) => {
 	const signOut = () => {
 		setIsAuthenticated(false);
 		setUser({});
+		navigate('/')
 	};
 
 	return (

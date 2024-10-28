@@ -3,13 +3,14 @@ import {deleteData, getData} from "../../../Requests";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import CustomToolBlock from "../ReusableTemplate/body/realQuestions/CustomToolBlock";
-import {templates} from "../../../const/templates";
 import {SAVE_EDITED_TEMPLATE_URL} from "../../../url/url";
 import Template from "../ReusableTemplate/Template";
 import FormsTable from "./FormsTable";
 import {filledForms} from "../../../const/forms";
 import FilledForm from "./FilledForm";
 import {questionTopics} from "../../../const/const";
+import {templates} from "../../../const/templates";
+import {AuthContext} from "../../mainPage/context/AuthContext";
 import {TemplateContext} from "../contexts/TemplateContext";
 
 function MyTemplates(props) {
@@ -25,18 +26,46 @@ function MyTemplates(props) {
 	} = props;
 
 
+	const { user } = useContext(AuthContext);
+	const { refresh } = useContext(TemplateContext);
 	const [selectedTemplate, setSelectedTemplate] = useState({});
 	const [forms, setForms] = useState(filledForms);
 	const [filledForm,setFilledForm] = useState({});
+	const [myTemplates, setMyTemplates] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
-
+	useEffect(() => {
+		setSelectedTemplate({});
+		setIsLoading(true);
+		console.log('reset selected template -' +  Object.keys(selectedTemplate).length);
+		console.log('reset isLoading -' +  isLoading);
+		const fetchData = async () => {
+			try {
+				const response = await getData("api/template");
+				const data = await response.json();
+				if(response.ok) {
+					console.log('userId - ' + user.id);
+					setMyTemplates(data.filter((template) => template.userId == user.id));
+					console.log("templates were fetched successfully");
+				} else {
+					console.log(data.error);
+					console.log("template getting failed");
+				}
+			}catch(error) {
+				console.log("template getting failed" + error.message);
+			}finally {
+				setIsLoading(false);
+			}
+		}
+		fetchData();
+	}, [refresh]);
 
 	const handleDeleteTemplate = async(id) => {
 		try {
 			const response = await deleteData(`api/template/${id}`);
 			const data = await response.json();
 			if(response.ok) {
-				setTemp(prevState =>
+				setMyTemplates(prevState =>
 					prevState.filter((item) => item.id !== id) );
 				console.log("template was deleted successfully");
 			}else{
@@ -49,7 +78,7 @@ function MyTemplates(props) {
 
 	const handleEditorAnchor = (templateId) => {
 		console.log('templateId - ' + templateId);
-		setSelectedTemplate(temp.find((item, index) => item.id ===templateId));
+		setSelectedTemplate(myTemplates.find((item, index) => item.id === templateId));
 		setEditorAnchor(true);
 	};
 
@@ -64,6 +93,7 @@ function MyTemplates(props) {
 	  {
 		  showFormsTableAnchor ? (
 			  <FormsTable
+				  key="FormsTable"
 				  data-content="FormsTable"
 				  forms={forms}
 			      setForms={setForms}
@@ -71,11 +101,15 @@ function MyTemplates(props) {
 			      handleFilledForm={handleFilledForm}
 			  />
 		  ):showFilledFormAnchor && filledForm ?(
-			  <FilledForm filledForm={filledForm} showFilledFormAnchor={showFilledFormAnchor}/>
+			  <FilledForm  key="FilledForm" filledForm={filledForm} showFilledFormAnchor={showFilledFormAnchor}/>
 		  ): (
 			  editorAnchor ? (
+			  isLoading? (
+					  <p>Loading templates...</p>
+				  ): (
 				  <Template
 					  data-content="Template"
+					  key="Template"
 					  selectedTemplate={selectedTemplate}
 					  showFormsTableAnchor={showFormsTableAnchor}
 					  showFilledFormAnchor={showFilledFormAnchor}
@@ -84,8 +118,14 @@ function MyTemplates(props) {
 					  btnName={"Сохранить изменения"}
 					  headerName={"Шаблон"}
 				  />
-			  ): (
-				  <TableContainer data-context="TableContainer" component={Paper}>
+				  )
+
+			  ):
+				  isLoading? (
+					  <p>Loading templates...</p>
+				  ):
+				  (
+				  <TableContainer key="TableContainer" data-context="TableContainer" component={Paper}>
 					  <Table sx={{ minWidth: 650 }} aria-label=" border-radius-8 forms table">
 						  <TableHead>
 							  <TableRow>
@@ -97,7 +137,7 @@ function MyTemplates(props) {
 							  </TableRow>
 						  </TableHead>
 						  <TableBody>
-							  {temp?.map((template, index) => (
+							  {myTemplates?.map((template, index) => (
 								  <TableRow   className="table-row" key={template.title}>
 									  <TableCell  component="th" scope="row">
 										  {template.title}

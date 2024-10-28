@@ -58,6 +58,7 @@ function QuestionCard(props){
 				<div className="mb-3 width-50">
 					<AnswerField
 						data-content="AnswerField"
+						questions={questions}
 						question={question}
 						questionIndex={questionIndex}
 					/>
