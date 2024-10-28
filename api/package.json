@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon server.js && node src/migrations/migrate.js &&  npx sequelize-cli db:seed  --seed user-seeder.js && npx sequelize-cli db:seed  --seed template-seeder.js && npx sequelize-cli db:seed  --seed forms-seeder.js ",
     "install": "npm install"
   },
   "author": "",

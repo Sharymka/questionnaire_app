@@ -17,8 +17,8 @@ function MyTemplates(props) {
 	const {
 		temp,
 		setTemp,
-		editorAnchor,
-		setEditorAnchor,
+		// editorAnchor,
+		// setEditorAnchor,
 		showFormsTableAnchor,
 		setShowFormsTableAnchor,
 		setShowFilledFormAnchor,
@@ -33,6 +33,7 @@ function MyTemplates(props) {
 	const [filledForm,setFilledForm] = useState({});
 	const [myTemplates, setMyTemplates] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
+	const [editorAnchor, setEditorAnchor] = useState(false);
 
 	useEffect(() => {
 		setSelectedTemplate({});
@@ -110,6 +111,8 @@ function MyTemplates(props) {
 				  <Template
 					  data-content="Template"
 					  key="Template"
+					  editorAnchor={editorAnchor}
+					  setEditorAnchor={setEditorAnchor}
 					  selectedTemplate={selectedTemplate}
 					  showFormsTableAnchor={showFormsTableAnchor}
 					  showFilledFormAnchor={showFilledFormAnchor}
