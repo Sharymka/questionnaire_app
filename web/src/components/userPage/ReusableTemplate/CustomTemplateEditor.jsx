@@ -17,6 +17,7 @@ function CustomTemplateEditor(props) {
       btnName,
       headerName,
       showFormsTableAnchor,
+      setEditorAnchor,
       setShowFormsTableAnchor,
       showFilledFormAnchor
   } = props;
@@ -76,7 +77,11 @@ function CustomTemplateEditor(props) {
               <div className="align-self-end">
                   <Button className='p-3 btn-primary btn-block'
                           variant="contained"
-                          onClick={() => saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)}>
+                          onClick={() => {
+                              setEditorAnchor && setEditorAnchor(false)
+                              saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)}
+                          }
+                              >
                       {btnName}
                   </Button>
               </div>

@@ -6,6 +6,8 @@ import CustomTemplateEditor from "./CustomTemplateEditor";
 function Template(props) {
 
 	const {
+		setEditorAnchor,
+		editorAnchor,
 		showFormsTableAnchor,
 		setShowFormsTableAnchor,
 		selectedTemplate,
@@ -41,6 +43,8 @@ function Template(props) {
 		  url={url}
 		  btnName={btnName}
 		  headerName={headerName}
+		  editorAnchor={editorAnchor}
+		  setEditorAnchor={setEditorAnchor}
 		  selectedTemplate={selectedTemplate}
 		  showFilledFormAnchor={showFilledFormAnchor}
 		  showFormsTableAnchor={showFormsTableAnchor}
