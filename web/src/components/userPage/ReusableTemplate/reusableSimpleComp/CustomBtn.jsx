@@ -7,8 +7,8 @@ const CustomBtn = forwardRef((props, ref) => {
   return (
 	  <Button
 		  ref={ref}
-		  className='p-3 btn-primary btn-block'
 		  onClick={onClick}
+		  className='p-3 btn-primary btn-block'
 		  variant="contained"
 	  >
 		  {btnName}

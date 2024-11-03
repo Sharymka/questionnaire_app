@@ -7,14 +7,52 @@ import AnswerTypeSelector from "./AnswerTypeSelector";
 import NameOrEmailSorter from "../NameOrEmailSorter";
 import AutocompletePrivateUsers from "./AutocompletePrivateUsers";
 import CustomBtn from "../../reusableSimpleComp/CustomBtn";
+import CustomCheckBoxes from "../../reusableSimpleComp/CustomCheckBoxes";
+import useActionsCheckboxes from "../../../../hooks/useActionsCheckboxes";
 
 function QuestionTemplateBlock() {
 
-    const { accessLevel, handleAccessLevel } = useContext(TemplateContext);
   const btnRef = useRef(null);
-  const { answerType, showUsers, selectedUsers, handleAddCheckboxOption } = useContext(TemplateContext);
   const [ sortBy, setSortBy ] = useState('name');
+  const {
+      checkboxes,
+      answerType,
+      showUsers,
+      selectedUsers,
+      handleAddCheckboxOption,
+      accessLevel,
+      handleAccessLevel
+  } = useContext(TemplateContext);
 
+  const {
+      checkboxOnChange,
+      addOptionOnClick,
+      deleteOptionOnClick,
+      textFieldOnChange
+  } = useActionsCheckboxes();
+
+  const renderCheckboxes = () => (
+      answerType === 'checkboxes' &&
+      <div className="width-50">
+          <div className="width-100">
+              <CustomCheckBoxes
+                  // btnRef={btnRef}
+                  options={checkboxes}
+                  actions={{
+                      checkboxOnChange: checkboxOnChange,
+                      deleteOptionOnClick: deleteOptionOnClick,
+                      textFieldOnChange: textFieldOnChange
+                  }}
+              />
+          </div>
+          <CustomBtn
+              ref={btnRef}
+              btnName="Добавить вариант"
+              onClick={addOptionOnClick}
+          />
+      </div>
+
+  )
 
   return (
       <>
@@ -27,17 +65,7 @@ function QuestionTemplateBlock() {
                     <AnswerTypeSelector/>
                 </div>
             </div>
-            {
-                answerType === 'checkboxes' && (
-                    <div className="width-50">
-                        <div className="width-100">
-                            <CheckBoxes btnRef={btnRef} />
-                        </div>
-                        <CustomBtn ref={btnRef} btnName="Добавить вариант" onClick={handleAddCheckboxOption}/>
-                    </div>
-
-                )
-            }
+            {renderCheckboxes()}
         </div>
           <div className='width-50'>
               <AccessLevelSelector handleAccessLevel={handleAccessLevel} accessLevel={accessLevel}/>

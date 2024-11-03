@@ -14,7 +14,14 @@ export const answerTypeName = {
 	[CHECKBOXES]:'Флажки',
 };
 
-
+export const  textFieldNames = {
+	title: 'Название',
+	topic: 'Тема',
+	description: 'Описание',
+	tags: 'Теги',
+	question: 'задайте вопрос',
+	checkbox: 'введите вариант'
+}
 
 
 export const questionTopics = {

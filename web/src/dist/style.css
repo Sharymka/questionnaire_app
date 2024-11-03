@@ -146,6 +146,10 @@ code {
   width: 50%;
 }
 
+.fullWidth {
+  width: 100% !important;
+}
+
 .margin-right-70 {
   margin-right: 70px;
 }

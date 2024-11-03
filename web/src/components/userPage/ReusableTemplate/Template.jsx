@@ -1,56 +1,109 @@
-import React, {useContext, useEffect} from 'react';
-import {templates} from "../../../const/templates";
+import React, {useContext, useState} from 'react';
+import TemplateHeader from "./head/TemplateHeader";
+import QuestionList from "./body/realQuestions/QuestionList";
+import SidePanel from "./head/SidePanel";
+import QuestionTemplateBlock from "./body/questionTemplate/QuestionTemplateBlock";
+import {Box, Button, IconButton} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import {TemplateContext} from "../contexts/TemplateContext";
-import CustomTemplateEditor from "./CustomTemplateEditor";
+import ImageUploadModal from "./head/ImageUploadModal";
+import MessageBlock from "./reusableSimpleComp/MessageBlock";
+import withDataAttributes from "../../hocs/withDataAttributes";
 
 function Template(props) {
 
-	const {
-		setEditorAnchor,
-		editorAnchor,
-		showFormsTableAnchor,
-		setShowFormsTableAnchor,
-		selectedTemplate,
-		url,
-		btnName,
-		headerName,
-		showFilledFormAnchor
-	} = props;
+  const {
+      headerName,
+      btnName,
+      data,
+      actions,
+      url,
+      // selectedTemplate,
+      // showFormsTableAnchor,
+      // setEditorAnchor,
+      // setShowFormsTableAnchor,
+      showFilledFormAnchor
+  } = props;
 
-	const {
-		setTitle,
-		setTopic,
-		setDescription,
-		setSelectedTags,
-		setQuestions,
-		setImgUrl
-	} = useContext(TemplateContext);
+    const {
+        questions,
+        setQuestions,
+        saveTemplate,
+        handleAddQuestion,
+        // questionTemplateAnchor,
+        // setQuestionTemplateAnchor,
+        imgUrl,
+        message
+    } = useContext(TemplateContext);
 
-	useEffect(() => {
-		if (selectedTemplate) {
-			setImgUrl(selectedTemplate.img);
-			setTitle(selectedTemplate.title);
-			setTopic(selectedTemplate.topic);
-			setDescription(selectedTemplate.description);
-			setSelectedTags(selectedTemplate.tags);
-			setQuestions(selectedTemplate.questions);
-		}
-	}, [selectedTemplate]);
+  const [showModalAnchor, setShowModalAnchor] = useState(false);
+  const [questionTemplateAnchor, setQuestionTemplateAnchor ] = useState(false);
 
-	return (
-	  <CustomTemplateEditor
-		  data-content="CustomTemplateEditor"
-		  url={url}
-		  btnName={btnName}
-		  headerName={headerName}
-		  editorAnchor={editorAnchor}
-		  setEditorAnchor={setEditorAnchor}
-		  selectedTemplate={selectedTemplate}
-		  showFilledFormAnchor={showFilledFormAnchor}
-		  showFormsTableAnchor={showFormsTableAnchor}
-		  setShowFormsTableAnchor={setShowFormsTableAnchor}
-	  />
+  const renderImageUploadModal = () => (
+        showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />
+  );
+
+  const renderImageCard = () => (
+        imgUrl && <div className="card mb-2 card-background" style={{ backgroundImage: `url(${imgUrl})` }}></div>
+  );
+
+  const renderQuestionTemplate = () => (
+      questionTemplateAnchor &&
+          <div className="p-4 d-flex flex-column gap-5 mt-3 relativePosition">
+              <div className="absolute_right_corner_pos">
+                  <Box>
+                      <IconButton
+                          onClick={handleAddQuestion}
+                      >
+                          <AddIcon/>
+                      </IconButton>
+                  </Box>
+              </div>
+              <QuestionTemplateBlock/>
+          </div>
+  );
+
+
+  return (
+      <div>
+          <SidePanel
+              showQuestionTemp={questionTemplateAnchor}
+              addQuestionOnClick={setQuestionTemplateAnchor}
+              showImgModalOnClick={setShowModalAnchor}
+              // selectedTemplate={selectedTemplate}
+              // setShowFormsTableAnchor={setShowFormsTableAnchor}
+              // showFormsTableAnchor={showFormsTableAnchor}
+          />
+          <>
+              {renderImageUploadModal()}
+              {renderImageCard()}
+          </>
+          <TemplateHeader
+              headerName={headerName}
+              data={data}
+              actions={actions}
+              // filledForm
+              // showFilledFormAnchor={showFilledFormAnchor}
+          />
+          <QuestionList setQuestions={setQuestions} questions={questions}/>
+          <div className="card d-flex p-4 mt-3 flex-column">
+              { renderQuestionTemplate()}
+
+              <div className="align-self-end">
+                  <Button className='p-3 btn-primary btn-block'
+                          variant="contained"
+                          onClick={() => {
+                              setEditorAnchor && setEditorAnchor(false)
+                              saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)}
+                          }
+                              >
+                      {btnName}
+                  </Button>
+              </div>
+          </div>
+          <MessageBlock message={message} />
+      </div>
   );
 }
-
-export default Template;
+Template.displayName = "Template";
+export default withDataAttributes(Template);

@@ -2,129 +2,141 @@ import React, {useContext, useEffect, useRef} from 'react';
 import {Box, TextField} from "@mui/material";
 import CustomMarkDown from "../CustomMarkDown";
 import {TemplateContext} from "../../contexts/TemplateContext";
+import ReactMarkdown from 'react-markdown';
+import withTextFieldWrap from "../../../hocs/withTextFieldWrap";
+import {textFieldNames} from "../../../../const/const";
+import {getFieldValue} from "../../../../utilits/getFieldValue";
 
 
 function CustomTextField(props) {
 
-    const { markdownHover, handleHoverMarkdown } = useContext(TemplateContext);
+    // const { markdownHover, handleHoverMarkdown } = useContext(TemplateContext);
 
     const {
-        label='',
+        value, //приходит объект типа {title: value}
+        onChange,//приходит обычная функция типа setTitle
         classes,
-        value,
-        placeholder,
-        onChange,
-        btnRef,
+        placeholder="Введите текст",
+        variant = 'standard',
+        textFieldOptions ={},
+        // btnRef,
         optionId = null,
-        variant,
-        multiline =false,
-        minRows='',
-        maxRows='',
-        rows='',
     } = props;
-    const [hover, setHover] = React.useState(false);
+
+    const {
+        multiline = false,
+        minRows = '',
+        maxRows = '',
+        rows = '',
+    } = textFieldOptions;
+
+    const firstKey = value && Object.keys(value)[0];
+    const label  = firstKey && firstKey in textFieldNames ? textFieldNames[firstKey] : 'Неизвестное поле';
+    const fieldValue = getFieldValue(value, firstKey);
+
     const textFieldRef = useRef(null);
-    const parentBlockRef = useRef(null);
 
-    const foundItem = markdownHover?.find((item) => item.id === optionId);
+    // const foundItem = markdownHover?.find((item) => item.id === optionId);
 
-    const applyFormat = (format) => {
+    // const applyFormat = (format) => {
+    //     const input = textFieldRef.current?.querySelector('textarea') || textFieldRef.current?.querySelector('input');
+    //     const selectionStart = input.selectionStart;
+    //     const selectionEnd = input.selectionEnd;
+    //     const selectedText = value.substring(selectionStart, selectionEnd);
+    //
+    //     if (!selectedText) return;
+    //
+    //     let formattedText = '';
+    //
+    //     switch (format) {
+    //         case 'bold':
+    //             formattedText = `**${selectedText}**`;
+    //             break;
+    //         case 'italic':
+    //             formattedText = `*${selectedText}*`;
+    //             break;
+    //         case 'underline':
+    //             formattedText = `__${selectedText}__`;
+    //             break;
+    //         case 'clear':
+    //             formattedText = selectedText.replace(/(\*\*|\*|__|_)/g, '');
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //
+    //     const newDescription =
+    //         value.slice(0, selectionStart) +
+    //         formattedText +
+    //         value.slice(selectionEnd);
+    //
+    //     onChange(newDescription);
+    //
+    //     setTimeout(() => {
+    //         input.setSelectionRange(selectionStart + formattedText.length, selectionStart + formattedText.length);
+    //         input.focus();
+    //     }, 0);
+    // };
 
-        const input = textFieldRef.current?.querySelector('textarea') || textFieldRef.current?.querySelector('input');
-        const selectionStart = input.selectionStart;
-        const selectionEnd = input.selectionEnd;
-        const selectedText = value.substring(selectionStart, selectionEnd);
-
-        if (!selectedText) return;
-
-        let formattedText = '';
-
-        switch (format) {
-            case 'bold':
-                formattedText = `**${selectedText}**`;
-                break;
-            case 'italic':
-                formattedText = `*${selectedText}*`;
-                break;
-            case 'underline':
-                formattedText = `__${selectedText}__`;
-                break;
-            case 'clear':
-                formattedText = selectedText.replace(/(\*\*|\*|__|_)/g, '');
-                break;
-            default:
-                break;
-        }
-
-        const newDescription =
-            value.slice(0, selectionStart) +
-            formattedText +
-            value.slice(selectionEnd);
-
-        onChange(newDescription);
-
-        setTimeout(() => {
-            input.setSelectionRange(selectionStart + formattedText.length, selectionStart + formattedText.length);
-            input.focus();
-        }, 0);
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-
-            if (!parentBlockRef.current && !parentBlockRef.current.contains(event.target) && btnRef?.current === event.target){
-                handleHoverMarkdown();
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //
+    //         if (!parentBlockRef.current && !parentBlockRef.current.contains(event.target) && btnRef?.current === event.target){
+    //             handleHoverMarkdown();
+    //         }
+    //     };
+    //
+    //     document.addEventListener('mousedown', handleClickOutside);
+    //
+    //     return () => {
+    //         document.removeEventListener('mousedown', handleClickOutside);
+    //     };
+    // }, []);
 
     const handleChange = (event) => {
         if (typeof onChange === 'function') {
-            onChange(event.target.value, optionId);
+            if (optionId !== null) {
+                onChange(event.target.value, optionId);
+            } else {
+                onChange(event.target.value);
+            }
         } else {
             console.error('onChange is not a function:', onChange);
         }
     };
 
-  return (
-    <div  className="flex-grow-1" ref={parentBlockRef}>
+
+    return (
         <TextField
+            value={fieldValue}
+            onChange={handleChange}
             ref={textFieldRef}
-            className={classes + "w-100"}
+            className={`fullWidth ${classes}`}
             label={label}
             placeholder={placeholder}
             fullWidth
-            margin="normal"
             variant={variant}
-            value={value}
-            onChange={handleChange}
+            margin="normal"
             multiline={multiline}
             minRows={minRows}
             maxRows={maxRows}
             rows={rows}
-            onClick={() => handleHoverMarkdown(optionId)}
+            // onClick={() => handleHoverMarkdown(optionId)}
         />
-        {
-            <div className={`custom-markdown ${foundItem?.value === true ? 'show' : ''}`}>
-                {foundItem?.value === true ? (
-                    <>
-                        <CustomMarkDown applyFormat={applyFormat}/>
-                    </>
-                ) : (
-                    <>
-                        {/*<ReactMarkdown>{value}</ReactMarkdown>*/}
-                    </>
-                )}
-            </div>
-        }
-
-    </div>);
+        // {/*{*/}
+        // {/*    <div className={`custom-markdown ${foundItem?.value === true ? 'show' : ''}`}>*/}
+        // {/*        {foundItem?.value === true ? (*/}
+        // {/*            <>*/}
+        // {/*                <CustomMarkDown applyFormat={applyFormat}/>*/}
+        // {/*            </>*/}
+        // {/*        ) : (*/}
+        // {/*            <>*/}
+        // {/*                <ReactMarkdown>{value}</ReactMarkdown>*/}
+        // {/*            </>*/}
+        // {/*        )}*/}
+        // {/*    </div>*/}
+        // {/*}*/}
+    );
 }
 
-export default CustomTextField;
+export default withTextFieldWrap(CustomTextField);
