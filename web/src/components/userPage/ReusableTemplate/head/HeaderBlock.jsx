@@ -2,39 +2,38 @@ import React, {useContext} from 'react';
 import {Typography} from "@mui/material";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {SAVE_ICON_URL} from "../../../../url/url";
+import withDataAttributes from "../../../hocs/withDataAttributes";
+import withAuthorFormData from "../../../hocs/withAuthorFormData";
 
-const HeaderBlock = ({
-	                     headerName,
-	                    LeftComponent,
-	                    RightComponent,
-	                    DescriptionComponent,
-	                    TagsComponent,
-	                    filledForm
-                    }) => {
+const HeaderBlock = (props) => {
+
+	const {
+		filledForm,
+		headerName,
+		TitleComponent,
+		TopicComponent,
+		DescriptionComponent,
+		TagsComponent,
+	} = props;
 
 	return (
-		<div className="p-4 card mb-3 position-relative">
+		<>
 			<Typography variant="h5">{headerName}</Typography>
 			<div className="d-flex flex-row justify-content-between align-items-center gap-5">
 				<div className="flex-grow-1">
-					{LeftComponent}
+					{TitleComponent}
 				</div>
 				<div className="flex-grow-1">
-					{RightComponent}
+					{TopicComponent}
 				</div>
 			</div>
 				{DescriptionComponent}
+			<div className="mt-3">
 				{TagsComponent}
-				{
-					filledForm?.user? (
-						<div className="absolute_right_bottom_corner">
-							<Typography component="em" className="label">Автор</Typography>
-							<Typography component="em" className="font_size_08rem">{filledForm.user.first_name + ' ' + filledForm.user.last_name}</Typography>
-						</div>
-					):(<></>)
-				}
-		</div>
+			</div>
+
+		</>
 	);
 };
 
-export default HeaderBlock;
+export default withAuthorFormData(withDataAttributes(HeaderBlock));

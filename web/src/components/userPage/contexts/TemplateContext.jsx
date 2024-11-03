@@ -9,7 +9,9 @@ function TemplateProvider({children}) {
 	const [title, setTitle] = React.useState('');
 	const [topic, setTopic] = React.useState('education');
 	const [description, setDescription] = React.useState('');
+	const [tags, setTags] = useState([]);
 	const [imgUrl, setImgUrl] = React.useState('');
+
 	const [question, setQuestion] = React.useState('');
 	const [temp, setTemp] = useState(templates);
 	const [filteredTemp, setFilteredTemp] = useState(templates);
@@ -18,7 +20,6 @@ function TemplateProvider({children}) {
 	const [checkboxes, setCheckboxes] = React.useState([]);
 	const [accessLevel, setAccessLevel] =  useState('public');
 	const [selectedUsers, setSelectedUsers] = React.useState([]);
-	const [selectedTags, setSelectedTags] = useState([]);
 	const [message, setMessage] = React.useState('');
 	const [editorAnchor, setEditorAnchor] = React.useState(
 		questions && questions.length > 0
@@ -29,7 +30,7 @@ function TemplateProvider({children}) {
 	const [privateUsersAnchor, setPrivateUsersAnchor] = React.useState(questions && questions.length > 0
 		? questions.map((question, index) => ({ id: index, privateUsersAnchorValue: question?.access === "restricted" }))
 		: [] );
-	const [questionTemplateAnchor, setQuestionTemplateAnchor ] = useState(false);
+
 	const [markdownHover, setMarkdownHover] = React.useState([]);
 	const [refresh, setRefresh] = React.useState(true);
 	const [showAllTemplates, setShowAllTemplates] = useState(false);
@@ -95,7 +96,7 @@ function TemplateProvider({children}) {
 			topic:topic,
 			description:description,
 			questions:questions,
-			tags:selectedTags,
+			tags:tags,
 			img:imgUrl
 		}
 		try {
@@ -129,42 +130,15 @@ function TemplateProvider({children}) {
 		setTopic(event.target.value);
 	}
 
-	const handleAnswerType = (event) => {
-		const newAnswerType = event.target.value;
-		setAnswerType(newAnswerType);
-		if(newAnswerType !== 'checkboxes') {
-			setCheckboxes([]);
-		}
+	const handleAnswerType = (value) => {
+
+		setAnswerType(value);
+		value === 'checkboxes' || setCheckboxes([]);
 	}
 
-	const handleCheckboxes = (event) => {
-		setCheckboxes((prevState) =>
-			prevState.map((option) => {
-				console.log("event.target.value - " + event.target.value);
-				console.log("option.id - " + option.id);
-				if(option.id === parseInt(event.target.value)) {
-					return {...option, selected: true}
-				}else {
-					return {...option, selected: false}
-				}
 
-			})
-		);
-	};
 
-	const handleAddCheckboxOption = () => {
-		setCheckboxes([...checkboxes, { id:checkboxes.length + 1, value: '', selected: false }]);
-	};
 
-	const handleDeleteCheckboxOption = (selectedId) => {
-		setCheckboxes(prevState => (prevState.filter((option, index)=> option.id!== selectedId)));
-	};
-
-	const handleCheckboxTextField = (value, selectedId)=> {
-		setCheckboxes((prevState) => (
-			prevState.map((option, index)=> option.id === selectedId ? {...option, value: value}  : option )
-		));
-	}
 
 	const handleAddQuestion = () => {
 		setQuestions((prevState) => [...prevState, {
@@ -174,7 +148,7 @@ function TemplateProvider({children}) {
 			access: accessLevel,
 			selectedUsers: selectedUsers,
 		}])
-		setQuestionTemplateAnchor(false);
+		// setQuestionTemplateAnchor(false);
 		resetEditorAnchor();
 		resetQuestionStates();
 	}
@@ -197,7 +171,7 @@ function TemplateProvider({children}) {
 		setTopic('education');
 		setDescription('');
 		setQuestions([]);
-		setSelectedTags([]);
+		setTags([]);
 		setShowUsers(false);
 
 	}
@@ -265,16 +239,18 @@ function TemplateProvider({children}) {
   return (
 	  <TemplateContext.Provider value={{
 		  title,
-		  setTitle,
 		  topic,
-		  setTopic,
-		  handleTopic,
 		  description,
+		  tags,
+		  imgUrl,
+		  setTitle,
+		  setTopic,
 		  setDescription,
+		  setTags,
+		  setImgUrl,
+		  handleTopic,
 		  setQuestion,
 		  question,
-		  imgUrl,
-		  setImgUrl,
 		  answerType,
 		  handleAnswerType,
 		  checkboxes,
@@ -286,8 +262,6 @@ function TemplateProvider({children}) {
 		  setAccessLevel,
 		  selectedUsers,
 		  setSelectedUsers,
-		  selectedTags,
-		  setSelectedTags,
 		  questions,
 		  setQuestions,
 		  temp,
@@ -303,8 +277,8 @@ function TemplateProvider({children}) {
 		  privateUsersAnchor,
 		  setPrivateUsersAnchor,
 		  saveTemplate,
-		  questionTemplateAnchor,
-		  setQuestionTemplateAnchor,
+		  // questionTemplateAnchor,
+		  // setQuestionTemplateAnchor,
 		  message,
 		  markdownHover,
 		  setMarkdownHover,

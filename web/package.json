@@ -2,8 +2,10 @@
   "name": "web",
   "version": "0.1.0",
   "dependencies": {
+    "@babel/plugin-transform-react-display-name": "^7.25.9",
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.21.0",
+    "@craco/craco": "^7.1.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.1.0",
@@ -36,7 +38,7 @@
   "scripts": {
     "start": "react-scripts start",
     "prepare:static": "cp -r build ../api",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch:build": "nodemon --watch src --ext js,jsx,scss,json --exec \"npm run build && npm run prepare:static\""

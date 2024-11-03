@@ -3,7 +3,7 @@ import {TemplateContext} from "../../../contexts/TemplateContext";
 import CustomCheckBoxes from "../../reusableSimpleComp/CustomCheckBoxes";
 function CheckBoxes(props) {
 
-    const { btnRef } = props;
+  const { btnRef } = props;
   const {
       checkboxes,
       handleCheckboxes,

@@ -9,23 +9,23 @@ import FormControl from "@mui/material/FormControl";
 function CustomFormControlSelect(props) {
 
   const {
-	  classes='',
-	  name,
-	  options,
-	  value,
-	  onChange,
+	  value, // приходит просто строка '' или 'назавние'
+	  onChange, // приходит просто функция типа setTopic
+	  options, //приходит массив вариантов для селектора
+	  label, // просто строка
+	  classes,
   } = props;
 
   return (
 		  <FormControl
-			  className={classes + "w-100"}
+			  className={`fullWidth ${classes}`}
 		  >
-			  <InputLabel>{name}</InputLabel>
+			  <InputLabel>{label}</InputLabel>
 			  <Select
 				  value={value}
 				  displayEmpty
-				  onChange={onChange}
-				  input={<OutlinedInput label={name} />}
+				  onChange={(event) => {onChange(event.target.value)}}
+				  input={<OutlinedInput label={label} />}
 			  >
 				  {Object.keys(options).map((name,index) => (
 					  <MenuItem key={index} value={name}>

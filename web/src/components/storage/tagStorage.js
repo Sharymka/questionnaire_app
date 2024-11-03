@@ -1,8 +1,15 @@
 import {initialTags} from "../../const/const";
 
-export const loadTags = () => {
-	const savedTags = JSON.parse(localStorage.getItem('tags'));
-	return savedTags || initialTags;
+
+export const setTags = () => {
+	if (!localStorage.getItem('tags')) {
+		localStorage.setItem('tags', JSON.stringify(initialTags));
+	}
+	return JSON.parse(localStorage.getItem('tags'));
+};
+
+export const getTags = () => {
+	return JSON.parse(localStorage.getItem('tags')) || [];
 };
 
 export const saveTags = (tags) => {

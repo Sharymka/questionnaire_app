@@ -10,10 +10,10 @@ import CustomFormControlSelect from "../../reusableSimpleComp/CustomFormControlS
 	return (
 		<div className="flex-grow-08 margin-right-60">
 			<CustomFormControlSelect
-				name="Ответы"
 				value={answerType}
 				onChange={handleAnswerType}
 				options={answerTypeName}
+				label="Ответы"
 			/>
 		</div>
 

@@ -2,16 +2,28 @@ import React, {useContext,  useState} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import TemplateProvider, {TemplateContext} from "./contexts/TemplateContext";
-import MyTemplates from "./MyTemplates/MyTemplates";
-import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./ReusableTemplate/Template";
 import Header from "../mainPage/head/Header";
 import AllTemplatesBlock from "./AllTemplatesBlock";
 
 function Home() {
 
-    const { filteredTemp, setTemp } = useContext(TemplateContext);
-    const { showAllTemplates, temp } = useContext(TemplateContext);
+    const {
+        title,
+        topic,
+        description,
+        tags,
+        imgUrl,
+        setTitle,
+        setTopic,
+        setDescription,
+        setTags,
+        setImgUrl,
+        showAllTemplates,
+        filteredTemp,
+        setTemp,
+        temp
+    } = useContext(TemplateContext);
     const [currentView, setCurrentView] = React.useState(null);
     const [editorAnchor, setEditorAnchor] = useState(false);
     const [showFormsTableAnchor, setShowFormsTableAnchor] = useState(false);
@@ -23,41 +35,54 @@ function Home() {
                 return (
                     <div className="mt-3" role="alert">
                             <Template
-                                key={currentView}
                                 headerName="Новая форма"
-                                url={SAVE_TEMPLATE_URL}
                                 btnName="Сохранить шаблон"
+                                data={{
+                                    title: title,
+                                    topic: topic,
+                                    description: description,
+                                    tags: tags,
+                                    imgUrl: imgUrl
+                                }}
+                                actions={{
+                                    setTitle: setTitle,
+                                    setTopic: setTopic,
+                                    setDescription: setDescription,
+                                    setTags: setTags,
+                                    setImgUrl: setImgUrl
+                                }}
+                                // url={SAVE_TEMPLATE_URL}
                             />
                     </div>
                 );
-            case 'myTemplates':
-                return (
-                    <div className="mt-3" role="alert">
-                        <TemplateProvider  key="TemplateProvider">
-                            <MyTemplates
-                                key="MyTemplates"
-                                filteredTemp={filteredTemp}
-                                setTemp={setTemp}
-                                temp={temp}
-                                editorAnchor={editorAnchor}
-                                setEditorAnchor={setEditorAnchor}
-                                showFormsTableAnchor={showFormsTableAnchor}
-                                setShowFormsTableAnchor={setShowFormsTableAnchor}
-                                setShowFilledFormAnchor={setShowFilledFormAnchor}
-                                showFilledFormAnchor={showFilledFormAnchor}
-                            />
-                        </TemplateProvider>
-                    </div>
-                );
-            case 'myForms':
-                return (
-                    <div className="mt-3" role="alert">
-                        myForms
-                        <TemplateProvider  key="TemplateProvider">
-                            {/*<Template />*/}
-                        </TemplateProvider>
-                    </div>
-                );
+            // case 'myTemplates':
+            //     return (
+            //         <div className="mt-3" role="alert">
+            //             <TemplateProvider  key="TemplateProvider">
+            //                 <MyTemplates
+            //                     key="MyTemplates"
+            //                     filteredTemp={filteredTemp}
+            //                     setTemp={setTemp}
+            //                     temp={temp}
+            //                     editorAnchor={editorAnchor}
+            //                     setEditorAnchor={setEditorAnchor}
+            //                     showFormsTableAnchor={showFormsTableAnchor}
+            //                     setShowFormsTableAnchor={setShowFormsTableAnchor}
+            //                     setShowFilledFormAnchor={setShowFilledFormAnchor}
+            //                     showFilledFormAnchor={showFilledFormAnchor}
+            //                 />
+            //             </TemplateProvider>
+            //         </div>
+            //     );
+            // case 'myForms':
+            //     return (
+            //         <div className="mt-3" role="alert">
+            //             myForms
+            //             <TemplateProvider  key="TemplateProvider">
+            //                 {/*<Template />*/}
+            //             </TemplateProvider>
+            //         </div>
+            //     );
             default:
                 return null;
         }

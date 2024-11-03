@@ -1,53 +1,19 @@
 import React from 'react';
 import { Typography } from "@mui/material";
+import {textFieldNames} from "../../../../const/const";
+import {getFieldValue} from "../../../../utilits/getFieldValue";
 
 function CustomTypography(props) {
 
 	const { value } = props;
-	const firstKey = Object.keys(value)[0];
-
-	const renderComponent = (value, firstKey) => {
-		switch (firstKey) {
-			case "title":
-				return (
-					<div>
-						<Typography component="span" className="label">Название</Typography>
-						<Typography component="span" className="font_size_1rem">{value[firstKey]}</Typography>
-						<div className="separator"></div>
-					</div>
-				);
-			case "topic":
-				return (
-					<>
-						<div>
-							<Typography component="span" className="label">Тема</Typography>
-							<Typography component="span" className="font_size_1rem">{value[firstKey]}</Typography>
-						</div>
-						<div className="separator"></div>
-					</>
-				);
-			case "description":
-				return (
-					<div className="mt-3">
-						<div>
-							<Typography component="span" className="label">Описание</Typography>
-							<Typography component="span" className="font_size_1rem">{value[firstKey]}</Typography>
-						</div>
-					</div>
-
-				);
-			default:
-				return (
-					<div>
-						<Typography component="span" className="label">Неизвестное поле:</Typography>
-						<Typography component="span" className="font_size_1rem">{value[firstKey]}</Typography>
-					</div>
-				);
-		}
-	};
-
+	const firstKey = value && Object.keys(value)[0];
+	const label = firstKey && firstKey in textFieldNames ? textFieldNames[firstKey] : 'Неизвестное поле';
+	const fieldValue = getFieldValue(value, firstKey);
 	return (
-		renderComponent(value, firstKey)
+		<div>
+			<Typography component="span" className="label">{label}</Typography>
+			<Typography component="span" className="font_size_1rem">{fieldValue}</Typography>
+		</div>
 	);
 }
 

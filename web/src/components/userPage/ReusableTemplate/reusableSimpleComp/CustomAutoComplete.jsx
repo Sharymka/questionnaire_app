@@ -6,49 +6,51 @@ import TextField from "@mui/material/TextField";
 function CustomAutoComplete(props) {
 
     const [inputValue, setInputValue] = useState('');
-const {
-    value,
-    customOptions,
-    label,
-    placeholder,
-    handleValue,
-    addNewOption,
-    deleteTag,
-    getOptionLabel,
-    getTagLabel,
-    sortBy,
-    variant="outlined",
-} = props;
+    const {
+        value,
+        options,
+        label,
+        getOptionLabel,
+        getTagChipLabel,
+        addTags,
+        addNewOptionTag,
+        deleteTag,
+        placeholder,
+        sortBy='',
+        variant="outlined",
+    } = props;
 
   return (
       <Autocomplete
           multiple
           freeSolo
-          className="w-100"
-          id="fixed-tags-demo"
+          className='fullWidth'
           value={value}
           inputValue={inputValue}
           onInputChange={(event, newInputValue) => {
-              if (addNewOption) {
+
+              if (addNewOptionTag) {
                   setInputValue(newInputValue);
               }
           }}
           onChange={(event, newSelectedOption) => {
+              //захватывает объект с введенным значением в input(состояние inputValue) или из предложенных вариантов
+              //варианты ['Веселье'] или [{id: 1, label:'Наука'}]
               event.preventDefault();
-              if(newSelectedOption) {
-                  if (typeof newSelectedOption[newSelectedOption?.length - 1] === 'string') {
-                      const newTag = newSelectedOption[newSelectedOption?.length - 1];
-                      if(addNewOption) {
-                          addNewOption(newTag);
-                          handleValue(Array.of({id:customOptions?.length + 1, label:newTag}));
+              const selectedTag = newSelectedOption[newSelectedOption.length - 1];
+
+                  if (typeof selectedTag === 'string') {
+                      if(addNewOptionTag) {
+                          addNewOptionTag(selectedTag);
+                          addTags({id:options?.length + 1, label:selectedTag});
                       }
                       setInputValue('');
                   } else {
-                      handleValue(newSelectedOption);
+                      addTags(selectedTag);
                   }
               }
-          }}
-          options={customOptions}
+          }
+          options={options}
           getOptionLabel={getOptionLabel}
 
           renderTags={(tagValue, getTagProps) =>
@@ -60,7 +62,7 @@ const {
                             marginBottom: variant === "standard" ? '8px!important' : '0px'
                         }}
                         key={key}
-                        label={getTagLabel(option, sortBy)}
+                        label={getTagChipLabel(option, sortBy)}
                         {...tagProps}
                         onDelete={(event) => {
                             event.preventDefault();
@@ -70,7 +72,6 @@ const {
                 );
               })
           }
-          style={{width: 500 }}
           renderInput={(params) => (
               <TextField
                   {...params}
