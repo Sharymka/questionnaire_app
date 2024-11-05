@@ -26,7 +26,6 @@ function TemplateProvider({children}) {
 			? questions.map((question, index) => ({ id: index, editorAnchorValue: false }))
 			: []
 	);
-	const [showUsers , setShowUsers] = React.useState(false);
 	const [privateUsersAnchor, setPrivateUsersAnchor] = React.useState(questions && questions.length > 0
 		? questions.map((question, index) => ({ id: index, privateUsersAnchorValue: question?.access === "restricted" }))
 		: [] );
@@ -141,13 +140,27 @@ function TemplateProvider({children}) {
 
 
 	const handleAddQuestion = () => {
-		setQuestions((prevState) => [...prevState, {
-			name: question,
-			answerType: answerType,
-			checkboxes: checkboxes,
-			access: accessLevel,
-			selectedUsers: selectedUsers,
-		}])
+		// setQuestions((prevState) => [...prevState, {
+		// 	name: question,
+		// 	answerType: answerType,
+		// 	checkboxes: checkboxes,
+		// 	access: accessLevel,
+		// 	selectedUsers: selectedUsers,
+		// }])
+		setQuestions((prevState) => {
+			const updatedQuestions = [...prevState];
+			const lastIndex = updatedQuestions.length - 1;
+			updatedQuestions[lastIndex] = {
+				...updatedQuestions[lastIndex],
+				add: 'true',
+			};
+
+			return updatedQuestions;
+		});
+
+
+
+
 		// setQuestionTemplateAnchor(false);
 		resetEditorAnchor();
 		resetQuestionStates();
@@ -163,7 +176,7 @@ function TemplateProvider({children}) {
 		setAccessLevel('public');
 		setCheckboxes([]);
 		setSelectedUsers([]);
-		setShowUsers(false);
+		// setShowUsers(false);
 	}
 
 	const resetTemplateStates = ()=> {
@@ -172,7 +185,7 @@ function TemplateProvider({children}) {
 		setDescription('');
 		setQuestions([]);
 		setTags([]);
-		setShowUsers(false);
+		// setShowUsers(false);
 
 	}
 
@@ -204,15 +217,6 @@ function TemplateProvider({children}) {
 	};
 
 
-	const handleAccessLevel = (event) => {
-		setAccessLevel(event.target.value);
-		if(event.target.value === 'public'){
-			setShowUsers(false);
-			setSelectedUsers([]);
-		}else {
-			setShowUsers(true);
-		}
-	}
 
 	const handleEditorAnchor = (questionIndex) => {
 		setEditorAnchor((prevState) =>
@@ -254,10 +258,11 @@ function TemplateProvider({children}) {
 		  answerType,
 		  handleAnswerType,
 		  checkboxes,
-		  handleCheckboxes,
-		  handleAddCheckboxOption,
-		  handleDeleteCheckboxOption,
-		  handleCheckboxTextField,
+		  setCheckboxes,
+		  // handleCheckboxes,
+		  // handleAddCheckboxOption,
+		  // handleDeleteCheckboxOption,
+		  // handleCheckboxTextField,
 		  accessLevel,
 		  setAccessLevel,
 		  selectedUsers,
@@ -272,8 +277,8 @@ function TemplateProvider({children}) {
 		  handleEditorAnchor,
 		  handleDeleteQuestion,
 		  editorAnchor,
-		  handleAccessLevel,
-		  showUsers,
+		  // handleAccessLevel,
+		  // showUsers,
 		  privateUsersAnchor,
 		  setPrivateUsersAnchor,
 		  saveTemplate,

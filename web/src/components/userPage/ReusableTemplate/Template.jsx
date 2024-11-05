@@ -18,9 +18,9 @@ function Template(props) {
       data,
       actions,
       url,
-      // selectedTemplate,
+      selectedTemplate,
       // showFormsTableAnchor,
-      // setEditorAnchor,
+      setEditorAnchor,
       // setShowFormsTableAnchor,
       showFilledFormAnchor
   } = props;
@@ -48,33 +48,35 @@ function Template(props) {
   );
 
   const renderQuestionTemplate = () => (
-      questionTemplateAnchor &&
-          <div className="p-4 d-flex flex-column gap-5 mt-3 relativePosition">
-              <div className="absolute_right_corner_pos">
-                  <Box>
-                      <IconButton
-                          onClick={handleAddQuestion}
-                      >
-                          <AddIcon/>
-                      </IconButton>
-                  </Box>
+      questionTemplateAnchor ? (
+              <div className="card d-flex flex-column p-4 gap-5 mt-3 relativePosition">
+                  <div className="absolute_right_corner_pos">
+                      <Box>
+                          <IconButton
+                              onClick={handleAddQuestion}
+                          >
+                              <AddIcon/>
+                          </IconButton>
+                      </Box>
+                  </div>
+                  <QuestionTemplateBlock/>
               </div>
-              <QuestionTemplateBlock/>
-          </div>
+      ): null
+
   );
 
 
-  return (
-      <div>
-          <SidePanel
-              showQuestionTemp={questionTemplateAnchor}
-              addQuestionOnClick={setQuestionTemplateAnchor}
-              showImgModalOnClick={setShowModalAnchor}
-              // selectedTemplate={selectedTemplate}
-              // setShowFormsTableAnchor={setShowFormsTableAnchor}
-              // showFormsTableAnchor={showFormsTableAnchor}
-          />
-          <>
+    return (
+        <div>
+            <SidePanel
+                showImgModalOnClick={setShowModalAnchor}
+                setQuestionTemplateAnchor={setQuestionTemplateAnchor}
+                questionTemplateAnchor={questionTemplateAnchor}
+                // selectedTemplate={selectedTemplate}
+                // setShowFormsTableAnchor={setShowFormsTableAnchor}
+                // showFormsTableAnchor={showFormsTableAnchor}
+            />
+            <>
               {renderImageUploadModal()}
               {renderImageCard()}
           </>
@@ -86,24 +88,25 @@ function Template(props) {
               // showFilledFormAnchor={showFilledFormAnchor}
           />
           <QuestionList setQuestions={setQuestions} questions={questions}/>
-          <div className="card d-flex p-4 mt-3 flex-column">
-              { renderQuestionTemplate()}
-
-              <div className="align-self-end">
-                  <Button className='p-3 btn-primary btn-block'
+          {renderQuestionTemplate()}
+          <div  className="card p-4 mt-3">
+              <div className="d-flex justify-content-end">
+                  <Button className='p-3 btn-primary'
                           variant="contained"
                           onClick={() => {
                               setEditorAnchor && setEditorAnchor(false)
-                              saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)}
+                              saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)
                           }
-                              >
+                          }
+                  >
                       {btnName}
                   </Button>
               </div>
           </div>
-          <MessageBlock message={message} />
+          <MessageBlock message={message}/>
       </div>
   );
 }
+
 Template.displayName = "Template";
 export default withDataAttributes(Template);

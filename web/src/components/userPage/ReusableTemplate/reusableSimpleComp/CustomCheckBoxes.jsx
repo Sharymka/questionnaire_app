@@ -9,9 +9,11 @@ function CustomCheckBoxes(props) {
     // const { btnRef } =props;
 
   const {
-        options,
-        actions, // объект типа { checkboxOnChange: checkboxOnChange, ...}
-        // textFieldOnChange,
+      options,
+      actions, // объект типа { checkboxOnChange: checkboxOnChange, ...}
+      field ='',
+      optionId = null
+      // textFieldOnChange,
         // deleteOnClick,
       // onChange,
   } = props;
@@ -22,9 +24,23 @@ function CustomCheckBoxes(props) {
       textFieldOnChange
   } = actions;
 
+    const handleChange = (event) => {
+        if (typeof checkboxOnChange === 'function') {
+            checkboxOnChange(event.target.value);
+            // if (optionId !== null) {
+            //     checkboxOnChange(event.target.value, optionId);
+            // } else if (field) {
+            //     checkboxOnChange(event.target.value, field);
+            // }  else {
+
+            // }
+        } else {
+            console.error('onChange is not a function:', checkboxOnChange);
+        }
+    };
   return (
       <RadioGroup
-          onChange={(event) => checkboxOnChange(event.target.value)}
+          onChange={handleChange}
           // fullWidth
           sx={{
             width: '100% !important',
@@ -44,7 +60,7 @@ function CustomCheckBoxes(props) {
                   value={{checkbox: option.value}}
                   onChange={textFieldOnChange}
                   // btnRef={btnRef}
-                  optionId={option.id}
+                  checkboxId={option.id}
               />
                 <ActionButton
                     onClick={() => deleteOptionOnClick(option.id)}

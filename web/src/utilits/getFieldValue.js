@@ -1,8 +1,13 @@
 
 export function getFieldValue(value, firstKey) {
 	let fieldValue;
-
 	switch (true) {
+		case firstKey === undefined:
+			fieldValue = 'Ключ не найден';
+			break;
+		case value === undefined:
+			fieldValue = 'Значение не найдено';
+			break;
 		case value[firstKey] === undefined:
 			fieldValue = 'Значение не найдено';
 			break;

@@ -20,7 +20,9 @@ function CustomTextField(props) {
         variant = 'standard',
         textFieldOptions ={},
         // btnRef,
-        optionId = null,
+        checkboxId = null, // это id checkbox, например
+        questionId = null, // id вопроса
+        field = ''
     } = props;
 
     const {
@@ -94,16 +96,26 @@ function CustomTextField(props) {
     // }, []);
 
     const handleChange = (event) => {
-        if (typeof onChange === 'function') {
-            if (optionId !== null) {
-                onChange(event.target.value, optionId);
-            } else {
-                onChange(event.target.value);
-            }
-        } else {
+        const value = event.target.value;
+
+        if (typeof onChange !== 'function') {
             console.error('onChange is not a function:', onChange);
+            return;
         }
+
+        const args = [value];
+
+        if (checkboxId !== null) {
+            args.push(checkboxId);
+        } else if (questionId !== null) {
+            args.push(checkboxId, questionId);
+        } else if (field) {
+            args.push(field);
+        }
+
+        onChange(...args);
     };
+
 
 
     return (

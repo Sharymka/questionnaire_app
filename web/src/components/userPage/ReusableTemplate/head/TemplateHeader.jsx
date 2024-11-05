@@ -40,7 +40,7 @@ function TemplateHeader(props) {
               TopicComponent={
                   isReadOnly ?
                       <CustomTypography value={{topic: data.topic}}/>:
-                      <ghjCustomFormControlSelect
+                      <CustomFormControlSelect
                           value={data.topic}
                           onChange={actions.setTopic}
                           options={questionTopics}
