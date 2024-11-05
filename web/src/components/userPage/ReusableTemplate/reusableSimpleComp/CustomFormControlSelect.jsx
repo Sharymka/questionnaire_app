@@ -14,9 +14,25 @@ function CustomFormControlSelect(props) {
 	  options, //приходит массив вариантов для селектора
 	  label, // просто строка
 	  classes,
+	  field,
+	  optionId = null
   } = props;
+	const handleChange = (event) => {
+		if (typeof onChange === 'function') {
+			if (optionId !== null) {
+				onChange(event.target.value, optionId);
+			} else if (field) {
+				onChange(event.target.value, field);
+			}  else {
+				onChange(event.target.value);
+			}
+		} else {
+			console.error('onChange is not a function:', onChange);
+		}
+	};
 
-  return (
+
+	return (
 		  <FormControl
 			  className={`fullWidth ${classes}`}
 		  >
@@ -24,7 +40,7 @@ function CustomFormControlSelect(props) {
 			  <Select
 				  value={value}
 				  displayEmpty
-				  onChange={(event) => {onChange(event.target.value)}}
+				  onChange={handleChange}
 				  input={<OutlinedInput label={label} />}
 			  >
 				  {Object.keys(options).map((name,index) => (

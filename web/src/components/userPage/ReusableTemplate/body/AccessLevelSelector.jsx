@@ -7,11 +7,11 @@ function AccessLevelSelector(props) {
   const { accessLevel, handleAccessLevel } =props;
   return (
       <CustomFormControlSelect
-        data-context="AccessLevelSelector"
-        name='Уровень доступа'
-        value={accessLevel}
-        onChange={handleAccessLevel}
-        options={accessOptions}
+       value={accessLevel}
+       onChange={handleAccessLevel}
+       options={accessOptions}
+       label='Уровень доступа'
+
       />
   );
 }
