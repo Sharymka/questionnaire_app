@@ -25,7 +25,7 @@ function SignIn() {
 
             if (response.ok) {
                 console.log("SignIn successfully:", data);
-                localStorage.setItem('userId', data.id);
+                localStorage.setItem('user', JSON.stringify(data));
                 signIn(data);
             } else {
                 console.log("SignIn failed:", data.error);
@@ -37,7 +37,7 @@ function SignIn() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            console.log(" userId in localStorage" + localStorage.getItem('userId'));
+            // console.log(" userId in localStorage" + localStorage.getItem('userId'));
             navigate('/home');
         }
     }, [isAuthenticated, navigate]);

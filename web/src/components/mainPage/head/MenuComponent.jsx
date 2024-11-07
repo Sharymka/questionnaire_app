@@ -1,41 +1,68 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {IconButton, Menu} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import {TemplateContext} from "../../userPage/contexts/TemplateContext";
+import ModalForm from "../../userPage/ReusableTemplate/head/ModalForm";
 
 function MenuComponent(props) {
 
   const { setShowAllTemplates } = useContext(TemplateContext);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showMenu, setShowMenu] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleOpenMenu = (event) => {
+      setShowMenu(event.currentTarget);
   }
 
 
-  const handleClose = () => {
-    setAnchorEl(null)
+  const handleCloseMenu = () => {
+      setShowMenu(null)
   }
+
+
+    const handleOpenModal = (event) => {
+        setShowModal(true);
+        handleOpenForm()
+        handleCloseMenu();
+    };
+    const handleCloseModal = () => {
+        setShowModal(null); // Закрываем модальное окно
+    };
+
+    const handleOpenForm= () => {
+        setShowForm(true);
+    }
+    const handleCloseForm = () => {
+        setShowForm(false);
+    }
 
   return (
 	  <>
-        <IconButton aria-label="menu" onClick={handleClick}>
+        <IconButton aria-label="menu" onClick={handleOpenMenu}>
           <MenuIcon />
         </IconButton>
         <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+            anchorEl={showMenu}
+            open={Boolean(showMenu)}
+            onClose={handleCloseMenu}
         >
           <MenuItem
               onClick={()=> {
-                  handleClose()
+                  handleCloseMenu()
                   setShowAllTemplates(true)
           }}
           >Все шаблоны
           </MenuItem>
+            <MenuItem
+                onClick={()=> {
+                    handleCloseMenu()
+                    handleOpenModal()
+                }}
+            >SaleForce
+            </MenuItem>
             <MenuItem
                 className="card-footer"
                 onClick={()=> {
@@ -43,12 +70,13 @@ function MenuComponent(props) {
                 }}
             >Назад
             </MenuItem>
-
-          {/*<MenuItem*/}
-          {/*    // onClick={handleClose}*/}
-          {/*>Мои формы<*/}
-          {/*/MenuItem>*/}
         </Menu>
+          <ModalForm
+              showModal={showModal}
+              showForm={showForm}
+              handleCloseForm={handleCloseForm}
+              handleCloseModal={handleCloseModal}
+          />
       </>
   );
 }
