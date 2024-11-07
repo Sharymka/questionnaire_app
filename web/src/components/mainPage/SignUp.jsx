@@ -23,6 +23,7 @@ function SignUp() {
 
 			if (response.ok) {
 				console.log("Registered successfully:", data);
+				localStorage.setItem('user', JSON.stringify(data));
 				signIn(data);
 				setMessage('');
 				navigate('/home');

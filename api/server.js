@@ -11,11 +11,13 @@ const {getForm, createForm, updateFrom, removeForm} = require("./src/controllers
 const session = require('express-session');
 const cloudinary = require('./src/config/cloudinaryConfig');
 const {isAuthenticated} = require("./src/middlewares/isAuthenticated");
+const { createAccount, createContact } = require('./src/services/salesForce');
 
 const app = express();
 const port = process.env.PORT || 3001;
 const api = express.Router();
 const multer = require('multer');
+const getAccessToken = require("./src/services/getAccessToken");
 const upload = multer({ dest: 'uploads/' });
 
 app.use(session({
@@ -55,7 +57,7 @@ api.post('/template/:id',isAuthenticated, update);
 
 api.delete('/template/:id', remove);
 
-let uploadStatus = {}; // объект для отслеживания статусов загрузки
+let uploadStatus = {};
 
 api.post('/upload', upload.single('image'), async (req, res) => {
 	try {
@@ -65,26 +67,23 @@ api.post('/upload', upload.single('image'), async (req, res) => {
 			return res.status(400).json({ error: 'No file uploaded' });
 		}
 
-		const uploadId = Date.now(); // уникальный идентификатор загрузки
+		const uploadId = Date.now();
 		uploadStatus[uploadId] = 'processing';
 
-		// Отправляем ответ сразу после получения файла
 		res.status(202).json({ message: 'File received, processing upload', uploadId });
 
-		// Загружаем файл асинхронно в Cloudinary
 		const result = await cloudinary.uploader.upload(file.path, {
 			upload_preset: 'questionnaire'
 		});
 
-		uploadStatus[uploadId] = { url: result.secure_url }; // сохраняем URL после загрузки
+		uploadStatus[uploadId] = { url: result.secure_url };
 
 	} catch (error) {
 		console.error('Ошибка при загрузке:', error);
-		uploadStatus[uploadId] = 'error'; // сохраняем статус ошибки
+		uploadStatus[uploadId] = 'error';
 	}
 });
 
-// Маршрут для проверки статуса загрузки
 api.get('/upload-status/:id', (req, res) => {
 	const uploadId = req.params.id;
 	const status = uploadStatus[uploadId];
@@ -93,6 +92,37 @@ api.get('/upload-status/:id', (req, res) => {
 		res.status(200).json(status);
 	} else {
 		res.status(404).json({ error: 'Upload not found' });
+	}
+});
+
+app.post('/api/salesforce/createCustomer', async (req, res) => {
+	const clientId = '3MVG9PwZx9R6_Ure2CRnVHgtfz_gZgBgOuJOz4lrrCKOvOqhAk6q.7zwHT6ts0YHgLHCVeGHQbWsAKMjCmqoM';
+	const clientSecret = '99BC277BF998E82DAA534F2C026C57C01177B92A227D6A652780C9416CF0E85F';
+	const username = 'svetlanakh@company.itransition';
+	const password = 'Ferdenandka13\!CfkcCQMXwUFnScxNyUC3XCpUb';
+
+	const { userData } = req.body;
+
+	try {
+		const accessToken = await getAccessToken(clientId, clientSecret, username, password);
+
+		console.log(accessToken);
+
+		const accountId = await createAccount(accessToken, {
+			name: userData.companyName,
+			industry: userData.industry,
+		});
+
+		const contactId = await createContact(accessToken, {
+			firstName: userData.firstName,
+			lastName: userData.lastName,
+			Email: userData.email,
+		}, accountId);
+
+		res.status(200).send({ message: 'Account created successfully', accountId, contactId });
+	} catch (error) {
+		console.error(error);
+		res.status(500).send({ message: 'Error creating Account', error: error.message });
 	}
 });
 
