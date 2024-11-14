@@ -25,8 +25,8 @@ function QuestionsList(props) {
 						{...provided.droppableProps}
 						ref={provided.innerRef}
 					>
-						{questions.map((question, index) => (
-							question.add === 'true' && (
+						{questions?.map((question, index) => (
+							question.add === true && (
 								<Draggable key={question?.id} draggableId={String(question?.id)} index={index}>
 									{(provided) => (
 										<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>

@@ -8,6 +8,10 @@ html, body {
   color: blue;
 }
 
+.secondary_text {
+  color: #2b2e31 !important;
+}
+
 code {
   font-family: Roboto, Helvetica, Arial, sans-serif, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace, body1;
 }

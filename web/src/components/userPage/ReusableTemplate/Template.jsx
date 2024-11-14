@@ -19,25 +19,30 @@ function Template(props) {
       actions,
       url,
       selectedTemplate,
-      // showFormsTableAnchor,
       setEditorAnchor,
-      // setShowFormsTableAnchor,
-      showFilledFormAnchor
   } = props;
 
     const {
         questions,
         setQuestions,
         saveTemplate,
-        handleAddQuestion,
-        // questionTemplateAnchor,
-        // setQuestionTemplateAnchor,
         imgUrl,
         message
     } = useContext(TemplateContext);
 
   const [showModalAnchor, setShowModalAnchor] = useState(false);
   const [questionTemplateAnchor, setQuestionTemplateAnchor ] = useState(false);
+
+  const handleAddQuestion = () => {
+      setQuestions(prevState => {
+          const updatedQuestions = [...prevState];
+          const targetQuestion = updatedQuestions[updatedQuestions.length - 1];
+          targetQuestion.add = true;
+          updatedQuestions[updatedQuestions.length - 1] = targetQuestion;
+          return updatedQuestions;
+      });
+      setQuestionTemplateAnchor(false);
+  }
 
   const renderImageUploadModal = () => (
         showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />

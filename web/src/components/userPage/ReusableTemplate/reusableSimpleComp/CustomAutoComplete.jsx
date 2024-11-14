@@ -7,11 +7,11 @@ function CustomAutoComplete(props) {
 
     const [inputValue, setInputValue] = useState('');
     const {
-        value,
-        options,
-        label,
-        getOptionLabel,
-        getTagChipLabel,
+        value, //массив объектов вида: [{id: 1, first_name:'Ivan', last_name:'Ivanov'}]
+        options, // массив объектов: [{ id: 2, label: "Технологии" }]
+        label, // строка, например 'Теги'
+        getOptionLabel, // строка, например "Здоровье"
+        getTagChipLabel, // строка, например "Здоровье"
         addTags,
         addNewOptionTag,
         deleteTag,
@@ -34,8 +34,8 @@ function CustomAutoComplete(props) {
               }
           }}
           onChange={(event, newSelectedOption) => {
-              //захватывает объект с введенным значением в input(состояние inputValue) или из предложенных вариантов
-              //варианты ['Веселье'] или [{id: 1, label:'Наука'}]
+              //если вводим сами в интпуте значение тега, то в newSelectedOption попадает значение вида ['Веселье']
+              // или из предложенных вариантов [{id: 1, label:'Наука'}]
               event.preventDefault();
               const selectedTag = newSelectedOption[newSelectedOption.length - 1];
 

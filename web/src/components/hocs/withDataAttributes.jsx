@@ -1,7 +1,6 @@
 import React from 'react';
 
 function withDataAttributes(WrappedComponent) {
-	console.log("displayName", WrappedComponent.displayName);
 
 	const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 

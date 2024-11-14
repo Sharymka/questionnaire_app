@@ -4,14 +4,15 @@ import { IconButton } from '@mui/material';
 function ActionButton(props){
 
 	const {
+		classes,
 		onClick,
+		imgSrc,
 		icon,
 		altText,
-		imgSrc
 	} = props;
 
 	return (
-		<IconButton onClick={onClick}>
+		<IconButton className={classes} onClick={onClick}>
 			{icon}
 			{imgSrc && <img src={imgSrc} alt={altText} style={{ maxWidth: '25px', maxHeight: '25px' }} />}
 		</IconButton>

@@ -11,7 +11,6 @@ function TemplateProvider({children}) {
 	const [description, setDescription] = React.useState('');
 	const [tags, setTags] = useState([]);
 	const [imgUrl, setImgUrl] = React.useState('');
-
 	const [question, setQuestion] = React.useState('');
 	const [temp, setTemp] = useState(templates);
 	const [filteredTemp, setFilteredTemp] = useState(templates);
@@ -19,13 +18,13 @@ function TemplateProvider({children}) {
 	const [answerType, setAnswerType] = React.useState('singleLine');
 	const [checkboxes, setCheckboxes] = React.useState([]);
 	const [accessLevel, setAccessLevel] =  useState('public');
-	const [selectedUsers, setSelectedUsers] = React.useState([]);
+	// const [selectedUsers, setSelectedUsers] = React.useState([]);
 	const [message, setMessage] = React.useState('');
-	const [editorAnchor, setEditorAnchor] = React.useState(
-		questions && questions.length > 0
-			? questions.map((question, index) => ({ id: index, editorAnchorValue: false }))
-			: []
-	);
+	// const [editorAnchor, setEditorAnchor] = React.useState(
+	// 	questions && questions.length > 0
+	// 		? questions.map((question, index) => ({ id: index, editorAnchorValue: false }))
+	// 		: []
+	// );
 	const [privateUsersAnchor, setPrivateUsersAnchor] = React.useState(questions && questions.length > 0
 		? questions.map((question, index) => ({ id: index, privateUsersAnchorValue: question?.access === "restricted" }))
 		: [] );
@@ -41,33 +40,33 @@ function TemplateProvider({children}) {
 		resetEditorAnchor();
 	}, []);
 
-	useEffect(() => {
-		if (questions.length !== editorAnchor.length) {
-			setEditorAnchor(
-				questions.map((question, index) => ({
-					id: index,
-					editorAnchorValue: editorAnchor[index]?.editorAnchorValue || false
-				}))
-			);
-		}
-
-		setPrivateUsersAnchor(
-			questions.map((question, index) => ({
-				id: index,
-				privateUsersAnchorValue: question?.access === "restricted"
-			}))
-		);
-
-		if (checkboxes.length !== markdownHover.length) {
-			setMarkdownHover(
-				checkboxes.map((option, index) => ({
-					id: option.id,
-					value: option[index]?.value || false
-				}))
-			);
-		}
-
-	}, [questions, checkboxes]);
+	// useEffect(() => {
+	// 	if (questions.length !== editorAnchor.length) {
+	// 		setEditorAnchor(
+	// 			questions.map((question, index) => ({
+	// 				id: index,
+	// 				editorAnchorValue: editorAnchor[index]?.editorAnchorValue || false
+	// 			}))
+	// 		);
+	// 	}
+	//
+	// 	setPrivateUsersAnchor(
+	// 		questions.map((question, index) => ({
+	// 			id: index,
+	// 			privateUsersAnchorValue: question?.access === "restricted"
+	// 		}))
+	// 	);
+	//
+	// 	if (checkboxes.length !== markdownHover.length) {
+	// 		setMarkdownHover(
+	// 			checkboxes.map((option, index) => ({
+	// 				id: option.id,
+	// 				value: option[index]?.value || false
+	// 			}))
+	// 		);
+	// 	}
+	//
+	// }, [questions, checkboxes]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -175,7 +174,7 @@ function TemplateProvider({children}) {
 		setAnswerType('singleLine');
 		setAccessLevel('public');
 		setCheckboxes([]);
-		setSelectedUsers([]);
+		// setSelectedUsers([]);
 		// setShowUsers(false);
 	}
 
@@ -190,9 +189,9 @@ function TemplateProvider({children}) {
 	}
 
 	const resetEditorAnchor = () => {
-		setEditorAnchor((prevState) => prevState.map((option, index)=> {
-			return {...option, editorAnchorValue: false};
-		}))
+		// setEditorAnchor((prevState) => prevState.map((option, index)=> {
+		// 	return {...option, editorAnchorValue: false};
+		// }))
 	}
 
 	const handleEditQuestion = (newValue, selectedIndex, field) => {
@@ -218,16 +217,16 @@ function TemplateProvider({children}) {
 
 
 
-	const handleEditorAnchor = (questionIndex) => {
-		setEditorAnchor((prevState) =>
-			prevState.map((item) => {
-				if(item.id === questionIndex) {
-					return {...item, editorAnchorValue: !item.editorAnchorValue}
-				}else {
-					return {...item, editorAnchorValue: false};
-				}
-			}));
-	}
+	// const handleEditorAnchor = (questionIndex) => {
+	// 	setEditorAnchor((prevState) =>
+	// 		prevState.map((item) => {
+	// 			if(item.id === questionIndex) {
+	// 				return {...item, editorAnchorValue: !item.editorAnchorValue}
+	// 			}else {
+	// 				return {...item, editorAnchorValue: false};
+	// 			}
+	// 		}));
+	// }
 
 	const handleHoverMarkdown = (selectedId) => {
 		setMarkdownHover(prevState => prevState.map((option, index) => {
@@ -265,8 +264,8 @@ function TemplateProvider({children}) {
 		  // handleCheckboxTextField,
 		  accessLevel,
 		  setAccessLevel,
-		  selectedUsers,
-		  setSelectedUsers,
+		  // selectedUsers,
+		  // setSelectedUsers,
 		  questions,
 		  setQuestions,
 		  temp,
@@ -274,9 +273,9 @@ function TemplateProvider({children}) {
 		  handleFilteredTemplate,
 		  handleAddQuestion,
 		  handleEditQuestion,
-		  handleEditorAnchor,
+		  // handleEditorAnchor,
 		  handleDeleteQuestion,
-		  editorAnchor,
+		  // editorAnchor,
 		  // handleAccessLevel,
 		  // showUsers,
 		  privateUsersAnchor,

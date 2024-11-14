@@ -1,22 +1,30 @@
-import AnswerTextField from "./AnswerTextField";
-import {PARAGRAPH, SINGLE_LINE, CHECKBOXES, NUMBER}  from "../../../../../const/const";
+import {PARAGRAPH, SINGLE_LINE, CHECKBOXES, NUMBER, answerTypeName} from "../../../../../const/const";
 import React, {useContext} from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import {Checkbox, List, ListItem, Radio} from "@mui/material";
+import {Checkbox, List, ListItem, Radio, Typography} from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import {TemplateContext} from "../../../contexts/TemplateContext";
 import CheckBoxesCard from "./CheckBoxesCard";
+import CustomTextField from "../../reusableSimpleComp/CustomTextField";
 
 const AnswerField = (props) => {
 
-	const { question, questionIndex, questions } = props;
+	const {
+		question,
+		questionIndex,
+		questions,
+	} = props;
 	const { editorAnchor } = useContext(TemplateContext);
 
 	switch (questions.find((question, index)=> questionIndex === index)?.answerType) {
 		case SINGLE_LINE:
 		case PARAGRAPH:
 		case NUMBER:
-			return <AnswerTextField question={question} questionIndex={questionIndex} />;
+			return (
+				<CustomTextField
+					value={{answerType: question.answerType}}
+				/>
+			)
 
 
 		case CHECKBOXES:

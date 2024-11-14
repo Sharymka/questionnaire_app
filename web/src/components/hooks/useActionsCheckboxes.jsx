@@ -22,7 +22,7 @@ const useActionsCheckboxes = () => {
 					: { ...checkbox, selected: false }
 			);
 
-			updatedQuestions[updatedQuestions.length - 1] = targetQuestion;
+			updatedQuestions[questionIndex] = targetQuestion;
 			return updatedQuestions;
 		});
 
@@ -65,7 +65,7 @@ const useActionsCheckboxes = () => {
 				{ id: targetQuestion.checkboxes.length + 1, value: '', selected: false }
 			];
 
-			updatedQuestions[updatedQuestions.length - 1] = targetQuestion;
+			updatedQuestions[questionIndex] = targetQuestion;
 			return updatedQuestions;
 		});
 		// setCheckboxes([...checkboxes, { id:checkboxes.length + 1, value: '', selected: false }]);
@@ -79,7 +79,7 @@ const useActionsCheckboxes = () => {
 
 			targetQuestion.checkboxes = targetQuestion.checkboxes.filter((checkbox) => checkbox.id !== checkboxId);
 
-			updatedQuestions[updatedQuestions.length - 1] = targetQuestion;
+			updatedQuestions[questionIndex] = targetQuestion;
 			return updatedQuestions;
 		});
 		// setCheckboxes(prevState => (prevState.filter((option, index)=> option.id!== selectedId)));
@@ -100,7 +100,7 @@ const useActionsCheckboxes = () => {
 				}
 			})
 
-			updatedQuestions[updatedQuestions.length - 1] = targetQuestion;
+			updatedQuestions[questionIndex] = targetQuestion;
 			return updatedQuestions;
 		});
 		// setCheckboxes((prevState) => (
