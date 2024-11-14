@@ -4,7 +4,6 @@ import TemplateHeader from "../../userPage/ReusableTemplate/head/TemplateHeader"
 import {useParams} from "react-router-dom";
 import {TemplateContext} from "../../userPage/contexts/TemplateContext";
 import {Typography} from "@mui/material";
-import AnswerTextField from "../../userPage/ReusableTemplate/body/realQuestions/AnswerTextField";
 import AnswerField from "../../userPage/ReusableTemplate/body/realQuestions/AnswerField";
 
 function SelectedTemplate(prop) {

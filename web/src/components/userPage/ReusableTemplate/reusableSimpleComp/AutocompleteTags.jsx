@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import CustomAutoComplete from "./CustomAutoComplete";
 import { LABEL_TAGS } from "../../../../const/const";
-import {loadTags, saveTags} from "../../../storage/tagStorage";
 import useActionsTags from "../../../hooks/useActionsTags";
 
 function AutocompleteTags(props) {

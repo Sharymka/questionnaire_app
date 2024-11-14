@@ -11,9 +11,10 @@ const useActionsQuestion = (props) => {
 			name: '',
 			answerType: 'singleLine',
 			checkboxes: [],
-			access: 'public',
+			accessLevel: 'public',
 			selectedUsers: [],
-			add: false
+			add: false,
+			edit: false
 		}])
 	}
 
@@ -25,9 +26,28 @@ const useActionsQuestion = (props) => {
 		});
 	}
 
+	const handleEditOnClick = (questionId) => {
+		console.log('questionId', questionId);
+		setQuestions((prevState)=> prevState.map((question) => {
+			if (question.id === questionId) {
+				return {...question, edit: !question.edit}
+			} else {
+				return question;
+			}
+		}));
+	}
+
+	const handleDeleteOnClick = (questionId) => {
+		setQuestions((prevState)=>
+			prevState.filter((selectedQuestion) => selectedQuestion.id !== questionId),
+		)
+	}
+
 	return {
 		handleAddQuestionOnClick,
 		handleTextFieldOnChange,
+		handleEditOnClick,
+		handleDeleteOnClick
 	}
 
 

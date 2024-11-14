@@ -11,6 +11,9 @@ html, body {
   color: blue;
 }
 
+.secondary_text {
+ color:$color-light-gray!important;
+}
 
   code {
     font-family: $code-font-family;

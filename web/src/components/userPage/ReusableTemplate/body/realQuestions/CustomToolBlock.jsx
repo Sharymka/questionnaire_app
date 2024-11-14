@@ -1,50 +1,44 @@
 import React from 'react';
 import {IconButton} from "@mui/material";
 import {DELETE_ICON_BASKET_URL, EDIT_ICON_URL, SAVE_ICON_URL} from "../../../../../url/url";
+import ActionButton from "../../AcctionBtn";
 
 function CustomToolBlock(props) {
 
 	const {
 		classes,
-		valueIndex,
-		onEditOrSaveOnClick,
-		onDeleteClick,
+		question,
+		handleEditOnClick,
+		handleDeleteOnClick,
 		showSaveIcon = true,
 		anchor = false,
 	} = props;
   return (
 	  <div className={`d-flex justify-content-center ${classes}`}>
-	  <IconButton
-		  className="p-1"
-		  onClick={() => onEditOrSaveOnClick(valueIndex)}
-		  aria-label="edit"
-	  >
+
 		  {
-			  anchor && showSaveIcon? (
-				  <img style={{maxWidth: '22px', maxHeight: '25px'}}
-				       src={SAVE_ICON_URL}
-				       alt="Save icon"
+			  question.edit ? (
+				  <ActionButton
+					  classes="p-1"
+					  onClick={() => handleEditOnClick(question.id)}
+					  imgSrc={SAVE_ICON_URL}
+					  altText="Save icon"
 				  />
 			  ): (
-				  <img
-					  style={{maxWidth: '25px', maxHeight: '25px'}}
-					  src={EDIT_ICON_URL}
-					  alt="Delete icon"
+				  <ActionButton
+					  classes="p-1"
+					  onClick={() => handleEditOnClick(question.id)}
+					  imgSrc={EDIT_ICON_URL}
+					  altText="Edit icon"
 				  />
 			  )
 		  }
-	  </IconButton>
-	  <IconButton
-		  className="p-1"
-		  onClick={() => onDeleteClick(valueIndex)}
-		  aria-label="delete"
-	  >
-		  <img
-			  style={{maxWidth: '30px', maxHeight: '30px'}}
-			  src={DELETE_ICON_BASKET_URL}
-			  alt="Delete icon"
+		  <ActionButton
+			  classes="p-1"
+			  onClick={() => handleDeleteOnClick(question.id)}
+			  imgSrc={DELETE_ICON_BASKET_URL}
+			  altText="Delete icon"
 		  />
-	  </IconButton>
   </div>
   );
 }

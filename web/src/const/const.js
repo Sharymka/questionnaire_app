@@ -8,11 +8,13 @@ export const NUMBER ='number';
 export const CHECKBOXES ='checkboxes';
 
 export const answerTypeName = {
-	[SINGLE_LINE]:'Текст (строка)',
-	[PARAGRAPH]: 'Текст (абзац)',
-	[NUMBER]:'Число',
-	[CHECKBOXES]:'Флажки',
+	singleLine:'Краткий ответ',
+	paragraph: 'Развернутый ответ',
+	number:'Числовой ответ',
+	checkboxes:'Варианты ответа',
 };
+
+
 
 export const  textFieldNames = {
 	title: 'Название',
@@ -20,7 +22,8 @@ export const  textFieldNames = {
 	description: 'Описание',
 	tags: 'Теги',
 	question: 'задайте вопрос',
-	checkbox: 'введите вариант'
+	checkbox: 'введите вариант',
+	answerType: 'Ответ'
 }
 
 

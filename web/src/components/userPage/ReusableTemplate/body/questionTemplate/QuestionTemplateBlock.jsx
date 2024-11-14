@@ -1,34 +1,29 @@
 import React, {useContext, useRef, useState} from 'react';
 import {TemplateContext} from "../../../contexts/TemplateContext";
 import NameOrEmailSorter from "../NameOrEmailSorter";
-import AutocompletePrivateUsers from "./AutocompletePrivateUsers";
 import CustomBtn from "../../reusableSimpleComp/CustomBtn";
 import CustomCheckBoxes from "../../reusableSimpleComp/CustomCheckBoxes";
 import useActionsCheckboxes from "../../../../hooks/useActionsCheckboxes";
 import CustomFormControlSelect from "../../reusableSimpleComp/CustomFormControlSelect";
-import {accessOptions, answerTypeName} from "../../../../../const/const";
+import {accessOptions, answerTypeName, LABEL_USERS} from "../../../../../const/const";
 import useActionsAccessLevel from "../../../../hooks/useActionsAccessLevel";
 import CustomTextField from "../../reusableSimpleComp/CustomTextField";
 import useActionsQuestion from "../../../../hooks/useActionsQuestion";
+import CustomAutoComplete from "../../reusableSimpleComp/CustomAutoComplete";
+import useActionsSelectPrivateUsers from "../../../../hooks/useActionsSelectPrivateUsers";
+import useGetUsers from "../../../../hooks/API/useGetUsers";
 
-function QuestionTemplateBlock() {
+function QuestionTemplateBlock(props) {
 
+  const { questionId } = props;
+  const { usersData, loading, error } = useGetUsers({ fields: ['id', 'first_name', 'last_name', 'email'] });
   const btnRef = useRef(null);
-  const [ sortBy, setSortBy ] = useState('name');
-  const [showUsers , setShowUsers] = React.useState(false);
-
-  const {
-      checkboxes,
-      answerType,
-      selectedUsers,
-      setQuestion,
-      // question,
-      questions,
-      setQuestions,
-      // handleAddCheckboxOption,
-      accessLevel,
-      // handleAccessLevel
-  } = useContext(TemplateContext);
+  const [sortBy, setSortBy ] = useState('name');
+  const [showUsers, setShowUsers] = useState(false);
+  const { questions } = useContext(TemplateContext);
+  const [targetQuestion, setTargetQuestion ] = useState(
+      questionId ? questions.find(question => question.id === questionId) : questions[questions.length - 1]
+  );
 
   const {
       checkboxOnChange,
@@ -45,13 +40,20 @@ function QuestionTemplateBlock() {
       handleTextFieldOnChange
   } = useActionsQuestion();
 
+  const {
+      addTags,
+      deleteSelectedUser,
+      getOptionLabel,
+      getTagLabel,
+  } = useActionsSelectPrivateUsers(sortBy);
+
   const renderCheckboxes = () => (
-      questions[questions.length - 1].answerType === 'checkboxes' &&
+      targetQuestion.answerType === 'checkboxes' &&
       <div className="width-50">
           <div className="width-100">
               <CustomCheckBoxes
                   // btnRef={btnRef}
-                  options={ questions[questions.length - 1].checkboxes}
+                  options={ targetQuestion.checkboxes}
                   actions={{
                       checkboxOnChange: checkboxOnChange,
                       deleteOptionOnClick: deleteOptionOnClick,
@@ -74,13 +76,20 @@ function QuestionTemplateBlock() {
               <NameOrEmailSorter
                   sortBy={sortBy}
                   setSortBy={setSortBy}
-                  selectedUsers={selectedUsers}
+                  selectedUsers={{ question: targetQuestion.selectedUsers || '' }}
               />
-              <AutocompletePrivateUsers
+              <CustomAutoComplete
+                  value={targetQuestion.selectedUsers}
+                  options={usersData}
+                  label={LABEL_USERS}
+                  getOptionLabel={getOptionLabel}
+                  getTagChipLabel={getTagLabel}
+                  addTags={addTags}
+                  deleteTag={deleteSelectedUser}
+                  placeholder=''
                   sortBy={sortBy}
-                  setSortBy={setSortBy}
-                  selectedUsers={selectedUsers}
               />
+
           </>
   )
 
@@ -90,15 +99,15 @@ function QuestionTemplateBlock() {
             <div className="d-flex flex-row justify-content-between align-items-center gap-3">
                 <div className="flex-grow-08">
                     <CustomTextField
-                        value={{ question: questions[questions.length - 1].name || '' }}
+                        value={{ question: targetQuestion.name || '' }}
                         onChange={handleTextFieldOnChange}
-                        placeholder={questions[questions.length - 1].question || 'Введите вопрос'}
+                        placeholder={targetQuestion.name || 'Введите вопрос'}
                         field='name'
                     />
                 </div>
                 <div className="flex-grow-07 margin-right-70">
                     <CustomFormControlSelect
-                        value={questions[questions.length - 1].answerType}
+                        value={targetQuestion.answerType}
                         onChange={handleTextFieldOnChange}
                         options={answerTypeName}
                         field='answerType'
@@ -110,7 +119,7 @@ function QuestionTemplateBlock() {
         </div>
           <div className='width-50'>
               <CustomFormControlSelect
-                  value={accessLevel}
+                  value={targetQuestion.accessLevel || ''}
                   onChange={handleAccessLevel}
                   options={accessOptions}
                   label='Уровень доступа'

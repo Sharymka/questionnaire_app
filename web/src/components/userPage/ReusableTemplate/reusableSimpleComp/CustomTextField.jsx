@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import withTextFieldWrap from "../../../hocs/withTextFieldWrap";
 import {textFieldNames} from "../../../../const/const";
 import {getFieldValue} from "../../../../utilits/getFieldValue";
+import withAddParamForTextField from "../../../hocs/withAddParamForTextField";
 
 
 function CustomTextField(props) {
@@ -16,9 +17,9 @@ function CustomTextField(props) {
         value, //приходит объект типа {title: value}
         onChange,//приходит обычная функция типа setTitle
         classes,
-        placeholder="Введите текст",
-        variant = 'standard',
-        textFieldOptions ={},
+        placeholder,
+        variant,
+        textFieldOptions,
         // btnRef,
         checkboxId = null, // это id checkbox, например
         questionId = null, // id вопроса
@@ -34,7 +35,11 @@ function CustomTextField(props) {
 
     const firstKey = value && Object.keys(value)[0];
     const label  = firstKey && firstKey in textFieldNames ? textFieldNames[firstKey] : 'Неизвестное поле';
-    const fieldValue = getFieldValue(value, firstKey);
+    let fieldValue = getFieldValue(value, firstKey);
+
+    if (firstKey === 'answerType') {
+        fieldValue = null;
+    }
 
     const textFieldRef = useRef(null);
 
@@ -120,13 +125,13 @@ function CustomTextField(props) {
 
     return (
         <TextField
-            value={fieldValue}
+            value={fieldValue ?? ''}
             onChange={handleChange}
             ref={textFieldRef}
             className={`fullWidth ${classes}`}
             label={label}
             placeholder={placeholder}
-            fullWidth
+            // fullWidth
             variant={variant}
             margin="normal"
             multiline={multiline}
@@ -151,4 +156,4 @@ function CustomTextField(props) {
     );
 }
 
-export default withTextFieldWrap(CustomTextField);
+export default withAddParamForTextField(withTextFieldWrap(CustomTextField));
