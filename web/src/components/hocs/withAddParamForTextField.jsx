@@ -20,7 +20,7 @@ function withAddParamForTextField(CustomTextField) {
 				placeholder={placeholder}
 				variant={variant}
 				textFieldOptions={textFieldOptions}
-				{...otherProps} // передача других пропсов, как onChange
+				{...otherProps}
 			/>
 		);
 	};

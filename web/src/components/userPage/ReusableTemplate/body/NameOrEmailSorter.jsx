@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import {FormControlLabel, Radio} from "@mui/material";
 
 function NameOrEmailSorter(props) {
-	const { selectedUsers, sortBy, setSortBy } = props;
+	const {
+		sortBy,
+		setSortBy,
+		selectedUsers
+	} = props;
 
 	const handelSortBy = (value) => {
 		if(sortBy !== value) {

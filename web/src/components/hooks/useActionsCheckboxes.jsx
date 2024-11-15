@@ -40,36 +40,23 @@ const useActionsCheckboxes = () => {
 		// );
 	};
 	const addOptionOnClick = (event, questionId = null) => {
-
 		setQuestions(prevState => {
-			const updatedQuestions = [...prevState];
-
-			let questionIndex;
-
-			if (questionId !== null) {
-				questionIndex = updatedQuestions.findIndex(question => question.id === questionId);
-
-				if (questionIndex === -1) {
-					console.warn('Question not found with id:', questionId);
-					// Если не найден, можно вернуть предыдущее состояние или обработать как-то иначе
-					return prevState;
+			const updatedQuestions = prevState.map(question => {
+				if ((questionId === null && question === prevState[prevState.length - 1]) || question.id === questionId) {
+					return {
+						...question,
+						checkboxes: [
+							...question.checkboxes,
+							{ id: question.checkboxes.length + 1, value: '', selected: false }
+						]
+					};
 				}
-			} else {
-				questionIndex = updatedQuestions.length - 1;
-			}
-			const targetQuestion = { ...updatedQuestions[questionIndex] };
-			console.log('targetQuestion ->', targetQuestion);
-
-			targetQuestion.checkboxes = [
-				...targetQuestion.checkboxes,
-				{ id: targetQuestion.checkboxes.length + 1, value: '', selected: false }
-			];
-
-			updatedQuestions[questionIndex] = targetQuestion;
+				return question;
+			});
 			return updatedQuestions;
 		});
-		// setCheckboxes([...checkboxes, { id:checkboxes.length + 1, value: '', selected: false }]);
 	};
+
 
 	const deleteOptionOnClick = (checkboxId, questionId = null) => {
 		setQuestions(prevState => {
