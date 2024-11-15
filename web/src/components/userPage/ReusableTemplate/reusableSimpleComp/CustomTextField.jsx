@@ -1,12 +1,10 @@
-import React, {useContext, useEffect, useRef} from 'react';
-import {Box, TextField} from "@mui/material";
-import CustomMarkDown from "../CustomMarkDown";
-import {TemplateContext} from "../../contexts/TemplateContext";
-import ReactMarkdown from 'react-markdown';
+import React, {useRef} from 'react';
+import {styled, TextField} from "@mui/material";
 import withTextFieldWrap from "../../../hocs/withTextFieldWrap";
 import {textFieldNames} from "../../../../const/const";
 import {getFieldValue} from "../../../../utilits/getFieldValue";
 import withAddParamForTextField from "../../../hocs/withAddParamForTextField";
+import {getAnswerTypeName} from "../../../../utilits/getAnswerTypeName";
 
 
 function CustomTextField(props) {
@@ -38,7 +36,7 @@ function CustomTextField(props) {
     let fieldValue = getFieldValue(value, firstKey);
 
     if (firstKey === 'answerType') {
-        fieldValue = null;
+        fieldValue =  getAnswerTypeName(value, firstKey);
     }
 
     const textFieldRef = useRef(null);
@@ -120,7 +118,6 @@ function CustomTextField(props) {
 
         onChange(...args);
     };
-
 
 
     return (

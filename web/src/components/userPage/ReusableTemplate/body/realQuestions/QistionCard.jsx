@@ -1,9 +1,10 @@
 import React from "react";
-import {Typography} from "@mui/material";
+import {styled, TextField, Typography} from "@mui/material";
 import CustomToolBlock from "./CustomToolBlock";
 import CustomTextField from "../../reusableSimpleComp/CustomTextField";
 import useActionsQuestion from "../../../../hooks/useActionsQuestion";
 import QuestionTemplateBlock from "../questionTemplate/QuestionTemplateBlock";
+import {answerTypeName} from "../../../../../const/const";
 
 function QuestionCard(props){
 
@@ -32,7 +33,9 @@ function QuestionCard(props){
 								</Typography>
 								<div className="mb-3 width-50">
 									<CustomTextField
+										// classes="color_grey"
 										value={{answerType: question.answerType}}
+										placeholder={answerTypeName[question.answerType]}
 									/>
 								</div>
 							</>

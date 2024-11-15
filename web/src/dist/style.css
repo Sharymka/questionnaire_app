@@ -8,8 +8,14 @@ html, body {
   color: blue;
 }
 
-.secondary_text {
-  color: #2b2e31 !important;
+.textField_style .MuiInputBase-input {
+  color: #4f4f4f !important;
+}
+.textField_style .MuiInputBase-input {
+  padding-top: 12px;
+}
+.textField_style .MuiInputLabel-root {
+  color: #828181;
 }
 
 code {
@@ -68,7 +74,7 @@ code {
   color: #555;
 }
 .checkbox_style .MuiRadio-root {
-  color: #1b1c1c;
+  color: #323333;
 }
 .checkbox_style .MuiRadio-root.Mui-checked {
   color: #53575b;
@@ -175,7 +181,7 @@ code {
 }
 
 .color_grey {
-  color: #1b1c1c;
+  color: #323333;
 }
 
 .text-field-underline-none .MuiInput-underline:before {
