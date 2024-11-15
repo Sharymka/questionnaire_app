@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {TemplateContext} from "../userPage/contexts/TemplateContext";
 
-const useActionsAccessLevel = (setShowUsers) => {
+const useActionsAccessLevel = () => {
 
 	const { setQuestions } = useContext(TemplateContext);
 
@@ -17,7 +17,6 @@ const useActionsAccessLevel = (setShowUsers) => {
 		})
 
 		if(accessValue === 'public'){
-			setShowUsers(false);
 			setQuestions((prevState) =>  {
 				const updatedQuestions = [...prevState];
 				const questionIndex = questionId ? updatedQuestions.findIndex(question => question.id === questionId) : updatedQuestions.length - 1;
@@ -27,8 +26,6 @@ const useActionsAccessLevel = (setShowUsers) => {
 				updatedQuestions[questionIndex] = targetQuestion;
 				return updatedQuestions;
 			})
-		}else {
-			setShowUsers(true);
 		}
 	}
 

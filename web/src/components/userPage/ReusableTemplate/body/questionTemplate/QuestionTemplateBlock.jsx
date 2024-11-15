@@ -19,22 +19,22 @@ function QuestionTemplateBlock(props) {
   const { usersData, loading, error } = useGetUsers({ fields: ['id', 'first_name', 'last_name', 'email'] });
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
-  const [showUsers, setShowUsers] = useState(false);
   const { questions } = useContext(TemplateContext);
-  const [targetQuestion, setTargetQuestion ] = useState(
-      questionId ? questions.find(question => question.id === questionId) : questions[questions.length - 1]
-  );
+  const targetQuestion = questionId
+        ? questions.find(question => question.id === questionId)
+        : questions[questions.length - 1];
 
-  const {
+
+    const {
       checkboxOnChange,
       addOptionOnClick,
       deleteOptionOnClick,
       textFieldOnChange
-  } = useActionsCheckboxes();
+  } = useActionsCheckboxes(targetQuestion);
 
   const {
       handleAccessLevel
-  } = useActionsAccessLevel(setShowUsers);
+  } = useActionsAccessLevel();
 
   const {
       handleTextFieldOnChange
@@ -53,7 +53,7 @@ function QuestionTemplateBlock(props) {
           <div className="width-100">
               <CustomCheckBoxes
                   // btnRef={btnRef}
-                  options={ targetQuestion.checkboxes}
+                  options={targetQuestion.checkboxes}
                   actions={{
                       checkboxOnChange: checkboxOnChange,
                       deleteOptionOnClick: deleteOptionOnClick,
@@ -71,12 +71,12 @@ function QuestionTemplateBlock(props) {
   )
 
   const renderUsers = () => (
-          showUsers &&
+      targetQuestion.accessLevel === 'restricted' &&
           <>
               <NameOrEmailSorter
                   sortBy={sortBy}
                   setSortBy={setSortBy}
-                  selectedUsers={{ question: targetQuestion.selectedUsers || '' }}
+                  selectedUsers={targetQuestion.selectedUsers || [] }
               />
               <CustomAutoComplete
                   value={targetQuestion.selectedUsers}
