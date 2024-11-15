@@ -11,9 +11,19 @@ html, body {
   color: blue;
 }
 
-.secondary_text {
- color:$color-light-gray!important;
+.textField_style {
+  .MuiInputBase-input {
+    color:$color-light-gray!important;
+  }
+  .MuiInputBase-input {
+    padding-top: 12px;
+  }
+  .MuiInputLabel-root {
+    color: #828181;
+  }
+
 }
+
 
   code {
     font-family: $code-font-family;
