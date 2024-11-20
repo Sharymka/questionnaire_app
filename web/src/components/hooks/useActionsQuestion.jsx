@@ -62,7 +62,6 @@ const useActionsQuestion = (targetQuestion) => {
 	}
 
 	const handleEditOnClick = () => {
-		console.log('targetQuestion.id', targetQuestion.id)
 		setQuestions((prevState)=> prevState.map((question) => {
 			if (question.id === targetQuestion.id) {
 				return {...question, edit: !question.edit}
