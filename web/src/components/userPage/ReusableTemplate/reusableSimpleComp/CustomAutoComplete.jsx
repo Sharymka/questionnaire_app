@@ -39,15 +39,22 @@ function CustomAutoComplete(props) {
               event.preventDefault();
               const selectedTag = newSelectedOption[newSelectedOption.length - 1];
 
-                  if (typeof selectedTag === 'string') {
-                      if(addNewOptionTag) {
-                          addNewOptionTag(selectedTag);
-                          addTags({id:options?.length + 1, label:selectedTag});
-                      }
-                      setInputValue('');
-                  } else {
-                      addTags(selectedTag);
+              if (newSelectedOption.length === 0) {
+                  if (deleteTag) {
+                      value.forEach((tag) => deleteTag(tag.id));
                   }
+                  return;
+              }
+
+              if (typeof selectedTag === 'string') {
+                  if(addNewOptionTag) {
+                      addNewOptionTag(selectedTag);
+                      addTags({id:options?.length + 1, label:selectedTag});
+                  }
+                  setInputValue('');
+              } else {
+                  addTags(selectedTag);
+              }
               }
           }
           options={options}

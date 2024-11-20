@@ -2,9 +2,7 @@ import React, {useContext, useState} from 'react';
 import TemplateHeader from "./head/TemplateHeader";
 import QuestionList from "./body/realQuestions/QuestionList";
 import SidePanel from "./head/SidePanel";
-import QuestionTemplateBlock from "./body/questionTemplate/QuestionTemplateBlock";
-import {Box, Button, IconButton} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import {Button} from "@mui/material";
 import {TemplateContext} from "../contexts/TemplateContext";
 import ImageUploadModal from "./head/ImageUploadModal";
 import MessageBlock from "./reusableSimpleComp/MessageBlock";
@@ -23,26 +21,12 @@ function Template(props) {
   } = props;
 
     const {
-        questions,
-        setQuestions,
         saveTemplate,
         imgUrl,
         message
     } = useContext(TemplateContext);
 
   const [showModalAnchor, setShowModalAnchor] = useState(false);
-  const [questionTemplateAnchor, setQuestionTemplateAnchor ] = useState(false);
-
-  const handleAddQuestion = () => {
-      setQuestions(prevState => {
-          const updatedQuestions = [...prevState];
-          const targetQuestion = updatedQuestions[updatedQuestions.length - 1];
-          targetQuestion.add = true;
-          updatedQuestions[updatedQuestions.length - 1] = targetQuestion;
-          return updatedQuestions;
-      });
-      setQuestionTemplateAnchor(false);
-  }
 
   const renderImageUploadModal = () => (
         showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />
@@ -52,34 +36,10 @@ function Template(props) {
         imgUrl && <div className="card mb-2 card-background" style={{ backgroundImage: `url(${imgUrl})` }}></div>
   );
 
-  const renderQuestionTemplate = () => (
-      questionTemplateAnchor ? (
-              <div className="card d-flex flex-column p-4 gap-5 mt-3 relativePosition">
-                  <div className="absolute_right_corner_pos">
-                      <Box>
-                          <IconButton
-                              onClick={handleAddQuestion}
-                          >
-                              <AddIcon/>
-                          </IconButton>
-                      </Box>
-                  </div>
-                  <QuestionTemplateBlock/>
-              </div>
-      ): null
-
-  );
-
-
     return (
         <div>
             <SidePanel
                 showImgModalOnClick={setShowModalAnchor}
-                setQuestionTemplateAnchor={setQuestionTemplateAnchor}
-                questionTemplateAnchor={questionTemplateAnchor}
-                // selectedTemplate={selectedTemplate}
-                // setShowFormsTableAnchor={setShowFormsTableAnchor}
-                // showFormsTableAnchor={showFormsTableAnchor}
             />
             <>
               {renderImageUploadModal()}
@@ -89,11 +49,8 @@ function Template(props) {
               headerName={headerName}
               data={data}
               actions={actions}
-              // filledForm
-              // showFilledFormAnchor={showFilledFormAnchor}
           />
-          <QuestionList setQuestions={setQuestions} questions={questions}/>
-          {renderQuestionTemplate()}
+          <QuestionList/>
           <div  className="card p-4 mt-3">
               <div className="d-flex justify-content-end">
                   <Button className='p-3 btn-primary'

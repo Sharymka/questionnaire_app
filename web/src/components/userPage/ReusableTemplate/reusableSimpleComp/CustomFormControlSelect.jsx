@@ -15,15 +15,13 @@ function CustomFormControlSelect(props) {
 	  label, // просто строка
 	  classes,
 	  field,
-	  optionId = null
+	  // optionId = null
   } = props;
 	const handleChange = (event) => {
 		if (typeof onChange === 'function') {
-			if (optionId !== null) {
-				onChange(event.target.value, optionId);
-			} else if (field) {
+			if(field) {
 				onChange(event.target.value, field);
-			}  else {
+			} else {
 				onChange(event.target.value);
 			}
 		} else {

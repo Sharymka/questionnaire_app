@@ -10,8 +10,6 @@ function CustomToolBlock(props) {
 		question,
 		handleEditOnClick,
 		handleDeleteOnClick,
-		showSaveIcon = true,
-		anchor = false,
 	} = props;
   return (
 	  <div className={`d-flex justify-content-center ${classes}`}>
@@ -20,14 +18,14 @@ function CustomToolBlock(props) {
 			  question.edit ? (
 				  <ActionButton
 					  classes="p-1"
-					  onClick={() => handleEditOnClick(question.id)}
+					  onClick={handleEditOnClick}
 					  imgSrc={SAVE_ICON_URL}
 					  altText="Save icon"
 				  />
 			  ): (
 				  <ActionButton
 					  classes="p-1"
-					  onClick={() => handleEditOnClick(question.id)}
+					  onClick={handleEditOnClick}
 					  imgSrc={EDIT_ICON_URL}
 					  altText="Edit icon"
 				  />
@@ -35,7 +33,7 @@ function CustomToolBlock(props) {
 		  }
 		  <ActionButton
 			  classes="p-1"
-			  onClick={() => handleDeleteOnClick(question.id)}
+			  onClick={handleDeleteOnClick}
 			  imgSrc={DELETE_ICON_BASKET_URL}
 			  altText="Delete icon"
 		  />
