@@ -1,7 +1,8 @@
 import React, {useContext,  useState} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
-import TemplateProvider, {TemplateContext} from "./contexts/TemplateContext";
+import  {TemplateContext} from "./contexts/TemplateContext";
+import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./ReusableTemplate/Template";
 import Header from "../mainPage/head/Header";
 import AllTemplatesBlock from "./AllTemplatesBlock";
@@ -51,7 +52,7 @@ function Home() {
                                     setTags: setTags,
                                     setImgUrl: setImgUrl
                                 }}
-                                // url={SAVE_TEMPLATE_URL}
+                                url={SAVE_TEMPLATE_URL}
                             />
                     </div>
                 );

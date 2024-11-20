@@ -15,9 +15,7 @@ function Template(props) {
       btnName,
       data,
       actions,
-      url,
-      selectedTemplate,
-      setEditorAnchor,
+      url
   } = props;
 
     const {
@@ -55,11 +53,13 @@ function Template(props) {
               <div className="d-flex justify-content-end">
                   <Button className='p-3 btn-primary'
                           variant="contained"
-                          onClick={() => {
-                              setEditorAnchor && setEditorAnchor(false)
-                              saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)
-                          }
-                          }
+                          onClick={saveTemplate(`${url}`)}
+                          // onClick={() => {
+                          //     // setEditorAnchor && setEditorAnchor(false)
+                          //     // saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)
+                          //     saveTemplate(`${url}`)
+                          // }
+                          // }
                   >
                       {btnName}
                   </Button>
