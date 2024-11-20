@@ -1,12 +1,10 @@
-import React, {useContext, useRef, useState} from 'react';
-import {TemplateContext} from "../../../contexts/TemplateContext";
+import React, {useRef, useState} from 'react';
 import NameOrEmailSorter from "../NameOrEmailSorter";
 import CustomBtn from "../../reusableSimpleComp/CustomBtn";
 import CustomCheckBoxes from "../../reusableSimpleComp/CustomCheckBoxes";
 import useActionsCheckboxes from "../../../../hooks/useActionsCheckboxes";
 import CustomFormControlSelect from "../../reusableSimpleComp/CustomFormControlSelect";
 import {accessOptions, answerTypeName, LABEL_USERS} from "../../../../../const/const";
-import useActionsAccessLevel from "../../../../hooks/useActionsAccessLevel";
 import CustomTextField from "../../reusableSimpleComp/CustomTextField";
 import useActionsQuestion from "../../../../hooks/useActionsQuestion";
 import CustomAutoComplete from "../../reusableSimpleComp/CustomAutoComplete";
@@ -15,15 +13,15 @@ import useGetUsers from "../../../../hooks/API/useGetUsers";
 
 function QuestionTemplateBlock(props) {
 
-  const { questionId } = props;
+  const { targetQuestion } = props;
   const { usersData, loading, error } = useGetUsers({ fields: ['id', 'first_name', 'last_name', 'email'] });
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
-  const { questions } = useContext(TemplateContext);
-  const targetQuestion = questionId
-        ? questions.find(question => question.id === questionId)
-        : questions[questions.length - 1];
 
+
+    const {
+        handleTextFieldOnChange
+    } = useActionsQuestion(targetQuestion);
 
     const {
       checkboxOnChange,
@@ -33,19 +31,11 @@ function QuestionTemplateBlock(props) {
   } = useActionsCheckboxes(targetQuestion);
 
   const {
-      handleAccessLevel
-  } = useActionsAccessLevel();
-
-  const {
-      handleTextFieldOnChange
-  } = useActionsQuestion();
-
-  const {
       addTags,
       deleteSelectedUser,
       getOptionLabel,
       getTagLabel,
-  } = useActionsSelectPrivateUsers(sortBy);
+  } = useActionsSelectPrivateUsers(targetQuestion.id, sortBy);
 
   const renderCheckboxes = () => (
       targetQuestion.answerType === 'checkboxes' &&
@@ -101,7 +91,7 @@ function QuestionTemplateBlock(props) {
                     <CustomTextField
                         value={{ question: targetQuestion.name || '' }}
                         onChange={handleTextFieldOnChange}
-                        placeholder={targetQuestion.name || 'Введите вопрос'}
+                        placeholder={targetQuestion?.name || 'Введите вопрос'}
                         field='name'
                     />
                 </div>
@@ -120,8 +110,9 @@ function QuestionTemplateBlock(props) {
           <div className='width-50'>
               <CustomFormControlSelect
                   value={targetQuestion.accessLevel || ''}
-                  onChange={handleAccessLevel}
+                  onChange={handleTextFieldOnChange}
                   options={accessOptions}
+                  field='accessLevel'
                   label='Уровень доступа'
               />
               {renderUsers()}
