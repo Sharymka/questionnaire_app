@@ -12,6 +12,7 @@ function withDataAttributes(WrappedComponent) {
 				key={displayName}
 				data-content={displayName}
 			/>
+
 		);
 	};
 

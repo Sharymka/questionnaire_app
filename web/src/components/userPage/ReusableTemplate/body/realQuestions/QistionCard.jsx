@@ -26,7 +26,7 @@ function QuestionCard(props){
 			<div className='d-flex flex-column gap-3'>
 				<CustomToolBlock
 					classes="toolBlockPosition"
-					question={question}
+					value={question}
 					handleDeleteOnClick={handleDeleteOnClick}
 					handleEditOnClick={handleEditOnClick}
 				/>

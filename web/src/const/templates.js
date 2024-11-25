@@ -44,6 +44,8 @@ export const templates = [
 				checkboxes: []
 			},
 		],
+		edit: false,
+		disabled: false,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	},
@@ -96,6 +98,8 @@ export const templates = [
 				checkboxes: []
 			},
 		],
+		edit: false,
+		disabled: false,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	},
@@ -148,6 +152,8 @@ export const templates = [
 				checkboxes: []
 			},
 		],
+		edit: false,
+		disabled: false,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	},

@@ -9,57 +9,16 @@ import FormsTable from "./FormsTable";
 import {filledForms} from "../../../const/forms";
 import FilledForm from "./FilledForm";
 import {questionTopics} from "../../../const/const";
-import {templates} from "../../../const/templates";
-import {AuthContext} from "../../mainPage/context/AuthContext";
-import {TemplateContext} from "../contexts/TemplateContext";
+import useGetTemplates from "../../hooks/API/useGetTemplates";
 
 function MyTemplates(props) {
-	const {
-		temp,
-		setTemp,
-		// editorAnchor,
-		// setEditorAnchor,
-		showFormsTableAnchor,
-		setShowFormsTableAnchor,
-		setShowFilledFormAnchor,
-		showFilledFormAnchor
-	} = props;
 
 
-	const { user } = useContext(AuthContext);
-	const { refresh } = useContext(TemplateContext);
-	const [selectedTemplate, setSelectedTemplate] = useState({});
+	const [selectedTempId, setSelectedTempId] = useState(null);
 	const [forms, setForms] = useState(filledForms);
 	const [filledForm,setFilledForm] = useState({});
-	const [myTemplates, setMyTemplates] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [editorAnchor, setEditorAnchor] = useState(false);
-
-	useEffect(() => {
-		setSelectedTemplate({});
-		setIsLoading(true);
-		console.log('reset selected template -' +  Object.keys(selectedTemplate).length);
-		console.log('reset isLoading -' +  isLoading);
-		const fetchData = async () => {
-			try {
-				const response = await getData("api/template");
-				const data = await response.json();
-				if(response.ok) {
-					console.log('userId - ' + user.id);
-					setMyTemplates(data.filter((template) => template.userId == user.id));
-					console.log("templates were fetched successfully");
-				} else {
-					console.log(data.error);
-					console.log("template getting failed");
-				}
-			}catch(error) {
-				console.log("template getting failed" + error.message);
-			}finally {
-				setIsLoading(false);
-			}
-		}
-		fetchData();
-	}, [refresh]);
+	const { myTemplates, setMyTemplates } = useGetTemplates();
+	const [view, setView] = useState('table');
 
 	const handleDeleteTemplate = async(id) => {
 		try {
@@ -77,94 +36,118 @@ function MyTemplates(props) {
 		}
 	}
 
-	const handleEditorAnchor = (templateId) => {
-		console.log('templateId - ' + templateId);
-		setSelectedTemplate(myTemplates.find((item, index) => item.id === templateId));
-		setEditorAnchor(true);
-	};
-
 	const handleFilledForm = (idTemplate, idUser) => {
 		 setFilledForm(forms.find((item, index) => item.idTemplate === idTemplate && item.idUser === idUser));
-		 setShowFormsTableAnchor(false);
-		 setEditorAnchor(false);
-		 setShowFilledFormAnchor(true);
+		 // setShowFormsTableAnchor(false);
+		 // setEditorAnchor(false);
+		 // setShowFilledFormAnchor(true);
 	}
 
   return (<div>
 	  {
-		  showFormsTableAnchor ? (
-			  <FormsTable
-				  key="FormsTable"
-				  data-content="FormsTable"
-				  forms={forms}
-			      setForms={setForms}
-			      id={selectedTemplate.id}
-			      handleFilledForm={handleFilledForm}
-			  />
-		  ):showFilledFormAnchor && filledForm ?(
-			  <FilledForm  key="FilledForm" filledForm={filledForm} showFilledFormAnchor={showFilledFormAnchor}/>
-		  ): (
-			  editorAnchor ? (
-			  isLoading? (
-					  <p>Loading templates...</p>
-				  ): (
-				  <Template
-					  data-content="Template"
-					  key="Template"
-					  editorAnchor={editorAnchor}
-					  setEditorAnchor={setEditorAnchor}
-					  selectedTemplate={selectedTemplate}
-					  showFormsTableAnchor={showFormsTableAnchor}
-					  showFilledFormAnchor={showFilledFormAnchor}
-					  setShowFormsTableAnchor={setShowFormsTableAnchor}
-					  url={SAVE_EDITED_TEMPLATE_URL}
-					  btnName={"Сохранить изменения"}
-					  headerName={"Шаблон"}
-				  />
+		  // showFormsTableAnchor ? (
+		  //   <FormsTable
+		  // 	  key="FormsTable"
+		  // 	  data-content="FormsTable"
+		  // 	  forms={forms}
+		  //       setForms={setForms}
+		  //       id={selectedTemplate.id}
+		  //       handleFilledForm={handleFilledForm}
+		  //   />
+		  // ):showFilledFormAnchor && filledForm ?(
+		  //   <FilledForm  key="FilledForm" filledForm={filledForm} showFilledFormAnchor={showFilledFormAnchor}/>
+		  // ): (
+		  //   editorAnchor ? (
+		  //   isLoading? (
+		  // 		  <p>Loading templates...</p>
+		  // 	  ): (
+		  // 	  <Template
+		  // 		  data-content="Template"
+		  // 		  key="Template"
+		  // 		  editorAnchor={editorAnchor}
+		  // 		  setEditorAnchor={setEditorAnchor}
+		  // 		  selectedTemplate={selectedTemplate}
+		  // 		  showFormsTableAnchor={showFormsTableAnchor}
+		  // 		  showFilledFormAnchor={showFilledFormAnchor}
+		  // 		  setShowFormsTableAnchor={setShowFormsTableAnchor}
+		  // 		  url={SAVE_EDITED_TEMPLATE_URL}
+		  // 		  btnName={"Сохранить изменения"}
+		  // 		  headerName={"Шаблон"}
+		  // 	  />
+		  // 	  )
+		  //
+		  //   ):
+		  // 	  isLoading? (
+		  // 		  <p>Loading templates...</p>
+		  // 	  ):
+		  // 	  (
+
+		  <div>
+			  {
+				  props.loading ? (
+					  <div>Loading...</div>
+				  ) : (
+					  <>
+						  {view === 'table' && (
+							  <TableContainer key="TableContainer" data-context="TableContainer" component={Paper}>
+								  <Table sx={{minWidth: 650}} aria-label="border-radius-8 forms table">
+									  <TableHead>
+										  <TableRow>
+											  <TableCell>
+												  <Typography variant="h6">Название</Typography>
+											  </TableCell>
+											  <TableCell align="center">
+												  <Typography variant="h6">Тема</Typography>
+											  </TableCell>
+											  <TableCell align="center">
+												  <Typography variant="h6">Описание</Typography>
+											  </TableCell>
+											  <TableCell align="center">
+												  <Typography variant="h6">Количество вопросов</Typography>
+											  </TableCell>
+											  <TableCell></TableCell>
+										  </TableRow>
+									  </TableHead>
+									  <TableBody>
+										  {myTemplates?.map(
+											  (template) =>
+												  !template.disabled && (
+													  <TableRow className="table-row" key={template.id}>
+														  <TableCell component="th" scope="row">
+															  {template.title}
+														  </TableCell>
+														  <TableCell
+															  align="center">{questionTopics[template.topic]}</TableCell>
+														  <TableCell align="center">
+															  {template.description.split(' ').slice(0, 5).join(' ') +
+																  (template.description.split(' ').length > 5 ? '...' : '')}
+														  </TableCell>
+														  <TableCell align="center">{template.questions.length}</TableCell>
+														  <TableCell component="th" scope="row">
+															  <CustomToolBlock
+																  value={template}
+																  handleDeleteOnClick={() => handleDeleteTemplate(template.id)}
+																  handleEditOnClick={() => {
+																	  setView('editor');
+																	  setSelectedTempId(template.id);
+																  }}
+															  />
+														  </TableCell>
+													  </TableRow>
+												  )
+										  )}
+									  </TableBody>
+								  </Table>
+							  </TableContainer>
+						  )}
+						  {view === 'editor' && <Template templateId={selectedTempId}/>}
+					  </>
 				  )
+			  }
+		  </div>
 
-			  ):
-				  isLoading? (
-					  <p>Loading templates...</p>
-				  ):
-				  (
-				  <TableContainer key="TableContainer" data-context="TableContainer" component={Paper}>
-					  <Table sx={{ minWidth: 650 }} aria-label=" border-radius-8 forms table">
-						  <TableHead>
-							  <TableRow>
-								  <TableCell><Typography variant="h6">Название</Typography></TableCell>
-								  <TableCell align="center"><Typography variant="h6">Тема</Typography></TableCell>
-								  <TableCell align="center"><Typography variant="h6">Описание</Typography></TableCell>
-								  <TableCell align="center"><Typography variant="h6">Количество вопросов</Typography></TableCell>
-								  <TableCell></TableCell>
-							  </TableRow>
-						  </TableHead>
-						  <TableBody>
-							  {myTemplates?.map((template, index) => (
-								  <TableRow   className="table-row" key={template.title}>
-									  <TableCell  component="th" scope="row">
-										  {template.title}
-									  </TableCell>
-									  <TableCell  align="center">{questionTopics[template.topic]}</TableCell>
-									  <TableCell align="center">
-										  {template.description.split(' ').slice(0, 5).join(' ') + (template.description.split(' ').length > 5 ? '...' : '')}
-									  </TableCell>
-									  <TableCell  align="center">{template.questions.length}</TableCell>
-									  <TableCell  component="th" scope="row">
-										  <CustomToolBlock
-											  valueIndex={template.id}
-											  onDeleteClick={handleDeleteTemplate}
-											  onEditOrSaveOnClick={handleEditorAnchor}
-										  />
-									  </TableCell>
-								  </TableRow>
-							  ))}
-						  </TableBody>
-					  </Table>
-				  </TableContainer>
-			  )
-
-		  )
+		  // )
+		  // )
 	  }
 
 

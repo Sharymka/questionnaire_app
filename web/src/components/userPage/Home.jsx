@@ -6,6 +6,7 @@ import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./ReusableTemplate/Template";
 import Header from "../mainPage/head/Header";
 import AllTemplatesBlock from "./AllTemplatesBlock";
+import MyTemplates from "./MyTemplates/MyTemplates";
 
 function Home() {
 
@@ -26,7 +27,6 @@ function Home() {
         temp
     } = useContext(TemplateContext);
     const [currentView, setCurrentView] = React.useState(null);
-    const [editorAnchor, setEditorAnchor] = useState(false);
     const [showFormsTableAnchor, setShowFormsTableAnchor] = useState(false);
     const [showFilledFormAnchor, setShowFilledFormAnchor] = useState(false);
 
@@ -56,34 +56,18 @@ function Home() {
                             />
                     </div>
                 );
-            // case 'myTemplates':
-            //     return (
-            //         <div className="mt-3" role="alert">
-            //             <TemplateProvider  key="TemplateProvider">
-            //                 <MyTemplates
-            //                     key="MyTemplates"
-            //                     filteredTemp={filteredTemp}
-            //                     setTemp={setTemp}
-            //                     temp={temp}
-            //                     editorAnchor={editorAnchor}
-            //                     setEditorAnchor={setEditorAnchor}
-            //                     showFormsTableAnchor={showFormsTableAnchor}
-            //                     setShowFormsTableAnchor={setShowFormsTableAnchor}
-            //                     setShowFilledFormAnchor={setShowFilledFormAnchor}
-            //                     showFilledFormAnchor={showFilledFormAnchor}
-            //                 />
-            //             </TemplateProvider>
-            //         </div>
-            //     );
-            // case 'myForms':
-            //     return (
-            //         <div className="mt-3" role="alert">
-            //             myForms
-            //             <TemplateProvider  key="TemplateProvider">
-            //                 {/*<Template />*/}
-            //             </TemplateProvider>
-            //         </div>
-            //     );
+            case 'myTemplates':
+                return (
+                    <div className="mt-3" role="alert">
+                            <MyTemplates/>
+                    </div>
+                );
+            case 'myForms':
+                return (
+                    <div className="mt-3" role="alert">
+                        myForms
+                    </div>
+                );
             default:
                 return null;
         }
@@ -112,9 +96,9 @@ function Home() {
                                       className="flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
                                           setCurrentView('myTemplates')
-                                          setEditorAnchor(false)
-                                          setShowFormsTableAnchor(false)
-                                          setShowFilledFormAnchor(false)
+                                          // setEditorAnchor(false)
+                                          // setShowFormsTableAnchor(false)
+                                          // setShowFilledFormAnchor(false)
                                       }
                                       }
                                   >
