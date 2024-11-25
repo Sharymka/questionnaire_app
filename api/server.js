@@ -6,7 +6,7 @@ const db = require('./src/config/db');
 // const db = require('./src/config/alwaysData');
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 const {signUp, signIn, signOut, getUsers} = require("./src/controllers/userController");
-const {get, create, update, remove} = require("./src/controllers/templateController");
+const {get, create, update, remove, getTemplateById} = require("./src/controllers/templateController");
 const {getForm, createForm, updateFrom, removeForm} = require("./src/controllers/formController");
 const session = require('express-session');
 const cloudinary = require('./src/config/cloudinaryConfig');
@@ -47,15 +47,17 @@ api.post('/signOut', isAuthenticated, signOut);
 
 api.post('/users',isAuthenticated, getUsers);
 
-api.get('/template',isAuthenticated, get);
-
 api.post('/template',isAuthenticated, create);
 
-api.get('/form',isAuthenticated, getForm);
+api.get('/templates',isAuthenticated, get);
+
+api.get('/template/:id',isAuthenticated, getTemplateById);
 
 api.post('/template/:id',isAuthenticated, update);
 
 api.delete('/template/:id', remove);
+
+api.get('/form',isAuthenticated, getForm);
 
 let uploadStatus = {};
 

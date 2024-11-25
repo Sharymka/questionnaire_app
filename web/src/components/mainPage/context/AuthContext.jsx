@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
 
 	const signIn = (user) => {
 		setIsAuthenticated(true);
+		localStorage.setItem("user", JSON.stringify(user));
 		setUser(user);
 	};
 

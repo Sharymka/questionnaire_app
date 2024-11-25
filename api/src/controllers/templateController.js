@@ -14,6 +14,21 @@ async function get(req, res) {
 	}
 }
 
+async function getTemplateById(req, res) {
+	const { id } = req.params;
+	try {
+		const template = await getTemplate(id);
+		if (template) {
+			res.status(200).json(template);
+		} else {
+			res.status(404).json({ message: 'Template not found' });
+		}
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+}
+
+
 async function create(req, res) {
 	try {
 		const {
@@ -91,4 +106,4 @@ async function update(req, res) {
 	}
 }
 
-module.exports = {get, create, remove, update};
+module.exports = {get, getTemplateById,  create, remove, update};

@@ -7,7 +7,7 @@ function CustomToolBlock(props) {
 
 	const {
 		classes,
-		question,
+		value, // целый объект вида {id: 1, name:'вопрос', ...}
 		handleEditOnClick,
 		handleDeleteOnClick,
 	} = props;
@@ -15,7 +15,7 @@ function CustomToolBlock(props) {
 	  <div className={`d-flex justify-content-center ${classes}`}>
 
 		  {
-			  question.edit ? (
+			  value.edit ? (
 				  <ActionButton
 					  classes="p-1"
 					  onClick={handleEditOnClick}

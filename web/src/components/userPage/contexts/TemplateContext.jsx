@@ -25,25 +25,25 @@ function TemplateProvider({children}) {
 	// 	resetQuestionStates();
 	// }, []);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await getData("api/template");
-				const data = await response.json();
-				if(response.ok) {
-					setTemp(data);
-					setFilteredTemp(data);
-					console.log("templates were fetched successfully");
-				} else {
-					console.log(data.error);
-					console.log("template getting failed");
-				}
-			}catch(error) {
-				console.log("template getting failed" + error.message);
-			}
-		}
-		fetchData();
-	}, [refresh]);
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		try {
+	// 			const response = await getData("api/templates");
+	// 			const data = await response.json();
+	// 			if(response.ok) {
+	// 				setTemp(data);
+	// 				setFilteredTemp(data);
+	// 				console.log("templates were fetched successfully");
+	// 			} else {
+	// 				console.log(data.error);
+	// 				console.log("template getting failed");
+	// 			}
+	// 		}catch(error) {
+	// 			console.log("template getting failed" + error.message);
+	// 		}
+	// 	}
+	// 	fetchData();
+	// }, [refresh]);
 
 	const saveTemplate = async (url)=> {
 		const requestData = {

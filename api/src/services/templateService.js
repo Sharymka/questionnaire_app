@@ -3,10 +3,15 @@ const {id} = require("nodemon");
 
 class TemplateService {
 
-	static async getTemplate() {
+	static async getTemplate(id= null) {
+
+		if (id) {
+			return await Template.findOne({ where: { id, disable: true } });
+		}
 
 		return  await Template.findAll({where: {disable: true}});
 	}
+
 	static async createTemplate(
 		title,
 		topic,
