@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import HeaderBlock from "./HeaderBlock";
 import AutocompleteTags from "../reusableSimpleComp/AutocompleteTags";
 import CustomTypography from "../reusableSimpleComp/CustomTypography";
 import {questionTopics} from "../../../../const/const";
 import CustomTextField from "../reusableSimpleComp/CustomTextField";
 import CustomFormControlSelect from "../reusableSimpleComp/CustomFormControlSelect";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
 function TemplateHeader(props) {
 
@@ -21,7 +22,7 @@ function TemplateHeader(props) {
     } = props;
     // const { showSelectedTemplate } = useContext(TemplateContext);
 
-
+// const { setTitle, title } = useContext(TemplateContext);
   return (
           <HeaderBlock
               // filledForm={filledForm}

@@ -6,7 +6,6 @@ const useActionsSelectPrivateUsers = (targetQuestionId, sortBy) => {
 	const { setQuestions } = useContext(TemplateContext);
 
 	const addTags = (newUser) => {
-		console.log('newUser', newUser);
 		// в newUser приходит  объект вида
 		// {id: 1, first_name:'Ivan', last_name:'Ivanov', email: 'ivanov@mail.rr'}
 

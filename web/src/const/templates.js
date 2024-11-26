@@ -14,7 +14,7 @@ export const templates = [
 			{
 				id: 1,
 				name: "Что такое экология?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -22,7 +22,7 @@ export const templates = [
 			{
 				id: 2,
 				name: "Как экология влияет на наше здоровье?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -30,7 +30,7 @@ export const templates = [
 			{
 				id: 3,
 				name: "Какие основные проблемы экологии существуют?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -38,7 +38,7 @@ export const templates = [
 			{
 				id: 4,
 				name: "Что можно сделать для улучшения состояния экологии?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -64,7 +64,7 @@ export const templates = [
 			{
 				id: 1,
 				name: "Как вы планируете бюджет свадьбы?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "singleLine",
 				selectedUsers: [],
 				checkboxes: []
@@ -72,7 +72,7 @@ export const templates = [
 			{
 				id: 2,
 				name: "Какие места для проведения свадьбы вы рассматриваете?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "checkboxes",
 				selectedUsers: [],
 				checkboxes: [
@@ -84,7 +84,7 @@ export const templates = [
 			{
 				id: 3,
 				name: "Какой стиль свадьбы вам нравится?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "singleLine",
 				selectedUsers: [],
 				checkboxes: []
@@ -92,7 +92,7 @@ export const templates = [
 			{
 				id: 4,
 				name: "Как вы выбираете дату свадьбы?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -118,7 +118,7 @@ export const templates = [
 			{
 				id: 1,
 				name: "Как вы определяете хорошее родительство?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -126,7 +126,7 @@ export const templates = [
 			{
 				id: 2,
 				name: "Как вы помогаете своему ребенку развивать навыки?",
-				access: "restricted",
+				accessLevel: "restricted",
 				answerType: "singleLine",
 				selectedUsers: [{ id: 3, first_name: "Светлана", last_name: "Кузнецова", email: "svetlana@example.com" }],
 				checkboxes: []
@@ -134,7 +134,7 @@ export const templates = [
 			{
 				id: 3,
 				name: "Как вы выбираете книги для своего ребенка?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "checkboxes",
 				selectedUsers: [],
 				checkboxes: [
@@ -146,7 +146,7 @@ export const templates = [
 			{
 				id: 4,
 				name: "Что для вас самое важное в воспитании детей?",
-				access: "public",
+				accessLevel: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []

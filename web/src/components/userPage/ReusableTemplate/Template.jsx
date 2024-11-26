@@ -29,7 +29,10 @@ function Template(props) {
 
   const [showModalAnchor, setShowModalAnchor] = useState(false);
 
-  const renderImageUploadModal = () => (
+    // console.log("Is actions.setTitle from TemplateContext?", actions.setTitle === useContext(TemplateContext).setTitle);
+
+
+    const renderImageUploadModal = () => (
         showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />
   );
 
@@ -56,6 +59,7 @@ function Template(props) {
                 />
                 <QuestionList
                     data={data}
+                    actions={actions}
                 />
                 <div className="card p-4 mt-3">
                     <div className="d-flex justify-content-end">
