@@ -1,15 +1,14 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useSetTempDataToState} from "../useSetTempDataToState";
 import {templates} from "../../../const/templates";
 import {getData} from "../../../Requests";
+import {TemplateContext} from "../../userPage/contexts/TemplateContext";
 
 const useGetTemplate = (templateId = null) => {
 
 	const [myTemplate, setMyTemplate] = useState(templates.find(template => template.id === templateId));
 	const [loading, setLoading] = useState(true);
-	const setTempDataToState = useSetTempDataToState();
 
-	setTempDataToState(myTemplate);
 
 	useEffect(() => {
 		if (templateId) {
@@ -19,8 +18,7 @@ const useGetTemplate = (templateId = null) => {
 					const data = await response.json();
 
 					if(response.ok) {
-						// setMyTemplate(data);
-						setTempDataToState(data);
+						setMyTemplate(data);
 					} else {
 						console.log(data.error);
 						console.log("template getting failed");

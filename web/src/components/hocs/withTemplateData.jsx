@@ -1,45 +1,57 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import useGetTemplate from "../hooks/API/useGetTemplate";
 import {TemplateContext} from "../userPage/contexts/TemplateContext";
+import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
 
 function withTemplateData(WrappedComponent) {
 
 	return (props) => {
 
 		const { templateId } = props;
-		const { myTemplate, setMyTemplates, loading } = useGetTemplate(templateId);
+		const { myTemplate, loading } = useGetTemplate(templateId);
+
+		const setTempDataToState = useSetTempDataToState();
+
+		useEffect(() => {
+			if (templateId && myTemplate) {
+				setTempDataToState(myTemplate);
+			}
+		}, []);
+
 		const {
+			title,
+			topic,
+			description,
+			tags,
+			questions,
+			imgUrl,
 			setTitle,
 			setTopic,
 			setDescription,
 			setTags,
-			setImgUrl
+			setImgUrl,
 		} = useContext(TemplateContext);
 
-		console.log("Template ID:", templateId);
-
 		return (
-			templateId ? (
-				<WrappedComponent
-					{...props}
-					loading={loading}
-					data={myTemplate}
-					actions={{
-						setTitle: setTitle,
-						setTopic: setTopic,
-						setDescription: setDescription,
-						setTags: setTags,
-						setImgUrl: setImgUrl
-					}}
-				/>
-				) : (
-				<WrappedComponent
-					{...props}
-					loading={loading}
-				/>
-				)
-
-
+			<WrappedComponent
+				{...props}
+				loading={templateId? loading: false}
+				data={{
+					title: title,
+					topic: topic,
+					description: description,
+					tags: tags,
+					imgUrl: imgUrl,
+					questions:questions
+				}}
+				actions={{
+					setTitle: setTitle,
+					setTopic: setTopic,
+					setDescription: setDescription,
+					setTags: setTags,
+					setImgUrl: setImgUrl
+				}}
+			/>
 		);
 	};
 }

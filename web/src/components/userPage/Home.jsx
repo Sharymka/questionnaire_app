@@ -24,7 +24,8 @@ function Home() {
         showAllTemplates,
         filteredTemp,
         setTemp,
-        temp
+        temp,
+        statesRefresher,
     } = useContext(TemplateContext);
     const [currentView, setCurrentView] = React.useState(null);
     const [showFormsTableAnchor, setShowFormsTableAnchor] = useState(false);
@@ -38,20 +39,6 @@ function Home() {
                             <Template
                                 headerName="Новая форма"
                                 btnName="Сохранить шаблон"
-                                data={{
-                                    title: title,
-                                    topic: topic,
-                                    description: description,
-                                    tags: tags,
-                                    imgUrl: imgUrl
-                                }}
-                                actions={{
-                                    setTitle: setTitle,
-                                    setTopic: setTopic,
-                                    setDescription: setDescription,
-                                    setTags: setTags,
-                                    setImgUrl: setImgUrl
-                                }}
                                 url={SAVE_TEMPLATE_URL}
                             />
                     </div>
@@ -96,6 +83,7 @@ function Home() {
                                       className="flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
                                           setCurrentView('myTemplates')
+
                                           // setEditorAnchor(false)
                                           // setShowFormsTableAnchor(false)
                                           // setShowFilledFormAnchor(false)

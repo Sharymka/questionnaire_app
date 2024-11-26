@@ -140,7 +140,13 @@ function MyTemplates(props) {
 								  </Table>
 							  </TableContainer>
 						  )}
-						  {view === 'editor' && <Template templateId={selectedTempId}/>}
+						  {view === 'editor' &&
+							  <Template
+								  headerName="Моя форма"
+								  btnName="Сохранить изменения"
+								  templateId={selectedTempId}
+							  />
+						  }
 					  </>
 				  )
 			  }
