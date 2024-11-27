@@ -1,8 +1,6 @@
-import {useContext, useEffect, useState} from "react";
-import {useSetTempDataToState} from "../useSetTempDataToState";
+import {useEffect, useState} from "react";
 import {templates} from "../../../const/templates";
 import {getData} from "../../../Requests";
-import {TemplateContext} from "../../userPage/contexts/TemplateContext";
 
 const useGetTemplate = (templateId = null) => {
 
