@@ -147,6 +147,7 @@ function TemplateProvider({children}) {
 		  filteredTemp,
 		  showSelectedTemplate,
 		  setShowSelectedTemplate,
+		  resetTemplateStates
 	  }}>
 		  {children}
 	  </TemplateContext.Provider>

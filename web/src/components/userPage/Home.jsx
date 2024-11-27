@@ -11,23 +11,12 @@ import MyTemplates from "./MyTemplates/MyTemplates";
 function Home() {
 
     const {
-        title,
-        topic,
-        description,
-        tags,
-        imgUrl,
-        setTitle,
-        setTopic,
-        setDescription,
-        setTags,
-        setImgUrl,
         showAllTemplates,
         filteredTemp,
-        setTemp,
-        temp,
-        statesRefresher,
     } = useContext(TemplateContext);
+
     const [currentView, setCurrentView] = React.useState(null);
+    const [refreshState, setRefreshState] = React.useState(false);
     const [showFormsTableAnchor, setShowFormsTableAnchor] = useState(false);
     const [showFilledFormAnchor, setShowFilledFormAnchor] = useState(false);
 
@@ -37,6 +26,7 @@ function Home() {
                 return (
                     <div className="mt-3" role="alert">
                             <Template
+                                key={currentView}
                                 headerName="Новая форма"
                                 btnName="Сохранить шаблон"
                                 url={SAVE_TEMPLATE_URL}
@@ -46,7 +36,9 @@ function Home() {
             case 'myTemplates':
                 return (
                     <div className="mt-3" role="alert">
-                            <MyTemplates/>
+                            <MyTemplates
+                                key={refreshState}
+                            />
                     </div>
                 );
             case 'myForms':
@@ -83,7 +75,7 @@ function Home() {
                                       className="flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
                                           setCurrentView('myTemplates')
-
+                                          setRefreshState(!refreshState);
                                           // setEditorAnchor(false)
                                           // setShowFormsTableAnchor(false)
                                           // setShowFilledFormAnchor(false)

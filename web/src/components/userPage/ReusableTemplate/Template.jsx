@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TemplateHeader from "./head/TemplateHeader";
 import QuestionList from "./body/realQuestions/QuestionList";
 import SidePanel from "./head/SidePanel";
@@ -24,13 +24,15 @@ function Template(props) {
     const {
         saveTemplate,
         imgUrl,
-        message
+        message,
+        resetTemplateStates,
     } = useContext(TemplateContext);
 
   const [showModalAnchor, setShowModalAnchor] = useState(false);
 
-    // console.log("Is actions.setTitle from TemplateContext?", actions.setTitle === useContext(TemplateContext).setTitle);
-
+    useEffect(() => {
+        resetTemplateStates();
+    }, []);
 
     const renderImageUploadModal = () => (
         showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />
