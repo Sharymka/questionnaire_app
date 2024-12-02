@@ -8,6 +8,7 @@ export const filledForms = [
 			topic: "Научные исследования",
 			description: "Анкета по вопросам экологии и её влияния на окружающую среду.",
 			img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729586264/planet_mvfsx5.jpg",
+			tags: [{ id: 1, label: "Наука" }],
 		},
 		user: {
 			first_name: "Иван",
@@ -52,7 +53,7 @@ export const filledForms = [
 
 	// Записи для шаблона "Свадьба"
 	{
-		id: 6,
+		id: 2,
 		idTemplate: 2,
 		idUser: 1,
 		template: {
@@ -103,14 +104,14 @@ export const filledForms = [
 	},
 
 	{
-		id: 11,
+		id: 3,
 		idTemplate: 3,
 		idUser: 1,
 		template: {
 			title: "Родительство",
 			topic: "Семейные вопросы",
 			description: "Анкета, связанная с вопросами воспитания и заботы о детях.",
-			img:"https://res.cloudinary.com/dewxfivxh/image/upload/v1729586265/family_ggc73k.jpg"
+			img:"https://res.cloudinary.com/dewxfivxh/image/upload/v1729878773/ocqjalb9axsztteclzyf.jpg"
 
 		},
 		user: {

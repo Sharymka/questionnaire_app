@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { Typography} from "@mui/material";
+import {List, ListItem, Typography} from "@mui/material";
 import CustomToolBlock from "./CustomToolBlock";
 import CustomTextField from "../../reusableSimpleComp/CustomTextField";
 import useActionsQuestion from "../../../../hooks/useActionsQuestion";
@@ -40,11 +40,27 @@ function QuestionCard(props){
 									{question?.name || "Неизвестное имя"}
 								</Typography>
 								<div className="mb-3 width-50">
-									<CustomTextField
-										// classes="color_grey"
-										value={{answerType: question.answerType}}
-										placeholder={answerTypeName[question.answerType]}
-									/>
+									{
+										question.answerType === 'checkboxes'? (
+											<List sx={{ width: '100%' }}>
+												{question.checkboxes?.map((option, index) => (
+													<ListItem
+														key={option.id}
+													>
+														<span className="me-2">{index + 1}.</span>
+														<Typography>
+															{option.value}
+														</Typography>
+													</ListItem>
+												))}
+											</List>
+										): (
+											<CustomTextField
+												value={{answerType: question.answerType}}
+												placeholder={answerTypeName[question.answerType]}
+											/>
+										)
+									}
 								</div>
 							</>
 						)

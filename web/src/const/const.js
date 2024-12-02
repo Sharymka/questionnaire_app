@@ -23,7 +23,8 @@ export const  textFieldNames = {
 	tags: 'Теги',
 	question: 'задайте вопрос',
 	checkbox: 'введите вариант',
-	answerType: 'Ответ'
+	answerType: 'Ответ',
+	user: 'Автор'
 }
 
 
