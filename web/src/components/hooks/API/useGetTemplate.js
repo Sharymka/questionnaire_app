@@ -7,7 +7,6 @@ const useGetTemplate = (templateId = null) => {
 	const [myTemplate, setMyTemplate] = useState(templates.find(template => template.id === templateId));
 	const [loading, setLoading] = useState(true);
 
-
 	useEffect(() => {
 		if (templateId) {
 			const fetchData = async () => {

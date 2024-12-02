@@ -1,24 +1,20 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {deleteData, getData} from "../../../Requests";
+import React, {useState} from 'react';
+import {deleteData} from "../../../Requests";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import CustomToolBlock from "../ReusableTemplate/body/realQuestions/CustomToolBlock";
-import {SAVE_EDITED_TEMPLATE_URL} from "../../../url/url";
 import Template from "../ReusableTemplate/Template";
-import FormsTable from "./FormsTable";
-import {filledForms} from "../../../const/forms";
-import FilledForm from "./FilledForm";
 import {questionTopics} from "../../../const/const";
 import useGetTemplates from "../../hooks/API/useGetTemplates";
+import FormsTable from "./FormsTable";
+import FilledForm from "./FilledForm";
 
 function MyTemplates(props) {
 
-
-	const [selectedTempId, setSelectedTempId] = useState(null);
-	const [forms, setForms] = useState(filledForms);
-	const [filledForm,setFilledForm] = useState({});
-	const { myTemplates, setMyTemplates } = useGetTemplates();
 	const [view, setView] = useState('table');
+	const { myTemplates, setMyTemplates } = useGetTemplates();
+	const [selectedTempId, setSelectedTempId] = useState(null);
+	const [filledFormId, setFilledFormId] = useState(null);
 
 	const handleDeleteTemplate = async(id) => {
 		try {
@@ -36,52 +32,8 @@ function MyTemplates(props) {
 		}
 	}
 
-	const handleFilledForm = (idTemplate, idUser) => {
-		 setFilledForm(forms.find((item, index) => item.idTemplate === idTemplate && item.idUser === idUser));
-		 // setShowFormsTableAnchor(false);
-		 // setEditorAnchor(false);
-		 // setShowFilledFormAnchor(true);
-	}
-
   return (<div>
 	  {
-		  // showFormsTableAnchor ? (
-		  //   <FormsTable
-		  // 	  key="FormsTable"
-		  // 	  data-content="FormsTable"
-		  // 	  forms={forms}
-		  //       setForms={setForms}
-		  //       id={selectedTemplate.id}
-		  //       handleFilledForm={handleFilledForm}
-		  //   />
-		  // ):showFilledFormAnchor && filledForm ?(
-		  //   <FilledForm  key="FilledForm" filledForm={filledForm} showFilledFormAnchor={showFilledFormAnchor}/>
-		  // ): (
-		  //   editorAnchor ? (
-		  //   isLoading? (
-		  // 		  <p>Loading templates...</p>
-		  // 	  ): (
-		  // 	  <Template
-		  // 		  data-content="Template"
-		  // 		  key="Template"
-		  // 		  editorAnchor={editorAnchor}
-		  // 		  setEditorAnchor={setEditorAnchor}
-		  // 		  selectedTemplate={selectedTemplate}
-		  // 		  showFormsTableAnchor={showFormsTableAnchor}
-		  // 		  showFilledFormAnchor={showFilledFormAnchor}
-		  // 		  setShowFormsTableAnchor={setShowFormsTableAnchor}
-		  // 		  url={SAVE_EDITED_TEMPLATE_URL}
-		  // 		  btnName={"Сохранить изменения"}
-		  // 		  headerName={"Шаблон"}
-		  // 	  />
-		  // 	  )
-		  //
-		  //   ):
-		  // 	  isLoading? (
-		  // 		  <p>Loading templates...</p>
-		  // 	  ):
-		  // 	  (
-
 		  <div>
 			  {
 				  props.loading ? (
@@ -125,10 +77,15 @@ function MyTemplates(props) {
 														  <TableCell align="center">{template.questions.length}</TableCell>
 														  <TableCell component="th" scope="row">
 															  <CustomToolBlock
+																  showForms={true}
 																  value={template}
 																  handleDeleteOnClick={() => handleDeleteTemplate(template.id)}
 																  handleEditOnClick={() => {
 																	  setView('editor');
+																	  setSelectedTempId(template.id);
+																  }}
+																  handleShowForms={()=> {
+																	  setView('showFormsTable');
 																	  setSelectedTempId(template.id);
 																  }}
 															  />
@@ -145,6 +102,21 @@ function MyTemplates(props) {
 								  headerName="Моя форма"
 								  btnName="Сохранить изменения"
 								  templateId={selectedTempId}
+							  />
+						  }
+						  {
+							  view === 'showFormsTable' &&
+							  <FormsTable
+								  templateId={selectedTempId}
+								  setView={setView}
+								  view='showForm'
+								  setFilledFormId={setFilledFormId}
+							  />
+						  }
+						  {
+							  view === 'showForm' &&
+							  <FilledForm
+								  filledFormId={filledFormId}
 							  />
 						  }
 					  </>

@@ -54,7 +54,12 @@ function TemplateHeader(props) {
               }
               DescriptionComponent={
                   isReadOnly ?
-                      <CustomTypography value={{description: data.description}}/>:
+                      <div className='d-flex justify-content-between'>
+                          <CustomTypography value={{description: data.description}}/>
+                          <CustomTypography value={{user: data.user}}/>
+                      </div>
+
+                      :
                       <CustomTextField
                           onChange={actions.setDescription}
                           value={{description: data.description}}

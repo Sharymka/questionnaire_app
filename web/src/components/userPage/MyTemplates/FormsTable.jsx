@@ -3,35 +3,14 @@ import Paper from "@mui/material/Paper";
 import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import {getData} from "../../../Requests";
 import { READ_ICON_URL} from "../../../url/url";
+import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 function FormsTable(props) {
 
-	const { id, handleFilledForm, forms, setForms } = props;
+	const { templateId, setView, view, setFilledFormId } = props;
 
+	const { forms } = useGetFormsByTempId(templateId);
 
-
-	useEffect(()=>{
-		const fetchData = async () => {
-			try {
-				const response = await getData('api/form');
-
-				const formsData = await response.json();
-
-				if (response.ok) {
-					setForms(formsData.filter((form) => form.idTemplate === id));
-					console.log("forms were fetched successfully");
-				} else {
-					const errorText = await response.text(); // Читаем ответ как текст
-					console.log(`HTTP ошибка! статус: ${response.status}, сообщение: ${errorText}`);
-				}
-			} catch (error) {
-				console.log({'error': error.message});
-			}
-		}
-		fetchData();
-
-	}, [id]);
-
-  return (
+    return (
 	  <TableContainer component={Paper}>
 		   <Table sx={{ minWidth: 650 }} aria-label=" border-radius-8 forms table">
 		 	  <TableHead>
@@ -55,7 +34,10 @@ function FormsTable(props) {
 								  <div className={`d-flex justify-content-center`}>
 									  <IconButton
 										  className="p-1"
-										  onClick={() => handleFilledForm(form.idTemplate, form.idUser)}
+										  onClick={() => {
+											  setView(view);
+											  setFilledFormId(form.id);
+										  }}
 										  aria-label="edit"
 									  >
 										  <img style={{maxWidth: '22px', maxHeight: '25px'}}

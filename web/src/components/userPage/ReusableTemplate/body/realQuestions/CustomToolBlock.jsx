@@ -1,6 +1,6 @@
 import React from 'react';
 import {IconButton} from "@mui/material";
-import {DELETE_ICON_BASKET_URL, EDIT_ICON_URL, SAVE_ICON_URL} from "../../../../../url/url";
+import {DELETE_ICON_BASKET_URL, EDIT_ICON_URL, SAVE_ICON_URL, SHOW_FORM_LIST} from "../../../../../url/url";
 import ActionButton from "../../AcctionBtn";
 
 function CustomToolBlock(props) {
@@ -10,6 +10,8 @@ function CustomToolBlock(props) {
 		value, // целый объект вида {id: 1, name:'вопрос', ...}
 		handleEditOnClick,
 		handleDeleteOnClick,
+		handleShowForms,
+		showForms = false,
 	} = props;
   return (
 	  <div className={`d-flex justify-content-center ${classes}`}>
@@ -37,6 +39,15 @@ function CustomToolBlock(props) {
 			  imgSrc={DELETE_ICON_BASKET_URL}
 			  altText="Delete icon"
 		  />
+		  {
+			  showForms && (
+				  <ActionButton
+					  imgSrc={SHOW_FORM_LIST}
+					  onClick={handleShowForms}
+					  altText="show image modal window"
+				  />
+			  )
+		  }
   </div>
   );
 }
