@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/material";
-import {TemplateContext} from "./contexts/TemplateContext";
+import {TemplateContext} from "../contexts/TemplateContext";
 import {Link} from "react-router-dom";
 
 function AllTemplatesBlock(props) {

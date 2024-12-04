@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
-import TemplateHeader from "./head/TemplateHeader";
-import QuestionList from "./body/realQuestions/QuestionList";
-import SidePanel from "./head/SidePanel";
+import TemplateHeader from "./TemplateHeader";
+import QuestionList from "./QuestionList";
+import SidePanel from "./SidePanel";
 import {Button} from "@mui/material";
-import {TemplateContext} from "../contexts/TemplateContext";
-import ImageUploadModal from "./head/ImageUploadModal";
-import MessageBlock from "./reusableSimpleComp/MessageBlock";
+import {TemplateContext} from "../../contexts/TemplateContext";
+import ImageUploadModal from "./ImageUploadModal";
+import MessageBlock from "./MessageBlock";
 import withDataAttributes from "../../hocs/withDataAttributes";
 import withTemplateData from "../../hocs/withTemplateData";
 

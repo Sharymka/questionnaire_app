@@ -1,10 +1,10 @@
 import React, {useRef} from 'react';
 import {styled, TextField} from "@mui/material";
-import withTextFieldWrap from "../../../hocs/withTextFieldWrap";
-import {textFieldNames} from "../../../../const/const";
-import {getFieldValue} from "../../../../utilits/getFieldValue";
-import withAddParamForTextField from "../../../hocs/withAddParamForTextField";
-import {getAnswerTypeName} from "../../../../utilits/getAnswerTypeName";
+import withTextFieldWrap from "../../hocs/withTextFieldWrap";
+import {textFieldNames} from "../../../const/const";
+import {getFieldValue} from "../../../utilits/getFieldValue";
+import withAddParamForTextField from "../../hocs/withAddParamForTextField";
+import {getAnswerTypeName} from "../../../utilits/getAnswerTypeName";
 
 
 function CustomTextField(props) {

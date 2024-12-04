@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {TemplateContext} from "../userPage/contexts/TemplateContext";
+import {TemplateContext} from "../contexts/TemplateContext";
 
 const useActionsQuestion = (targetQuestion) => {
 

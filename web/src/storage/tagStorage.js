@@ -1,4 +1,4 @@
-import {initialTags} from "../../const/const";
+import {initialTags} from "../const/const";
 
 
 export const setTags = () => {

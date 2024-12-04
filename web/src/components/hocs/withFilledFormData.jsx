@@ -1,7 +1,7 @@
 import useGetTemplate from "../hooks/API/useGetTemplate";
 import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
 import React, {useContext, useEffect} from "react";
-import {TemplateContext} from "../userPage/contexts/TemplateContext";
+import {TemplateContext} from "../contexts/TemplateContext";
 import useGetFormById from "../hooks/API/useGetFormById";
 import data from "mdb-ui-kit/src/js/mdb/dom/data";
 

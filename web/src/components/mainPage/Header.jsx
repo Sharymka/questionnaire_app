@@ -11,11 +11,11 @@ import { Search as SearchIcon, DarkMode, LightMode } from '@mui/icons-material';
 import SignOutBtn from './SignOutBtn';
 import SignInBtn from './SignInBtn';
 import SignUpBtn from './SignUpBtn';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from './context/AuthContext';
 import LanguageSelector from "./LanguageSelector";
 import MenuComponent from "./MenuComponent";
-import {TemplateContext} from "../../userPage/contexts/TemplateContext";
-import MainPage from "../MainPage";
+import {TemplateContext} from "../contexts/TemplateContext";
+import MainPage from "./MainPage";
 
 function Header() {
 	const { isAuthenticated, user } = useContext(AuthContext);

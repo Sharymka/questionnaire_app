@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
-import {getData, postData} from "../../../Requests";
-import {templates} from "../../../const/templates";
+import {getData, postData} from "../../Requests";
+import {templates} from "../../const/templates";
 
 export const TemplateContext = React.createContext(null);
 

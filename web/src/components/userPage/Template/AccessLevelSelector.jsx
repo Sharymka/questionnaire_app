@@ -1,6 +1,6 @@
 import React  from 'react';
-import CustomFormControlSelect from "../reusableSimpleComp/CustomFormControlSelect";
-import {accessOptions} from '../../../../const/const';
+import CustomFormControlSelect from "./CustomFormControlSelect";
+import {accessOptions} from '../../../const/const';
 
 function AccessLevelSelector(props) {
 

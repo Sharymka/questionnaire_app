@@ -1,10 +1,10 @@
 import React, {useContext,  useState} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
-import  {TemplateContext} from "./contexts/TemplateContext";
+import  {TemplateContext} from "../contexts/TemplateContext";
 import {SAVE_TEMPLATE_URL} from "../../url/url";
-import Template from "./ReusableTemplate/Template";
-import Header from "../mainPage/head/Header";
+import Template from "./Template/Template";
+import Header from "../mainPage/Header";
 import AllTemplatesBlock from "./AllTemplatesBlock";
 import MyTemplates from "./MyTemplates/MyTemplates";
 

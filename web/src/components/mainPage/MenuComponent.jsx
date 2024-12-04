@@ -2,8 +2,8 @@ import React, {useContext, useState} from 'react';
 import {IconButton, Menu} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import {TemplateContext} from "../../userPage/contexts/TemplateContext";
-import ModalForm from "../../userPage/ReusableTemplate/head/ModalForm";
+import {TemplateContext} from "../contexts/TemplateContext";
+import ModalForm from "../userPage/Template/ModalForm";
 
 function MenuComponent(props) {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {MenuItem, Select} from "@mui/material";
-import {EN_FLAG_URL, RU_FLAG_URL} from "../../../url/url";
+import {EN_FLAG_URL, RU_FLAG_URL} from "../../url/url";
 
 function LanguageSelector(props) {
 
