@@ -1,5 +1,5 @@
 import React from 'react';
-import TemplateHeader from "../ReusableTemplate/head/TemplateHeader";
+import TemplateHeader from "../Template/TemplateHeader";
 import {Typography} from "@mui/material";
 import useGetFormById from "../../hooks/API/useGetFormById";
 import withFilledFormData from "../../hocs/withFilledFormData";

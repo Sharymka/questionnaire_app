@@ -1,7 +1,7 @@
 import React from 'react';
 import {IconButton} from "@mui/material";
-import {DELETE_ICON_BASKET_URL, EDIT_ICON_URL, SAVE_ICON_URL, SHOW_FORM_LIST} from "../../../../../url/url";
-import ActionButton from "../../AcctionBtn";
+import {DELETE_ICON_BASKET_URL, EDIT_ICON_URL, SAVE_ICON_URL, SHOW_FORM_LIST} from "../../../url/url";
+import ActionButton from "./AcctionBtn";
 
 function CustomToolBlock(props) {
 

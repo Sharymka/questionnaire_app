@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import {getTags, saveTags, setTags} from "../storage/tagStorage";
+import {getTags, saveTags, setTags} from "../../storage/tagStorage";
 
 const useActionsTags = (tags, onTagsChange) => {
 	const [tagsOptions, setTagsOptions] = useState([]);

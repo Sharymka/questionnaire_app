@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from "@mui/material";
-import {textFieldNames} from "../../../../const/const";
-import {getFieldValue} from "../../../../utilits/getFieldValue";
+import {textFieldNames} from "../../../const/const";
+import {getFieldValue} from "../../../utilits/getFieldValue";
 
 function CustomTypography(props) {
 

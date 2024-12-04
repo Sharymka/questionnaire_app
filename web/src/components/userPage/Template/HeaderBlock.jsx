@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {Typography} from "@mui/material";
 import {TemplateContext} from "../../contexts/TemplateContext";
-import {SAVE_ICON_URL} from "../../../../url/url";
-import withDataAttributes from "../../../hocs/withDataAttributes";
-import withAuthorFormData from "../../../hocs/withAuthorFormData";
+import {SAVE_ICON_URL} from "../../../url/url";
+import withDataAttributes from "../../hocs/withDataAttributes";
+import withAuthorFormData from "../../hocs/withAuthorFormData";
 
 const HeaderBlock = (props) => {
 

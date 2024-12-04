@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {DragDropContext, Draggable, Droppable} from '@hello-pangea/dnd';
 import QuestionCard from "./QistionCard";
-import {TemplateContext} from "../../../contexts/TemplateContext";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
 function QuestionsList() {
 

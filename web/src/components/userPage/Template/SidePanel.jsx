@@ -2,8 +2,8 @@ import React from 'react';
 import { Box} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ImageIcon from '@mui/icons-material/Image';
-import ActionButton from "../AcctionBtn";
-import useActionsQuestion from "../../../hooks/useActionsQuestion";
+import ActionButton from "./AcctionBtn";
+import useActionsQuestion from "../../hooks/useActionsQuestion";
 
 const SidePanel = (props ) => {
 

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import useGetTemplate from "../hooks/API/useGetTemplate";
-import {TemplateContext} from "../userPage/contexts/TemplateContext";
+import {TemplateContext} from "../contexts/TemplateContext";
 import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
 
 function withTemplateData(WrappedComponent) {

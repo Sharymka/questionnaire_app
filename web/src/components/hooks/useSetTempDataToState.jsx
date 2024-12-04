@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {TemplateContext} from "../userPage/contexts/TemplateContext";
+import {TemplateContext} from "../contexts/TemplateContext";
 
 export function useSetTempDataToState() {
 	const {setTitle, setTopic, setDescription, setTags, setQuestions} = useContext(TemplateContext);

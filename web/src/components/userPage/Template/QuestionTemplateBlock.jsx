@@ -1,15 +1,15 @@
 import React, {useRef, useState} from 'react';
-import NameOrEmailSorter from "../NameOrEmailSorter";
-import CustomBtn from "../../reusableSimpleComp/CustomBtn";
-import CustomCheckBoxes from "../../reusableSimpleComp/CustomCheckBoxes";
-import useActionsCheckboxes from "../../../../hooks/useActionsCheckboxes";
-import CustomFormControlSelect from "../../reusableSimpleComp/CustomFormControlSelect";
-import {accessOptions, answerTypeName, LABEL_USERS} from "../../../../../const/const";
-import CustomTextField from "../../reusableSimpleComp/CustomTextField";
-import useActionsQuestion from "../../../../hooks/useActionsQuestion";
-import CustomAutoComplete from "../../reusableSimpleComp/CustomAutoComplete";
-import useActionsSelectPrivateUsers from "../../../../hooks/useActionsSelectPrivateUsers";
-import useGetUsers from "../../../../hooks/API/useGetUsers";
+import NameOrEmailSorter from "./NameOrEmailSorter";
+import CustomBtn from "./CustomBtn";
+import CustomCheckBoxes from "./CustomCheckBoxes";
+import useActionsCheckboxes from "../../hooks/useActionsCheckboxes";
+import CustomFormControlSelect from "./CustomFormControlSelect";
+import {accessOptions, answerTypeName, LABEL_USERS} from "../../../const/const";
+import CustomTextField from "./CustomTextField";
+import useActionsQuestion from "../../hooks/useActionsQuestion";
+import CustomAutoComplete from "./CustomAutoComplete";
+import useActionsSelectPrivateUsers from "../../hooks/useActionsSelectPrivateUsers";
+import useGetUsers from "../../hooks/API/useGetUsers";
 
 function QuestionTemplateBlock(props) {
 

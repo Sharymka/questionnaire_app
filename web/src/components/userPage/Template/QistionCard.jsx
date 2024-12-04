@@ -1,11 +1,11 @@
 import React, {useContext} from "react";
 import {List, ListItem, Typography} from "@mui/material";
 import CustomToolBlock from "./CustomToolBlock";
-import CustomTextField from "../../reusableSimpleComp/CustomTextField";
-import useActionsQuestion from "../../../../hooks/useActionsQuestion";
-import QuestionTemplateBlock from "../questionTemplate/QuestionTemplateBlock";
-import {answerTypeName} from "../../../../../const/const";
-import {TemplateContext} from "../../../contexts/TemplateContext";
+import CustomTextField from "./CustomTextField";
+import useActionsQuestion from "../../hooks/useActionsQuestion";
+import QuestionTemplateBlock from "./QuestionTemplateBlock";
+import {answerTypeName} from "../../../const/const";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
 function QuestionCard(props){
 

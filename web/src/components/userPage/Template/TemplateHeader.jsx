@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import HeaderBlock from "./HeaderBlock";
-import AutocompleteTags from "../reusableSimpleComp/AutocompleteTags";
-import CustomTypography from "../reusableSimpleComp/CustomTypography";
-import {questionTopics} from "../../../../const/const";
-import CustomTextField from "../reusableSimpleComp/CustomTextField";
-import CustomFormControlSelect from "../reusableSimpleComp/CustomFormControlSelect";
+import AutocompleteTags from "./AutocompleteTags";
+import CustomTypography from "./CustomTypography";
+import {questionTopics} from "../../../const/const";
+import CustomTextField from "./CustomTextField";
+import CustomFormControlSelect from "./CustomFormControlSelect";
 import {TemplateContext} from "../../contexts/TemplateContext";
 
 function TemplateHeader(props) {

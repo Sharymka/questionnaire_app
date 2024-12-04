@@ -6,7 +6,7 @@ import {
 	Typography,
 	TextField, IconButton,
 } from '@mui/material';
-import { postFileData } from "../../../../Requests";
+import { postFileData } from "../../../Requests";
 import { TemplateContext } from "../../contexts/TemplateContext";
 import AddIcon from "@mui/icons-material/Add";
 import imageCompression from 'browser-image-compression';
