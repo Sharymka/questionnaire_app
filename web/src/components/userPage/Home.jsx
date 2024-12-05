@@ -53,11 +53,9 @@ function Home() {
     };
   return (
       <>
-          <Header key="Header"/>
           {
               showAllTemplates ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
                   <>
-                      <div className=" appBackground">
                           <div className=" p-5 container container_min_1200">
                               <div className=" screen_max_425 screen_min_425">
                                   <Link
@@ -89,7 +87,6 @@ function Home() {
                               </div>
                               {renderComponent()}
                           </div>
-                      </div>
                   </>
               )
           }

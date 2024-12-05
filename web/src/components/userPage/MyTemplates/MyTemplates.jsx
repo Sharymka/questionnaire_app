@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {deleteData} from "../../../Requests";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -9,12 +9,21 @@ import useGetTemplates from "../../hooks/API/useGetTemplates";
 import FormsTable from "./FormsTable";
 import FilledForm from "./FilledForm";
 
-function MyTemplates(props) {
+function MyTemplates() {
+
+	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
 
 	const [view, setView] = useState('table');
-	const { myTemplates, setMyTemplates } = useGetTemplates();
+	const { templates, setTemplates, loading } = useGetTemplates();
+	const [myTemplates, setMyTemplates] = useState([]);
 	const [selectedTempId, setSelectedTempId] = useState(null);
 	const [filledFormId, setFilledFormId] = useState(null);
+
+	useEffect(() => {
+		if (templates) {
+			setMyTemplates(templates.filter((template) => template.userId === user.id));
+		}
+	}, [templates]);
 
 	const handleDeleteTemplate = async(id) => {
 		try {
@@ -36,7 +45,7 @@ function MyTemplates(props) {
 	  {
 		  <div>
 			  {
-				  props.loading ? (
+				  loading && myTemplates.length === 0 ? (
 					  <div>Loading...</div>
 				  ) : (
 					  <>

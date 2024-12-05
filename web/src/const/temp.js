@@ -1,4 +1,4 @@
-export const templates = [
+export const temp = [
 	{
 		id: 1,
 		userId: 1,
