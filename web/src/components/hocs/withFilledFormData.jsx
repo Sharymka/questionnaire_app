@@ -1,4 +1,4 @@
-import useGetTemplate from "../hooks/API/useGetTemplate";
+import useGetTemplateById from "../hooks/API/useGetTemplateById";
 import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
 import React, {useContext, useEffect} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";

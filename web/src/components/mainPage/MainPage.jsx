@@ -15,10 +15,9 @@ function MainPage() {
 	const { showAllTemplates, temp, filteredTemp } = useContext(TemplateContext);
   return (
 	  <>
-		  <Header/>
 		  {
 			  showAllTemplates ? (
-				  <AllTemplatesBlock AllTemplatesBlock temp={filteredTemp}/>
+				  <AllTemplatesBlock/>
 			  ): (
 				  <StatisticData/>
 			  )

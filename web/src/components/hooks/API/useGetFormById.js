@@ -14,29 +14,29 @@ const useGetFormById =  (filledFormId) => {
 		setForm(transformedForm);
 	}, []);
 
-	// useEffect(()=>{
-	// 	const fetchData = async () => {
-	// 		try {
-	// 			const response = await getData('api/form');
-	//
-	// 			const formsData = await response.json();
-	//
-	// 			if (response.ok) {
-	// 				setForm(formsData.filter((form) => form.idTemplate === filledFormId));
-	// 				console.log("forms were fetched successfully");
-	// 			} else {
-	// 				const errorText = await response.text();
-	// 				console.log(`HTTP error! status: ${response.status}, message: ${errorText}`);
-	// 			}
-	// 		} catch (error) {
-	// 			console.log({'error': error.message});
-	// 		}finally {
-	// 			setLoading(false);
-	// 		}
-	// 	}
-	// 	fetchData();
-	//
-	// }, []);
+	useEffect(()=>{
+		const fetchData = async () => {
+			try {
+				const response = await getData('api/form');
+
+				const formsData = await response.json();
+
+				if (response.ok) {
+					setForm(formsData.filter((form) => form.idTemplate === filledFormId));
+					console.log("forms were fetched successfully");
+				} else {
+					const errorText = await response.text();
+					console.log(`HTTP error! status: ${response.status}, message: ${errorText}`);
+				}
+			} catch (error) {
+				console.log({'error': error.message});
+			}finally {
+				setLoading(false);
+			}
+		}
+		fetchData();
+
+	}, []);
 
 	return { form, loading, setLoading }
 }

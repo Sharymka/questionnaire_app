@@ -1,10 +1,9 @@
 import {useEffect, useState} from "react";
-import {templates} from "../../../const/templates";
+import {temp} from "../../../const/temp";
 import {getData} from "../../../Requests";
+const useGetTemplateById = (templateId = null) => {
 
-const useGetTemplate = (templateId = null) => {
-
-	const [myTemplate, setMyTemplate] = useState(templates.find(template => template.id === templateId));
+	const [template, setTemplate] = useState(temp.find(template => template.id === templateId));
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -15,7 +14,7 @@ const useGetTemplate = (templateId = null) => {
 					const data = await response.json();
 
 					if(response.ok) {
-						setMyTemplate(data);
+						setTemplate(data);
 					} else {
 						console.log(data.error);
 						console.log("template getting failed");
@@ -31,7 +30,7 @@ const useGetTemplate = (templateId = null) => {
 		}
 	}, []);
 
-	return { myTemplate, setMyTemplate, loading }
+	return { template, setTemplate, loading }
 }
 
-export default useGetTemplate;
+export default useGetTemplateById;

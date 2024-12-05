@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import {getData, postData} from "../../Requests";
-import {templates} from "../../const/templates";
+import {temp} from "../../const/temp";
 
 export const TemplateContext = React.createContext(null);
 
@@ -11,8 +11,8 @@ function TemplateProvider({children}) {
 	const [description, setDescription] = useState('');
 	const [tags, setTags] = useState([]);
 	const [imgUrl, setImgUrl] = useState('');
-	const [temp, setTemp] = useState(templates);
-	const [filteredTemp, setFilteredTemp] = useState(templates);
+	// const [temp, setTemp] = useState(temp);
+	const [filteredTemp, setFilteredTemp] = useState(temp);
 	const [questions, setQuestions] = useState([]);
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
@@ -133,8 +133,8 @@ function TemplateProvider({children}) {
 		  handleTopic,
 		  questions,
 		  setQuestions,
-		  temp,
-		  setTemp,
+		  // temp,
+		  // setTemp,
 		  handleFilteredTemplate,
 		  saveTemplate,
 		  message,
