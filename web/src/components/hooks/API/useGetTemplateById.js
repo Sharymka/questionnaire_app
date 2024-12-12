@@ -1,12 +1,21 @@
 import {useEffect, useState} from "react";
-import {temp} from "../../../const/temp";
 import {getData} from "../../../Requests";
+import {temp} from "../../../const/temp";
+import {transformForm} from "../../../utilits/transformForm";
 const useGetTemplateById = (templateId = null) => {
 
-	const [template, setTemplate] = useState(temp.find(template => template.id === templateId));
+	const [template, setTemplate] = useState(null);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
+		const matchedTemplate = temp.find(template => template.id  === Number(templateId));
+		setTemplate(matchedTemplate);
+		setLoading(false);
+	}, []);
+	
+
+	useEffect(() => {
+
 		if (templateId) {
 			const fetchData = async () => {
 				try {

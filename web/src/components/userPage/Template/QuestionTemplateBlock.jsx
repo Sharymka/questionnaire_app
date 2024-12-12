@@ -13,7 +13,7 @@ import useGetUsers from "../../hooks/API/useGetUsers";
 
 function QuestionTemplateBlock(props) {
 
-  const { targetQuestion } = props;
+  const { targetQuestion, config } = props;
   const { usersData, loading, error } = useGetUsers({ fields: ['id', 'first_name', 'last_name', 'email'] });
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
@@ -49,6 +49,7 @@ function QuestionTemplateBlock(props) {
                       deleteOptionOnClick: deleteOptionOnClick,
                       textFieldOnChange: textFieldOnChange
                   }}
+                  config={config}
               />
           </div>
           <CustomBtn

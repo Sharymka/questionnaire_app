@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {deleteData} from "../../../Requests";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -8,10 +8,13 @@ import {questionTopics} from "../../../const/const";
 import useGetTemplates from "../../hooks/API/useGetTemplates";
 import FormsTable from "./FormsTable";
 import FilledForm from "./FilledForm";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
 function MyTemplates() {
 
 	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
+
+	const { config } = useContext(TemplateContext);
 
 	const [view, setView] = useState('table');
 	const { templates, setTemplates, loading } = useGetTemplates();
@@ -111,6 +114,7 @@ function MyTemplates() {
 								  headerName="Моя форма"
 								  btnName="Сохранить изменения"
 								  templateId={selectedTempId}
+								  config={config}
 							  />
 						  }
 						  {

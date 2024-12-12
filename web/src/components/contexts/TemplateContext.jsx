@@ -1,6 +1,8 @@
 import React, { useEffect, useState} from "react";
-import {getData, postData} from "../../Requests";
+import {postData} from "../../Requests";
 import {temp} from "../../const/temp";
+import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
+import {getDefaultTempConfig} from "../../utilits/getDefaultTempConfig";
 
 export const TemplateContext = React.createContext(null);
 
@@ -11,19 +13,41 @@ function TemplateProvider({children}) {
 	const [description, setDescription] = useState('');
 	const [tags, setTags] = useState([]);
 	const [imgUrl, setImgUrl] = useState('');
-	// const [temp, setTemp] = useState(temp);
 	const [filteredTemp, setFilteredTemp] = useState(temp);
 	const [questions, setQuestions] = useState([]);
+	const [context, setContext] = useState(null);
+	const [action, setAction] = useState('readOnly');
+	const [config, setConfig] = useState({ questionList: [] });
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
 	const [refresh, setRefresh] = useState(true);
 	const [showAllTemplates, setShowAllTemplates] = useState(false);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
 
-	// useEffect(() => {
-	// 	resetTemplateStates();
-	// 	resetQuestionStates();
-	// }, []);
+
+	useEffect(() => {
+		// console.log("Config before update:", config);
+		const baseConfig = getDefaultTempConfig(context);
+
+		if (questions.length > (config?.questionList?.length || 0)) {
+			setConfig((prevState) => ({
+				...prevState,
+				questionList: [
+					...prevState.questionList || [],
+					getQuestionCardConfig(action, questions[questions.length - 1]?.id),
+				],
+			}));
+		} else {
+			setConfig(baseConfig);
+		}
+	}, [questions.length, context, action]);
+
+	useEffect(() => {
+		// console.log("Config updated:", config);
+	}, [config]);
+
+
+
 
 	// useEffect(() => {
 	// 	const fetchData = async () => {
@@ -82,18 +106,12 @@ function TemplateProvider({children}) {
 		setTopic(event.target.value);
 	}
 
-
-	const resetQuestionStates = () => {
-
-	}
-
 	const resetTemplateStates = ()=> {
 		setTitle('');
 		setTopic('education');
 		setDescription('');
 		setQuestions([]);
 		setTags([]);
-
 	}
 
 	const handleFilteredTemplate = (substring) => {
@@ -133,6 +151,12 @@ function TemplateProvider({children}) {
 		  handleTopic,
 		  questions,
 		  setQuestions,
+		  config,
+		  setConfig,
+		  context,
+		  setContext,
+		  action,
+		  setAction,
 		  // temp,
 		  // setTemp,
 		  handleFilteredTemplate,

@@ -6,18 +6,19 @@ const useActionsCheckboxes = (targetQuestion) => {
 	const { setQuestions } =useContext(TemplateContext);
 
 	const checkboxOnChange = (checkboxId, questionId = null) => {
+		console.log('checkboxOnChange', checkboxId);
 		setQuestions(prevState => {
 			const updatedQuestions = [...prevState];
 			const targetQuestionIndex = updatedQuestions.findIndex(question => question.id === targetQuestion.id);
-			updatedQuestions[targetQuestionIndex].checkboxes.map((checkbox) =>
-				checkbox.id === checkboxId
+			console.log('targetQuestionIndex', targetQuestionIndex);
+			updatedQuestions[targetQuestionIndex].checkboxes = updatedQuestions[targetQuestionIndex].checkboxes.map((checkbox) =>
+				checkbox.id === Number(checkboxId)
 					? {...checkbox, selected: true}
 					: {...checkbox, selected: false}
 			);
 
 			return updatedQuestions;
 		});
-
 	}
 
 	const addOptionOnClick = (event, questionId = null) => {

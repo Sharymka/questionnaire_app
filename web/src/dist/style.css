@@ -194,6 +194,10 @@ code {
   border-bottom: none;
 }
 
+.text-field-underline-dashed {
+  border-bottom: 1px dashed gray;
+  padding-bottom: 2px;
+}
 .text-field-underline-dashed .MuiInput-underline:before {
   border-bottom: 1px dashed lightgray;
 }

@@ -18,7 +18,11 @@ function Template(props) {
       actions,
       url,
       templateId = null,
-      loading
+      loading,
+      config // config = {
+      // header: true,
+      // sidePanel: true,
+      // questionList: [{ id: 1, toolBlock: false, question: 'edit', answer: 'readOnly', checkboxMode: "select"}];
   } = props;
 
     const {
@@ -30,9 +34,9 @@ function Template(props) {
 
   const [showModalAnchor, setShowModalAnchor] = useState(false);
 
-    useEffect(() => {
-        resetTemplateStates();
-    }, []);
+    // useEffect(() => {
+    //     resetTemplateStates(config);
+    // }, [config]);
 
     const renderImageUploadModal = () => (
         showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />
@@ -47,9 +51,13 @@ function Template(props) {
             <div>Загрузка</div>
             ): (
             <div>
-                <SidePanel
-                    showImgModalOnClick={setShowModalAnchor}
-                />
+                {
+                    config?.sidePanel && (
+                        <SidePanel
+                            showImgModalOnClick={setShowModalAnchor}
+                        />
+                    )
+                }
                 <>
                     {renderImageUploadModal()}
                     {renderImageCard()}
@@ -58,10 +66,12 @@ function Template(props) {
                     headerName={headerName}
                     data={data}
                     actions={actions}
+                    config={config}
                 />
                 <QuestionList
                     data={data}
                     actions={actions}
+                    config={config}
                 />
                 <div className="card p-4 mt-3">
                     <div className="d-flex justify-content-end">

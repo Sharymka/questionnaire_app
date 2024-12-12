@@ -1,8 +1,12 @@
 import {useState, useCallback, useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
+import {matchPath, useLocation, useNavigate} from "react-router-dom";
+import {getUser} from "../../utilits/localStorageActions";
 
 const useActionsMenu = () => {
 
+	const navigate = useNavigate();
+	const location = useLocation();
 	const { setShowAllTemplates } = useContext(TemplateContext);
 
 	const [showMenu, setShowMenu] = useState(null);
@@ -39,7 +43,18 @@ const useActionsMenu = () => {
 		{
 			label: "Назад",
 			action: () => {
-				setShowAllTemplates(false);
+				navigate(-1);
+				// if (matchPath('/templates/:id', location.pathname)){
+				// 	setShowAllTemplates(true);
+				// 	const user = getUser();
+				// 	console.log('user', user);
+				// 	if(user) {
+				// 		navigate('/home');
+				// 	} else {
+				// 		navigate('/');
+				// 	}
+				//
+				// }
 				handleCloseMenu();
 			},
 		},

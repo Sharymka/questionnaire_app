@@ -1,9 +1,11 @@
-import React, {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
+import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 
-const useActionsQuestion = (targetQuestion) => {
+const useActionsQuestion = (targetQuestion, config) => {
 
-	const { setQuestions } = useContext(TemplateContext);
+	const { questions, setQuestions, setConfig, context } = useContext(TemplateContext);
+
 
 	const recalculateIds = (questionsArray) => {
 		return questionsArray.map((question, index) => ({
@@ -12,6 +14,7 @@ const useActionsQuestion = (targetQuestion) => {
 		}));
 	};
 	const handleAddQuestionOnClick = () => {
+		console.log("handleAddQuestionOnClick");
 		setQuestions((prevState) => {
 			const newQuestions = [
 				...prevState,
@@ -19,6 +22,7 @@ const useActionsQuestion = (targetQuestion) => {
 					id: prevState.length + 1,
 					name: "",
 					answerType: "singleLine",
+					answer: '',
 					checkboxes: [],
 					accessLevel: "public",
 					selectedUsers: [],
@@ -62,14 +66,23 @@ const useActionsQuestion = (targetQuestion) => {
 	}
 
 	const handleEditOnClick = () => {
-		setQuestions((prevState)=> prevState.map((question) => {
-			if (question.id === targetQuestion.id) {
-				return {...question, edit: !question.edit}
-			} else {
-				return question;
-			}
-		}));
+		setConfig((prevState) => {
+			return {
+				...prevState,
+				questionList: prevState.questionList.map((item) => {
+					if (item.id === targetQuestion.id) {
+						if (item.question === 'edit') {
+							return { ...item, question: 'readOnly', checkboxMode:'readOnly' };
+						} else if (item.question === 'readOnly') {
+							return { ...item, question: 'edit', checkboxMode:'edit' };
+						}
+					}
+					return item;
+				}),
+			};
+		});
 	}
+
 
 	const handleDeleteOnClick = () => {
 		setQuestions((prevState) => {
