@@ -24,6 +24,7 @@ export const  textFieldNames = {
 	question: 'задайте вопрос',
 	checkbox: 'введите вариант',
 	answerType: 'Ответ',
+	answer: 'Ответ',
 	user: 'Автор'
 }
 

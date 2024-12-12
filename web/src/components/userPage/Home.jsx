@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import  {TemplateContext} from "../contexts/TemplateContext";
 import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./Template/Template";
-import Header from "../mainPage/Header";
 import AllTemplatesBlock from "./AllTemplatesBlock";
 import MyTemplates from "./MyTemplates/MyTemplates";
 
@@ -13,20 +12,20 @@ function Home() {
     const {
         showAllTemplates,
         filteredTemp,
+        context,
+        setContext,
+        setAction,
+        config
     } = useContext(TemplateContext);
 
-    const [currentView, setCurrentView] = React.useState(null);
-    const [refreshState, setRefreshState] = React.useState(false);
-    const [showFormsTableAnchor, setShowFormsTableAnchor] = useState(false);
-    const [showFilledFormAnchor, setShowFilledFormAnchor] = useState(false);
-
     const renderComponent = () => {
-        switch (currentView) {
+        switch (context) {
             case 'addTemplate':
                 return (
                     <div className="mt-3" role="alert">
                             <Template
-                                key={currentView}
+                                key={context}
+                                config={config}
                                 headerName="Новая форма"
                                 btnName="Сохранить шаблон"
                                 url={SAVE_TEMPLATE_URL}
@@ -37,7 +36,7 @@ function Home() {
                 return (
                     <div className="mt-3" role="alert">
                             <MyTemplates
-                                key={refreshState}
+                                key={context}
                             />
                     </div>
                 );
@@ -62,7 +61,10 @@ function Home() {
                                       type="btn"
                                       className=" flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
-                                          setCurrentView('addTemplate')}
+                                          setContext('addTemplate');
+                                          setAction('edit');
+                                      }
+
                                       }
                                   >
                                       <MDBCard className="card-body">
@@ -72,11 +74,8 @@ function Home() {
                                   <Link
                                       className="flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
-                                          setCurrentView('myTemplates')
-                                          setRefreshState(!refreshState);
-                                          // setEditorAnchor(false)
-                                          // setShowFormsTableAnchor(false)
-                                          // setShowFilledFormAnchor(false)
+                                          setContext('myTemplates');
+                                          setAction('readOnly');
                                       }
                                       }
                                   >

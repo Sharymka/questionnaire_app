@@ -16,7 +16,7 @@ function withTemplateData(WrappedComponent) {
 			if (templateId && template) {
 				setTempDataToState(template);
 			}
-		}, []);
+		}, [template]);
 
 		const {
 			title,

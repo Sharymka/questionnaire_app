@@ -9,75 +9,59 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 
 function TemplateHeader(props) {
 
-
     const {
         headerName,
         data,
         actions,
-        // selectedTemplate,
-        // showFilledFormAnchor,
-        isReadOnly = false,
-        parentRef
-        // filledForm
+        config,
     } = props;
-    // const { showSelectedTemplate } = useContext(TemplateContext);
 
-// const { setTitle, title } = useContext(TemplateContext);
   return (
           <HeaderBlock
-              // filledForm={filledForm}
               headerName={headerName}
-              isReadOnly={isReadOnly}
-              // title={selectedTemplate ? selectedTemplate.title: title}
               TitleComponent={
-                  isReadOnly ?
-                      <CustomTypography value={{title: data.title}}/>:
+                  config?.header === 'edit' ?
                       <CustomTextField
                           onChange={actions.setTitle}
                           value={{title: data.title}}
                           wrap={true}
-                      />
+                      />:
+                      <CustomTypography value={{title: data.title}}/>
+
               }
               TopicComponent={
-                  isReadOnly ?
-                      <CustomTypography value={{topic: data.topic}}/>:
+                  config?.header === 'edit' ?
                       <CustomFormControlSelect
                           value={data.topic}
                           onChange={actions.setTopic}
                           options={questionTopics}
                           label='Темы'
 
-                      />
-                      // <TopicSelector
-                      //     onChange={setTopic}
-                      //     value={dataTopic}/>
+                      />:
+                      <CustomTypography value={{topic: data.topic}}/>
+
               }
               DescriptionComponent={
-                  isReadOnly ?
+                  config?.header === 'edit'?
+                      <CustomTextField
+                          onChange={actions.setDescription}
+                          value={{description: data.description}}
+                          wrap={true}
+                      />:
                       <div className='d-flex justify-content-between'>
                           <CustomTypography value={{description: data.description}}/>
                           <CustomTypography value={{user: data.user}}/>
                       </div>
 
-                      :
-                      <CustomTextField
-                          onChange={actions.setDescription}
-                          value={{description: data.description}}
-                          wrap={true}
-                      />
               }
               TagsComponent={
-                  isReadOnly ?
-                      null:
+                  config?.header === 'edit' ?
                       <AutocompleteTags
                           value={data.tags}
                           onTagsChange={actions.setTags}
-                      />
+                      />: null
+
               }
-              // LeftComponent={showFilledFormAnchor || showSelectedTemplate ? <CustomTypography value={{title: s electedTemplate ? selectedTemplate.title: filledForm?.template.title}}/> : <TitleTextField onChange={setTitle} title={title}/>}
-              // RightComponent={showFilledFormAnchor || showSelectedTemplate ? <CustomTypography value={{topic: selectedTemplate ? questionTopics[selectedTemplate.topic]: filledForm?.template.topic}}/> : <TopicSelector onChange={handleTopic} topic={topic}/>}
-              // DescriptionComponent={ showFilledFormAnchor || showSelectedTemplate ? <CustomTypography value={{description: selectedTemplate ? selectedTemplate.description: filledForm?.template.description}}/> : <DescriptionTextField onChange={setDescription} description={description}/>}
-              // TagsComponent={showFilledFormAnchor || showSelectedTemplate? null : <AutocompleteTags setSelectedTags={setSelectedTags} selectedTags={selectedTags}/>}
           />
   );
 }

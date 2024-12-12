@@ -165,6 +165,8 @@ html, body {
 }
 
 .text-field-underline-dashed {
+    border-bottom: 1px dashed gray;
+    padding-bottom: 2px;
   .MuiInput-underline:before {
     border-bottom: 1px dashed lightgray;
   }

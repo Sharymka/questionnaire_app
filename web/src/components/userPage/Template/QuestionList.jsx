@@ -3,8 +3,9 @@ import {DragDropContext, Draggable, Droppable} from '@hello-pangea/dnd';
 import QuestionCard from "./QistionCard";
 import {TemplateContext} from "../../contexts/TemplateContext";
 
-function QuestionsList() {
+function QuestionsList(props) {
 
+	const { config } = props;
 	const { questions, setQuestions } = useContext(TemplateContext);
 
 	const handleOnDragEnd = (result) => {
@@ -30,6 +31,7 @@ function QuestionsList() {
 										<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 											<QuestionCard
 												question={question}
+												config={config?.questionList?.find((item) => item.id === question.id) || {}}
 											/>
 										</div>
 									)}

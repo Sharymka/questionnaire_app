@@ -8,12 +8,11 @@ import withAuthorFormData from "../../hocs/withAuthorFormData";
 const HeaderBlock = (props) => {
 
 	const {
-		filledForm,
 		headerName,
 		TitleComponent,
 		TopicComponent,
 		DescriptionComponent,
-		TagsComponent,
+		TagsComponent
 	} = props;
 
 	return (
