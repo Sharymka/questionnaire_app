@@ -9,40 +9,21 @@ import useGetTemplates from "../../hooks/API/useGetTemplates";
 import FormsTable from "./FormsTable";
 import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
+import useActionsTemplates from "../../hooks/useActionsTemplates";
 
 function MyTemplates() {
-
-	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
-
 	const { config } = useContext(TemplateContext);
-
 	const [view, setView] = useState('table');
-	const { templates, setTemplates, loading } = useGetTemplates();
-	const [myTemplates, setMyTemplates] = useState([]);
-	const [selectedTempId, setSelectedTempId] = useState(null);
 	const [filledFormId, setFilledFormId] = useState(null);
 
-	useEffect(() => {
-		if (templates) {
-			setMyTemplates(templates.filter((template) => template.userId === user.id));
-		}
-	}, [templates]);
-
-	const handleDeleteTemplate = async(id) => {
-		try {
-			const response = await deleteData(`api/template/${id}`);
-			const data = await response.json();
-			if(response.ok) {
-				setMyTemplates(prevState =>
-					prevState.filter((item) => item.id !== id) );
-				console.log("template was deleted successfully");
-			}else{
-				console.log("template deleting failed");
-			}
-		}catch (error) {
-			console.log(error);
-		}
-	}
+	const {
+		myTemplates,
+		selectedTempId,
+		handleEditOnClick,
+		handleDeleteTemplate,
+		handleShowForms,
+		loading
+	      } = useActionsTemplates(setView);
 
   return (<div>
 	  {
@@ -90,16 +71,12 @@ function MyTemplates() {
 														  <TableCell component="th" scope="row">
 															  <CustomToolBlock
 																  showForms={true}
-																  value={template}
 																  handleDeleteOnClick={() => handleDeleteTemplate(template.id)}
-																  handleEditOnClick={() => {
-																	  setView('editor');
-																	  setSelectedTempId(template.id);
-																  }}
-																  handleShowForms={()=> {
-																	  setView('showFormsTable');
-																	  setSelectedTempId(template.id);
-																  }}
+																  handleEditOnClick={() => handleEditOnClick(template.id)}
+																  // handleShowForms={()=> {
+																	//   setView('showFormsTable');
+																	//   setSelectedTempId(template.id);
+																  // }}
 															  />
 														  </TableCell>
 													  </TableRow>

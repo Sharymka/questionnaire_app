@@ -9,6 +9,11 @@ export function getDefaultTempConfig(context, question) {
 			}
 		case "myTemplates":
 			return {
+				header: 'edit',
+				sidePanel: true
+			}
+		case "filledForm":
+			return {
 				header: 'readOnly',
 				sidePanel: false
 			}

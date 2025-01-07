@@ -52,7 +52,7 @@ function Template(props) {
             ): (
             <div>
                 {
-                    config?.sidePanel && (
+                    config?.baseConfig?.sidePanel && (
                         <SidePanel
                             showImgModalOnClick={setShowModalAnchor}
                         />

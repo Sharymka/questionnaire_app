@@ -20,7 +20,7 @@ function TemplateHeader(props) {
           <HeaderBlock
               headerName={headerName}
               TitleComponent={
-                  config?.header === 'edit' ?
+                  config?.baseConfig?.header === 'edit' ?
                       <CustomTextField
                           onChange={actions.setTitle}
                           value={{title: data.title}}
@@ -30,7 +30,7 @@ function TemplateHeader(props) {
 
               }
               TopicComponent={
-                  config?.header === 'edit' ?
+                  config?.baseConfig?.header === 'edit' ?
                       <CustomFormControlSelect
                           value={data.topic}
                           onChange={actions.setTopic}
@@ -42,7 +42,7 @@ function TemplateHeader(props) {
 
               }
               DescriptionComponent={
-                  config?.header === 'edit'?
+                  config?.baseConfig?.header === 'edit'?
                       <CustomTextField
                           onChange={actions.setDescription}
                           value={{description: data.description}}
@@ -55,7 +55,7 @@ function TemplateHeader(props) {
 
               }
               TagsComponent={
-                  config?.header === 'edit' ?
+                  config?.baseConfig?.header === 'edit' ?
                       <AutocompleteTags
                           value={data.tags}
                           onTagsChange={actions.setTags}

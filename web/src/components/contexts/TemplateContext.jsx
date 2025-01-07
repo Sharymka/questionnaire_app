@@ -17,57 +17,52 @@ function TemplateProvider({children}) {
 	const [questions, setQuestions] = useState([]);
 	const [context, setContext] = useState(null);
 	const [action, setAction] = useState('readOnly');
-	const [config, setConfig] = useState({ questionList: [] });
+	const [config, setConfig] = useState({ baseConfig: {}, questionList: [] });
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
 	const [refresh, setRefresh] = useState(true);
 	const [showAllTemplates, setShowAllTemplates] = useState(false);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
 
-
 	useEffect(() => {
-		// console.log("Config before update:", config);
+
 		const baseConfig = getDefaultTempConfig(context);
 
-		if (questions.length > (config?.questionList?.length || 0)) {
-			setConfig((prevState) => ({
-				...prevState,
-				questionList: [
-					...prevState.questionList || [],
-					getQuestionCardConfig(action, questions[questions.length - 1]?.id),
-				],
-			}));
-		} else {
-			setConfig(baseConfig);
-		}
+		setConfig(prevState => {
+
+			// инициализируем базовые настройки для sidePanel и header шаблона
+			if(Object.keys(config.baseConfig).length === 0) {
+				console.log('inside first if')
+				return {...prevState, baseConfig: baseConfig};
+			}
+
+			//инициализируем настройки для списка вопросов, если вопросы подгрузились сразу из готового шаблона
+			if (config?.questionList?.length === 0 && questions?.length > 0) {
+				console.log('inside second if')
+				setConfig((prevState) => ({
+					...prevState,
+					questionList: questions.map((question) =>
+						getQuestionCardConfig(action, question.id)
+					),
+				}));
+			}
+
+			//инициализируем настройки для списка вопросов, в процессе добавления нового вопроса
+			if(config?.questionList?.length !== 0 && questions?.length > prevState.questionList?.length) {
+				console.log('inside third if')
+				setConfig((prevState) => ({
+					...prevState,
+					questionList: [
+						...prevState.questionList || [],
+						getQuestionCardConfig(action, questions[questions?.length - 1]?.id),
+					],
+				}));
+			}
+			return {...prevState};
+		})
+
 	}, [questions.length, context, action]);
 
-	useEffect(() => {
-		// console.log("Config updated:", config);
-	}, [config]);
-
-
-
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		try {
-	// 			const response = await getData("api/templates");
-	// 			const data = await response.json();
-	// 			if(response.ok) {
-	// 				setTemp(data);
-	// 				setFilteredTemp(data);
-	// 				console.log("templates were fetched successfully");
-	// 			} else {
-	// 				console.log(data.error);
-	// 				console.log("template getting failed");
-	// 			}
-	// 		}catch(error) {
-	// 			console.log("template getting failed" + error.message);
-	// 		}
-	// 	}
-	// 	fetchData();
-	// }, [refresh]);
 
 	const saveTemplate = async (url)=> {
 		const requestData = {
