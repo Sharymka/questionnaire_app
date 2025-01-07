@@ -28,7 +28,7 @@ export function getQuestionCardConfig(action, id) {
 		default:
 			return {
 				id: id,
-				toolBlock: false,
+				toolBlock: true,
 				question: "readOnly",
 				answer: "readOnly",
 				checkboxMode: "readOnly",
