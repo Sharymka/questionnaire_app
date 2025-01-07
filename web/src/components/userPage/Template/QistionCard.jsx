@@ -27,7 +27,7 @@ function QuestionCard(props){
 		handleDeleteOnClick,
 		handleEditOnClick,
 		handleTextFieldOnChange
-	} = useActionsQuestion(targetQuestion, config);
+	} = useActionsQuestion(targetQuestion);
 
 	const renderCheckboxes = () => (
 		<List sx={{ width: '100%' }}>
@@ -49,14 +49,7 @@ function QuestionCard(props){
 							config={config}
 						/>
 					)
-
 			}
-			{/*{question.checkboxes?.map((option, index) => (*/}
-			{/*	<ListItem key={option.id}>*/}
-			{/*		<span className="me-2">{index + 1}.</span>*/}
-			{/*		<Typography>{option.value}</Typography>*/}
-			{/*	</ListItem>*/}
-			{/*))}*/}
 		</List>
 	);
 

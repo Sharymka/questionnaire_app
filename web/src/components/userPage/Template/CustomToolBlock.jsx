@@ -14,7 +14,7 @@ function CustomToolBlock(props) {
 		showForms = false,
 	} = props;
   return (
-	  <div className={`d-flex justify-content-center ${classes}`}>
+	  <div data-component='CustomToolBlock' className={`d-flex justify-content-center ${classes}`}>
 
 		  {
 			  config?.question === 'edit' ? (

@@ -1,10 +1,9 @@
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
-import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 
-const useActionsQuestion = (targetQuestion, config) => {
+const useActionsQuestion = (targetQuestion) => {
 
-	const { questions, setQuestions, setConfig, context } = useContext(TemplateContext);
+	const { setQuestions, setConfig, setAction } = useContext(TemplateContext);
 
 
 	const recalculateIds = (questionsArray) => {
@@ -26,8 +25,6 @@ const useActionsQuestion = (targetQuestion, config) => {
 					checkboxes: [],
 					accessLevel: "public",
 					selectedUsers: [],
-					add: false,
-					edit: true,
 				},
 			];
 			return recalculateIds(newQuestions);
@@ -66,6 +63,7 @@ const useActionsQuestion = (targetQuestion, config) => {
 	}
 
 	const handleEditOnClick = () => {
+		console.log('handleEditOnClick');
 		setConfig((prevState) => {
 			return {
 				...prevState,
@@ -81,10 +79,12 @@ const useActionsQuestion = (targetQuestion, config) => {
 				}),
 			};
 		});
+		setAction('edit');
 	}
 
 
 	const handleDeleteOnClick = () => {
+		console.log('handleDeleteOnClick');
 		setQuestions((prevState) => {
 			const updatedQuestions = prevState.filter(
 				(question) => question.id !== targetQuestion.id
@@ -94,6 +94,17 @@ const useActionsQuestion = (targetQuestion, config) => {
 				...question,
 				id: index + 1,
 			}));
+		});
+
+		setConfig((prevState) => {
+			const updatedConfigs = prevState.questionList.filter(
+				(question) => question.id !== targetQuestion.id
+			);
+
+			return {...prevState, questionList: updatedConfigs.map((config, index) => ({
+					...config,
+					id: index + 1,
+				}))}
 		});
 	};
 
