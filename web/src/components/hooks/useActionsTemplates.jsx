@@ -19,7 +19,7 @@ const useActionsTemplates = (setView) => {
 
 	const handleEditOnClick = (id) => {
 		setView('editor');
-		setAction('edit');
+		setAction('');
 		setSelectedTempId(id);
 	}
 

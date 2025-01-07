@@ -32,13 +32,11 @@ function TemplateProvider({children}) {
 
 			// инициализируем базовые настройки для sidePanel и header шаблона
 			if(Object.keys(config.baseConfig).length === 0) {
-				console.log('inside first if')
 				return {...prevState, baseConfig: baseConfig};
 			}
 
 			//инициализируем настройки для списка вопросов, если вопросы подгрузились сразу из готового шаблона
 			if (config?.questionList?.length === 0 && questions?.length > 0) {
-				console.log('inside second if')
 				setConfig((prevState) => ({
 					...prevState,
 					questionList: questions.map((question) =>
@@ -49,12 +47,11 @@ function TemplateProvider({children}) {
 
 			//инициализируем настройки для списка вопросов, в процессе добавления нового вопроса
 			if(config?.questionList?.length !== 0 && questions?.length > prevState.questionList?.length) {
-				console.log('inside third if')
 				setConfig((prevState) => ({
 					...prevState,
 					questionList: [
 						...prevState.questionList || [],
-						getQuestionCardConfig(action, questions[questions?.length - 1]?.id),
+						getQuestionCardConfig('edit', questions[questions?.length - 1]?.id),
 					],
 				}));
 			}

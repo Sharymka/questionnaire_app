@@ -63,7 +63,6 @@ const useActionsQuestion = (targetQuestion) => {
 	}
 
 	const handleEditOnClick = () => {
-		console.log('handleEditOnClick');
 		setConfig((prevState) => {
 			return {
 				...prevState,
@@ -79,7 +78,7 @@ const useActionsQuestion = (targetQuestion) => {
 				}),
 			};
 		});
-		setAction('edit');
+		setAction('');
 	}
 
 
