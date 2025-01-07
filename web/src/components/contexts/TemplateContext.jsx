@@ -24,6 +24,11 @@ function TemplateProvider({children}) {
 	const [showAllTemplates, setShowAllTemplates] = useState(false);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
 
+
+	useEffect(() => {
+		resetTemplateStates();
+	}, [context]);
+
 	useEffect(() => {
 
 		const baseConfig = getDefaultTempConfig(context);
@@ -59,7 +64,6 @@ function TemplateProvider({children}) {
 		})
 
 	}, [questions.length, context, action]);
-
 
 	const saveTemplate = async (url)=> {
 		const requestData = {
@@ -104,6 +108,8 @@ function TemplateProvider({children}) {
 		setDescription('');
 		setQuestions([]);
 		setTags([]);
+		setConfig({ baseConfig: {}, questionList: [] });
+		setAction('readOnly');
 	}
 
 	const handleFilteredTemplate = (substring) => {

@@ -11,9 +11,10 @@ import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
 
-function MyTemplates() {
+function MyTemplates(props) {
+
+	const { view, setView } = props;
 	const { config } = useContext(TemplateContext);
-	const [view, setView] = useState('table');
 	const [filledFormId, setFilledFormId] = useState(null);
 
 	const {

@@ -9,6 +9,8 @@ import MyTemplates from "./MyTemplates/MyTemplates";
 
 function Home() {
 
+    const [view, setView] = useState('table');
+
     const {
         showAllTemplates,
         filteredTemp,
@@ -37,6 +39,8 @@ function Home() {
                     <div className="mt-3" role="alert">
                             <MyTemplates
                                 key={context}
+                                view={view}
+                                setView={setView}
                             />
                     </div>
                 );
@@ -75,6 +79,7 @@ function Home() {
                                       className="flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
                                           setContext('myTemplates');
+                                          setView('table');
                                       }
                                       }
                                   >
