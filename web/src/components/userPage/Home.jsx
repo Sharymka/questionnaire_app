@@ -1,4 +1,4 @@
-import React, {useContext,  useState} from 'react';
+import React, {useContext} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import  {TemplateContext} from "../contexts/TemplateContext";
@@ -6,10 +6,11 @@ import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./Template/Template";
 import AllTemplatesBlock from "./AllTemplatesBlock";
 import MyTemplates from "./MyTemplates/MyTemplates";
+import {HistoryContext} from "../contexts/HistoryContext";
 
 function Home() {
 
-    const [view, setView] = useState('table');
+    const { setHistory, resetStates } = useContext(HistoryContext);
 
     const {
         showAllTemplates,
@@ -37,11 +38,9 @@ function Home() {
             case 'myTemplates':
                 return (
                     <div className="mt-3" role="alert">
-                            <MyTemplates
-                                key={context}
-                                view={view}
-                                setView={setView}
-                            />
+                        <MyTemplates
+                            key={context}
+                        />
                     </div>
                 );
             case 'myForms':
@@ -79,7 +78,7 @@ function Home() {
                                       className="flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
                                           setContext('myTemplates');
-                                          setView('table');
+                                          resetStates();
                                       }
                                       }
                                   >

@@ -1,12 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Paper from "@mui/material/Paper";
 import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
-import {getData} from "../../../Requests";
 import { READ_ICON_URL} from "../../../url/url";
 import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
+import {HistoryContext} from "../../contexts/HistoryContext";
 function FormsTable(props) {
 
-	const { templateId, setView, view, setFilledFormId } = props;
+	const { pushView } = useContext(HistoryContext);
+	const { templateId, setFilledFormId } = props;
 
 	const { forms } = useGetFormsByTempId(templateId);
 
@@ -35,7 +36,7 @@ function FormsTable(props) {
 									  <IconButton
 										  className="p-1"
 										  onClick={() => {
-											  setView(view);
+											  pushView('showForm');
 											  setFilledFormId(form.id);
 										  }}
 										  aria-label="edit"

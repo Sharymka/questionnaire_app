@@ -1,19 +1,18 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {deleteData} from "../../../Requests";
+import React, {useContext, useState} from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import CustomToolBlock from "../Template/CustomToolBlock";
 import Template from "../Template/Template";
 import {questionTopics} from "../../../const/const";
-import useGetTemplates from "../../hooks/API/useGetTemplates";
 import FormsTable from "./FormsTable";
 import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
+import {HistoryContext} from "../../contexts/HistoryContext";
 
-function MyTemplates(props) {
+function MyTemplates() {
 
-	const { view, setView } = props;
+	const { currentView, pushView } = useContext(HistoryContext);
 	const { config } = useContext(TemplateContext);
 	const [filledFormId, setFilledFormId] = useState(null);
 
@@ -24,7 +23,7 @@ function MyTemplates(props) {
 		handleDeleteTemplate,
 		handleShowForms,
 		loading
-	      } = useActionsTemplates(setView);
+	      } = useActionsTemplates(pushView);
 
   return (<div>
 	  {
@@ -34,7 +33,7 @@ function MyTemplates(props) {
 					  <div>Loading...</div>
 				  ) : (
 					  <>
-						  {view === 'table' && (
+						  {currentView === 'table' && (
 							  <TableContainer key="TableContainer" data-context="TableContainer" component={Paper}>
 								  <Table sx={{minWidth: 650}} aria-label="border-radius-8 forms table">
 									  <TableHead>
@@ -73,11 +72,8 @@ function MyTemplates(props) {
 															  <CustomToolBlock
 																  showForms={true}
 																  handleDeleteOnClick={() => handleDeleteTemplate(template.id)}
-																  handleEditOnClick={() => handleEditOnClick(template.id)}
-																  // handleShowForms={()=> {
-																	//   setView('showFormsTable');
-																	//   setSelectedTempId(template.id);
-																  // }}
+																  handleEditOnClick={() => handleEditOnClick(template.id, 'editor')}
+																  handleShowForms={() => handleShowForms(template.id, 'showFormsTable')}
 															  />
 														  </TableCell>
 													  </TableRow>
@@ -87,7 +83,7 @@ function MyTemplates(props) {
 								  </Table>
 							  </TableContainer>
 						  )}
-						  {view === 'editor' &&
+						  {currentView === 'editor' &&
 							  <Template
 								  headerName="Моя форма"
 								  btnName="Сохранить изменения"
@@ -96,16 +92,14 @@ function MyTemplates(props) {
 							  />
 						  }
 						  {
-							  view === 'showFormsTable' &&
+							  currentView === 'showFormsTable' &&
 							  <FormsTable
 								  templateId={selectedTempId}
-								  setView={setView}
-								  view='showForm'
 								  setFilledFormId={setFilledFormId}
 							  />
 						  }
 						  {
-							  view === 'showForm' &&
+							  currentView === 'showForm' &&
 							  <FilledForm
 								  filledFormId={filledFormId}
 							  />
@@ -114,12 +108,7 @@ function MyTemplates(props) {
 				  )
 			  }
 		  </div>
-
-		  // )
-		  // )
 	  }
-
-
   </div>);
 }
 

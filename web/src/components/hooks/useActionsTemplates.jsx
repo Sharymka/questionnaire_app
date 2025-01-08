@@ -3,7 +3,7 @@ import {deleteData} from "../../Requests";
 import useGetTemplates from "./API/useGetTemplates";
 import {TemplateContext} from "../contexts/TemplateContext";
 
-const useActionsTemplates = (setView) => {
+const useActionsTemplates = (pushView) => {
 
 	const { setAction } = useContext(TemplateContext);
 	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
@@ -17,9 +17,14 @@ const useActionsTemplates = (setView) => {
 		}
 	}, [templates]);
 
-	const handleEditOnClick = (id) => {
-		setView('editor');
+	const handleEditOnClick = (id, newView) => {
+		pushView(newView);
 		setAction('');
+		setSelectedTempId(id);
+	}
+
+	const handleShowForms = (id, newView) => {
+		pushView(newView);
 		setSelectedTempId(id);
 	}
 
@@ -43,8 +48,10 @@ const useActionsTemplates = (setView) => {
 	return {
 		myTemplates,
 		selectedTempId,
+		setSelectedTempId,
 		handleEditOnClick,
 		handleDeleteTemplate,
+		handleShowForms,
 		loading
 	}
 
