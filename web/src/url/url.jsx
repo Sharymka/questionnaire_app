@@ -18,3 +18,5 @@ export const RU_FLAG_URL = "https://res.cloudinary.com/dewxfivxh/image/upload/v1
 export const EN_FLAG_URL = "https://res.cloudinary.com/dewxfivxh/image/upload/v1729971943/flag-gb-svgrepo-com_e2pjhb.svg";
 
 export const SHOW_FORM_LIST = 'https://res.cloudinary.com/dewxfivxh/image/upload/v1729600476/checklist-svgrepo-com_cgggqs.svg';
+
+export const EXIT_LEFT = "https://res.cloudinary.com/dewxfivxh/image/upload/v1736254733/exit-left-svgrepo-com_fiv7dh.svg";
