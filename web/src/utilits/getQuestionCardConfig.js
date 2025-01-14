@@ -1,6 +1,6 @@
-export function getQuestionCardConfig(action, id) {
+export function getQuestionCardConfig(setQuestionStatus, id) {
 
-	switch (action) {
+	switch (setQuestionStatus) {
 		case "readOnly":
 			return {
 				id: id,

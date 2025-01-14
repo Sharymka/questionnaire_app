@@ -2,14 +2,16 @@ import {useContext, useEffect, useState} from "react";
 import {deleteData} from "../../Requests";
 import useGetTemplates from "./API/useGetTemplates";
 import {TemplateContext} from "../contexts/TemplateContext";
+import {HistoryContext} from "../contexts/HistoryContext";
 
-const useActionsTemplates = (pushView) => {
+const useActionsTemplates = () => {
 
-	const { setAction } = useContext(TemplateContext);
+	const { pushView } = useContext(HistoryContext);
+	const { selectedTempId, setQuestionStatus,  setSelectedTempId } = useContext(TemplateContext);
 	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
 	const { templates, setTemplates, loading } = useGetTemplates();
 	const [myTemplates, setMyTemplates] = useState([]);
-	const [selectedTempId, setSelectedTempId] = useState(null);
+	const [, ] = useState(null);
 
 	useEffect(() => {
 		if (templates) {
@@ -18,13 +20,19 @@ const useActionsTemplates = (pushView) => {
 	}, [templates]);
 
 	const handleEditOnClick = (id, newView) => {
-		pushView(newView);
-		setAction('');
 		setSelectedTempId(id);
+		pushView(newView);
 	}
 
-	const handleShowForms = (id, newView) => {
+	useEffect(() => {
+		if(selectedTempId) {
+
+		}
+	}, [selectedTempId]);
+
+	const handleShowForms = (id, newView, questionState) => {
 		pushView(newView);
+		setQuestionStatus(questionState);
 		setSelectedTempId(id);
 	}
 

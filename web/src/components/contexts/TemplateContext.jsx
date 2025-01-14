@@ -15,43 +15,45 @@ function TemplateProvider({children}) {
 	const [imgUrl, setImgUrl] = useState('');
 	const [filteredTemp, setFilteredTemp] = useState(temp);
 	const [questions, setQuestions] = useState([]);
-	const [context, setContext] = useState(null);
-	const [action, setAction] = useState('readOnly');
+	const [currentView, setCurrentView] = useState(null);
+	const [questionStatus, setQuestionStatus] = useState(null);
 	const [config, setConfig] = useState({ baseConfig: {}, questionList: [] });
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
 	const [refresh, setRefresh] = useState(true);
 	const [showAllTemplates, setShowAllTemplates] = useState(false);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
+	const [selectedTempId, setSelectedTempId] = useState(null);
 
+
+	// useEffect(() => {
+	// 	resetTemplateStates();
+	// 	console.log('useEffect reset Template States');
+	// }, [context]);
 
 	useEffect(() => {
-		resetTemplateStates();
-	}, [context]);
 
-	useEffect(() => {
-
-		const baseConfig = getDefaultTempConfig(context);
-
-		setConfig(prevState => {
+		const baseConfig = getDefaultTempConfig(currentView);
 
 			// инициализируем базовые настройки для sidePanel и header шаблона
-			if(Object.keys(config.baseConfig).length === 0) {
-				return {...prevState, baseConfig: baseConfig};
-			}
+				setConfig(prevState => ({
+					...prevState,
+					baseConfig: baseConfig,
+				}))
 
 			//инициализируем настройки для списка вопросов, если вопросы подгрузились сразу из готового шаблона
 			if (config?.questionList?.length === 0 && questions?.length > 0) {
+				console.log('questions array length changed')
 				setConfig((prevState) => ({
 					...prevState,
 					questionList: questions.map((question) =>
-						getQuestionCardConfig(action, question.id)
+						getQuestionCardConfig(questionStatus, question.id)
 					),
 				}));
 			}
 
 			//инициализируем настройки для списка вопросов, в процессе добавления нового вопроса
-			if(config?.questionList?.length !== 0 && questions?.length > prevState.questionList?.length) {
+			if(config?.questionList?.length !== 0 && questions?.length > config.questionList?.length) {
 				setConfig((prevState) => ({
 					...prevState,
 					questionList: [
@@ -60,10 +62,8 @@ function TemplateProvider({children}) {
 					],
 				}));
 			}
-			return {...prevState};
-		})
 
-	}, [questions.length, context, action]);
+	}, [questions.length, currentView, questionStatus]);
 
 	const saveTemplate = async (url)=> {
 		const requestData = {
@@ -103,13 +103,14 @@ function TemplateProvider({children}) {
 	}
 
 	const resetTemplateStates = ()=> {
+		// console.log('resetTemplateStates');
 		setTitle('');
 		setTopic('education');
 		setDescription('');
 		setQuestions([]);
 		setTags([]);
 		setConfig({ baseConfig: {}, questionList: [] });
-		setAction('readOnly');
+		setQuestionStatus(null);
 	}
 
 	const handleFilteredTemplate = (substring) => {
@@ -151,12 +152,12 @@ function TemplateProvider({children}) {
 		  setQuestions,
 		  config,
 		  setConfig,
-		  context,
-		  setContext,
-		  action,
-		  setAction,
-		  // temp,
-		  // setTemp,
+		  currentView,
+		  setCurrentView,
+		  questionStatus,
+		  setQuestionStatus,
+		  setSelectedTempId,
+		  selectedTempId,
 		  handleFilteredTemplate,
 		  saveTemplate,
 		  message,

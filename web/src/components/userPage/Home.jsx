@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import  {TemplateContext} from "../contexts/TemplateContext";
@@ -7,27 +7,39 @@ import Template from "./Template/Template";
 import AllTemplatesBlock from "./AllTemplatesBlock";
 import MyTemplates from "./MyTemplates/MyTemplates";
 import {HistoryContext} from "../contexts/HistoryContext";
+import useActionsTemplates from "../hooks/useActionsTemplates";
+import SidePanel from "./Template/SidePanel";
 
 function Home() {
 
-    const { setHistory, resetStates } = useContext(HistoryContext);
+    const { resetStates } = useContext(HistoryContext);
+    const [filledFormId, setFilledFormId] = useState(null);
+    const [showModalAnchor, setShowModalAnchor] = useState(false);
+
+    const {
+        myTemplates,
+        handleEditOnClick,
+        handleDeleteTemplate,
+        handleShowForms,
+        loading
+    } = useActionsTemplates();
 
     const {
         showAllTemplates,
         filteredTemp,
-        context,
-        setContext,
+        setCurrentView,
+        currentView,
         setAction,
         config
     } = useContext(TemplateContext);
 
     const renderComponent = () => {
-        switch (context) {
+        switch (currentView) {
             case 'addTemplate':
                 return (
                     <div className="mt-3" role="alert">
                             <Template
-                                key={context}
+                                key={currentView}
                                 config={config}
                                 headerName="Новая форма"
                                 btnName="Сохранить шаблон"
@@ -35,11 +47,22 @@ function Home() {
                             />
                     </div>
                 );
-            case 'myTemplates':
+            case 'templatesTable':
+            case 'filledForm':
+            case 'templateEditor':
+            case 'filledFormsTable':
+
                 return (
                     <div className="mt-3" role="alert">
                         <MyTemplates
-                            key={context}
+                            key={currentView}
+                            filledFormId={filledFormId}
+                            setFilledFormId={setFilledFormId}
+                            myTemplates={myTemplates}
+                            handleEditOnClick={handleEditOnClick}
+                            handleDeleteTemplate={handleDeleteTemplate}
+                            handleShowForms={handleShowForms}
+                        loading
                         />
                     </div>
                 );
@@ -64,7 +87,7 @@ function Home() {
                                       type="btn"
                                       className=" flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
-                                          setContext('addTemplate');
+                                          setCurrentView('addTemplate');
                                           setAction('edit');
                                       }
 
@@ -77,7 +100,7 @@ function Home() {
                                   <Link
                                       className="flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
-                                          setContext('myTemplates');
+                                          setCurrentView('TemplatesTable');
                                           resetStates();
                                       }
                                       }
@@ -86,6 +109,10 @@ function Home() {
                                           <h5 className="card-title">мои шаблоны</h5>
                                       </MDBCard>
                                   </Link>
+                                  <SidePanel
+                                      showImgModalOnClick={setShowModalAnchor}
+                                      config={config}
+                                  />
                               </div>
                               {renderComponent()}
                           </div>
