@@ -29,7 +29,6 @@ const useActionsQuestion = (targetQuestion) => {
 			];
 			return recalculateIds(newQuestions);
 		});
-		setAction('edit');
 	};
 
 

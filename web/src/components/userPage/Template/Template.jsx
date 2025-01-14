@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import TemplateHeader from "./TemplateHeader";
 import QuestionList from "./QuestionList";
-import SidePanel from "./SidePanel";
 import {Button} from "@mui/material";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import ImageUploadModal from "./ImageUploadModal";
@@ -46,10 +45,6 @@ function Template(props) {
             <div>Загрузка</div>
             ): (
             <div>
-                {/*<SidePanel*/}
-                {/*    showImgModalOnClick={setShowModalAnchor}*/}
-                {/*    config={config}*/}
-                {/*/>*/}
                 <>
                     {renderImageUploadModal()}
                     {renderImageCard()}
