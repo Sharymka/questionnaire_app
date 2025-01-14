@@ -14,27 +14,28 @@ function App() {
   return (
 <AuthProvider>
     <TemplateProvider>
-        <Routes>
-            <Route path="/" element={
-                <LayoutWithHeader>
-                    <MainPage/>
-                </LayoutWithHeader>
+    <HistoryProvider>
+
+            <Routes>
+                <Route path="/" element={
+                    <LayoutWithHeader>
+                        <MainPage/>
+                    </LayoutWithHeader>
+                    } />
+                <Route path="/templates/:id" element={
+                    <LayoutWithHeader>
+                        <SelectedTemplate/>
+                    </LayoutWithHeader>
                 } />
-            <Route path="/templates/:id" element={
-                <LayoutWithHeader>
-                    <SelectedTemplate/>
-                </LayoutWithHeader>
-            } />
-            <Route path="/signUp" element={<SignUp />} />
-            <Route path="/signIn" element={<SignIn/>} />
-            <Route path="/home" element={
-                <LayoutWithHeader>
-                    <HistoryProvider>
-                        <Home/>
-                    </HistoryProvider>
-                </LayoutWithHeader>
-            } />
-        </Routes>
+                <Route path="/signUp" element={<SignUp />} />
+                <Route path="/signIn" element={<SignIn/>} />
+                <Route path="/home" element={
+                    <LayoutWithHeader>
+                            <Home/>
+                    </LayoutWithHeader>
+                } />
+            </Routes>
+    </HistoryProvider>
     </TemplateProvider>
 </AuthProvider>
   );

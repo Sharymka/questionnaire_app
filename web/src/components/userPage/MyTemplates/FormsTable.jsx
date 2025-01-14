@@ -1,15 +1,20 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import Paper from "@mui/material/Paper";
 import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import { READ_ICON_URL} from "../../../url/url";
 import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 import {HistoryContext} from "../../contexts/HistoryContext";
+import {TemplateContext} from "../../contexts/TemplateContext";
 function FormsTable(props) {
 
 	const { pushView } = useContext(HistoryContext);
 	const { templateId, setFilledFormId } = props;
-
 	const { forms } = useGetFormsByTempId(templateId);
+
+	const handleReadFormIconOnClick = (formId) => {
+		setFilledFormId(formId);
+		pushView('filledForm');
+	}
 
     return (
 	  <TableContainer component={Paper}>
@@ -35,10 +40,7 @@ function FormsTable(props) {
 								  <div className={`d-flex justify-content-center`}>
 									  <IconButton
 										  className="p-1"
-										  onClick={() => {
-											  pushView('showForm');
-											  setFilledFormId(form.id);
-										  }}
+										  onClick={() => handleReadFormIconOnClick(form.id)}
 										  aria-label="edit"
 									  >
 										  <img style={{maxWidth: '22px', maxHeight: '25px'}}

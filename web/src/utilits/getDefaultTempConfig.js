@@ -1,44 +1,29 @@
-import {getQuestionCardConfig} from "./getQuestionCardConfig";
 
 export function getDefaultTempConfig(context, question) {
 	switch (context) {
 		case "addTemplate":
 			return {
 				header: 'edit',
-				sidePanel: true
+				sidePanel: { mainBlock: true, exit: false },
 			}
-		case "myTemplates":
+		case "templatesTable":
+			return {}
+		case "templateEditor":
 			return {
 				header: 'edit',
-				sidePanel: true
+				sidePanel: { mainBlock: true, exit: true },
+			}
+		case "filledFormsTable":
+			return {
+				header: 'readOnly',
+				sidePanel: { mainBlock: false, exit: true },
 			}
 		case "filledForm":
 			return {
 				header: 'readOnly',
-				sidePanel: false
+				sidePanel: { mainBlock: false, exit: true },
 			}
 		default:
-			return {
-				header: 'edit',
-				sidePanel: true
-			};
-		// case "edit":
-		// 	return {
-		// 		toolBlock: true,
-		// 		question: 'edit',
-		// 		checkboxMode: "readOnly",
-		// 	};
-		// case "select":
-		// 	return {
-		// 		toolBlock: true,
-		// 		question: 'edit',
-		// 		checkboxMode: "readOnly",
-		// 	};
-		// default:
-		// 	return {
-		// 		toolBlock: true,
-		// 		question: 'edit',
-		// 		checkboxMode: "readOnly",
-		// 	};
+			return { }
 	}
 }

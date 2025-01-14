@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import CustomToolBlock from "../Template/CustomToolBlock";
@@ -10,20 +10,26 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
 import {HistoryContext} from "../../contexts/HistoryContext";
 
-function MyTemplates() {
+function MyTemplates(props) {
 
-	const { currentView, pushView } = useContext(HistoryContext);
-	const { config } = useContext(TemplateContext);
-	const [filledFormId, setFilledFormId] = useState(null);
+	const { filledFormId, setFilledFormId } = props;
+	const { config, currentView, selectedTempId } = useContext(TemplateContext);
+	const [tempId, setTemId] = useState(null);
 
 	const {
 		myTemplates,
-		selectedTempId,
 		handleEditOnClick,
 		handleDeleteTemplate,
 		handleShowForms,
 		loading
-	      } = useActionsTemplates(pushView);
+	      } = props;
+
+	useEffect(() => {
+		if(selectedTempId) {
+			setTemId(selectedTempId);
+		}
+	}, [selectedTempId])
+
 
   return (<div>
 	  {
@@ -33,7 +39,7 @@ function MyTemplates() {
 					  <div>Loading...</div>
 				  ) : (
 					  <>
-						  {currentView === 'table' && (
+						  {currentView === 'templatesTable' && (
 							  <TableContainer key="TableContainer" data-context="TableContainer" component={Paper}>
 								  <Table sx={{minWidth: 650}} aria-label="border-radius-8 forms table">
 									  <TableHead>
@@ -71,9 +77,9 @@ function MyTemplates() {
 														  <TableCell component="th" scope="row">
 															  <CustomToolBlock
 																  showForms={true}
+																  handleEditOnClick={() => handleEditOnClick(template.id, 'templateEditor')}
 																  handleDeleteOnClick={() => handleDeleteTemplate(template.id)}
-																  handleEditOnClick={() => handleEditOnClick(template.id, 'editor')}
-																  handleShowForms={() => handleShowForms(template.id, 'showFormsTable')}
+																  handleShowForms={() => handleShowForms(template.id, 'filledFormsTable', 'readOnly')}
 															  />
 														  </TableCell>
 													  </TableRow>
@@ -83,23 +89,23 @@ function MyTemplates() {
 								  </Table>
 							  </TableContainer>
 						  )}
-						  {currentView === 'editor' &&
+						  {currentView === 'templateEditor' &&
 							  <Template
 								  headerName="Моя форма"
 								  btnName="Сохранить изменения"
-								  templateId={selectedTempId}
 								  config={config}
 							  />
 						  }
 						  {
-							  currentView === 'showFormsTable' &&
+							  currentView === 'filledFormsTable' &&
 							  <FormsTable
 								  templateId={selectedTempId}
 								  setFilledFormId={setFilledFormId}
+								  filledFormId={filledFormId}
 							  />
 						  }
 						  {
-							  currentView === 'showForm' &&
+							  currentView === 'filledForm' &&
 							  <FilledForm
 								  filledFormId={filledFormId}
 							  />

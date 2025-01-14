@@ -1,22 +1,27 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import TemplateHeader from "../Template/TemplateHeader";
 import {Typography} from "@mui/material";
-import useGetFormById from "../../hooks/API/useGetFormById";
 import withFilledFormData from "../../hocs/withFilledFormData";
+import SidePanel from "../Template/SidePanel";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
 function FilledForm(props) {
 
 	const { data, actions, loading= true, filledFormId } = props;
+	const { config } = useContext(TemplateContext);
 
 	return (
-		loading ? (<div>Loading...</div>):(<div>
+		loading ? (<div>Loading...</div>):(
+			<div>
+				<SidePanel
+					config={config}
+				/>
 				<div className="card mb-2 card-background"
 				     style={{backgroundImage: `url(${data?.img})`}}>
 				</div>
 				<TemplateHeader
 					data={data}
 					actions={actions}
-					isReadOnly={true}
 				/>
 
 				<div className="d-flex flex-column gap-1">

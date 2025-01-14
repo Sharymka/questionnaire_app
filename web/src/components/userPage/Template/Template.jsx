@@ -17,7 +17,6 @@ function Template(props) {
       data,
       actions,
       url,
-      templateId = null,
       loading,
       config // config = {
       // header: true,
@@ -34,10 +33,6 @@ function Template(props) {
 
   const [showModalAnchor, setShowModalAnchor] = useState(false);
 
-    // useEffect(() => {
-    //     resetTemplateStates(config);
-    // }, [config]);
-
     const renderImageUploadModal = () => (
         showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />
   );
@@ -51,13 +46,10 @@ function Template(props) {
             <div>Загрузка</div>
             ): (
             <div>
-                {
-                    config?.baseConfig?.sidePanel && (
-                        <SidePanel
-                            showImgModalOnClick={setShowModalAnchor}
-                        />
-                    )
-                }
+                {/*<SidePanel*/}
+                {/*    showImgModalOnClick={setShowModalAnchor}*/}
+                {/*    config={config}*/}
+                {/*/>*/}
                 <>
                     {renderImageUploadModal()}
                     {renderImageCard()}
