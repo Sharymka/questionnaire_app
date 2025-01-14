@@ -42,7 +42,7 @@ const useActionsTemplates = () => {
 			const data = await response.json();
 			if(response.ok) {
 				setMyTemplates(prevState =>
-					prevState.filter((item) => item.id !== id) );
+					prevState.filter((item) => item.id !== id));
 				console.log("template was deleted successfully");
 			}else{
 				console.log("template deleting failed");

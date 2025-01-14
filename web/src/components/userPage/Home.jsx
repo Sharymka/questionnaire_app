@@ -13,6 +13,7 @@ import SidePanel from "./Template/SidePanel";
 function Home() {
 
     const { resetStates } = useContext(HistoryContext);
+    const { setQuestionStatus } = useContext(TemplateContext);
     const [filledFormId, setFilledFormId] = useState(null);
     const [showModalAnchor, setShowModalAnchor] = useState(false);
 
@@ -88,7 +89,7 @@ function Home() {
                                       className=" flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
                                           setCurrentView('addTemplate');
-                                          setAction('edit');
+                                          setQuestionStatus('edit');
                                       }
 
                                       }

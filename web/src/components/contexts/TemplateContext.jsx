@@ -26,10 +26,12 @@ function TemplateProvider({children}) {
 	const [selectedTempId, setSelectedTempId] = useState(null);
 
 
-	// useEffect(() => {
-	// 	resetTemplateStates();
-	// 	console.log('useEffect reset Template States');
-	// }, [context]);
+	useEffect(() => {
+		if(currentView === 'addTemplate' || currentView === 'templatesTable') {
+			resetTemplateStates();
+		}
+		console.log('useEffect reset Template States');
+	}, [questionStatus]);
 
 	useEffect(() => {
 
