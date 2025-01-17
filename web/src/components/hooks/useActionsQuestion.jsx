@@ -3,7 +3,7 @@ import {TemplateContext} from "../contexts/TemplateContext";
 
 const useActionsQuestion = (targetQuestion) => {
 
-	const { setQuestions, setConfig, setAction } = useContext(TemplateContext);
+	const { setQuestions, setConfig, setQuestionStatus } = useContext(TemplateContext);
 
 
 	const recalculateIds = (questionsArray) => {
@@ -29,6 +29,7 @@ const useActionsQuestion = (targetQuestion) => {
 			];
 			return recalculateIds(newQuestions);
 		});
+		setQuestionStatus('edit');
 	};
 
 

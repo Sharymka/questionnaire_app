@@ -9,7 +9,7 @@ function SignIn() {
     const navigate = useNavigate();
     const { signIn , isAuthenticated } = useContext(AuthContext);
     const [signInData, setSignInData] = React.useState({
-        email: 'john.doe@example.com',
+        email: 'ivan@mail.ru',
         password: '123'
     });
 

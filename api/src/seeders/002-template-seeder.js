@@ -151,8 +151,8 @@ module.exports = {
 			},
 			{
 				id: 4,
-				userId: 2,
-				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1730099489/education_ebzc7v.jpg",
+				userId: 1,
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1736884884/education_hiohqi.jpg",
 				title: 'Шаблон на тему "Образование"',
 				topic: 'education',
 				description: 'Этот шаблон охватывает вопросы, связанные с образованием и обучением.',

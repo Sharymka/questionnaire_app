@@ -14,7 +14,6 @@ function MyTemplates(props) {
 
 	const { filledFormId, setFilledFormId } = props;
 	const { config, currentView, selectedTempId } = useContext(TemplateContext);
-	const [tempId, setTemId] = useState(null);
 
 	const {
 		myTemplates,
@@ -23,12 +22,6 @@ function MyTemplates(props) {
 		handleShowForms,
 		loading
 	      } = props;
-
-	useEffect(() => {
-		if(selectedTempId) {
-			setTemId(selectedTempId);
-		}
-	}, [selectedTempId])
 
 
   return (<div>
