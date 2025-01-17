@@ -7,15 +7,17 @@
     "install": "cd api && npm run install && cd web && npm run install",
     "build": " cd web && npm run build && prepare:static",
     "start": " cd api && npm run dev",
-
     "start:api:dev": "cd api && npm run dev",
     "build:web:dev": "cd web && npm run watch:build",
     "watch:api": "nodemon --watch api/build --exec  \"npm run start\"",
-    "serve": "concurrently \"npm start\" \"npm run watch:static\""
+    "serve": "watch:api"
   },
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "@craco/craco": "^7.1.0"
   }
 }

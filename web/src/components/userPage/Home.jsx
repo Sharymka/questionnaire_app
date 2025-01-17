@@ -89,7 +89,6 @@ function Home() {
                                       className=" flex-grow-1 screen_max_425_block_width text-primary"
                                       onClick={()=> {
                                           setCurrentView('addTemplate');
-                                          setQuestionStatus('edit');
                                       }
 
                                       }

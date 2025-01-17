@@ -10,14 +10,14 @@ function withDataAttributes(WrappedComponent) {
 			<WrappedComponent
 				{...props}
 				key={displayName}
-				data-content={displayName}
+				data-key={displayName}
 			/>
 
 		);
 	};
 
 	// Устанавливаем displayName для нового компонента
-	WithAttributes.displayName = `WithDataAttributes(${displayName})`;
+	// WithAttributes.displayName = `WithDataAttributes(${displayName})`;
 
 	return WithAttributes;
 }

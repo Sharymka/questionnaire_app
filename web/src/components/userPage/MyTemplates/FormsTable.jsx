@@ -5,6 +5,7 @@ import { READ_ICON_URL} from "../../../url/url";
 import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import {TemplateContext} from "../../contexts/TemplateContext";
+import withDataAttributes from "../../hocs/withDataAttributes";
 function FormsTable(props) {
 
 	const { pushView } = useContext(HistoryContext);
@@ -59,4 +60,4 @@ function FormsTable(props) {
 );
 }
 
-export default FormsTable;
+export default withDataAttributes(FormsTable);

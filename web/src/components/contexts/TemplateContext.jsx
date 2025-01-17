@@ -3,6 +3,7 @@ import {postData} from "../../Requests";
 import {temp} from "../../const/temp";
 import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 import {getDefaultTempConfig} from "../../utilits/getDefaultTempConfig";
+import withDataAttributes from "../hocs/withDataAttributes";
 
 export const TemplateContext = React.createContext(null);
 
@@ -28,10 +29,11 @@ function TemplateProvider({children}) {
 
 	useEffect(() => {
 		if(currentView === 'addTemplate' || currentView === 'templatesTable') {
+			console.log('useEffect reset Template States');
 			resetTemplateStates();
 		}
-		console.log('useEffect reset Template States');
-	}, [questionStatus]);
+
+	}, [currentView]);
 
 	useEffect(() => {
 
@@ -65,7 +67,7 @@ function TemplateProvider({children}) {
 				}));
 			}
 
-	}, [questions.length, currentView, questionStatus]);
+	}, [questions?.length, currentView, questionStatus]);
 
 	const saveTemplate = async (url)=> {
 		const requestData = {
@@ -105,7 +107,6 @@ function TemplateProvider({children}) {
 	}
 
 	const resetTemplateStates = ()=> {
-		// console.log('resetTemplateStates');
 		setTitle('');
 		setTopic('education');
 		setDescription('');
@@ -113,6 +114,9 @@ function TemplateProvider({children}) {
 		setTags([]);
 		setConfig({ baseConfig: {}, questionList: [] });
 		setQuestionStatus(null);
+		setSelectedTempId(null);
+		setImgUrl('');
+		console.log('resetTemplateStates');
 	}
 
 	const handleFilteredTemplate = (substring) => {
@@ -180,4 +184,4 @@ function TemplateProvider({children}) {
   );
 }
 
-export default TemplateProvider;
+export default withDataAttributes(TemplateProvider);
