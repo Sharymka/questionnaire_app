@@ -16,6 +16,8 @@ function Template(props) {
       actions,
       url,
       loading,
+      showModalAnchor,
+      setShowModalAnchor,
       config // config = {
       // header: true,
       // sidePanel: true,
@@ -27,8 +29,6 @@ function Template(props) {
         imgUrl,
         message,
     } = useContext(TemplateContext);
-
-  const [showModalAnchor, setShowModalAnchor] = useState(false);
 
     const renderImageUploadModal = () => (
         showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />

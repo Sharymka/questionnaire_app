@@ -28,7 +28,7 @@ const ImageUploadModal = (props) => {
 
 	const { open, handleClose } = props;
 
-	const { imgUrl, setImgUrl } =  useContext(TemplateContext);
+	const { setImgUrl } =  useContext(TemplateContext);
 	const [image, setImage] = useState(false);
 
 	const handleImageChange = async (event) => {

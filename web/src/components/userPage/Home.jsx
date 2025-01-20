@@ -42,6 +42,8 @@ function Home() {
                                 headerName="Новая форма"
                                 btnName="Сохранить шаблон"
                                 url={SAVE_TEMPLATE_URL}
+                                showModalAnchor={showModalAnchor}
+                                setShowModalAnchor={setShowModalAnchor}
                             />
                     </div>
                 );
@@ -58,7 +60,8 @@ function Home() {
                             handleEditOnClick={handleEditOnClick}
                             handleDeleteTemplate={handleDeleteTemplate}
                             handleShowForms={handleShowForms}
-                        loading
+                            showModalAnchor={showModalAnchor}
+                            setShowModalAnchor={setShowModalAnchor}
                         />
                     </div>
                 );

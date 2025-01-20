@@ -16,6 +16,8 @@ function MyTemplates(props) {
 		myTemplates,
 		handleEditOnClick,
 		handleDeleteTemplate,
+		showModalAnchor,
+		setShowModalAnchor,
 		handleShowForms,
 		loading
 	      } = props;
@@ -84,6 +86,8 @@ function MyTemplates(props) {
 								  headerName="Моя форма"
 								  btnName="Сохранить изменения"
 								  config={config}
+								  showModalAnchor={showModalAnchor}
+								  setShowModalAnchor={setShowModalAnchor}
 							  />
 						  }
 						  {
