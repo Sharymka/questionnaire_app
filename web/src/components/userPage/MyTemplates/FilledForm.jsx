@@ -8,7 +8,7 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 function FilledForm(props) {
 
 	const { data, actions, loading= true } = props;
-	const { config, filledFormId } = useContext(TemplateContext);
+	const { config } = useContext(TemplateContext);
 
 	return (
 		loading ? (<div>Loading...</div>):(

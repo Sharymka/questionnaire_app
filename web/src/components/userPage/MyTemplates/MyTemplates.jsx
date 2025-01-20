@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import CustomToolBlock from "../Template/CustomToolBlock";
@@ -10,7 +10,7 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 
 function MyTemplates(props) {
 
-	const { config, currentView, selectedTempId, filledFormId, setFilledFormId } = useContext(TemplateContext);
+	const { config, currentView, selectedTempId } = useContext(TemplateContext);
 
 	const {
 		myTemplates,

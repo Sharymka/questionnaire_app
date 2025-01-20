@@ -13,4 +13,4 @@ export function transformForm(matchedForm){
 		user: `${matchedForm.user?.first_name} ${matchedForm.user?.last_name}` || "",
 		questions: matchedForm.questions || "",
 	};
-};
+}

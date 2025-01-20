@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import Paper from "@mui/material/Paper";
 import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import { READ_ICON_URL} from "../../../url/url";
@@ -9,7 +9,7 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 function FormsTable(props) {
 
 	const { pushView } = useContext(HistoryContext);
-	const { filledFormId, setFilledFormId } = useContext(TemplateContext);
+	const { setFilledFormId } = useContext(TemplateContext);
 	const { templateId } = props;
 	const { forms } = useGetFormsByTempId(templateId);
 
@@ -32,7 +32,7 @@ function FormsTable(props) {
 		 	  </TableHead>
 		 	  <TableBody>
 		 		  {
-				  forms.map((form, index) => (
+				  forms.map((form) => (
 						  <TableRow className="table-row" key={form.id}>
 							  <TableCell align="center">{form.template.title}</TableCell>
 							  <TableCell align="center">{form.template.topic}</TableCell>
