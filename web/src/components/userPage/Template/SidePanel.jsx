@@ -6,7 +6,6 @@ import ActionButton from "./AcctionBtn";
 import useActionsQuestion from "../../hooks/useActionsQuestion";
 import {EXIT_LEFT} from "../../../url/url";
 import {HistoryContext} from "../../contexts/HistoryContext";
-import {TemplateContext} from "../../contexts/TemplateContext";
 
 const SidePanel = (props ) => {
 
@@ -16,8 +15,7 @@ const SidePanel = (props ) => {
 	} = props;
 
 	const { handleAddQuestionOnClick } = useActionsQuestion();
-	const { popView, currentView } = useContext(HistoryContext);
-	const {	setSelectedTempId } = useContext(TemplateContext);
+	const { popView } = useContext(HistoryContext);
 
 	const handleExitOnClick = () => {
 		console.log("handleExitOnClick");
