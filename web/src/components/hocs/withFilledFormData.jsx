@@ -1,9 +1,7 @@
-import useGetTemplateById from "../hooks/API/useGetTemplateById";
 import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
 import React, {useContext, useEffect} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
 import useGetFormById from "../hooks/API/useGetFormById";
-import data from "mdb-ui-kit/src/js/mdb/dom/data";
 
 function withFilledFormData(WrappedComponent) {
 
@@ -28,7 +26,6 @@ function withFilledFormData(WrappedComponent) {
 			description,
 			tags,
 			questions,
-			imgUrl,
 			setTitle,
 			setTopic,
 			setDescription,

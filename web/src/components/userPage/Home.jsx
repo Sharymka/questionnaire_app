@@ -13,7 +13,6 @@ import SidePanel from "./Template/SidePanel";
 function Home() {
 
     const { resetStates } = useContext(HistoryContext);
-    const { setQuestionStatus } = useContext(TemplateContext);
     const [showModalAnchor, setShowModalAnchor] = useState(false);
 
     const {
@@ -29,7 +28,6 @@ function Home() {
         filteredTemp,
         setCurrentView,
         currentView,
-        setAction,
         config
     } = useContext(TemplateContext);
 

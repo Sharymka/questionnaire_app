@@ -26,7 +26,6 @@ function Template(props) {
         saveTemplate,
         imgUrl,
         message,
-        resetTemplateStates,
     } = useContext(TemplateContext);
 
   const [showModalAnchor, setShowModalAnchor] = useState(false);

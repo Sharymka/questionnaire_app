@@ -130,7 +130,7 @@ function TemplateProvider({children}) {
 	};
 
 	const handleHoverMarkdown = (selectedId) => {
-		setMarkdownHover(prevState => prevState.map((option, index) => {
+		setMarkdownHover(prevState => prevState.map((option) => {
 			if (option.id === selectedId) {
 				return {...option, value: !option.value};
 			}else {
