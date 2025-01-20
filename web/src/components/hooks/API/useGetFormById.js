@@ -22,8 +22,9 @@ const useGetFormById =  (filledFormId) => {
 				const formsData = await response.json();
 
 				if (response.ok) {
-					setForm(formsData.filter((form) => form.idTemplate === filledFormId));
-					console.log("forms were fetched successfully");
+					const matchedForm =  formsData.find((form) => form.id === filledFormId);
+					const transformedForm = transformForm(matchedForm);
+					setForm(transformedForm);
 				} else {
 					const errorText = await response.text();
 					console.log(`HTTP error! status: ${response.status}, message: ${errorText}`);

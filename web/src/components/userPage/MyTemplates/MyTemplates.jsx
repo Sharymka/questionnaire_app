@@ -7,13 +7,10 @@ import {questionTopics} from "../../../const/const";
 import FormsTable from "./FormsTable";
 import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
-import useActionsTemplates from "../../hooks/useActionsTemplates";
-import {HistoryContext} from "../../contexts/HistoryContext";
 
 function MyTemplates(props) {
 
-	const { filledFormId, setFilledFormId } = props;
-	const { config, currentView, selectedTempId } = useContext(TemplateContext);
+	const { config, currentView, selectedTempId, filledFormId, setFilledFormId } = useContext(TemplateContext);
 
 	const {
 		myTemplates,
@@ -93,14 +90,11 @@ function MyTemplates(props) {
 							  currentView === 'filledFormsTable' &&
 							  <FormsTable
 								  templateId={selectedTempId}
-								  setFilledFormId={setFilledFormId}
-								  filledFormId={filledFormId}
 							  />
 						  }
 						  {
 							  currentView === 'filledForm' &&
 							  <FilledForm
-								  filledFormId={filledFormId}
 							  />
 						  }
 					  </>

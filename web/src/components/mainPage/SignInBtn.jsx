@@ -7,7 +7,6 @@ function SignInBtn(props) {
   const navigate = useNavigate();
     const { isDarkMode } = props;
   const onSignIn = () => {
-      console.log("on signIn page");
     navigate("/signIn");
   }
 

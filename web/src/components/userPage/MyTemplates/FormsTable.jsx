@@ -1,15 +1,16 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Paper from "@mui/material/Paper";
 import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import { READ_ICON_URL} from "../../../url/url";
 import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import {TemplateContext} from "../../contexts/TemplateContext";
-import withDataAttributes from "../../hocs/withDataAttributes";
+
 function FormsTable(props) {
 
 	const { pushView } = useContext(HistoryContext);
-	const { templateId, setFilledFormId } = props;
+	const { filledFormId, setFilledFormId } = useContext(TemplateContext);
+	const { templateId } = props;
 	const { forms } = useGetFormsByTempId(templateId);
 
 	const handleReadFormIconOnClick = (formId) => {
@@ -60,4 +61,4 @@ function FormsTable(props) {
 );
 }
 
-export default withDataAttributes(FormsTable);
+export default FormsTable;

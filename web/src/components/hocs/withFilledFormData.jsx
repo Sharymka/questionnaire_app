@@ -9,7 +9,7 @@ function withFilledFormData(WrappedComponent) {
 
 	return (props) => {
 
-		const { filledFormId } = props;
+		const { filledFormId } = useContext(TemplateContext);
 		const { form, loading, setLoading } = useGetFormById(filledFormId);
 
 		const setTempDataToState = useSetTempDataToState();
@@ -19,7 +19,7 @@ function withFilledFormData(WrappedComponent) {
 				setTempDataToState(form);
 				setLoading(false);
 			}
-		}, [form]);
+		}, [form, filledFormId]);
 
 
 		const {

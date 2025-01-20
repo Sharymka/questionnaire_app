@@ -14,7 +14,6 @@ function Home() {
 
     const { resetStates } = useContext(HistoryContext);
     const { setQuestionStatus } = useContext(TemplateContext);
-    const [filledFormId, setFilledFormId] = useState(null);
     const [showModalAnchor, setShowModalAnchor] = useState(false);
 
     const {
@@ -57,8 +56,6 @@ function Home() {
                     <div className="mt-3" role="alert">
                         <MyTemplates
                             key={currentView}
-                            filledFormId={filledFormId}
-                            setFilledFormId={setFilledFormId}
                             myTemplates={myTemplates}
                             handleEditOnClick={handleEditOnClick}
                             handleDeleteTemplate={handleDeleteTemplate}

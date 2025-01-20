@@ -5,7 +5,6 @@ import {Button} from "@mui/material";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import ImageUploadModal from "./ImageUploadModal";
 import MessageBlock from "./MessageBlock";
-import withDataAttributes from "../../hocs/withDataAttributes";
 import withTemplateData from "../../hocs/withTemplateData";
 
 function Template(props) {
@@ -84,4 +83,4 @@ function Template(props) {
 }
 
 Template.displayName = "Template";
-export default withTemplateData(withDataAttributes(Template));
+export default withTemplateData(Template);

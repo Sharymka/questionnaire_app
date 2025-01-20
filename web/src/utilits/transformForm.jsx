@@ -10,7 +10,7 @@ export function transformForm(matchedForm){
 		description: matchedForm.template?.description || "",
 		tags: matchedForm.template?.tags || "",
 		img: matchedForm.template?.img || "",
-		user: `${matchedForm.user.first_name} ${matchedForm.user.last_name}` || "",
+		user: `${matchedForm.user?.first_name} ${matchedForm.user?.last_name}` || "",
 		questions: matchedForm.questions || "",
 	};
 };

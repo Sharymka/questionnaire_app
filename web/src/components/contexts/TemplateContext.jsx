@@ -3,7 +3,6 @@ import {postData} from "../../Requests";
 import {temp} from "../../const/temp";
 import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 import {getDefaultTempConfig} from "../../utilits/getDefaultTempConfig";
-import withDataAttributes from "../hocs/withDataAttributes";
 
 export const TemplateContext = React.createContext(null);
 
@@ -25,11 +24,11 @@ function TemplateProvider({children}) {
 	const [showAllTemplates, setShowAllTemplates] = useState(false);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
 	const [selectedTempId, setSelectedTempId] = useState(null);
+	const [filledFormId, setFilledFormId] = useState(null);
 
 
 	useEffect(() => {
 		if(currentView === 'addTemplate' || currentView === 'templatesTable') {
-			console.log('useEffect reset Template States');
 			resetTemplateStates();
 		}
 
@@ -116,7 +115,7 @@ function TemplateProvider({children}) {
 		setQuestionStatus(null);
 		setSelectedTempId(null);
 		setImgUrl('');
-		console.log('resetTemplateStates');
+		setFilledFormId(null);
 	}
 
 	const handleFilteredTemplate = (substring) => {
@@ -164,6 +163,8 @@ function TemplateProvider({children}) {
 		  setQuestionStatus,
 		  setSelectedTempId,
 		  selectedTempId,
+		  filledFormId,
+		  setFilledFormId,
 		  handleFilteredTemplate,
 		  saveTemplate,
 		  message,
@@ -184,4 +185,4 @@ function TemplateProvider({children}) {
   );
 }
 
-export default withDataAttributes(TemplateProvider);
+export default TemplateProvider;
