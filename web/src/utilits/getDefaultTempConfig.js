@@ -1,5 +1,5 @@
 
-export function getDefaultTempConfig(context, question) {
+export function getDefaultTempConfig(context) {
 	switch (context) {
 		case "addTemplate":
 			return {
@@ -24,6 +24,9 @@ export function getDefaultTempConfig(context, question) {
 				sidePanel: { mainBlock: false, exit: true },
 			}
 		default:
-			return { }
+			return {
+				header: 'readOnly',
+				sidePanel: { mainBlock: false, exit: true },
+			}
 	}
 }

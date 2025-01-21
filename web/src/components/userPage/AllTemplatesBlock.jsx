@@ -7,7 +7,7 @@ import useGetTemplates from "../hooks/API/useGetTemplates";
 function AllTemplatesBlock() {
 
   const { templates, loading } = useGetTemplates();
-  const { setShowSelectedTemplate } = useContext(TemplateContext);
+  const { setShowSelectedTemplate, resetTemplateStates } = useContext(TemplateContext);
   return (
 	 loading ? (
 		    <div> Loading... </div>
@@ -16,7 +16,10 @@ function AllTemplatesBlock() {
 			 <div className=" screen_max_425 screen_min_425 ">
 				 {
 					 templates.map((template, index) => (
-						 <Link key={index} to={`/templates/${template.id}`}>
+						 <Link
+							 key={index}
+							 onClick={resetTemplateStates}
+							 to={`/templates/${template.id}`}>
 							 <Card
 								 key={index}
 								 sx={{paddingBottom: 20, maxWidth: 300, maxHeight: 345}}

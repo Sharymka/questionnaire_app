@@ -13,8 +13,12 @@ function TemplateHeader(props) {
         headerName,
         data,
         actions,
-        config,
     } = props;
+
+    const { config } = useContext(TemplateContext);
+    // header: true,
+    // sidePanel: true,
+    // questionList: [{ id: 1, toolBlock: false, question: 'edit', answer: 'readOnly', checkboxMode: "select"}];
 
   return (
           <HeaderBlock
