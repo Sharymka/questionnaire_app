@@ -26,7 +26,7 @@ export function getDefaultTempConfig(context) {
 		default:
 			return {
 				header: 'readOnly',
-				sidePanel: { mainBlock: false, exit: true },
+				sidePanel: { mainBlock: false, exit: false },
 			}
 	}
 }

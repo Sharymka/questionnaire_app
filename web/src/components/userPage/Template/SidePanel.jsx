@@ -23,9 +23,9 @@ const SidePanel = (props ) => {
 	}
 
 	return (
-		Object.keys(config.baseConfig).length !== 0 ? (
+		config?.baseConfig?.sidePanel?.mainBlock || config?.baseConfig?.sidePanel?.exit  ? (
 			<Box
-				className="sidePanelPosition "
+				className="sidePanelPosition"
 			> {
 				config?.baseConfig?.sidePanel?.mainBlock && (
 					<>
