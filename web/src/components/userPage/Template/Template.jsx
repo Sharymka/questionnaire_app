@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import TemplateHeader from "./TemplateHeader";
 import QuestionList from "./QuestionList";
 import {Button} from "@mui/material";
@@ -18,14 +18,11 @@ function Template(props) {
       loading,
       showModalAnchor,
       setShowModalAnchor,
-      config // config = {
-      // header: true,
-      // sidePanel: true,
-      // questionList: [{ id: 1, toolBlock: false, question: 'edit', answer: 'readOnly', checkboxMode: "select"}];
   } = props;
 
     const {
         saveTemplate,
+        saveForm,
         imgUrl,
         message,
     } = useContext(TemplateContext);
@@ -51,24 +48,17 @@ function Template(props) {
                     headerName={headerName}
                     data={data}
                     actions={actions}
-                    config={config}
                 />
                 <QuestionList
                     data={data}
                     actions={actions}
-                    config={config}
                 />
                 <div className="card p-4 mt-3">
                     <div className="d-flex justify-content-end">
                         <Button className='p-3 btn-primary'
                                 variant="contained"
-                                onClick={() => saveTemplate(`${url}`)}
-                            // onClick={() => {
-                            //     // setEditorAnchor && setEditorAnchor(false)
-                            //     // saveTemplate(`${url}${selectedTemplate ? `/${selectedTemplate.id}` : ''}`)
-                            //     saveTemplate(`${url}`)
-                            // }
-                            // }
+                                onClick={() => btnName === 'Сохранить шаблон' || btnName === 'Сохранить изменения' ? saveTemplate(url) :
+                                    btnName === 'Отправить форму' ? saveForm(url): null}
                         >
                             {btnName}
                         </Button>

@@ -3,9 +3,9 @@ import {DragDropContext, Draggable, Droppable} from '@hello-pangea/dnd';
 import QuestionCard from "./QistionCard";
 import {TemplateContext} from "../../contexts/TemplateContext";
 
-function QuestionsList(props) {
+function QuestionsList() {
 
-	const { config } = props;
+	const { config } = useContext(TemplateContext);
 	const { questions, setQuestions } = useContext(TemplateContext);
 
 	const handleOnDragEnd = (result) => {

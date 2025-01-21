@@ -34,7 +34,7 @@ const useActionsQuestion = (targetQuestion) => {
 
 
 	const handleTextFieldOnChange = (value, field) => {
-
+		console.log('handleTextFieldOnChange');
 		setQuestions(prevState => {
 			const updatedQuestions = [...prevState];
 			const targetQuestionIndex = updatedQuestions.findIndex(question => question.id === targetQuestion.id);

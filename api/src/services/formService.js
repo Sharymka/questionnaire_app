@@ -26,22 +26,13 @@ class FormService {
 	static async createForms(
 		idTemplate,
 		idUser,
-		question,
-		answerType,
-		answer,
-		access,
-		selectedUsers
-
+		questions,
 	) {
 
 		return  await Form.create({
 			idUser: idUser,
-			idTemplate:idTemplate,
-			question:question,
-			answerType:answerType,
-			answer:answer,
-			access:access,
-			selectedUsers:selectedUsers
+			idTemplate: idTemplate,
+			questions: questions
 		})
 	}
 

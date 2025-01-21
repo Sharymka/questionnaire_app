@@ -12,6 +12,7 @@ export const DELETE_ICON_BASKET_URL = "https://res.cloudinary.com/dewxfivxh/imag
 export const SAVE_EDITED_TEMPLATE_URL = 'api/template';
 
 export const SAVE_TEMPLATE_URL="api/template";
+export const SAVE_FORM_URL="api/form";
 
 export const RU_FLAG_URL = "https://res.cloudinary.com/dewxfivxh/image/upload/v1729971895/flag-ru-svgrepo-com_rbahyy.svg";
 

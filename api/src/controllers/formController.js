@@ -16,27 +16,19 @@ async function createForm(req, res) {
 		const {
 			idTemplate,
 			idUser,
-			question,
-			answerType,
-			answer,
-			access,
-			selectedUsers
+			questions
 		} = req.body;
 
 		const form = await createForms(
 			idTemplate,
 			idUser,
-			question,
-			answerType,
-			answer,
-			access,
-			selectedUsers
+			questions,
 		);
 
 		if(form) {
 			res.status(200).json('form saved successfully');
 		}else {
-			res.status(404).json({ message: 'No form found' });
+			res.status(404).json({ message: 'No form saved' });
 		}
 	} catch (error) {
 		res.status(500).json({ error: error.message});

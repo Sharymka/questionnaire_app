@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControlLabel, IconButton, Radio, RadioGroup, Typography} from "@mui/material";
+import {FormControlLabel, Radio, RadioGroup, Typography} from "@mui/material";
 import CustomTextField from "./CustomTextField";
 import {DELETE_ICON_URL} from "../../../url/url";
 import ActionButton from "./AcctionBtn";
@@ -12,7 +12,7 @@ function CustomCheckBoxes(props) {
       options,
       actions, // объект типа { checkboxOnChange: checkboxOnChange, ...}
       config,
-      field ='',
+      field, // поле 'answer'
       optionId = null
   } = props;
 
@@ -23,7 +23,7 @@ function CustomCheckBoxes(props) {
   } = actions;
 
     const handleChange = (event) => {
-        if (typeof checkboxOnChange === 'function') {
+        if (typeof(checkboxOnChange) === 'function') {
             checkboxOnChange(event.target.value);
             // if (optionId !== null) {
             //     checkboxOnChange(event.target.value, optionId);
@@ -52,11 +52,13 @@ function CustomCheckBoxes(props) {
               <span className='me-2' >{index + 1}.</span>
                 {
                     config.checkboxMode === 'readOnly' && (
-                        <Typography>{option.value}</Typography>
+                        <>
+                            <Typography>{option.value}</Typography>
+                        </>
                     )
                 }
                 {
-                    config.checkboxMode === 'select' && (
+                config.checkboxMode === 'select' && (
                         <>
                             <FormControlLabel
                                 value={option.id}

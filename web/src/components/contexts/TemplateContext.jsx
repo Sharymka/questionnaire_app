@@ -46,7 +46,6 @@ function TemplateProvider({children}) {
 
 			//инициализируем настройки для списка вопросов, если вопросы подгрузились сразу из готового шаблона
 			if (config?.questionList?.length === 0 && questions?.length > 0) {
-				console.log('questions array length changed')
 				setConfig((prevState) => ({
 					...prevState,
 					questionList: questions.map((question) =>
@@ -69,6 +68,8 @@ function TemplateProvider({children}) {
 	}, [questions?.length, currentView, questionStatus]);
 
 	const saveTemplate = async (url)=> {
+		console.log('saveTemplate');
+
 		const requestData = {
 			title:title,
 			topic:topic,
@@ -99,6 +100,43 @@ function TemplateProvider({children}) {
 		}
 		resetTemplateStates();
 		setRefresh(!refresh);
+	}
+
+	const saveForm = async (url) => {
+
+		const fullUrl = `${window.location.origin}/${url}`;
+		console.log('Sending request to:', fullUrl);
+
+		const newQuestions = questions.map((item) => ({
+			id: item.id,
+			question: item.name,
+			answer: item.answer,
+			answerType: item.answerType,
+			selectedUsers: item.selectedUsers,
+			access: item.access,
+		}));
+
+		const requestData =  {
+				idTemplate:selectedTempId,
+				idUser: JSON.parse(localStorage.getItem('user')).id,
+				questions: newQuestions
+			}
+
+			try {
+				const response = await postData(fullUrl, requestData);
+				const responseData = await response.json();
+
+					if(response.ok) {
+						setMessage({success: "Form was saved successfully"});
+						console.log("Form was saved successfully:", responseData);
+					}else {
+						setMessage({error: "Form saving failed"});
+						console.log("Form saving failed:", responseData.error);
+
+					}
+			} catch (error) {
+					console.log("Saving Form failed:", error.message);
+			}
 	}
 
 	const handleTopic = (event) => {
@@ -167,6 +205,7 @@ function TemplateProvider({children}) {
 		  setFilledFormId,
 		  handleFilteredTemplate,
 		  saveTemplate,
+		  saveForm,
 		  message,
 		  markdownHover,
 		  setMarkdownHover,
