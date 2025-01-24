@@ -2,18 +2,17 @@ import {useEffect, useState} from "react";
 import {getData} from "../../../Requests";
 import {temp} from "../../../const/temp";
 
-const useGetTemplates = () => {
+const  useGetTemplates = () => {
 
-	const [templates, setTemplates] = useState(temp);
-	const [loading, setLoading] = useState(true);
+	const [ temps, setTemps] = useState(temp);
 
 	useEffect(() => {
-		const fetchData = async () => {
+		const fetchTemps= async () => {
 			try {
 				const response = await getData("api/templates");
 				const data = await response.json();
 				if(response.ok) {
-					setTemplates(data);
+					setTemps(data);
 					console.log("templates were fetched successfully");
 				} else {
 					console.log(data.error);
@@ -21,14 +20,15 @@ const useGetTemplates = () => {
 				}
 			}catch(error) {
 				console.log("template getting failed");
-			}finally {
-				setLoading(false);
 			}
 		}
-		fetchData();
+		fetchTemps();
 	}, []);
 
-	return { templates, setTemplates, loading };
+
+	return {
+		temps
+	}
 };
 
 export default useGetTemplates;

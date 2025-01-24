@@ -1,47 +1,60 @@
-import {useContext, useEffect, useState} from "react";
-import {deleteData} from "../../Requests";
-import useGetTemplates from "./API/useGetTemplates";
+import {useContext} from "react";
+import {deleteData, postData} from "../../Requests";
 import {TemplateContext} from "../contexts/TemplateContext";
-import {HistoryContext} from "../contexts/HistoryContext";
 
 const useActionsTemplates = () => {
 
-	const { pushView } = useContext(HistoryContext);
-	const { selectedTempId, setQuestionStatus,  setSelectedTempId } = useContext(TemplateContext);
-	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
-	const { templates, setTemplates, loading } = useGetTemplates();
-	const [myTemplates, setMyTemplates] = useState([]);
-	const [, ] = useState(null);
+	const {
+		title,
+		topic,
+		description,
+		tags,
+		questions,
+		imgUrl,
+		templates,
+		setMessage,
+		resetTemplateStates,
+		setFilteredTemps,
+		setTemplates
+	} = useContext(TemplateContext);
 
-	useEffect(() => {
-		if (templates) {
-			setMyTemplates(templates.filter((template) => template.userId === user.id));
+	const saveTemplate = async (url)=> {
+		const requestData = {
+			title:title,
+			topic:topic,
+			description:description,
+			questions:questions,
+			tags:tags,
+			img:imgUrl
 		}
-	}, [templates]);
+		try {
+			const response = await postData(url, requestData);
 
-	const handleEditOnClick = (id, newView) => {
-		setSelectedTempId(id);
-		pushView(newView);
-	}
+			const responseData = await response.json();
 
-	useEffect(() => {
-		if(selectedTempId) {
+			if (response.ok) {
+				setMessage({success: "Template was saved successfully"});
+				console.log("Template was saved successfully:", responseData);
+			}else {
+				setMessage({error: "Template saving failed"});
+				console.log("Template saving failed:", responseData.error);
 
+			}
+			setTimeout(() => {
+				setMessage(null);
+			}, 3000);
+
+		}catch (error) {
+			console.log("Saving Template failed:", error.message);
 		}
-	}, [selectedTempId]);
-
-	const handleShowForms = (id, newView, questionState) => {
-		pushView(newView);
-		setQuestionStatus(questionState);
-		setSelectedTempId(id);
+		resetTemplateStates();
 	}
-
-	const handleDeleteTemplate = async(id) => {
+	const deleteTemplate = async(id) => {
 		try {
 			const response = await deleteData(`api/template/${id}`);
-			const data = await response.json();
+			await response.json();
 			if(response.ok) {
-				setMyTemplates(prevState =>
+				setTemplates(prevState =>
 					prevState.filter((item) => item.id !== id));
 				console.log("template was deleted successfully");
 			}else{
@@ -51,18 +64,22 @@ const useActionsTemplates = () => {
 			console.log(error);
 		}
 	}
-
+	const filterTemplates = (substring) => {
+		console.log('substring', substring);
+		if(substring === '') {
+			setFilteredTemps(templates);
+			return;
+		}
+		const filteredTemps = templates.filter((temp) => temp.tags.some((tag) => tag.label.toLowerCase().includes(substring.toLowerCase())));
+		setFilteredTemps(filteredTemps);
+		console.log('filteredTemps', filteredTemps);
+	};
 
 	return {
-		myTemplates,
-		selectedTempId,
-		setSelectedTempId,
-		handleEditOnClick,
-		handleDeleteTemplate,
-		handleShowForms,
-		loading
+		deleteTemplate,
+		saveTemplate,
+		filterTemplates,
 	}
-
 
 }
 export default useActionsTemplates;

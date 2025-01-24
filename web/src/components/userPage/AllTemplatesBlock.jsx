@@ -2,20 +2,15 @@ import React, {useContext} from 'react';
 import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/material";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {Link} from "react-router-dom";
-import useGetTemplates from "../hooks/API/useGetTemplates";
 
 function AllTemplatesBlock() {
 
-  const { templates, loading } = useGetTemplates();
-  const { setShowSelectedTemplate, resetTemplateStates } = useContext(TemplateContext);
+  const { setShowSelectedTemplate, resetTemplateStates, filteredTemps } = useContext(TemplateContext);
   return (
-	 loading ? (
-		    <div> Loading... </div>
-		 ): (
 		 <div className=" p-5 container container_min_1200">
 			 <div className=" screen_max_425 screen_min_425 ">
 				 {
-					 templates.map((template, index) => (
+					 filteredTemps?.map((template, index) => (
 						 <Link
 							 key={index}
 							 onClick={resetTemplateStates}
@@ -50,8 +45,6 @@ function AllTemplatesBlock() {
 				 }
 			 </div>
 		 </div>
-	 )
-
   );
 }
 

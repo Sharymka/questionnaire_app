@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 import  {TemplateContext} from "../contexts/TemplateContext";
@@ -12,15 +12,15 @@ import SidePanel from "./Template/SidePanel";
 
 function Home() {
 
-    const { resetStates } = useContext(HistoryContext);
+    const { resetStates, templates } = useContext(HistoryContext);
     const [showModalAnchor, setShowModalAnchor] = useState(false);
+    const [myTemplates, setMyTemplates] = useState([]);
+    const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
 
     const {
-        myTemplates,
         handleEditOnClick,
         handleDeleteTemplate,
         handleShowForms,
-        loading
     } = useActionsTemplates();
 
     const {
@@ -30,6 +30,12 @@ function Home() {
         currentView,
         config
     } = useContext(TemplateContext);
+
+    useEffect(() => {
+        if (templates) {
+            setMyTemplates(templates.filter((template) => template.userId === user.id));
+        }
+    }, [templates]);
 
     const renderComponent = () => {
         switch (currentView) {
@@ -65,59 +71,51 @@ function Home() {
                         />
                     </div>
                 );
-            case 'myForms':
-                return (
-                    <div className="mt-3" role="alert">
-                        myForms
-                    </div>
-                );
             default:
                 return null;
         }
     };
   return (
-      <>
-          {
-              showAllTemplates ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
-                  <>
-                          <div className=" p-5 container container_min_1200">
-                              <div className=" screen_max_425 screen_min_425">
-                                  <Link
-                                      type="btn"
-                                      className=" flex-grow-1 screen_max_425_block_width text-primary"
-                                      onClick={()=> {
-                                          setCurrentView('addTemplate');
-                                      }
+      <> {
+          showAllTemplates ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
+              <>
+                  <div className=" p-5 container container_min_1200">
+                      <div className=" screen_max_425 screen_min_425">
+                          <Link
+                              type="btn"
+                              className=" flex-grow-1 screen_max_425_block_width text-primary"
+                              onClick={()=> {
+                                  setCurrentView('addTemplate');
+                              }
 
-                                      }
-                                  >
-                                      <MDBCard className="card-body">
-                                          <h5 className="card-title">добавить шаблон</h5>
-                                      </MDBCard>
-                                  </Link >
-                                  <Link
-                                      className="flex-grow-1 screen_max_425_block_width text-primary"
-                                      onClick={()=> {
-                                          setCurrentView('TemplatesTable');
-                                          resetStates();
-                                      }
-                                      }
-                                  >
-                                      <MDBCard className="card-body">
-                                          <h5 className="card-title">мои шаблоны</h5>
-                                      </MDBCard>
-                                  </Link>
-                                  <SidePanel
-                                      showImgModalOnClick={setShowModalAnchor}
-                                      config={config}
-                                  />
-                              </div>
-                              {renderComponent()}
-                          </div>
-                  </>
-              )
-          }
-
+                              }
+                          >
+                              <MDBCard className="card-body">
+                                  <h5 className="card-title">добавить шаблон</h5>
+                              </MDBCard>
+                          </Link >
+                          <Link
+                              className="flex-grow-1 screen_max_425_block_width text-primary"
+                              onClick={()=> {
+                                  setCurrentView('TemplatesTable');
+                                  resetStates();
+                              }
+                              }
+                          >
+                              <MDBCard className="card-body">
+                                  <h5 className="card-title">мои шаблоны</h5>
+                              </MDBCard>
+                          </Link>
+                          <SidePanel
+                              showImgModalOnClick={setShowModalAnchor}
+                              config={config}
+                          />
+                      </div>
+                      {renderComponent()}
+                  </div>
+              </>
+          )
+      }
       </>
   );
 

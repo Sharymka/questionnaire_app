@@ -16,10 +16,12 @@ import LanguageSelector from "./LanguageSelector";
 import MenuComponent from "./MenuComponent";
 import {TemplateContext} from "../contexts/TemplateContext";
 import MainPage from "./MainPage";
+import useActionsTemplates from "../hooks/useActionsTemplates";
 
 function Header() {
 	const { isAuthenticated, user } = useContext(AuthContext);
-	const { handleFilteredTemplate, setShowAllTemplates } = useContext(TemplateContext);
+	const { filterTemplates } = useActionsTemplates();
+	const { setShowAllTemplates } = useContext(TemplateContext);
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const [language, setLanguage] = useState('EN');
 	const [searchText, setSearchText] = useState('');
@@ -31,7 +33,7 @@ function Header() {
 	const handleSearchChange = (event) => {
 		setShowAllTemplates(true);
 		setSearchText(event.target.value);
-		handleFilteredTemplate(event.target.value);
+		filterTemplates(event.target.value);
 	};
 
 	const handleLanguageChange = (event) => {

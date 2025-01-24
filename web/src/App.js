@@ -15,7 +15,6 @@ function App() {
 <AuthProvider>
     <TemplateProvider>
     <HistoryProvider>
-
             <Routes>
                 <Route path="/" element={
                     <LayoutWithHeader>
