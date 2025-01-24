@@ -7,18 +7,29 @@ import {questionTopics} from "../../../const/const";
 import FormsTable from "./FormsTable";
 import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
+import {HistoryContext} from "../../contexts/HistoryContext";
 
 function MyTemplates(props) {
 
-	const { config, currentView, selectedTempId } = useContext(TemplateContext);
+	const { config, currentView, selectedTempId, setSelectedTempId, setQuestionStatus } = useContext(TemplateContext);
+	const { pushView } = useContext(HistoryContext);
+
+	const handleEditOnClick = (id, newView) => {
+		setSelectedTempId(id);
+		pushView(newView);
+	}
+
+	const handleShowForms = (id, newView, questionState) => {
+		pushView(newView);
+		setQuestionStatus(questionState);
+		setSelectedTempId(id);
+	}
 
 	const {
 		myTemplates,
-		handleEditOnClick,
 		handleDeleteTemplate,
 		showModalAnchor,
 		setShowModalAnchor,
-		handleShowForms,
 		loading
 	      } = props;
 

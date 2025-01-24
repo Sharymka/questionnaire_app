@@ -1,31 +1,40 @@
 import React, { useEffect, useState} from "react";
 import {postData} from "../../Requests";
-import {temp} from "../../const/temp";
 import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 import {getDefaultTempConfig} from "../../utilits/getDefaultTempConfig";
+import useGetTemplates from "../hooks/API/useGetTemplates";
 
 export const TemplateContext = React.createContext(null);
 
 function TemplateProvider({children}) {
+
+	const { temps } = useGetTemplates();
 
 	const [title, setTitle] = useState('');
 	const [topic, setTopic] = useState('education');
 	const [description, setDescription] = useState('');
 	const [tags, setTags] = useState([]);
 	const [imgUrl, setImgUrl] = useState('');
-	const [filteredTemp, setFilteredTemp] = useState(temp);
+	const [templates, setTemplates] = useState(null);
+	const [filteredTemps, setFilteredTemps] = useState(null);
 	const [questions, setQuestions] = useState([]);
 	const [currentView, setCurrentView] = useState(null);
 	const [questionStatus, setQuestionStatus] = useState(null);
 	const [config, setConfig] = useState({ baseConfig: {}, questionList: [] });
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
-	const [refresh, setRefresh] = useState(true);
 	const [showAllTemplates, setShowAllTemplates] = useState(false);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
 	const [selectedTempId, setSelectedTempId] = useState(null);
 	const [filledFormId, setFilledFormId] = useState(null);
 
+	useEffect(() => {
+		setTemplates(temps);
+	}, [temps]);
+
+	useEffect(() => {
+		setFilteredTemps(templates);
+	}, [templates]);
 
 	useEffect(() => {
 		if(currentView === 'addTemplate' || currentView === 'templatesTable') {
@@ -66,42 +75,6 @@ function TemplateProvider({children}) {
 			}
 
 	}, [questions?.length, currentView, questionStatus]);
-
-	const saveTemplate = async (url)=> {
-		console.log('saveTemplate');
-
-		const requestData = {
-			title:title,
-			topic:topic,
-			description:description,
-			questions:questions,
-			tags:tags,
-			img:imgUrl
-		}
-		try {
-			const response = await postData(url, requestData);
-
-			const responseData = await response.json();
-
-			if (response.ok) {
-				setMessage({success: "Template was saved successfully"});
-				console.log("Template was saved successfully:", responseData);
-			}else {
-				setMessage({error: "Template saving failed"});
-				console.log("Template saving failed:", responseData.error);
-
-			}
-			setTimeout(() => {
-				setMessage(null);
-			}, 3000);
-
-		}catch (error) {
-			console.log("Saving Template failed:", error.message);
-		}
-		resetTemplateStates();
-		setRefresh(!refresh);
-	}
-
 	const saveForm = async (url) => {
 
 		const fullUrl = `${window.location.origin}/${url}`;
@@ -138,11 +111,6 @@ function TemplateProvider({children}) {
 					console.log("Saving Form failed:", error.message);
 			}
 	}
-
-	const handleTopic = (event) => {
-		setTopic(event.target.value);
-	}
-
 	const resetTemplateStates = ()=> {
 		setTitle('');
 		setTopic('education');
@@ -155,17 +123,6 @@ function TemplateProvider({children}) {
 		setImgUrl('');
 		setFilledFormId(null);
 	}
-
-	const handleFilteredTemplate = (substring) => {
-
-		if(substring === '') {
-			setFilteredTemp(temp);
-			setShowAllTemplates(false);
-		}
-
-		const selectedTemplates = temp.filter((temp) => temp.tags.some((tag) => tag.label.toLowerCase().includes(substring.toLowerCase())));
-		setFilteredTemp(selectedTemplates);
-	};
 
 	const handleHoverMarkdown = (selectedId) => {
 		setMarkdownHover(prevState => prevState.map((option) => {
@@ -190,7 +147,6 @@ function TemplateProvider({children}) {
 		  setDescription,
 		  setTags,
 		  setImgUrl,
-		  handleTopic,
 		  questions,
 		  setQuestions,
 		  config,
@@ -203,20 +159,21 @@ function TemplateProvider({children}) {
 		  selectedTempId,
 		  filledFormId,
 		  setFilledFormId,
-		  handleFilteredTemplate,
-		  saveTemplate,
 		  saveForm,
 		  message,
+		  setMessage,
 		  markdownHover,
 		  setMarkdownHover,
 		  handleHoverMarkdown,
-		  refresh,
 		  showAllTemplates,
 		  setShowAllTemplates,
-		  filteredTemp,
+		  filteredTemps,
+		  setFilteredTemps,
+		  templates,
+		  setTemplates,
 		  showSelectedTemplate,
 		  setShowSelectedTemplate,
-		  resetTemplateStates
+		  resetTemplateStates,
 	  }}>
 		  {children}
 	  </TemplateContext.Provider>
