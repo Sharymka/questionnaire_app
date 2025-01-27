@@ -7,6 +7,7 @@ const  useGetTemplates = () => {
 	const [ temps, setTemps] = useState(temp);
 
 	useEffect(() => {
+		console.log('useGetTemplates');
 		const fetchTemps= async () => {
 			try {
 				const response = await getData("api/templates");

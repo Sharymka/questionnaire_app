@@ -3,13 +3,14 @@ import {postData} from "../../Requests";
 import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 import {getDefaultTempConfig} from "../../utilits/getDefaultTempConfig";
 import useGetTemplates from "../hooks/API/useGetTemplates";
+import {useNavigate} from "react-router-dom";
 
 export const TemplateContext = React.createContext(null);
 
 function TemplateProvider({children}) {
 
+	const navigate = useNavigate();
 	const { temps } = useGetTemplates();
-
 	const [title, setTitle] = useState('');
 	const [topic, setTopic] = useState('education');
 	const [description, setDescription] = useState('');
@@ -76,10 +77,7 @@ function TemplateProvider({children}) {
 
 	}, [questions?.length, currentView, questionStatus]);
 	const saveForm = async (url) => {
-
 		const fullUrl = `${window.location.origin}/${url}`;
-		console.log('Sending request to:', fullUrl);
-
 		const newQuestions = questions.map((item) => ({
 			id: item.id,
 			question: item.name,
@@ -102,6 +100,11 @@ function TemplateProvider({children}) {
 					if(response.ok) {
 						setMessage({success: "Form was saved successfully"});
 						console.log("Form was saved successfully:", responseData);
+						setTimeout(()=> {
+							navigate('/home');
+							setShowAllTemplates(true);
+						}, 2000)
+
 					}else {
 						setMessage({error: "Form saving failed"});
 						console.log("Form saving failed:", responseData.error);
