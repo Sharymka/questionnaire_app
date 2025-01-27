@@ -12,31 +12,49 @@ import HistoryProvider from "./components/contexts/HistoryContext";
 
 function App() {
   return (
-<AuthProvider>
-    <TemplateProvider>
-    <HistoryProvider>
-            <Routes>
-                <Route path="/" element={
-                    <LayoutWithHeader>
-                        <MainPage/>
-                    </LayoutWithHeader>
-                    } />
-                <Route path="/templates/:id" element={
-                    <LayoutWithHeader>
-                        <SelectedTemplate/>
-                    </LayoutWithHeader>
-                } />
-                <Route path="/signUp" element={<SignUp />} />
-                <Route path="/signIn" element={<SignIn/>} />
-                <Route path="/home" element={
-                    <LayoutWithHeader>
-                            <Home/>
-                    </LayoutWithHeader>
-                } />
-            </Routes>
-    </HistoryProvider>
-    </TemplateProvider>
-</AuthProvider>
+      <AuthProvider>
+          <Routes>
+              <Route path="/signUp" element={<SignUp />} />
+              <Route path="/signIn" element={<SignIn />} />
+
+              <Route
+                  path="*"
+                  element={
+                      <TemplateProvider>
+                          <HistoryProvider>
+                              <Routes>
+                                  <Route
+                                      path="/"
+                                      element={
+                                          <LayoutWithHeader>
+                                              <MainPage />
+                                          </LayoutWithHeader>
+                                      }
+                                  />
+                                  <Route
+                                      path="/templates/:id"
+                                      element={
+                                          <LayoutWithHeader>
+                                              <SelectedTemplate />
+                                          </LayoutWithHeader>
+                                      }
+                                  />
+                                  <Route
+                                      path="/home"
+                                      element={
+                                          <LayoutWithHeader>
+                                              <Home />
+                                          </LayoutWithHeader>
+                                      }
+                                  />
+                              </Routes>
+                          </HistoryProvider>
+                      </TemplateProvider>
+                  }
+              />
+          </Routes>
+      </AuthProvider>
+
   );
 }
 

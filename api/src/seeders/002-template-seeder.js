@@ -203,7 +203,7 @@ module.exports = {
 			{
 				id: 5,
 				userId: 2,
-				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1730099490/work_whopuu.jpg",
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729542694/yhw69ktc4eumja4uksoy.avif",
 				title: 'Шаблон на тему "Работа"',
 				topic: 'work',
 				description: 'Вопросы о карьере, профессиональном росте и работе.',
@@ -254,7 +254,7 @@ module.exports = {
 			{
 				id: 6,
 				userId: 2,
-				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1730099489/event_nt6jym.jpg",
+				img: "https://res.cloudinary.com/dewxfivxh/image/upload/v1729542694/yhw69ktc4eumja4uksoy.avif",
 				title: 'Шаблон на тему "Мероприятие"',
 				topic: 'event',
 				description: 'Шаблон для планирования и проведения мероприятий.',
