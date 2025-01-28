@@ -10,7 +10,7 @@ export const TemplateContext = React.createContext(null);
 function TemplateProvider({children}) {
 
 	const navigate = useNavigate();
-	const { temps } = useGetTemplates();
+	const { temps, refreshTemps, setRefreshTemps } = useGetTemplates();
 	const [title, setTitle] = useState('');
 	const [topic, setTopic] = useState('education');
 	const [description, setDescription] = useState('');
@@ -45,7 +45,6 @@ function TemplateProvider({children}) {
 	}, [currentView]);
 
 	useEffect(() => {
-
 		const baseConfig = getDefaultTempConfig(currentView);
 
 			// инициализируем базовые настройки для sidePanel и header шаблона
@@ -120,7 +119,7 @@ function TemplateProvider({children}) {
 		setDescription('');
 		setQuestions([]);
 		setTags([]);
-		setConfig({ baseConfig: {}, questionList: [] });
+		setConfig({ baseConfig: getDefaultTempConfig(currentView), questionList: [] });
 		setQuestionStatus(null);
 		setSelectedTempId(null);
 		setImgUrl('');
@@ -158,6 +157,7 @@ function TemplateProvider({children}) {
 		  setCurrentView,
 		  questionStatus,
 		  setQuestionStatus,
+		  temps,
 		  setSelectedTempId,
 		  selectedTempId,
 		  filledFormId,
@@ -177,6 +177,8 @@ function TemplateProvider({children}) {
 		  showSelectedTemplate,
 		  setShowSelectedTemplate,
 		  resetTemplateStates,
+		  refreshTemps,
+		  setRefreshTemps
 	  }}>
 		  {children}
 	  </TemplateContext.Provider>

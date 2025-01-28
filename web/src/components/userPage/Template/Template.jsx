@@ -6,6 +6,7 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 import ImageUploadModal from "./ImageUploadModal";
 import MessageBlock from "./MessageBlock";
 import withTemplateData from "../../hocs/withTemplateData";
+import useActionsTemplates from "../../hooks/useActionsTemplates";
 
 function Template(props) {
 
@@ -20,11 +21,12 @@ function Template(props) {
       setShowModalAnchor,
   } = props;
 
+    const { saveTemplate, updateTemplate } = useActionsTemplates();
     const {
-        saveTemplate,
         saveForm,
         imgUrl,
         message,
+        selectedTempId
     } = useContext(TemplateContext);
 
     const renderImageUploadModal = () => (
@@ -57,7 +59,7 @@ function Template(props) {
                     <div className="d-flex justify-content-end">
                         <Button className='p-3 btn-primary'
                                 variant="contained"
-                                onClick={() => btnName === 'Сохранить шаблон' || btnName === 'Сохранить изменения' ? saveTemplate(url) :
+                                onClick={() => btnName === 'Сохранить шаблон'? saveTemplate(url): btnName === 'Сохранить изменения' ? updateTemplate(selectedTempId):
                                     btnName === 'Отправить форму' ? saveForm(url): null}
                         >
                             {btnName}

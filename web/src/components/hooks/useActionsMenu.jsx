@@ -1,7 +1,6 @@
 import {useState, useCallback, useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
-import {matchPath, useLocation, useNavigate} from "react-router-dom";
-import {getUser} from "../../utilits/localStorageActions";
+import { useLocation, useNavigate} from "react-router-dom";
 
 const useActionsMenu = () => {
 
@@ -32,7 +31,16 @@ const useActionsMenu = () => {
 		{
 			label: "Все шаблоны",
 			action: () => {
+				navigate('/home');
 				setShowAllTemplates(true);
+				handleCloseMenu();
+			},
+		},
+		{
+			label: "Моя страница",
+			action: () => {
+				navigate('/home');
+				setShowAllTemplates(false);
 				handleCloseMenu();
 			},
 		},

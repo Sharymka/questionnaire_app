@@ -1,6 +1,7 @@
 import {useContext} from "react";
 import {deleteData, postData} from "../../Requests";
 import {TemplateContext} from "../contexts/TemplateContext";
+import {getSaveEditedTemplateUrl} from "../../url/url";
 
 const useActionsTemplates = () => {
 
@@ -15,7 +16,9 @@ const useActionsTemplates = () => {
 		setMessage,
 		resetTemplateStates,
 		setFilteredTemps,
-		setTemplates
+		setTemplates,
+		refreshTemps,
+		setRefreshTemps,
 	} = useContext(TemplateContext);
 
 	const saveTemplate = async (url)=> {
@@ -35,6 +38,8 @@ const useActionsTemplates = () => {
 			if (response.ok) {
 				setMessage({success: "Template was saved successfully"});
 				console.log("Template was saved successfully:", responseData);
+				setRefreshTemps(!refreshTemps);
+
 			}else {
 				setMessage({error: "Template saving failed"});
 				console.log("Template saving failed:", responseData.error);
@@ -64,6 +69,33 @@ const useActionsTemplates = () => {
 			console.log(error);
 		}
 	}
+
+	const updateTemplate = async(id) => {
+		const url = getSaveEditedTemplateUrl(id);
+
+		const requestData = {
+			title:title,
+			topic:topic,
+			description:description,
+			questions:questions,
+			tags:tags,
+			img:imgUrl
+		}
+		try {
+			const response = await postData(url, requestData);
+
+			if(response.ok) {
+				setMessage({success: "Template was updated successfully"});
+				console.log("Template was updated successfully");
+				setRefreshTemps(!refreshTemps);
+			}else {
+				setMessage({error: "Template updating failed"});
+			}
+		} catch (error) {
+			console.log("Updating Template failed:", error.message);
+		}
+	}
+
 	const filterTemplates = (substring) => {
 		console.log('substring', substring);
 		if(substring === '') {
@@ -79,6 +111,7 @@ const useActionsTemplates = () => {
 		deleteTemplate,
 		saveTemplate,
 		filterTemplates,
+		updateTemplate
 	}
 
 }

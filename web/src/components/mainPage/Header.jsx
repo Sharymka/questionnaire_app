@@ -15,11 +15,12 @@ import { AuthContext } from './context/AuthContext';
 import LanguageSelector from "./LanguageSelector";
 import MenuComponent from "./MenuComponent";
 import {TemplateContext} from "../contexts/TemplateContext";
-import MainPage from "./MainPage";
 import useActionsTemplates from "../hooks/useActionsTemplates";
+import {useNavigate} from "react-router-dom";
 
 function Header() {
-	const { isAuthenticated, user } = useContext(AuthContext);
+
+	const { isAuthenticated } = useContext(AuthContext);
 	const { filterTemplates } = useActionsTemplates();
 	const { setShowAllTemplates } = useContext(TemplateContext);
 	const [isDarkMode, setIsDarkMode] = useState(false);
