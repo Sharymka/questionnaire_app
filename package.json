@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start:db": " docker compose up -d\n",
+    "install": "npm install && cd api && npm install && cd ../web && npm install",
     "build": "cd web && npm run build && npm run prepare:static",
     "start": "cd api && npm start",
     "start:api:dev": "cd api && npm run dev",
