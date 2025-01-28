@@ -5,10 +5,10 @@ import {temp} from "../../../const/temp";
 const  useGetTemplates = () => {
 
 	const [ temps, setTemps] = useState(temp);
+	const [refreshTemps, setRefreshTemps] = useState(false);
 
 	useEffect(() => {
-		console.log('useGetTemplates');
-		const fetchTemps= async () => {
+		const fetchTemps = async () => {
 			try {
 				const response = await getData("api/templates");
 				const data = await response.json();
@@ -24,11 +24,13 @@ const  useGetTemplates = () => {
 			}
 		}
 		fetchTemps();
-	}, []);
+	}, [refreshTemps]);
 
 
 	return {
-		temps
+		temps,
+		refreshTemps,
+		setRefreshTemps
 	}
 };
 

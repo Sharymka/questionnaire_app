@@ -1,6 +1,7 @@
 {
   "name": "web",
   "version": "0.1.0",
+
   "dependencies": {
     "@babel/plugin-transform-react-display-name": "^7.25.9",
     "@cloudinary/react": "^1.13.0",
@@ -36,9 +37,10 @@
     "webpack": "^5.95.0"
   },
   "scripts": {
+    "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "start": "react-scripts start",
     "prepare:static": "cp -r build ../api",
-    "build": "GENERATE_SOURCEMAP=true react-scripts build",
+    "install": "npm install",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch:build": "nodemon --watch src --ext js,jsx,scss,json --exec \"craco build && npm run prepare:static\""

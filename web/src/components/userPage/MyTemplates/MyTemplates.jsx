@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import CustomToolBlock from "../Template/CustomToolBlock";
@@ -8,11 +8,21 @@ import FormsTable from "./FormsTable";
 import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {HistoryContext} from "../../contexts/HistoryContext";
+import useActionsTemplates from "../../hooks/useActionsTemplates";
 
 function MyTemplates(props) {
 
-	const { config, currentView, selectedTempId, setSelectedTempId, setQuestionStatus } = useContext(TemplateContext);
+	const { config, currentView, selectedTempId, setSelectedTempId, setQuestionStatus, templates } = useContext(TemplateContext);
 	const { pushView } = useContext(HistoryContext);
+	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
+
+	const [myTemplates, setMyTemplates] = useState([]);
+
+	useEffect(() => {
+		if (templates) {
+			setMyTemplates(templates.filter((template) => template.userId === user.id));
+		}
+	}, [templates]);
 
 	const handleEditOnClick = (id, newView) => {
 		setSelectedTempId(id);
@@ -26,8 +36,10 @@ function MyTemplates(props) {
 	}
 
 	const {
-		myTemplates,
-		handleDeleteTemplate,
+		deleteTemplate
+	} = useActionsTemplates();
+
+	const {
 		showModalAnchor,
 		setShowModalAnchor,
 		loading
@@ -81,7 +93,7 @@ function MyTemplates(props) {
 															  <CustomToolBlock
 																  showForms={true}
 																  handleEditOnClick={() => handleEditOnClick(template.id, 'templateEditor')}
-																  handleDeleteOnClick={() => handleDeleteTemplate(template.id)}
+																  handleDeleteOnClick={() => deleteTemplate(template.id)}
 																  handleShowForms={() => handleShowForms(template.id, 'filledFormsTable', 'readOnly')}
 															  />
 														  </TableCell>

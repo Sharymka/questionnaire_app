@@ -2,11 +2,14 @@
   "name": "questionnaire-",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "18.x",
+    "npm": "8.x"
+  },
   "scripts": {
     "start:db": " docker compose up -d\n",
-    "install": "cd api && npm run install && cd web && npm run install",
-    "build": " cd web && npm run build && prepare:static",
-    "start": " cd api && npm run dev",
+    "build": "cd web && npm run build && npm run prepare:static",
+    "start": "cd api && npm start",
     "start:api:dev": "cd api && npm run dev",
     "build:web:dev": "cd web && npm run watch:build",
     "watch:api": "nodemon --watch api/build --exec  \"npm run start\"",

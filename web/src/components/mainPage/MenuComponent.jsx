@@ -1,12 +1,14 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { TemplateContext } from "../contexts/TemplateContext";
-import ModalForm from "../userPage/Template/ModalForm";
 import useActionsMenu from "../hooks/useActionsMenu";
 
 function MenuComponent() {
-    const {showMenu, handleOpenMenu, handleCloseMenu, menuItems } = useActionsMenu();
+    const { showMenu,
+            handleOpenMenu,
+            handleCloseMenu,
+            menuItems
+          } = useActionsMenu();
 
     return (
         <>
