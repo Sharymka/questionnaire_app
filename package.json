@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": "18.x",
-    "npm": "8.x"
+    "node": "^22.9",
+    "npm": "^10.9"
   },
   "scripts": {
     "start:db": " docker compose up -d\n",
-    "install": "npm install && cd api && npm run install && cd ../web && npm run install",
+    "install-dependencies": "echo 'Starting npm install in root' && npm install && echo 'Finished npm install in root' && cd api && echo 'Starting npm install in api' && npm install && echo 'Finished npm install in api' && cd ../web && echo 'Starting npm install in web' && npm install && echo 'Finished npm install in web'",
     "build": "cd web && npm run build && npm run prepare:static",
     "start": "cd api && npm start",
     "start:api:dev": "cd api && npm run dev",

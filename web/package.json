@@ -40,7 +40,6 @@
     "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "start": "react-scripts start",
     "prepare:static": "cp -r build ../api",
-    "install": "npm install",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch:build": "nodemon --watch src --ext js,jsx,scss,json --exec \"craco build && npm run prepare:static\""
