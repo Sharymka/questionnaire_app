@@ -20,7 +20,9 @@ async function signUp(req, res) {
 
 async function signIn(req, res) {
 
+
 	const { email, password } = req.body;
+	console.log('email', email);
 
 	try {
 		const user = await findUsers( email, password);

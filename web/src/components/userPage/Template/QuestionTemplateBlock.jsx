@@ -14,7 +14,7 @@ import useGetUsers from "../../hooks/API/useGetUsers";
 function QuestionTemplateBlock(props) {
 
   const { targetQuestion, config } = props;
-  const { usersData, loading, error } = useGetUsers({ fields: ['id', 'first_name', 'last_name', 'email'] });
+  const { usersData } = useGetUsers({ fields: ['id', 'first_name', 'last_name', 'email'] });
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
 

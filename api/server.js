@@ -2,8 +2,6 @@
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
-const db = require('./src/config/db');
-// const db = require('./src/config/alwaysData');
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 const {signUp, signIn, signOut, getUsers} = require("./src/controllers/userController");
 const {get, create, update, remove, getTemplateById} = require("./src/controllers/templateController");
