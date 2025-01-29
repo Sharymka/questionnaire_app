@@ -1,4 +1,4 @@
-const sequelize = require('../config/db');
+
 const User = require('./user');
 const Form = require('./forms');
 const Template = require('./template');
@@ -11,7 +11,6 @@ Template.hasMany(Form, { foreignKey: 'idTemplate', as: 'forms' });
 
 // Экспортируем модели и sequelize
 module.exports = {
-	sequelize,
 	User,
 	Form,
 	Template

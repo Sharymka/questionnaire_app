@@ -1,7 +1,6 @@
 {
   "name": "web",
   "version": "0.1.0",
-
   "dependencies": {
     "@babel/plugin-transform-react-display-name": "^7.25.9",
     "@cloudinary/react": "^1.13.0",
@@ -41,6 +40,7 @@
     "start": "react-scripts start",
     "prepare:static": "cp -r build ../api",
     "test": "react-scripts test",
+
     "eject": "react-scripts eject",
     "watch:build": "nodemon --watch src --ext js,jsx,scss,json --exec \"craco build && npm run prepare:static\""
   },
@@ -63,6 +63,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "nodemon": "^3.1.7",
     "sass": "^1.79.4"
   }
