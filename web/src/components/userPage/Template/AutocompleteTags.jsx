@@ -28,7 +28,7 @@ function AutocompleteTags(props) {
 	return (
 		<CustomAutoComplete
 			value={value}
-			options={tagsOptions}
+			options={tagsOptions || []}
 			label={LABEL_TAGS}
 			getOptionLabel={getOptionLabel}
 			getTagChipLabel={getTagChipLabel}

@@ -40,10 +40,24 @@ const Template = sequelize.define('Template', {
 	tags: {
 		type: DataTypes.JSON,
 		allowNull: true,
+		get() {
+			const value = this.getDataValue('tags');
+			return value ? JSON.parse(value) : null;
+		},
+		set(value) {
+			this.setDataValue('tags', JSON.stringify(value));
+		}
 	},
 	questions: {
 		type: DataTypes.JSON,
 		allowNull: false,
+		get() {
+			const value = this.getDataValue('questions');
+			return value ? JSON.parse(value) : null;
+		},
+		set(value) {
+			this.setDataValue('questions', JSON.stringify(value));
+		}
 	},
 	disable: {
 		type: DataTypes.BOOLEAN,

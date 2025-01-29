@@ -70,8 +70,8 @@ function QuestionTemplateBlock(props) {
                   selectedUsers={targetQuestion.selectedUsers || [] }
               />
               <CustomAutoComplete
-                  value={targetQuestion.selectedUsers}
-                  options={usersData}
+                  value={targetQuestion.selectedUsers || []}
+                  options={usersData || []}
                   label={LABEL_USERS}
                   getOptionLabel={getOptionLabel}
                   getTagChipLabel={getTagLabel}

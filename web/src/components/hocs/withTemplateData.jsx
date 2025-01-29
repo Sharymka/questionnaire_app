@@ -8,11 +8,12 @@ function withTemplateData(WrappedComponent) {
 	return (props) => {
 
 		const { selectedTempId } = useContext(TemplateContext)
-		const { template, loading } = useGetTemplateById(selectedTempId);
+		const { template, loading } = useGetTemplateById();
 
 		const setTempDataToState = useSetTempDataToState();
 
 		useEffect(() => {
+			console.log('template', template);
 			if (selectedTempId && template) {
 				setTempDataToState(template);
 			}
