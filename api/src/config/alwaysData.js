@@ -9,6 +9,7 @@ const sequelize = new Sequelize(process.env.DB_ALWAYSDATA_NAME, process.env.DB_A
 	dialect: 'mysql',
 	port: process.env.DB_ALWAYSDATA_PORT,
 	dialectOptions: {
+		charset: 'utf8mb4',
 		connectTimeout: 10000,
 	},
 });

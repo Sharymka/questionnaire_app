@@ -12,6 +12,7 @@ const  useGetTemplates = () => {
 			try {
 				const response = await getData("api/templates");
 				const data = await response.json();
+				console.log(data);
 				if(response.ok) {
 					setTemps(data);
 					console.log("templates were fetched successfully");

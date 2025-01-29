@@ -5,6 +5,8 @@ async function get(req, res) {
 	try {
 		const templates = await getTemplate();
 		if(templates) {
+			// console.log('typeof templates', typeof templates);
+			console.log('templates', templates);
 			res.status(200).json(templates);
 		}else {
 			res.status(404).json({ message: 'No templates found' });

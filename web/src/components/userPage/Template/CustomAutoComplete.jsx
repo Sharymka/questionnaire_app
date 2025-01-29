@@ -33,13 +33,13 @@ function CustomAutoComplete(props) {
                   setInputValue(newInputValue);
               }
           }}
-          onChange={(event, newSelectedOption) => {
+          onChange={(event, newSelectedOption= []) => {
               //если вводим сами в интпуте значение тега, то в newSelectedOption попадает значение вида ['Веселье']
               // или из предложенных вариантов [{id: 1, label:'Наука'}]
               event.preventDefault();
-              const selectedTag = newSelectedOption[newSelectedOption.length - 1];
+              const selectedTag = newSelectedOption[newSelectedOption?.length - 1];
 
-              if (newSelectedOption.length === 0) {
+              if (newSelectedOption?.length === 0) {
                   if (deleteTag) {
                       value.forEach((tag) => deleteTag(tag.id));
                   }

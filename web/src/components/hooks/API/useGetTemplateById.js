@@ -1,25 +1,27 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getData} from "../../../Requests";
 import {temp} from "../../../const/temp";
-const useGetTemplateById = (templateId) => {
+import {TemplateContext} from "../../contexts/TemplateContext";
+const useGetTemplateById = () => {
 
+	const { selectedTempId } = useContext(TemplateContext)
 	const [template, setTemplate] = useState(null);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		if (templateId) {
-			const matchedTemplate = temp.find(template => template.id === Number(templateId));
+		if (selectedTempId) {
+			const matchedTemplate = temp.find(template => template.id === Number(selectedTempId));
 			setTemplate(matchedTemplate);
 			setLoading(false);
 		}
-	}, [templateId]);
+	}, [selectedTempId]);
 	
 
 	useEffect(() => {
 
 		const fetchData = async () => {
 			try {
-				const response = await getData(`/api/template/${templateId}`);
+				const response = await getData(`/api/template/${selectedTempId}`);
 				const data = await response.json();
 
 				if(response.ok) {
@@ -35,7 +37,7 @@ const useGetTemplateById = (templateId) => {
 			}
 		};
 
-		if(templateId) {
+		if(selectedTempId) {
 			fetchData();
 		}
 
