@@ -18,6 +18,11 @@ export function getDefaultTempConfig(context) {
 				header: 'readOnly',
 				sidePanel: { mainBlock: false, exit: true },
 			}
+		case "form":
+			return {
+				header: 'readOnly',
+				sidePanel: { mainBlock: false, exit: true },
+			}
 		case "filledForm":
 			return {
 				header: 'readOnly',

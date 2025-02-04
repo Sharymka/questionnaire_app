@@ -57,7 +57,7 @@ function Home() {
     };
   return (
       <> {
-          showAllTemplates ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
+          currentView === 'allTemplates' ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
               <>
                   <div className=" p-5 container container_min_1200">
                       <div className=" screen_max_425 screen_min_425">

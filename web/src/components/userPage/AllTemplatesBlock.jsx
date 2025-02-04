@@ -2,10 +2,18 @@ import React, {useContext} from 'react';
 import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/material";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {Link} from "react-router-dom";
+import {HistoryContext} from "../contexts/HistoryContext";
 
 function AllTemplatesBlock() {
 
-  const { setShowSelectedTemplate, resetTemplateStates, filteredTemps } = useContext(TemplateContext);
+  const { setShowSelectedTemplate, resetTemplateStates, filteredTemps, setCurrentView } = useContext(TemplateContext);
+  const { pushView } = useContext(HistoryContext);
+
+	const handleCardOnClick = () => {
+		resetTemplateStates();
+		pushView('form');
+		setCurrentView('form');
+	}
   return (
 		 <div className=" p-5 container container_min_1200">
 			 <div className=" screen_max_425 screen_min_425 ">
@@ -13,9 +21,10 @@ function AllTemplatesBlock() {
 					 filteredTemps?.map((template, index) => (
 						 <Link
 							 key={index}
-							 onClick={resetTemplateStates}
-							 to={`/templates/${template.id}`}>
-							 <Card
+							 to={`/templates/${template.id}`}
+							 onClick={()=> handleCardOnClick()}
+							 >
+					 <Card
 								 key={index}
 								 sx={{paddingBottom: 20, maxWidth: 300, maxHeight: 345}}
 								 onClick={() => setShowSelectedTemplate(true)}

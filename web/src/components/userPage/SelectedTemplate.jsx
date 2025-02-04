@@ -4,12 +4,13 @@ import Template from "./Template/Template";
 import {useParams} from "react-router-dom";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {SAVE_FORM_URL} from "../../url/url";
+import SidePanel from "./Template/SidePanel";
 
 function SelectedTemplate() {
 
 	const { id } = useParams();
 	const [showTemplateAnchor, setShowTemplateAnchor] = React.useState(true);
-	const { resetTemplateStates, setSelectedTempId, setQuestionStatus } = useContext(TemplateContext);
+	const { config, resetTemplateStates, setSelectedTempId, setQuestionStatus } = useContext(TemplateContext);
 
 	useEffect(() => {
 		if(id) {
@@ -27,10 +28,15 @@ function SelectedTemplate() {
 					showTemplateAnchor ? (
 						<div>Loading...</div>
 					) : (
-						<Template
-							btnName='Отправить форму'
-							url={SAVE_FORM_URL}
-						/>
+						<>
+							<Template
+								btnName='Отправить форму'
+								url={SAVE_FORM_URL}
+							/>
+							<SidePanel
+								config={config}
+							/>
+						</>
 					)
 				}
 
