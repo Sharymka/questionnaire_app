@@ -6,16 +6,14 @@ const useGetTemplateById = () => {
 
 	const { selectedTempId } = useContext(TemplateContext)
 	const [template, setTemplate] = useState(null);
-	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		if (selectedTempId) {
-			const matchedTemplate = temp.find(template => template.id === Number(selectedTempId));
-			setTemplate(matchedTemplate);
-			setLoading(false);
-		}
-	}, [selectedTempId]);
-	
+	// useEffect(() => {
+	// 	if (selectedTempId) {
+	// 		const matchedTemplate = temp.find(template => template.id === Number(selectedTempId));
+	// 		setTemplate(matchedTemplate);
+	// 		setLoading(false);
+	// 	}
+	// }, [selectedTempId]);
 
 	useEffect(() => {
 
@@ -32,8 +30,6 @@ const useGetTemplateById = () => {
 				}
 			} catch (error) {
 				console.error('Error fetching template data:', error);
-			}finally {
-				setLoading(false);
 			}
 		};
 
@@ -43,7 +39,7 @@ const useGetTemplateById = () => {
 
 	}, []);
 
-	return { template, setTemplate, loading }
+	return { template, setTemplate }
 }
 
 export default useGetTemplateById;

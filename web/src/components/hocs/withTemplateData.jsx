@@ -1,21 +1,23 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import useGetTemplateById from "../hooks/API/useGetTemplateById";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
+import useGetUsers from "../hooks/API/useGetUsers";
 
 function withTemplateData(WrappedComponent) {
 
 	return (props) => {
 
 		const { selectedTempId } = useContext(TemplateContext)
-		const { template, loading } = useGetTemplateById();
+		const { template } = useGetTemplateById();
+		const [loading, setLoading] = useState(true);
 
 		const setTempDataToState = useSetTempDataToState();
 
 		useEffect(() => {
-			console.log('template', template);
 			if (selectedTempId && template) {
 				setTempDataToState(template);
+				setLoading(false);
 			}
 		}, [template]);
 
@@ -43,7 +45,8 @@ function withTemplateData(WrappedComponent) {
 					description: description,
 					tags: tags,
 					imgUrl: imgUrl,
-					questions:questions
+					questions:questions,
+					user:template?.user.first_name + " " + template?.user.last_name,
 				}}
 				actions={{
 					setTitle: setTitle,

@@ -92,26 +92,26 @@ function TemplateProvider({children}) {
 				questions: newQuestions
 			}
 
-			try {
-				const response = await postData(fullUrl, requestData);
-				const responseData = await response.json();
+		try {
+			const response = await postData(fullUrl, requestData);
+			const responseData = await response.json();
 
-					if(response.ok) {
-						setMessage({success: "Form was saved successfully"});
-						console.log("Form was saved successfully:", responseData);
-						setTimeout(()=> {
-							navigate('/home');
-							setShowAllTemplates(true);
-						}, 2000)
+			if(response.ok) {
+				setMessage({success: "Form was saved successfully"});
+				console.log("Form was saved successfully:", responseData);
+				setTimeout(()=> {
+					navigate('/home');
+					setShowAllTemplates(true);
+				}, 2000)
 
-					}else {
-						setMessage({error: "Form saving failed"});
-						console.log("Form saving failed:", responseData.error);
+			}else {
+				setMessage({error: "Form saving failed"});
+				console.log("Form saving failed:", responseData.error);
 
-					}
-			} catch (error) {
-					console.log("Saving Form failed:", error.message);
 			}
+		} catch (error) {
+			console.log("Saving Form failed:", error.message);
+		}
 	}
 	const resetTemplateStates = ()=> {
 		setTitle('');
@@ -124,6 +124,7 @@ function TemplateProvider({children}) {
 		setSelectedTempId(null);
 		setImgUrl('');
 		setFilledFormId(null);
+		setMessage('');
 	}
 
 	const handleHoverMarkdown = (selectedId) => {

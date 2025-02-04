@@ -13,13 +13,13 @@ async function migrate() {
 		await sequelize.authenticate();
 		console.log('Connection has been established successfully.');
 
-		await User.sync({ alter:true });
+		await User.sync({ force:true });
 		console.log('Users table has been created successfully.');
 
-		await Template.sync({ alter:true });
+		await Template.sync({ force:true });
 		console.log('Templates table has been created successfully.');
 
-		await Form.sync({ alter:true });
+		await Form.sync({ force:true });
 		console.log('Form table has been created successfully.');
 
 	} catch (error) {

@@ -13,7 +13,7 @@ const HeaderBlock = (props) => {
 	} = props;
 
 	return (
-		<>
+		<div className="p-4 card mb-3">
 			<Typography variant="h5">{headerName}</Typography>
 			<div className="d-flex flex-row justify-content-between align-items-center gap-5">
 				<div className="flex-grow-1">
@@ -23,13 +23,12 @@ const HeaderBlock = (props) => {
 					{TopicComponent}
 				</div>
 			</div>
-				{DescriptionComponent}
+			{DescriptionComponent}
 			<div className="mt-3">
 				{TagsComponent}
 			</div>
-
-		</>
+		</div>
 	);
 };
 
-export default withAuthorFormData(HeaderBlock);
+export default HeaderBlock;

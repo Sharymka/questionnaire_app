@@ -38,7 +38,7 @@ const Template = sequelize.define('Template', {
 		}
 	},
 	tags: {
-		type: DataTypes.JSON,
+		type: DataTypes.TEXT,
 		allowNull: true,
 		get() {
 			const value = this.getDataValue('tags');
@@ -49,7 +49,7 @@ const Template = sequelize.define('Template', {
 		}
 	},
 	questions: {
-		type: DataTypes.JSON,
+		type: DataTypes.TEXT,
 		allowNull: false,
 		get() {
 			const value = this.getDataValue('questions');
