@@ -1,11 +1,13 @@
 import {useState, useCallback, useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
 import { useLocation, useNavigate} from "react-router-dom";
+import {HistoryContext} from "../contexts/HistoryContext";
 
 const useActionsMenu = () => {
 
 	const navigate = useNavigate();
 	const { setShowAllTemplates, setCurrentView } = useContext(TemplateContext);
+	const { pushView }= useContext(HistoryContext);
 
 	const [showMenu, setShowMenu] = useState(null);
 	const [showSaleForceModal, setShowSaleForceModal] = useState(false);
@@ -30,7 +32,8 @@ const useActionsMenu = () => {
 			label: "Все шаблоны",
 			action: () => {
 				navigate('/home');
-				setShowAllTemplates(true);
+				pushView('allTemplates');
+				// setShowAllTemplates(true);
 				handleCloseMenu();
 			},
 		},
@@ -39,29 +42,7 @@ const useActionsMenu = () => {
 			action: () => {
 				navigate('/home');
 				setCurrentView(null);
-				setShowAllTemplates(false);
-				handleCloseMenu();
-			},
-		},
-		{
-			label: "SaleForce",
-			// action: handleOpenModal,
-		},
-		{
-			label: "Назад",
-			action: () => {
-				navigate(-1);
-				// if (matchPath('/templates/:id', location.pathname)){
-				// 	setShowAllTemplates(true);
-				// 	const user = getUser();
-				// 	console.log('user', user);
-				// 	if(user) {
-				// 		navigate('/home');
-				// 	} else {
-				// 		navigate('/');
-				// 	}
-				//
-				// }
+				// setShowAllTemplates(false);
 				handleCloseMenu();
 			},
 		},

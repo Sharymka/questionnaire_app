@@ -7,6 +7,7 @@ import useActionsQuestion from "../../hooks/useActionsQuestion";
 import {EXIT_LEFT} from "../../../url/url";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import {TemplateContext} from "../../contexts/TemplateContext";
+import {useNavigate} from "react-router-dom";
 
 const SidePanel = (props ) => {
 
@@ -19,7 +20,10 @@ const SidePanel = (props ) => {
 	const { popView } = useContext(HistoryContext);
 	const { setMessage } = useContext(TemplateContext);
 
+	const navigate = useNavigate();
+
 	const handleExitOnClick = () => {
+		navigate('/home');
 		popView();
 		setMessage('');
 
@@ -49,7 +53,7 @@ const SidePanel = (props ) => {
 					config?.baseConfig?.sidePanel?.exit && (
 						<ActionButton
 							imgSrc={EXIT_LEFT}
-							altText="Add question template"
+							altText="exit"
 							onClick={handleExitOnClick}
 						/>
 					)
