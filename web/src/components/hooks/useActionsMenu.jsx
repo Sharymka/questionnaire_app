@@ -5,12 +5,10 @@ import { useLocation, useNavigate} from "react-router-dom";
 const useActionsMenu = () => {
 
 	const navigate = useNavigate();
-	const location = useLocation();
-	const { setShowAllTemplates } = useContext(TemplateContext);
+	const { setShowAllTemplates, setCurrentView } = useContext(TemplateContext);
 
 	const [showMenu, setShowMenu] = useState(null);
 	const [showSaleForceModal, setShowSaleForceModal] = useState(false);
-	const [showForm, setShowForm] = useState(false);
 
 	// Управление меню
 	const handleOpenMenu = useCallback((event) => setShowMenu(event.currentTarget), []);
@@ -40,6 +38,7 @@ const useActionsMenu = () => {
 			label: "Моя страница",
 			action: () => {
 				navigate('/home');
+				setCurrentView(null);
 				setShowAllTemplates(false);
 				handleCloseMenu();
 			},

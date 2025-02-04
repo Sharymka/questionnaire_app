@@ -6,6 +6,7 @@ import ActionButton from "./AcctionBtn";
 import useActionsQuestion from "../../hooks/useActionsQuestion";
 import {EXIT_LEFT} from "../../../url/url";
 import {HistoryContext} from "../../contexts/HistoryContext";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
 const SidePanel = (props ) => {
 
@@ -16,10 +17,12 @@ const SidePanel = (props ) => {
 
 	const { handleAddQuestionOnClick } = useActionsQuestion();
 	const { popView } = useContext(HistoryContext);
+	const { setMessage } = useContext(TemplateContext);
 
 	const handleExitOnClick = () => {
-		console.log("handleExitOnClick");
 		popView();
+		setMessage('');
+
 	}
 
 	return (

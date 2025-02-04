@@ -6,7 +6,6 @@ async function get(req, res) {
 		const templates = await getTemplate();
 		if(templates) {
 			// console.log('typeof templates', typeof templates);
-			console.log('templates', templates);
 			res.status(200).json(templates);
 		}else {
 			res.status(404).json({ message: 'No templates found' });
@@ -41,6 +40,11 @@ async function create(req, res) {
 			img,
 			tags
 		} = req.body;
+
+		console.log('---');
+		console.log(req.body.tags);
+		console.log(`data type [${req.body.tags}]`);
+		console.log('---');
 
 		const template = await createTemplate(
 			title,
@@ -85,6 +89,11 @@ async function update(req, res) {
 			tags,
 			img
 		} = req.body;
+
+		console.log('---');
+		console.log(req.body.tags);
+		console.log(`data type [${typeof req.body.tags}]`);
+		console.log('---');
 
 		const editedTemplate = {
 			title:title,

@@ -1,15 +1,34 @@
 const Template = require("../models/template");
 const {id} = require("nodemon");
+const {User} = require("../models/index");
 
 class TemplateService {
 
 	static async getTemplate(id= null) {
 
 		if (id) {
-			return await Template.findOne({ where: { id, disable: true } });
+			return await Template.findOne({
+				where: { id, disable: true },
+				include: [
+					{
+						model: User,
+						attributes: ['first_name', 'last_name', 'email'],
+						as: 'user'
+					}
+				]
+			});
 		}
 
-		return  await Template.findAll({where: {disable: true}});
+		return  await Template.findAll({
+			where: { disable: true },
+			include: [
+				{
+					model: User,
+					attributes: ['first_name', 'last_name', 'email'],
+					as: 'user'
+				}
+			]
+		});
 	}
 
 	static async createTemplate(

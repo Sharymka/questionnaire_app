@@ -11,6 +11,10 @@ html, body {
   color: blue;
 }
 
+h6, h5, span, p {
+  color: $TextFieldLabelColor;
+}
+
 .textField_style {
   .MuiInputBase-input {
     color:$color-light-gray!important;

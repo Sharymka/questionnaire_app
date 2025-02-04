@@ -17,8 +17,15 @@ const Form = sequelize.define('Form', {
 		allowNull: false
 	},
 	questions: {
-		type: DataTypes.JSON,
+		type: DataTypes.TEXT,
 		allowNull: true,
+		get() {
+			const value = this.getDataValue('questions');
+			return value ? JSON.parse(value) : null;
+		},
+		set(value) {
+			this.setDataValue('questions', JSON.stringify(value));
+		}
 	},
 }, {
 	tableName: 'forms',

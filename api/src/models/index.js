@@ -7,6 +7,7 @@ const Template = require('./template');
 Form.belongsTo(User, { foreignKey: 'idUser', as: 'user' });
 Form.belongsTo(Template, { foreignKey: 'idTemplate', as: 'template' });
 User.hasMany(Form, { foreignKey: 'idUser', as: 'forms' });
+Template.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 Template.hasMany(Form, { foreignKey: 'idTemplate', as: 'forms' });
 
 // Экспортируем модели и sequelize
