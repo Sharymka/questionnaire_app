@@ -13,7 +13,7 @@ function QuestionCard({ question, config }) {
 	const { questions } = useContext(TemplateContext);
 	const targetQuestion = question.id
 		? questions?.find(item => item.id === question.id)
-		: questions?.[questions.length - 1] || null;
+		: questions?.[questions.length - 1];
 
 	const { checkboxOnChange } = useActionsCheckboxes(targetQuestion, 'answer');
 

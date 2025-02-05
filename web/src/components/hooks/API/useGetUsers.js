@@ -4,25 +4,26 @@ import {users} from "../../../const/const";
 
 const useGetUsers = (requestData) => {
 	const [usersData, setUsersData] = useState(users);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
 				const response = await postData('api/users', requestData);
 				const data = await response.json();
-				setUsersData(data);
-			} catch (error) {
-				setError(error);
-			} finally {
-				setLoading(false);
+				if(response.ok) {
+					setUsersData(data);
+					console.log("users were fetched successfully", data);
+				} else {
+					console.log("users getting failed", data.error);
+				}
+			}catch(error) {
+				console.log("users getting failed", error.message);
 			}
 		};
 		fetchUsers();
 	}, []);
 
-	return { usersData, loading, error };
+	return { usersData };
 };
 
 export default useGetUsers;
