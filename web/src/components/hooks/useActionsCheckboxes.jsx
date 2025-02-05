@@ -1,5 +1,6 @@
 import {useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
+import {recalculateIds} from "../../utilits/recalculateIds";
 
 const useActionsCheckboxes = (targetQuestion) => {
 
@@ -42,6 +43,7 @@ const useActionsCheckboxes = (targetQuestion) => {
 			const updatedQuestions = [...prevState];
 			const targetQuestionIndex = updatedQuestions.findIndex(question => question.id === targetQuestion.id);
 			updatedQuestions[targetQuestionIndex].checkboxes = updatedQuestions[targetQuestionIndex].checkboxes.filter((checkbox) => checkbox.id !== checkboxId);
+			updatedQuestions[targetQuestionIndex].checkboxes = recalculateIds(updatedQuestions[targetQuestionIndex].checkboxes);
 			return updatedQuestions;
 		});
 	};

@@ -19,6 +19,7 @@ const useActionsTemplates = () => {
 		setTemplates,
 		refreshTemps,
 		setRefreshTemps,
+		setCurrentView
 	} = useContext(TemplateContext);
 
 	const saveTemplate = async (url)=> {
@@ -91,6 +92,11 @@ const useActionsTemplates = () => {
 			}else {
 				setMessage({error: "Template updating failed"});
 			}
+			setTimeout(() => {
+				setMessage(null);
+				setCurrentView('templatesTable');
+			}, 3000);
+
 		} catch (error) {
 			console.log("Updating Template failed:", error.message);
 		}

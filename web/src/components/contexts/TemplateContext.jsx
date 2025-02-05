@@ -124,7 +124,7 @@ function TemplateProvider({children}) {
 		setSelectedTempId(null);
 		setImgUrl('');
 		setFilledFormId(null);
-		setMessage('');
+		// setMessage('');
 	}
 
 	const handleHoverMarkdown = (selectedId) => {

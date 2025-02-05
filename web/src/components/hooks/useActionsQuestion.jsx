@@ -1,19 +1,12 @@
 import {useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
+import {recalculateIds} from "../../utilits/recalculateIds";
 
 const useActionsQuestion = (targetQuestion) => {
 
 	const { setQuestions, setConfig, setQuestionStatus } = useContext(TemplateContext);
 
-
-	const recalculateIds = (questionsArray) => {
-		return questionsArray.map((question, index) => ({
-			...question,
-			id: index + 1,
-		}));
-	};
 	const handleAddQuestionOnClick = () => {
-		console.log("handleAddQuestionOnClick");
 		setQuestions((prevState) => {
 			const newQuestions = [
 				...prevState,
@@ -34,7 +27,6 @@ const useActionsQuestion = (targetQuestion) => {
 
 
 	const handleTextFieldOnChange = (value, field) => {
-		console.log('handleTextFieldOnChange');
 		setQuestions(prevState => {
 			const updatedQuestions = [...prevState];
 			const targetQuestionIndex = updatedQuestions.findIndex(question => question.id === targetQuestion.id);

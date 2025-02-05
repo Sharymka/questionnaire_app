@@ -14,7 +14,7 @@ import useGetUsers from "../../hooks/API/useGetUsers";
 function QuestionTemplateBlock(props) {
 
   const { targetQuestion, config } = props;
-  const { usersData } = useGetUsers({ fields: ['id', 'first_name', 'last_name', 'email'] });
+  const { usersData} = useGetUsers();
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
 
@@ -31,11 +31,11 @@ function QuestionTemplateBlock(props) {
   } = useActionsCheckboxes(targetQuestion);
 
   const {
-      addTags,
+      addUser,
       deleteSelectedUser,
       getOptionLabel,
       getTagLabel,
-  } = useActionsSelectPrivateUsers(targetQuestion.id, sortBy);
+  } = useActionsSelectPrivateUsers(targetQuestion, sortBy);
 
   const renderCheckboxes = () => (
       targetQuestion.answerType === 'checkboxes' &&
@@ -67,15 +67,15 @@ function QuestionTemplateBlock(props) {
               <NameOrEmailSorter
                   sortBy={sortBy}
                   setSortBy={setSortBy}
-                  selectedUsers={targetQuestion.selectedUsers || [] }
+                  selectedUsers={targetQuestion.selectedUsers}
               />
               <CustomAutoComplete
-                  value={targetQuestion.selectedUsers || []}
+                  value={targetQuestion.selectedUsers}
                   options={usersData || []}
                   label={LABEL_USERS}
                   getOptionLabel={getOptionLabel}
                   getTagChipLabel={getTagLabel}
-                  addTags={addTags}
+                  addTags={addUser}
                   deleteTag={deleteSelectedUser}
                   placeholder=''
                   sortBy={sortBy}
