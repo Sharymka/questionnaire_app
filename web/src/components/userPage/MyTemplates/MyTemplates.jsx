@@ -9,10 +9,12 @@ import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
+import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 
 function MyTemplates(props) {
 
-	const { config, currentView, selectedTempId, setSelectedTempId, setQuestionStatus, templates } = useContext(TemplateContext);
+	const { forms } = props;
+	const { config, currentView, setSelectedTempId, setQuestionStatus, templates } = useContext(TemplateContext);
 	const { pushView } = useContext(HistoryContext);
 	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
 
@@ -116,7 +118,7 @@ function MyTemplates(props) {
 						  {
 							  currentView === 'filledFormsTable' &&
 							  <FormsTable
-								  templateId={selectedTempId}
+								  forms={forms}
 							  />
 						  }
 						  {

@@ -1,12 +1,17 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getData} from "../../../Requests";
 import {filledForms} from "../../../const/forms";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
-const useGetFormsByTempId = (templateId) => {
+const useGetFormsByTempId = () => {
 
-	const [forms, setForms] = useState(filledForms.filter((form) => form.idTemplate === templateId));
+	const { selectedTempId } = useContext(TemplateContext);
+	const [forms, setForms] = useState(filledForms.filter((form) => form.idTemplate === selectedTempId));
 
 	useEffect(()=>{
+
+		if (!selectedTempId) return;
+
 		const fetchData = async () => {
 			try {
 				const response = await getData('api/form');
@@ -14,7 +19,7 @@ const useGetFormsByTempId = (templateId) => {
 				const formsData = await response.json();
 
 				if (response.ok) {
-					setForms(formsData.filter((form) => form.idTemplate === templateId));
+					setForms(formsData.filter((form) => form.idTemplate === selectedTempId));
 					console.log("forms were fetched successfully");
 				} else {
 					const errorText = await response.text(); // Читаем ответ как текст
@@ -26,7 +31,7 @@ const useGetFormsByTempId = (templateId) => {
 		}
 		fetchData();
 
-	}, []);
+	}, [selectedTempId]);
 
 	return { forms, setForms }
 }
