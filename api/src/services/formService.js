@@ -3,7 +3,7 @@ const { Form, User, Template} =require('../models/index');
 
 class FormService {
 
-	static async getForms() {
+static async getAll() {
 		return await Form.findAll(
 			{
 			include: [
@@ -20,6 +20,25 @@ class FormService {
 			]
 		}
 		);
+	}
+
+	static async getOne(id) {
+		return await Form.findOne({
+			where: { id },
+			include: [
+				{
+					model: User,
+					attributes: ['first_name', 'last_name', 'email'],
+					as: 'user'
+				},
+				{
+					model: Template,
+					attributes: ['img', 'topic', 'title', 'description'],
+					as: 'template'
+				}
+			]
+		});
+
 	}
 
 
