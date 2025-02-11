@@ -8,11 +8,9 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 
 function FormsTable(props) {
 
+	const { forms } = props;
 	const { pushView } = useContext(HistoryContext);
 	const { setFilledFormId } = useContext(TemplateContext);
-	const { templateId } = props;
-	const { forms } = useGetFormsByTempId(templateId);
-
 	const handleReadFormIconOnClick = (formId) => {
 		setFilledFormId(formId);
 		pushView('filledForm');

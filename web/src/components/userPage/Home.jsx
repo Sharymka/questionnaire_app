@@ -7,10 +7,12 @@ import AllTemplatesBlock from "./AllTemplatesBlock";
 import MyTemplates from "./MyTemplates/MyTemplates";
 import {HistoryContext} from "../contexts/HistoryContext";
 import SidePanel from "./Template/SidePanel";
+import useGetFormsByTempId from "../hooks/API/useGetFormsByTempId";
 
 function Home() {
 
     const { resetStates } = useContext(HistoryContext);
+    const { forms } = useGetFormsByTempId();
     const [showModalAnchor, setShowModalAnchor] = useState(false);
 
     const {
@@ -46,6 +48,7 @@ function Home() {
                     <div className="mt-3" role="alert">
                         <MyTemplates
                             key={currentView}
+                            forms={forms}
                             showModalAnchor={showModalAnchor}
                             setShowModalAnchor={setShowModalAnchor}
                         />
