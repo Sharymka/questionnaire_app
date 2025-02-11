@@ -1,7 +1,8 @@
-const {getForms, createForms, removeOneForm, updateForms} = require("../services/formService");
-async function getForm(req, res) {
+const {getAll, getOne, createForms, removeOneForm, updateForms} = require("../services/formService");
+
+async function getForms(req, res) {
 	try {
-		const forms = await getForms();
+		const forms = await getAll();
 		if(forms) {
 			res.status(200).json(forms);
 		}else {
@@ -49,6 +50,22 @@ async function removeForm(req, res) {
 		res.status(500).json({ error: error.message});
 	}
 }
+
+async function getForm(req, res) {
+	const { id } = req.params;
+
+	try {
+		const form = await getOne(id);
+		if (form) {
+			res.status(200).json(form);
+		} else {
+			res.status(404).json({ message: 'Form not found' });
+		}
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+}
+
 async function updateForm(req, res) {
 	try {
 		const {
@@ -78,4 +95,4 @@ async function updateForm(req, res) {
 	}
 }
 
-module.exports = {getForm, createForm, removeForm, updateForm};
+module.exports = {getForms, createForm, getForm, removeForm, updateForm};

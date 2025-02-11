@@ -17,13 +17,13 @@ const useGetFormById =  (filledFormId) => {
 	useEffect(()=>{
 		const fetchData = async () => {
 			try {
-				const response = await getData('api/form');
+				const response = await getData(`api/form/${filledFormId}`);
 
 				const formsData = await response.json();
 
 				if (response.ok) {
-					const matchedForm =  formsData.find((form) => form.id === filledFormId);
-					const transformedForm = transformForm(matchedForm);
+					// const matchedForm =  formsData.find((form) => form.id === filledFormId);
+					const transformedForm = transformForm(formsData);
 					setForm(transformedForm);
 				} else {
 					const errorText = await response.text();
