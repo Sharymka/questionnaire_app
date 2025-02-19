@@ -12,6 +12,11 @@ h6, h5, span, p {
   color: #323333;
 }
 
+.main_container {
+  margin: 0 auto;
+  width: 52%;
+}
+
 .textField_style .MuiInputBase-input {
   color: #4f4f4f !important;
 }
@@ -88,63 +93,26 @@ code {
   position: relative;
 }
 
-.sidePanelPosition {
+.absolutePosition_0_30px {
+  position: absolute;
   background-color: white;
-  border-radius: 8px;
-}
-@media (min-width: 768px) and (max-width: 1440px) {
-  .sidePanelPosition {
-    position: fixed;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 5px;
-    top: 27%;
-    right: 2%;
-  }
-}
-@media (min-width: 1450px) and (max-width: 1900px) {
-  .sidePanelPosition {
-    position: fixed;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 5px;
-    top: 27%;
-    right: 13%;
-  }
-}
-@media (min-width: 1900px) {
-  .sidePanelPosition {
-    position: fixed;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 5px;
-    top: 27%;
-    right: 23%;
-  }
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  top: 50px;
+  right: -80px;
 }
 
 .absolute_right_corner_pos {
   position: absolute;
-  padding: 5px;
   top: 4%;
   right: 1%;
 }
 
 .absolute_right_bottom_corner {
   position: absolute;
-  padding: 5px;
   top: 60%;
   right: 3%;
 }

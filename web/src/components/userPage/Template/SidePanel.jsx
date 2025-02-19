@@ -12,13 +12,12 @@ import {useNavigate} from "react-router-dom";
 const SidePanel = (props ) => {
 
 	const {
-		showImgModalOnClick,
-		config,
+		showImgModalOnClick
 	} = props;
 
 	const { handleAddQuestionOnClick } = useActionsQuestion();
 	const { popView } = useContext(HistoryContext);
-	const { setMessage } = useContext(TemplateContext);
+	const { setMessage, config } = useContext(TemplateContext);
 
 	const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ const SidePanel = (props ) => {
 	return (
 		config?.baseConfig?.sidePanel?.mainBlock || config?.baseConfig?.sidePanel?.exit  ? (
 			<Box
-				className="sidePanelPosition"
+				className="absolutePosition_0_30px"
 			> {
 				config?.baseConfig?.sidePanel?.mainBlock && (
 					<>
