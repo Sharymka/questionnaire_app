@@ -98,20 +98,25 @@
 
 //стили боковой панели
 
-@mixin position_fixed {
-  position: fixed;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
+@mixin sidePanel_style {
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 5px;
-  @content;
 }
+
+@mixin flex_column {
+  display: flex;
+  flex-direction: column;
+}
+
+//@mixin position_fixed {
+//  position: fixed;
+//
+//  @content;
+//}
 
 @mixin position_absolute {
   position: absolute;
-  padding: 5px;
   @content;
 }

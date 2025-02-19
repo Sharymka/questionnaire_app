@@ -38,7 +38,7 @@ function TemplateProvider({children}) {
 	}, [templates]);
 
 	useEffect(() => {
-		if(currentView === 'addTemplate' || currentView === 'templatesTable') {
+		if(currentView === 'addTemplate' || currentView === 'templatesTable' || currentView === 'allTemplates') {
 			resetTemplateStates();
 		}
 
@@ -101,7 +101,8 @@ function TemplateProvider({children}) {
 				console.log("Form was saved successfully:", responseData);
 				setTimeout(()=> {
 					navigate('/home');
-					setShowAllTemplates(true);
+					setCurrentView("allTemplates");
+					// setMessage('');
 				}, 2000)
 
 			}else {
@@ -124,7 +125,7 @@ function TemplateProvider({children}) {
 		setSelectedTempId(null);
 		setImgUrl(null);
 		setFilledFormId(null);
-		// setMessage('');
+		setMessage('');
 	}
 
 	const handleHoverMarkdown = (selectedId) => {

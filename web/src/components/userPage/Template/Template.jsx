@@ -7,6 +7,7 @@ import ImageUploadModal from "./ImageUploadModal";
 import MessageBlock from "./MessageBlock";
 import withTemplateData from "../../hocs/withTemplateData";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
+import SidePanel from "./SidePanel";
 
 function Template(props) {
 
@@ -17,8 +18,6 @@ function Template(props) {
       actions,
       url,
       loading,
-      showModalAnchor,
-      setShowModalAnchor,
   } = props;
 
     const {
@@ -29,6 +28,8 @@ function Template(props) {
     } = useContext(TemplateContext);
 
     const [blobUrl, setBlobUrl] = useState(null);
+    const [showModalAnchor, setShowModalAnchor] = useState(false);
+
 
     const { saveTemplate, updateTemplate } = useActionsTemplates();
 
@@ -50,11 +51,14 @@ function Template(props) {
         loading ? (
             <div>Загрузка</div>
         ) : (
-            <div>
+            <div class="relativePosition">
                 <>
                     {renderImageUploadModal()}
                     {renderCardImg()}
                 </>
+                <SidePanel
+                    showImgModalOnClick={setShowModalAnchor}
+                />
                 <TemplateHeader
                     headerName={headerName}
                     data={data}

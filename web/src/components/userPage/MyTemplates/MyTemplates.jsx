@@ -9,6 +9,7 @@ import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
+import SidePanel from "../Template/SidePanel";
 
 function MyTemplates(props) {
 
@@ -49,7 +50,7 @@ function MyTemplates(props) {
 
   return (<div>
 	  {
-		  <div>
+		  <div class="relativePosition">
 			  {
 				  loading && myTemplates.length === 0 ? (
 					  <div>Loading...</div>
@@ -125,6 +126,8 @@ function MyTemplates(props) {
 							  <FilledForm
 							  />
 						  }
+						  <SidePanel
+						  />
 					  </>
 				  )
 			  }

@@ -13,14 +13,12 @@ function Home() {
 
     const { resetStates } = useContext(HistoryContext);
     const { forms } = useGetFormsByTempId();
-    const [showModalAnchor, setShowModalAnchor] = useState(false);
 
     const {
         showAllTemplates,
         filteredTemp,
         setCurrentView,
         currentView,
-        config
     } = useContext(TemplateContext);
 
     const renderComponent = () => {
@@ -30,12 +28,9 @@ function Home() {
                     <div className="mt-3" role="alert">
                             <Template
                                 key={currentView}
-                                config={config}
                                 headerName="Новая форма"
                                 btnName="Сохранить шаблон"
                                 url={SAVE_TEMPLATE_URL}
-                                showModalAnchor={showModalAnchor}
-                                setShowModalAnchor={setShowModalAnchor}
                             />
                     </div>
                 );
@@ -49,8 +44,6 @@ function Home() {
                         <MyTemplates
                             key={currentView}
                             forms={forms}
-                            showModalAnchor={showModalAnchor}
-                            setShowModalAnchor={setShowModalAnchor}
                         />
                     </div>
                 );
@@ -62,37 +55,26 @@ function Home() {
       <> {
           currentView === 'allTemplates' ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
               <>
-                  <div className=" p-5 container container_min_1200">
+                  <div className="p-5 main_container">
                       <div className=" screen_max_425 screen_min_425">
-                          <div
-                              type="btn"
-                              className=" flex-grow-1 screen_max_425_block_width text-primary"
-                              onClick={()=> {
-                                  setCurrentView('addTemplate');
-                              }
-
-                              }
-                          >
-                              <MDBCard className="card-body">
+                              <MDBCard
+                                  className="card-body flex-grow-1 screen_max_425_block_width text-primary"
+                                  onClick={()=> {
+                                      setCurrentView('addTemplate');
+                                  }}
+                              >
                                   <h5 className="card-title">добавить шаблон</h5>
                               </MDBCard>
-                          </div >
-                          <div
-                              className="flex-grow-1 screen_max_425_block_width text-primary"
-                              onClick={()=> {
-                                  setCurrentView('TemplatesTable');
-                                  resetStates();
-                              }
-                              }
-                          >
-                              <MDBCard className="card-body">
+                              <MDBCard
+                                  className="card-body flex-grow-1 screen_max_425_block_width text-primary "
+                                  onClick={()=> {
+                                      setCurrentView('TemplatesTable');
+                                      resetStates();
+                                  }
+                                  }
+                              >
                                   <h5 className="card-title">мои шаблоны</h5>
                               </MDBCard>
-                          </div>
-                          <SidePanel
-                              showImgModalOnClick={setShowModalAnchor}
-                              config={config}
-                          />
                       </div>
                       {renderComponent()}
                   </div>
