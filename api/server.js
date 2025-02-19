@@ -70,32 +70,13 @@ api.post('/upload', upload.single('image'), async (req, res) => {
 		if (!file) {
 			return res.status(400).json({ error: 'No file uploaded' });
 		}
-
-		const uploadId = Date.now();
-		uploadStatus[uploadId] = 'processing';
-
-		res.status(202).json({ message: 'File received, processing upload', uploadId });
-
 		const result = await cloudinary.uploader.upload(file.path, {
 			upload_preset: 'questionnaire'
 		});
-
-		uploadStatus[uploadId] = { url: result.secure_url };
+		res.status(202).json({ message: 'File received, processing upload', url: result.secure_url });
 
 	} catch (error) {
 		console.error('Ошибка при загрузке:', error);
-		uploadStatus[uploadId] = 'error';
-	}
-});
-
-api.get('/upload-status/:id', (req, res) => {
-	const uploadId = req.params.id;
-	const status = uploadStatus[uploadId];
-
-	if (status) {
-		res.status(200).json(status);
-	} else {
-		res.status(404).json({ error: 'Upload not found' });
 	}
 });
 

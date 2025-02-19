@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import Paper from "@mui/material/Paper";
 import {IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import { READ_ICON_URL} from "../../../url/url";
-import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import {TemplateContext} from "../../contexts/TemplateContext";
 

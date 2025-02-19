@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
 	Button,
 	Modal,
@@ -26,62 +26,54 @@ const style = {
 
 const ImageUploadModal = (props) => {
 
-	const { open, handleClose } = props;
+	const { open, handleClose, setBlobUrl } = props;
 
-	const { setImgUrl } =  useContext(TemplateContext);
-	const [image, setImage] = useState(false);
+	const { setImgUrl, imgUrl } =  useContext(TemplateContext);
+	const [blobImage, setBlobImage] = useState(null);
+	const [localBlobUrl, setLocalBlobUrl] = useState(null);
+
+	useEffect(() => {
+		if (blobImage) {
+			const url = URL.createObjectURL(blobImage);
+			setLocalBlobUrl(url);
+
+			return () => URL.revokeObjectURL(url);
+		}
+	}, [blobImage]);
 
 	const handleImageChange = async (event) => {
 		const file = event.target.files[0];
 		if (file) {
-
 			try {
 				const compressedFile = await imageCompression(file, {
 					maxSizeMB: 1,
 					maxWidthOrHeight: 1024,
 					useWebWorker: true,
 				});
-				setImage(compressedFile);
+				setBlobImage(compressedFile);
 			} catch (error) {
 				console.error('Error during image compression:', error);
 			}
 		}
 	};
 
-	const handleUpload = async () => {
-		const formData = new FormData();
-		formData.append('image', image);
+	// useEffect(() => {
+	// 	if (localBlobUrl) {
+	// 		return () => {
+	// 			URL.revokeObjectURL(localBlobUrl);
+	// 		};
+	// 	}
+	// }, [localBlobUrl]);
 
-		try {
-			const response = await postFileData('api/upload', formData);
-			handleClose(!open);
-			if (response.status === 202) {
-				const { uploadId } = await response.json();
-				handleClose(false);
-				console.log('File hase been accepted, uploading is continuing.  Upload ID:', uploadId);
 
-				// Периодически проверяем статус загрузки
-				const checkUploadStatus = async () => {
-					const statusResponse = await fetch(`/api/upload-status/${uploadId}`);
-					const data = await statusResponse.json();
+	const handleUpload = () => {
+		setBlobUrl(localBlobUrl);
+		setImgUrl(blobImage);
+		setTimeout(()=> {
+			handleClose(false);
+		}, 200);
 
-					if (data.url) {
-						console.log('Uploading successfully finished. URL:', data.url);
-						setImgUrl(data.url);
-					} else if (data.error) {
-						console.log('Uploading failed.');
-					} else {
-						setTimeout(checkUploadStatus, 1000);
-					}
-				};
-
-				checkUploadStatus();
-			}
-		} catch (error) {
-			console.error('Error uploading image:', error);
-		}
-	};
-
+	}
 
 	return (
 		<Modal
@@ -104,16 +96,10 @@ const ImageUploadModal = (props) => {
 				            variant="h6" component="h2">
 					Загрузить изображение
 				</Typography>
-				<input
-					type="file"
-					id="upload-button"
-					style={{display: 'none'}}
-					onChange={handleImageChange}
-				/>
-				{image && (
+				{localBlobUrl && (
 					<Box
 						component="img"
-						src={URL.createObjectURL(image)}
+						src={localBlobUrl}
 						alt="Предварительный просмотр"
 						sx={{
 							mt: 2,
@@ -124,6 +110,12 @@ const ImageUploadModal = (props) => {
 						}}
 					/>
 				)}
+				<input
+					type="file"
+					id="upload-button"
+					style={{display: 'none'}}
+					onChange={handleImageChange}
+				/>
 				<label htmlFor="upload-button" className="col-5">
 					<Button
 						variant="contained"
@@ -139,7 +131,7 @@ const ImageUploadModal = (props) => {
 						color="primary"
 						onClick={handleUpload}
 						className="w-100 mt-3"
-						disabled={!image}
+						disabled={!blobImage}
 					>
 						Загрузить
 					</Button>
