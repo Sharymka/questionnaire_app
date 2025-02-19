@@ -15,7 +15,7 @@ function TemplateProvider({children}) {
 	const [topic, setTopic] = useState('education');
 	const [description, setDescription] = useState('');
 	const [tags, setTags] = useState([]);
-	const [imgUrl, setImgUrl] = useState('');
+	const [imgUrl, setImgUrl] = useState(null);
 	const [templates, setTemplates] = useState(null);
 	const [filteredTemps, setFilteredTemps] = useState(null);
 	const [questions, setQuestions] = useState([]);
@@ -122,7 +122,7 @@ function TemplateProvider({children}) {
 		setConfig({ baseConfig: getDefaultTempConfig(currentView), questionList: [] });
 		setQuestionStatus(null);
 		setSelectedTempId(null);
-		setImgUrl('');
+		setImgUrl(null);
 		setFilledFormId(null);
 		// setMessage('');
 	}

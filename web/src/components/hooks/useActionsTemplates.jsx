@@ -2,8 +2,11 @@ import {useContext} from "react";
 import {deleteData, postData} from "../../Requests";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {getSaveEditedTemplateUrl} from "../../url/url";
+import useUploadImg from "./API/useUploadImg";
 
 const useActionsTemplates = () => {
+
+	const { uploadImg } =  useUploadImg();
 
 	const {
 		title,
@@ -23,13 +26,22 @@ const useActionsTemplates = () => {
 	} = useContext(TemplateContext);
 
 	const saveTemplate = async (url)=> {
+
+		const cloudinaryImgUrl = await uploadImg();
+
+		if (!cloudinaryImgUrl) {
+			console.error("Image upload failed, template will not be saved.");
+			setMessage({ error: "Image upload failed" });
+			return;
+		}
+
 		const requestData = {
 			title:title,
 			topic:topic,
 			description:description,
 			questions:questions,
 			tags:tags,
-			img:imgUrl
+			img:cloudinaryImgUrl
 		}
 		try {
 			const response = await postData(url, requestData);

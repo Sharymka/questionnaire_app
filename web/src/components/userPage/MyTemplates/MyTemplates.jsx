@@ -9,7 +9,6 @@ import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
-import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 
 function MyTemplates(props) {
 

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import TemplateHeader from "./TemplateHeader";
 import QuestionList from "./QuestionList";
 import {Button} from "@mui/material";
@@ -21,30 +21,39 @@ function Template(props) {
       setShowModalAnchor,
   } = props;
 
-    const { saveTemplate, updateTemplate } = useActionsTemplates();
     const {
         saveForm,
-        imgUrl,
         message,
+        imgUrl,
         selectedTempId
     } = useContext(TemplateContext);
 
+    const [blobUrl, setBlobUrl] = useState(null);
+
+    const { saveTemplate, updateTemplate } = useActionsTemplates();
+
     const renderImageUploadModal = () => (
-        showModalAnchor && <ImageUploadModal open={showModalAnchor} handleClose={setShowModalAnchor} />
+        showModalAnchor && <ImageUploadModal
+            open={showModalAnchor}
+            handleClose={setShowModalAnchor}
+            blobUrl={blobUrl}
+            setBlobUrl={setBlobUrl}
+        />
   );
 
-  const renderImageCard = () => (
-        imgUrl && <div className="card mb-2 card-background" style={{ backgroundImage: `url(${imgUrl})` }}></div>
-  );
+ const renderCardImg = () => {
+     return (imgUrl ? blobUrl ? <div className="card mb-2 card-background" style={{backgroundImage: `url(${blobUrl})`}}></div> :
+         <div className="card mb-2 card-background" style={{backgroundImage: `url(${imgUrl})`}}></div>: <></>)
+ };
 
     return (
         loading ? (
             <div>Загрузка</div>
-            ): (
+        ) : (
             <div>
                 <>
                     {renderImageUploadModal()}
-                    {renderImageCard()}
+                    {renderCardImg()}
                 </>
                 <TemplateHeader
                     headerName={headerName}
