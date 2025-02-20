@@ -23,7 +23,7 @@ function SelectedTemplate() {
 
 	return (
 		<>
-			<div className=" p-5 container container_min_1200">
+			<div className=" p-5 main_container container_min_1200">
 				{
 					showTemplateAnchor ? (
 						<div>Loading...</div>

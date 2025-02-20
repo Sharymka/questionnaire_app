@@ -41,7 +41,7 @@ const ImageUploadModal = (props) => {
 		}
 	}, [blobImage]);
 
-	const handleImageChange = async (event) => {
+	const sizeImageChange = async (event) => {
 		const file = event.target.files[0];
 		if (file) {
 			try {
@@ -56,15 +56,6 @@ const ImageUploadModal = (props) => {
 			}
 		}
 	};
-
-	// useEffect(() => {
-	// 	if (localBlobUrl) {
-	// 		return () => {
-	// 			URL.revokeObjectURL(localBlobUrl);
-	// 		};
-	// 	}
-	// }, [localBlobUrl]);
-
 
 	const handleUpload = () => {
 		setBlobUrl(localBlobUrl);
@@ -114,7 +105,7 @@ const ImageUploadModal = (props) => {
 					type="file"
 					id="upload-button"
 					style={{display: 'none'}}
-					onChange={handleImageChange}
+					onChange={sizeImageChange}
 				/>
 				<label htmlFor="upload-button" className="col-5">
 					<Button
