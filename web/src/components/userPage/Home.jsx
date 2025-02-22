@@ -15,8 +15,6 @@ function Home() {
     const { forms } = useGetFormsByTempId();
 
     const {
-        showAllTemplates,
-        filteredTemp,
         setCurrentView,
         currentView,
     } = useContext(TemplateContext);
@@ -52,38 +50,32 @@ function Home() {
         }
     };
   return (
-      <> {
-          currentView === 'allTemplates' ? (<AllTemplatesBlock key="AllTemplatesBlock" temp={filteredTemp}/>): (
-              <>
-                  <div className="p-5 main_container">
-                      <div className=" screen_max_425 screen_min_425">
-                              <MDBCard
-                                  className="card-body flex-grow-1 screen_max_425_block_width text-primary"
-                                  onClick={()=> {
-                                      setCurrentView('addTemplate');
-                                  }}
-                              >
-                                  <h5 className="card-title">добавить шаблон</h5>
-                              </MDBCard>
-                              <MDBCard
-                                  className="card-body flex-grow-1 screen_max_425_block_width text-primary "
-                                  onClick={()=> {
-                                      setCurrentView('TemplatesTable');
-                                      resetStates();
-                                  }
-                                  }
-                              >
-                                  <h5 className="card-title">мои шаблоны</h5>
-                              </MDBCard>
-                      </div>
-                      {renderComponent()}
-                  </div>
-              </>
-          )
-      }
+      <>
+          <div className="p-5 main_container">
+              <div className=" screen_max_425 screen_min_425">
+                  <MDBCard
+                      className="card-body flex-grow-1 screen_max_425_block_width text-primary"
+                      onClick={()=> {
+                          setCurrentView('addTemplate');
+                      }}
+                  >
+                      <h5 className="card-title">добавить шаблон</h5>
+                  </MDBCard>
+                  <MDBCard
+                      className="card-body flex-grow-1 screen_max_425_block_width text-primary "
+                      onClick={()=> {
+                          setCurrentView('TemplatesTable');
+                          resetStates();
+                      }
+                      }
+                  >
+                      <h5 className="card-title">мои шаблоны</h5>
+                  </MDBCard>
+              </div>
+              {renderComponent()}
+          </div>
       </>
-  );
-
+  )
 }
 
 export default Home;

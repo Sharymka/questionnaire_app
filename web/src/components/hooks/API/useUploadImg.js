@@ -1,5 +1,5 @@
 import {postFileData} from "../../../Requests";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {TemplateContext} from "../../contexts/TemplateContext";
 
  const useUploadImg =  () => {

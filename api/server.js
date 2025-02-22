@@ -49,7 +49,7 @@ api.post('/template',isAuthenticated, create);
 
 api.get('/templates', get);
 
-api.get('/template/:id',isAuthenticated, getTemplateById);
+api.get('/template/:id', getTemplateById);
 
 api.post('/template/:id',isAuthenticated, update);
 

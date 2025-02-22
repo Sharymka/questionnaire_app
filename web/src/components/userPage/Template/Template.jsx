@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import TemplateHeader from "./TemplateHeader";
 import QuestionList from "./QuestionList";
 import {Button} from "@mui/material";
@@ -24,7 +24,8 @@ function Template(props) {
         saveForm,
         message,
         imgUrl,
-        selectedTempId
+        selectedTempId,
+        questionStatus
     } = useContext(TemplateContext);
 
     const [blobUrl, setBlobUrl] = useState(null);
@@ -68,21 +69,24 @@ function Template(props) {
                     data={data}
                     actions={actions}
                 />
-                <div className="card p-4 mt-3">
-                    <div className="d-flex justify-content-end">
-                        <Button className='p-3 btn-primary'
-                                variant="contained"
-                                onClick={() => btnName === 'Сохранить шаблон'? saveTemplate(url): btnName === 'Сохранить изменения' ? updateTemplate(selectedTempId):
-                                    btnName === 'Отправить форму' ? saveForm(url): null}
-                        >
-                            {btnName}
-                        </Button>
-                    </div>
-                </div>
-                <MessageBlock message={message}/>
+                    {
+                        questionStatus === 'readOnly' ?
+                         null : (
+                                <div className="card p-4 mt-3">
+                                    <div className="d-flex justify-content-end">
+                                        <Button className='p-3 btn-primary'
+                                                variant="contained"
+                                                onClick={() => btnName === 'Сохранить шаблон' ? saveTemplate(url) : btnName === 'Сохранить изменения' ? updateTemplate(selectedTempId) :
+                                                    btnName === 'Отправить форму' ? saveForm(url) : null}
+                                        >
+                                            {btnName}
+                                        </Button>
+                                    </div>
+                                </div>)
+                    }
+                        <MessageBlock message={message}/>
             </div>
         )
-
     );
 }
 

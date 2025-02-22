@@ -8,6 +8,7 @@ import TemplateProvider from "./components/contexts/TemplateContext";
 import SelectedTemplate from './components/userPage/SelectedTemplate'
 import LayoutWithHeader from "./components/layouts/LayoutWithHeader";
 import HistoryProvider from "./components/contexts/HistoryContext";
+import AllTemplatesBlock from "./components/userPage/AllTemplatesBlock";
 
 
 function App() {
@@ -32,10 +33,18 @@ function App() {
                                       }
                                   />
                                   <Route
+                                      path="/templates"
+                                      element={
+                                          <LayoutWithHeader>
+                                              <AllTemplatesBlock/>
+                                          </LayoutWithHeader>
+                                      }
+                                  />
+                                  <Route
                                       path="/templates/:id"
                                       element={
                                           <LayoutWithHeader>
-                                              <SelectedTemplate />
+                                              <SelectedTemplate/>
                                           </LayoutWithHeader>
                                       }
                                   />

@@ -6,7 +6,7 @@ import {HistoryContext} from "../contexts/HistoryContext";
 const useActionsMenu = () => {
 
 	const navigate = useNavigate();
-	const { setShowAllTemplates, setCurrentView } = useContext(TemplateContext);
+	const { setCurrentView } = useContext(TemplateContext);
 	const { pushView }= useContext(HistoryContext);
 
 	const [showMenu, setShowMenu] = useState(null);
@@ -29,11 +29,18 @@ const useActionsMenu = () => {
 	// Конфигурация пунктов меню
 	const menuItems = [
 		{
+			// label: "Все шаблоны",
+			// action: () => {
+			// 	navigate('/home');
+			// 	pushView('allTemplates');
+			// 	// setShowAllTemplates(true);
+			// 	handleCloseMenu();
+			// },
 			label: "Все шаблоны",
 			action: () => {
-				navigate('/home');
+				navigate('/templates');
+				setCurrentView('allTemplates');
 				pushView('allTemplates');
-				// setShowAllTemplates(true);
 				handleCloseMenu();
 			},
 		},
