@@ -81,11 +81,11 @@ function Header() {
 					</Box>
 				</Toolbar>
 				<Toolbar>
-					<IconButton onClick={handleThemeChange} color="inherit" sx={{ mx: 1 }}>
-						{isDarkMode ? <DarkMode sx={{ color: '#A0AEC0' }} /> : <LightMode sx={{ color: '#4b525d' }} />}
-					</IconButton>
-					<Switch checked={isDarkMode} onChange={handleThemeChange} color="default" />
-					<LanguageSelector isDarkMode={isDarkMode} handleLanguageChange={handleLanguageChange} language={language}/>
+					{/*<IconButton onClick={handleThemeChange} color="inherit" sx={{ mx: 1 }}>*/}
+					{/*	{isDarkMode ? <DarkMode sx={{ color: '#A0AEC0' }} /> : <LightMode sx={{ color: '#4b525d' }} />}*/}
+					{/*</IconButton>*/}
+					{/*<Switch checked={isDarkMode} onChange={handleThemeChange} color="default" />*/}
+					{/*<LanguageSelector isDarkMode={isDarkMode} handleLanguageChange={handleLanguageChange} language={language}/>*/}
 					{isAuthenticated ? (
 						<Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
 						<SignOutBtn/>

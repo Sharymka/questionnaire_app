@@ -19,17 +19,15 @@ function SignUp() {
 		e.preventDefault();
 		try {
 			const response = await postData('api/signUp', singUpData);
-			const data = await response.json();
+			const user = await response.json();
 
 			if (response.ok) {
-				console.log("Registered successfully:", data);
-				localStorage.setItem('user', JSON.stringify(data));
-				// signIn(data);
+				console.log("Registered successfully:", user);
+				signIn(user);
 				setMessage('');
-				navigate('/home');
 			} else {
-				console.log("Registered failed:", data.error);
-				setMessage(data.error);
+				console.log("Registered failed:", user.error);
+				setMessage(user.error);
 			}
 		}catch (error) {
 			console.log("Registered failed:", error.message);

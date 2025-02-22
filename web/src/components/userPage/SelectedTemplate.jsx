@@ -1,25 +1,36 @@
 
-import React, {useContext, useEffect} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import Template from "./Template/Template";
 import {useParams} from "react-router-dom";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {SAVE_FORM_URL} from "../../url/url";
-import SidePanel from "./Template/SidePanel";
+import {AuthContext} from "../mainPage/context/AuthContext";
 
 function SelectedTemplate() {
 
 	const { id } = useParams();
-	const [showTemplateAnchor, setShowTemplateAnchor] = React.useState(true);
-	const { config, resetTemplateStates, setSelectedTempId, setQuestionStatus } = useContext(TemplateContext);
+	const { isAuthenticated } = useContext(AuthContext);
+	const [showTemplateAnchor, setShowTemplateAnchor] = useState(true);
+	const { questionStatus, setSelectedTempId, setQuestionStatus } = useContext(TemplateContext);
 
 	useEffect(() => {
 		if(id) {
-			resetTemplateStates();
-			setQuestionStatus('select');
+			if(isAuthenticated) {
+				setQuestionStatus('select');
+			} else {
+				setQuestionStatus('readOnly');
+			}
 			setSelectedTempId(Number(id));
-			setShowTemplateAnchor(false);
+
 		}
 	}, [id]);
+
+	useEffect(() => {
+		if(questionStatus){
+			console.log('questionStatus:', questionStatus);
+			setShowTemplateAnchor(false);
+		}
+	}, [questionStatus])
 
 	return (
 		<>
@@ -32,9 +43,6 @@ function SelectedTemplate() {
 							<Template
 								btnName='Отправить форму'
 								url={SAVE_FORM_URL}
-							/>
-							<SidePanel
-								config={config}
 							/>
 						</>
 					)

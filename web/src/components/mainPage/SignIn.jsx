@@ -21,14 +21,13 @@ function SignIn() {
         e.preventDefault();
         try {
             const response = await postData('api/signIn', signInData);
-            const data = await response.json();
+            const user = await response.json();
 
             if (response.ok) {
-                console.log("SignIn successfully:", data);
-                localStorage.setItem('user', JSON.stringify(data));
-                signIn(data);
+                console.log("SignIn successfully:", user);
+                signIn(user);
             } else {
-                console.log("SignIn failed:", data.error);
+                console.log("SignIn failed:", user.error);
             }
         }catch (error) {
             console.log("SignIn failed:", error.message);

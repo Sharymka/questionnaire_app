@@ -7,24 +7,38 @@ export const AuthProvider = ({ children }) => {
 
 	const navigate = useNavigate();
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [user, setUser] = useState({});
 
 	const signIn = (user) => {
-		setIsAuthenticated(true);
 		localStorage.setItem("user", JSON.stringify(user));
-		setUser(user);
+
+		const storedUser = localStorage.getItem("user");
+
+		if (storedUser) {
+			console.log("Данные есть:", JSON.parse(storedUser));
+			setIsAuthenticated(true);
+			navigate('/home');
+		} else {
+			console.log("Нет данных в localStorage");
+		}
 	};
 
 	const signOut = () => {
-		setIsAuthenticated(false);
-		setUser({});
-		navigate('/')
+		localStorage.removeItem("user");
+
+		const storedUser = localStorage.getItem("user");
+
+		if (!storedUser) {
+			console.log("Данные Удалены:", storedUser);
+			setIsAuthenticated(false);
+			navigate('/');
+		} else {
+			console.log("Данные в localStorage не удалились:", JSON.parse(storedUser));
+		}
 	};
 
 	return (
 		<AuthContext.Provider value={{
 			isAuthenticated,
-			user,
 			signIn,
 			signOut
 		}}>

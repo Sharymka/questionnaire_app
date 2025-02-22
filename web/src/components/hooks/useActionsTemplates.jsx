@@ -27,12 +27,10 @@ const useActionsTemplates = () => {
 
 	const saveTemplate = async (url)=> {
 
-		const cloudinaryImgUrl = await uploadImg();
+		let  cloudinaryImgUrl = null;
 
-		if (!cloudinaryImgUrl) {
-			console.error("Image upload failed, template will not be saved.");
-			setMessage({ error: "Image upload failed" });
-			return;
+		if(imgUrl) {
+			cloudinaryImgUrl = await uploadImg();
 		}
 
 		const requestData = {
@@ -65,7 +63,7 @@ const useActionsTemplates = () => {
 		}catch (error) {
 			console.log("Saving Template failed:", error.message);
 		}
-		resetTemplateStates();
+
 	}
 	const deleteTemplate = async(id) => {
 		try {
