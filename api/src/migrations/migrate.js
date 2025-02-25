@@ -1,14 +1,13 @@
-// const sequelize = require('../config/db');
-const sequelize = require('../config/alwaysData');
+const sequelize = require('../config/db');
 const { User, Template, Form } = require('../models');
 
 async function migrate() {
 	try {
 		console.log('Параметры подключения:', {
-			DB_NAME: process.env.DB_ALWAYSDATA_NAME,
-			DB_USER: process.env.DB_ALWAYSDATA_USER,
-			DB_HOST: process.env.DB_ALWAYSDATA_HOST,
-			DB_PORT: process.env.DB_ALWAYSDATA_PORT,
+			DB_NAME: process.env.DB_NAME,
+			DB_USER: process.env.DB_USER,
+			DB_HOST: process.env.DB_HOST,
+			DB_PORT: process.env.DB_PORT,
 		});
 		await sequelize.authenticate();
 		console.log('Connection has been established successfully.');

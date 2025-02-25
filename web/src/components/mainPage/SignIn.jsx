@@ -21,9 +21,9 @@ function SignIn() {
         e.preventDefault();
         try {
             const response = await postData('api/signIn', signInData);
-            const user = await response.json();
+            const user = await response.data;
 
-            if (response.ok) {
+            if (response.status >= 200 && response.status < 300)  {
                 console.log("SignIn successfully:", user);
                 signIn(user);
             } else {

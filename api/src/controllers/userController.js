@@ -19,16 +19,18 @@ async function signUp(req, res) {
 }
 
 async function signIn(req, res) {
-
-
 	const { email, password } = req.body;
-	console.log('email', email);
-
 	try {
 		const user = await findUsers( email, password);
 		if(user) {
+			console.log('user.id - ' + user.id);
 			req.session.userId = user.id;
-			res.status(201).json(user);
+			res.status(200).json({
+				sessionId: req.sessionID,
+				user: user,
+			});
+		}else {
+			res.status(401).json({ error: "Неверный email или пароль" });
 		}
 	} catch (error) {
 		res.status(500).json({ error: error.message});
