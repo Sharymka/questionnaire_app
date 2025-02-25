@@ -1,49 +1,73 @@
+import axios from "axios";
 
 export const postData = async (url, data, method = 'POST') => {
-
-		const response = await fetch(url, {
+	try {
+		const response = await axios({
 			method: method,
-			credentials: 'include',
+			url: url,
+			data: data,
+			withCredentials: true,
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(data)
 		});
+
 		return response;
+	} catch (error) {
+		throw error;
+	}
 };
 
 export const postFileData = async (url, data, method = 'POST') => {
+	try {
+		const response = await axios({
+			method: method,
+			url: url,
+			data: data,
+			withCredentials: true,
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
 
-	const response = await fetch(url, {
-		method: method,
-		credentials: 'include',
-		body: data
-	});
-	return response;
+		return response;
+	} catch (error) {
+		throw error;
+	}
 };
 
+
 export const getData = async (url, method = 'GET') => {
+	try {
+		const response = await axios({
+			method: method,
+			url: url,
+			withCredentials: true,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 
-	const response = await fetch(url, {
-		method: method,
-		credentials: 'include',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-	});
-
-	return response;
+		return response;
+	} catch (error) {
+		throw error;
+	}
 };
 
 
 export const deleteData = async (url, method = 'DELETE') => {
-	const response = await fetch(url, {
-		method: method,
-		credentials: 'include',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-	});
+	try {
+		const response = await axios({
+			method: method,
+			url: url,
+			withCredentials: true,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
 
-	return response;
-}
+		return response;
+	} catch (error) {
+		throw error;
+	}
+};

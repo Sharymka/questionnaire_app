@@ -16,25 +16,12 @@ const port = process.env.PORT || 3001;
 const api = express.Router();
 const multer = require('multer');
 const getAccessToken = require("./src/services/getAccessToken");
+const sessionMiddleware = require("./src/config/sessionStore");
 const upload = multer({ dest: 'uploads/' });
 
-app.use(session({
-	secret: 'supersecretkey',
-	resave: false,
-	saveUninitialized: false,
-	rolling: true,
-	cookie: {
-		maxAge: 3600000,
-		secure: false,
-		httpOnly: true,
-		sameSite: 'lax'
-	}
-}));
-
-api.use(express.json());
-
+app.use(sessionMiddleware);
 app.use('/api', api);
-
+api.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));
 
 api.post('/signUp', signUp);
@@ -61,7 +48,7 @@ api.get('/form/:id',isAuthenticated, getForm);
 
 api.post('/form',isAuthenticated, createForm);
 
-let uploadStatus = {};
+
 
 api.post('/upload', upload.single('image'), async (req, res) => {
 	try {
