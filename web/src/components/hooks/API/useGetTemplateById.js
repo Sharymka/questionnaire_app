@@ -1,42 +1,31 @@
 import {useContext, useEffect, useState} from "react";
 import {getData} from "../../../Requests";
-import {temp} from "../../../const/temp";
 import {TemplateContext} from "../../contexts/TemplateContext";
 const useGetTemplateById = () => {
 
-	const { selectedTempId } = useContext(TemplateContext)
+	const { selectedTempId, currentView} = useContext(TemplateContext);
 	const [template, setTemplate] = useState(null);
-
-	// useEffect(() => {
-	// 	if (selectedTempId) {
-	// 		const matchedTemplate = temp.find(template => template.id === Number(selectedTempId));
-	// 		setTemplate(matchedTemplate);
-	// 		setLoading(false);
-	// 	}
-	// }, [selectedTempId]);
 
 	useEffect(() => {
 
 		const fetchData = async () => {
-			try {
-				const response = await getData(`/api/template/${selectedTempId}`);
-				const data = await response.json();
+			if(currentView === 'filledFormsTable' || currentView === 'templateEditor' || currentView === 'form') {
+				try {
+					const { data, status} = await getData(`/api/template/${selectedTempId}`);
 
-				if(response.ok) {
-					setTemplate(data);
-				} else {
-					console.log(data.error);
-					console.log("template getting failed");
+					if (status >= 200 && status < 300){
+						setTemplate(data);
+						console.log("template getting success:", data);
+					} else {
+						console.log("template getting failed:", data.error);
+					}
+				} catch (error) {
+					console.log("error:", error.response.data.message || error.message);
 				}
-			} catch (error) {
-				console.error('Error fetching template data:', error);
 			}
+
 		};
-
-		if(selectedTempId) {
-			fetchData();
-		}
-
+		fetchData();
 	}, []);
 
 	return { template, setTemplate }

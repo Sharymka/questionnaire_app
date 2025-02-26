@@ -8,6 +8,7 @@ import {EXIT_LEFT} from "../../../url/url";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../mainPage/context/AuthContext";
 
 const SidePanel = (props ) => {
 
@@ -18,13 +19,18 @@ const SidePanel = (props ) => {
 	const { handleAddQuestionOnClick } = useActionsQuestion();
 	const { popView } = useContext(HistoryContext);
 	const { setMessage, config } = useContext(TemplateContext);
+	const { isAuthenticated } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 
 	const handleExitOnClick = () => {
-		navigate('/home');
+		if (isAuthenticated) {
+			navigate('/home');
+			setMessage('');
+		}else {
+			navigate('/');
+		}
 		popView();
-		setMessage('');
 
 	}
 

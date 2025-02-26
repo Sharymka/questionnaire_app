@@ -20,17 +20,16 @@ function SignIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await postData('api/signIn', signInData);
-            const user = await response.data;
+            const { data, status } = await postData('api/signIn', signInData);
 
-            if (response.status >= 200 && response.status < 300)  {
-                console.log("SignIn successfully:", user);
-                signIn(user);
+            if (status >= 200 && status < 300)  {
+                console.log("SignIn successfully:", data);
+                signIn(data);
             } else {
-                console.log("SignIn failed:", user.error);
+                console.log("signIn failed:", data.error);
             }
         }catch (error) {
-            console.log("SignIn failed:", error.message);
+            console.log("error:", error.response.data.message || error.message);
         }
     }
 

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import NameOrEmailSorter from "./NameOrEmailSorter";
 import CustomBtn from "./CustomBtn";
 import CustomCheckBoxes from "./CustomCheckBoxes";
@@ -9,12 +9,12 @@ import CustomTextField from "./CustomTextField";
 import useActionsQuestion from "../../hooks/useActionsQuestion";
 import CustomAutoComplete from "./CustomAutoComplete";
 import useActionsSelectPrivateUsers from "../../hooks/useActionsSelectPrivateUsers";
-import useGetUsers from "../../hooks/API/useGetUsers";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
 function QuestionTemplateBlock(props) {
 
   const { targetQuestion, config } = props;
-  const { usersData} = useGetUsers();
+  const { usersData } = useContext(TemplateContext);
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
 

@@ -10,19 +10,19 @@ const  useGetTemplates = () => {
 	useEffect(() => {
 		const fetchTemps = async () => {
 			try {
-				const response = await getData("api/templates");
-				const data = await response.json();
-				if(response.ok) {
+				const { data, status } = await getData("api/templates");
+				if (status >= 200 && status < 300)  {
 					setTemps(data);
-					console.log("templates were fetched successfully", data);
+					console.log("templates getting success:", data);
 				} else {
-					console.log("template getting failed", data.error);
+					console.log("templates getting failed:", data.error);
 				}
-			}catch(error) {
-				console.log("template getting failed", error.message);
+			} catch (error) {
+				console.log("error:", error.response.data.message || error.message);
 			}
 		}
 		fetchTemps();
+
 	}, [refreshTemps]);
 
 

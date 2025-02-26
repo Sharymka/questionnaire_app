@@ -1,41 +1,24 @@
-import {useState, useCallback, useContext} from "react";
+import {useState, useCallback, useContext, useEffect} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
-import { useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {HistoryContext} from "../contexts/HistoryContext";
+import {AuthContext} from "../mainPage/context/AuthContext";
 
 const useActionsMenu = () => {
 
 	const navigate = useNavigate();
 	const { setCurrentView } = useContext(TemplateContext);
-	const { pushView }= useContext(HistoryContext);
-
+	const { isAuthenticated } = useContext(AuthContext);
+	const { pushView } = useContext(HistoryContext);
 	const [showMenu, setShowMenu] = useState(null);
-	const [showSaleForceModal, setShowSaleForceModal] = useState(false);
+	const [menuItems, setMenuItems] = useState(null);
 
-	// Управление меню
 	const handleOpenMenu = useCallback((event) => setShowMenu(event.currentTarget), []);
 	const handleCloseMenu = useCallback(() => setShowMenu(null), []);
 
-	// // Управление модальным окном и формой
-	// const handleOpenModal = useCallback(() => {
-	// 	setShowSaleForceModal(true);
-	// 	setShowForm(true);
-	// 	handleCloseMenu();
-	// }, [handleCloseMenu]);
-	//
-	// const handleCloseModal = useCallback(() => setShowSaleForceModal(false), []);
-	// const handleCloseForm = useCallback(() => setShowForm(false), []);
-
-	// Конфигурация пунктов меню
-	const menuItems = [
+	useEffect(() => {
+	setMenuItems([
 		{
-			// label: "Все шаблоны",
-			// action: () => {
-			// 	navigate('/home');
-			// 	pushView('allTemplates');
-			// 	// setShowAllTemplates(true);
-			// 	handleCloseMenu();
-			// },
 			label: "Все шаблоны",
 			action: () => {
 				navigate('/templates');
@@ -44,25 +27,25 @@ const useActionsMenu = () => {
 				handleCloseMenu();
 			},
 		},
-		{
-			label: "Моя страница",
-			action: () => {
-				navigate('/home');
-				setCurrentView(null);
-				// setShowAllTemplates(false);
-				handleCloseMenu();
-			},
-		},
-	];
+		...(
+			isAuthenticated
+				? [{
+					label: "Моя страница",
+					action: () => {
+						navigate('/home');
+						setCurrentView(null);
+						handleCloseMenu();
+					},
+				}]
+				: []
+		)
+	])
+	}, [isAuthenticated]);
 
 	return {
 		showMenu,
 		handleOpenMenu,
 		handleCloseMenu,
-		// setShowSaleForceModal,
-		// showForm,
-		// handleCloseModal,,
-		// handleCloseForm,
 		menuItems,
 	};
 };

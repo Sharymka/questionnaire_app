@@ -5,24 +5,24 @@ import CustomToolBlock from "../Template/CustomToolBlock";
 import Template from "../Template/Template";
 import {questionTopics} from "../../../const/const";
 import FormsTable from "./FormsTable";
-import FilledForm from "./FilledForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
 import SidePanel from "../Template/SidePanel";
+import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 
-function MyTemplates(props) {
+function MyTemplates() {
 
-	const { forms } = props;
-	const { config, currentView, setSelectedTempId, setQuestionStatus, templates } = useContext(TemplateContext);
+	const { forms, loading } = useGetFormsByTempId();
+	const { currentView, setSelectedTempId, setQuestionStatus, templates } = useContext(TemplateContext);
 	const { pushView } = useContext(HistoryContext);
-	const user = JSON.parse(localStorage.getItem('user')) ?? { id:1 };
+	const authUserData = JSON.parse(localStorage.getItem('user')) ?? { id: 1 };
 
 	const [myTemplates, setMyTemplates] = useState([]);
 
 	useEffect(() => {
 		if (templates) {
-			setMyTemplates(templates.filter((template) => template.userId === user.id));
+			setMyTemplates(templates.filter((template) => template.userId === authUserData.user.id));
 		}
 	}, [templates]);
 
@@ -32,27 +32,20 @@ function MyTemplates(props) {
 	}
 
 	const handleShowForms = (id, newView, questionState) => {
+		setSelectedTempId(id);
 		pushView(newView);
 		setQuestionStatus(questionState);
-		setSelectedTempId(id);
 	}
 
 	const {
 		deleteTemplate
 	} = useActionsTemplates();
 
-	const {
-		showModalAnchor,
-		setShowModalAnchor,
-		loading
-	      } = props;
-
-
   return (<div>
 	  {
 		  <div class="relativePosition">
 			  {
-				  loading && myTemplates.length === 0 ? (
+				   myTemplates.length === 0 ? (
 					  <div>Loading...</div>
 				  ) : (
 					  <>
@@ -110,24 +103,20 @@ function MyTemplates(props) {
 							  <Template
 								  headerName="Моя форма"
 								  btnName="Сохранить изменения"
-								  config={config}
-								  showModalAnchor={showModalAnchor}
-								  setShowModalAnchor={setShowModalAnchor}
 							  />
 						  }
 						  {
 							  currentView === 'filledFormsTable' &&
 							  <FormsTable
 								  forms={forms}
+								  loading={loading}
 							  />
 						  }
 						  {
 							  currentView === 'filledForm' &&
-							  <FilledForm
-							  />
+							  <Template/>
 						  }
-						  <SidePanel
-						  />
+						  <SidePanel/>
 					  </>
 				  )
 			  }
