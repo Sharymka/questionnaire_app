@@ -9,7 +9,7 @@ function FormsTable(props) {
 
 	const { forms, loading } = props;
 	const { pushView } = useContext(HistoryContext);
-	const { setFilledFormId, setSelectedTempId } = useContext(TemplateContext);
+	const { setFilledFormId } = useContext(TemplateContext);
 	const handleReadFormIconOnClick = (formId) => {
 		setFilledFormId(formId);
 		pushView('filledForm');

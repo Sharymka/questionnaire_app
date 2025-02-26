@@ -1,11 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import { MDBCard } from "mdb-react-ui-kit";
 import  {TemplateContext} from "../contexts/TemplateContext";
 import {SAVE_TEMPLATE_URL} from "../../url/url";
 import Template from "./Template/Template";
 import MyTemplates from "./MyTemplates/MyTemplates";
 import {HistoryContext} from "../contexts/HistoryContext";
-import useGetFormsByTempId from "../hooks/API/useGetFormsByTempId";
 
 function Home() {
 

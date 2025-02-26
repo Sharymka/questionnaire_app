@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {
 	AppBar,
 	Toolbar,
@@ -20,6 +20,7 @@ import {useNavigate} from "react-router-dom";
 
 function Header() {
 
+	const navigate = useNavigate();
 	const { isAuthenticated } = useContext(AuthContext);
 	const { filterTemplates } = useActionsTemplates();
 	const { setShowAllTemplates } = useContext(TemplateContext);
@@ -27,15 +28,28 @@ function Header() {
 	const [language, setLanguage] = useState('EN');
 	const [searchText, setSearchText] = useState('');
 
+
+	const isRedirected = useRef(false);
+
 	const handleThemeChange = () => {
 		setIsDarkMode((prevMode) => !prevMode);
 	};
 
 	const handleSearchChange = (event) => {
-		setShowAllTemplates(true);
+		if (event.target.value.length === 1 && !isRedirected.current) {
+			navigate('/templates');
+			isRedirected.current = true;
+		}
+
+		if (event.target.value.length === 0) {
+			isRedirected.current = false;
+		}
+
 		setSearchText(event.target.value);
 		filterTemplates(event.target.value);
 	};
+
+
 
 	const handleLanguageChange = (event) => {
 		setLanguage(event.target.value);

@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import useGetTemplateById from "../hooks/API/useGetTemplateById";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
-import useGetUsers from "../hooks/API/useGetUsers";
 import useGetFormById from "../hooks/API/useGetFormById";
 
 function withData(WrappedComponent) {

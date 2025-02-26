@@ -6,7 +6,6 @@ import {questionTopics} from "../../../const/const";
 import CustomTextField from "./CustomTextField";
 import CustomFormControlSelect from "./CustomFormControlSelect";
 import {TemplateContext} from "../../contexts/TemplateContext";
-import useGetUsers from "../../hooks/API/useGetUsers";
 
 function TemplateHeader(props) {
 
