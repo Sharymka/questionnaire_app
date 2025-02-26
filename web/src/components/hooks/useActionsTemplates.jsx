@@ -1,12 +1,14 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {deleteData, postData} from "../../Requests";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {getSaveEditedTemplateUrl} from "../../url/url";
 import useUploadImg from "./API/useUploadImg";
+import {useNavigate} from "react-router-dom";
 
 const useActionsTemplates = () => {
 
 	const { uploadImg } =  useUploadImg();
+	const navigate = useNavigate();
 
 	const {
 		title,
@@ -17,13 +19,14 @@ const useActionsTemplates = () => {
 		imgUrl,
 		templates,
 		setMessage,
-		resetTemplateStates,
 		setFilteredTemps,
 		setTemplates,
 		refreshTemps,
 		setRefreshTemps,
-		setCurrentView
+		setCurrentView,
+		filteredTemps
 	} = useContext(TemplateContext);
+
 
 	const saveTemplate = async (url)=> {
 
@@ -113,14 +116,15 @@ const useActionsTemplates = () => {
 	}
 
 	const filterTemplates = (substring) => {
-		console.log('substring', substring);
 		if(substring === '') {
 			setFilteredTemps(templates);
+			setTimeout(() =>{
+				navigate(-1);
+			}, 1000);
 			return;
 		}
 		const filteredTemps = templates.filter((temp) => temp.tags.some((tag) => tag.label.toLowerCase().includes(substring.toLowerCase())));
 		setFilteredTemps(filteredTemps);
-		console.log('filteredTemps', filteredTemps);
 	};
 
 	return {

@@ -27,7 +27,6 @@ function TemplateProvider({children}) {
 	const [config, setConfig] = useState({ baseConfig: {}, questionList: [] });
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
-	const [showAllTemplates, setShowAllTemplates] = useState(false);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
 	const [selectedTempId, setSelectedTempId] = useState(null);
 	const [filledFormId, setFilledFormId] = useState(null);
@@ -177,8 +176,6 @@ function TemplateProvider({children}) {
 		  markdownHover,
 		  setMarkdownHover,
 		  handleHoverMarkdown,
-		  showAllTemplates,
-		  setShowAllTemplates,
 		  filteredTemps,
 		  setFilteredTemps,
 		  templates,

@@ -1,4 +1,3 @@
-const User = require('../models/user');
 const {createUsers , findUsers, findAllUsers} = require("../services/userService");
 
 async function signUp(req, res) {

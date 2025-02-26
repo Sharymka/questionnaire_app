@@ -6,7 +6,6 @@ dotenv.config({ path: path.join(__dirname, '..', '.env') });
 const {signUp, signIn, signOut, getUsers} = require("./src/controllers/userController");
 const {get, create, update, remove, getTemplateById} = require("./src/controllers/templateController");
 const {getForms, createForm, getForm} = require("./src/controllers/formController");
-const session = require('express-session');
 const cloudinary = require('./src/config/cloudinaryConfig');
 const {isAuthenticated} = require("./src/middlewares/isAuthenticated");
 const { createAccount, createContact } = require('./src/services/salesForce');
