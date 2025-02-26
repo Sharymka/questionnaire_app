@@ -25,13 +25,6 @@ function CustomCheckBoxes(props) {
     const handleChange = (event) => {
         if (typeof(checkboxOnChange) === 'function') {
             checkboxOnChange(event.target.value);
-            // if (optionId !== null) {
-            //     checkboxOnChange(event.target.value, optionId);
-            // } else if (field) {
-            //     checkboxOnChange(event.target.value, field);
-            // }  else {
-
-            // }
         } else {
             console.error('onChange is not a function:', checkboxOnChange);
         }
@@ -85,14 +78,6 @@ function CustomCheckBoxes(props) {
                         </>
                     )
                 }
-
-              {/*<IconButton onClick={() => deleteOnClick(option.id)} aria-label="delete">*/}
-              {/*  <img*/}
-              {/*      className='block_size_max_20_20'*/}
-              {/*      src={DELETE_ICON_URL}*/}
-              {/*      alt="Delete icon"*/}
-              {/*  />*/}
-              {/*</IconButton>*/}
             </div>
         ))}
       </RadioGroup>

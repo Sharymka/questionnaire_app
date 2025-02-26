@@ -3,13 +3,15 @@ import useGetTemplateById from "../hooks/API/useGetTemplateById";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {useSetTempDataToState} from "../hooks/useSetTempDataToState";
 import useGetUsers from "../hooks/API/useGetUsers";
+import useGetFormById from "../hooks/API/useGetFormById";
 
-function withTemplateData(WrappedComponent) {
+function withData(WrappedComponent) {
 
 	return (props) => {
 
-		const { selectedTempId } = useContext(TemplateContext)
+		const { selectedTempId, filledFormId } = useContext(TemplateContext)
 		const { template } = useGetTemplateById();
+		const { form } = useGetFormById();
 		const [loading, setLoading] = useState(true);
 
 		const setTempDataToState = useSetTempDataToState();
@@ -21,12 +23,20 @@ function withTemplateData(WrappedComponent) {
 			}
 		}, [template]);
 
+		useEffect(() => {
+			if (filledFormId && form) {
+				setTempDataToState(form);
+				setLoading(false);
+			}
+		}, [form]);
+
 		const {
 			title,
 			topic,
 			description,
 			tags,
 			questions,
+			author,
 			imgUrl,
 			setTitle,
 			setTopic,
@@ -38,7 +48,7 @@ function withTemplateData(WrappedComponent) {
 		return (
 			<WrappedComponent
 				{...props}
-				loading={selectedTempId? loading: false}
+				loading={selectedTempId || filledFormId ? loading: false}
 				data={{
 					title: title,
 					topic: topic,
@@ -46,7 +56,7 @@ function withTemplateData(WrappedComponent) {
 					tags: tags,
 					imgUrl: imgUrl,
 					questions:questions,
-					user:template?.user.first_name + " " + template?.user.last_name,
+					user:author,
 				}}
 				actions={{
 					setTitle: setTitle,
@@ -60,4 +70,4 @@ function withTemplateData(WrappedComponent) {
 	};
 }
 
-export default withTemplateData;
+export default withData;

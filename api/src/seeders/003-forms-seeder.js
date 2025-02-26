@@ -5,12 +5,12 @@ module.exports = {
 		return queryInterface.bulkInsert('forms', [
 			{
 				id: 1,
-				idTemplate: 1,
+				idTemplate: 2,
 				idUser: 2,
 				questions: JSON.stringify([
 					{
 						id: 1,
-						question: "Что такое экология?",
+						name: "Что такое экология?",
 						answerType: "paragraph",
 						answer: "Экология — это наука, изучающая взаимосвязь живых существ с окружающей средой.",
 						selectedUsers: [{ id: 1, first_name: "Иван", last_name: "Иванов", email: "ivan@example.com" }],
@@ -18,7 +18,7 @@ module.exports = {
 					},
 					{
 						id: 2,
-						question: "Как экология влияет на наше здоровье?",
+						name: "Как экология влияет на наше здоровье?",
 						answerType: "paragraph",
 						answer: "Загрязнение окружающей среды увеличивает риск респираторных и сердечно-сосудистых заболеваний.",
 						selectedUsers: [{ id: 3, first_name: "Сергей", last_name: "Сергеев", email: "sergey@example.com" }],
@@ -26,7 +26,7 @@ module.exports = {
 					},
 					{
 						id: 3,
-						question: "Какие основные проблемы экологии существуют?",
+						name: "Какие основные проблемы экологии существуют?",
 						answerType: "paragraph",
 						answer: "Основные проблемы — это загрязнение воздуха, водных ресурсов и изменение климата.",
 						selectedUsers: [{ id: 4, first_name: "Александр", last_name: "Александров", email: "alexander@example.com" }],
@@ -34,7 +34,7 @@ module.exports = {
 					},
 					{
 						id: 4,
-						question: "Что можно сделать для улучшения состояния экологии?",
+						name: "Что можно сделать для улучшения состояния экологии?",
 						answerType: "paragraph",
 						answer: "Можно использовать альтернативные источники энергии и уменьшить количество пластиковых отходов.",
 						selectedUsers: null,
@@ -49,12 +49,12 @@ module.exports = {
 			// Записи для шаблона "Свадьба"
 			{
 				id: 6,
-				idTemplate: 2,
+				idTemplate: 1,
 				idUser: 2,
 				questions: JSON.stringify([
 					{
 						id: 1,
-						question: "Как вы планируете бюджет свадьбы?",
+						name: "Как вы планируете бюджет свадьбы?",
 						answerType: "singleLine",
 						answer: "Планируем бюджет исходя из 100 тысяч рублей.",
 						selectedUsers: [{ id: 1, first_name: "Иван", last_name: "Иванов", email: "ivan@example.com" }],
@@ -62,7 +62,7 @@ module.exports = {
 					},
 					{
 						id: 2,
-						question: "Как вы планируете бюджет свадьбы?",
+						name: "Как вы планируете бюджет свадьбы?",
 						answerType: "singleLine",
 						answer: "Бюджет составляется совместно с родителями и составляет около 200 тысяч рублей.",
 						selectedUsers: null,
@@ -70,7 +70,7 @@ module.exports = {
 					},
 					{
 						id: 3,
-						question: "Какие места для проведения свадьбы вы рассматриваете?",
+						name: "Какие места для проведения свадьбы вы рассматриваете?",
 						answerType: "checkboxes",
 						answer: "На природе",
 						selectedUsers: [{ id: 3, first_name: "Сергей", last_name: "Сергеев", email: "sergey@example.com" }],
@@ -78,7 +78,7 @@ module.exports = {
 					},
 					{
 						id: 4,
-						question: "Какой стиль свадьбы вам нравится?",
+						name: "Какой стиль свадьбы вам нравится?",
 						answerType: "singleLine",
 						answer: "Современный минимализм.",
 						selectedUsers: [{ id: 5, first_name: "Наталья", last_name: "Натальевна", email: "natalia@example.com" }],
@@ -98,7 +98,7 @@ module.exports = {
 				questions: JSON.stringify([
 					{
 						id: 1,
-						question: "Как вы определяете хорошее родительство?",
+						name: "Как вы определяете хорошее родительство?",
 						answerType: "paragraph",
 						answer: "Хорошее родительство — это внимательность и забота о развитии ребёнка.",
 						selectedUsers: [{ id: 1, first_name: "Иван", last_name: "Иванов", email: "ivan@example.com" }],
@@ -106,7 +106,7 @@ module.exports = {
 					},
 					{
 						id: 2,
-						question: "Как вы помогаете своему ребенку развивать навыки?",
+						name: "Как вы помогаете своему ребенку развивать навыки?",
 						answerType: "singleLine",
 						answer: "Занимаюсь с ним играми, развивающими логику и мышление.",
 						selectedUsers: null,
@@ -114,7 +114,7 @@ module.exports = {
 					},
 					{
 						id: 3,
-						question: "Как вы выбираете книги для своего ребенка?",
+						name: "Как вы выбираете книги для своего ребенка?",
 						answerType: "checkboxes",
 						answer: "Сказки",
 						selectedUsers: null,

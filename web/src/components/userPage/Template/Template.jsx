@@ -5,9 +5,9 @@ import {Button} from "@mui/material";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import ImageUploadModal from "./ImageUploadModal";
 import MessageBlock from "./MessageBlock";
-import withTemplateData from "../../hocs/withTemplateData";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
 import SidePanel from "./SidePanel";
+import withData from "../../hocs/withData";
 
 function Template(props) {
 
@@ -50,7 +50,7 @@ function Template(props) {
 
     return (
         loading ? (
-            <div>Загрузка</div>
+            <div>Loading... </div>
         ) : (
             <div class="relativePosition">
                 <>
@@ -91,4 +91,4 @@ function Template(props) {
 }
 
 Template.displayName = "Template";
-export default withTemplateData(Template);
+export default withData(Template);

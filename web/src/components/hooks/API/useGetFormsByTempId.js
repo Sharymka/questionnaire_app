@@ -5,35 +5,33 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 
 const useGetFormsByTempId = () => {
 
-	const { selectedTempId } = useContext(TemplateContext);
+	const { selectedTempId, currentView } = useContext(TemplateContext);
 	const [forms, setForms] = useState(filledForms.filter((form) => form.idTemplate === selectedTempId));
+	const [loading, setLoading] = useState(true);
 
 	useEffect(()=>{
 
-		if (!selectedTempId) return;
+		if (!selectedTempId &&  currentView !== "filledFormsTable") return;
 
 		const fetchData = async () => {
 			try {
-				const response = await getData('api/form');
-
-				const formsData = await response.json();
-
-				if (response.ok) {
-					setForms(formsData.filter((form) => form.idTemplate === selectedTempId));
-					console.log("forms were fetched successfully");
+				const { data, status } = await getData('api/forms');
+				if (status >= 200 && status < 300)  {
+					setForms(data.filter((form) => form.idTemplate === selectedTempId));
 				} else {
-					const errorText = await response.text(); // Читаем ответ как текст
-					console.log(`HTTP error! status: ${response.status}, message: ${errorText}`);
+					console.log("forms getting failed:", data.error);
 				}
 			} catch (error) {
-				console.log({'error': error.message});
+				console.log("error:", error.response.data.message || error.message);
+			}finally {
+				setLoading(false);
 			}
 		}
 		fetchData();
 
 	}, [selectedTempId]);
 
-	return { forms, setForms }
+	return { forms, setForms, loading }
 }
 
 export default useGetFormsByTempId;

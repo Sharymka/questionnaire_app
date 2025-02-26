@@ -1,45 +1,35 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getData} from "../../../Requests";
-import {filledForms} from "../../../const/forms";
 import {transformForm} from "../../../utilits/transformForm";
+import {TemplateContext} from "../../contexts/TemplateContext";
 
-const useGetFormById =  (filledFormId) => {
+const useGetFormById =  () => {
 
+	const { filledFormId, currentView} = useContext(TemplateContext);
 	const [form, setForm] = useState(null);
-	const [loading, setLoading] = useState(true);
-
-	useEffect(() => {
-		const matchedForm = filledForms.find((form) => form.id === filledFormId);
-		const transformedForm = transformForm(matchedForm);
-		setForm(transformedForm);
-	}, []);
 
 	useEffect(()=>{
-		const fetchData = async () => {
-			try {
-				const response = await getData(`api/form/${filledFormId}`);
-
-				const formsData = await response.json();
-
-				if (response.ok) {
-					// const matchedForm =  formsData.find((form) => form.id === filledFormId);
-					const transformedForm = transformForm(formsData);
-					setForm(transformedForm);
-				} else {
-					const errorText = await response.text();
-					console.log(`HTTP error! status: ${response.status}, message: ${errorText}`);
+			const fetchData = async () => {
+				if(currentView === 'filledForm') {
+					try {
+						const { data, status } = await getData(`api/form/${filledFormId}`);
+						if (status >= 200 && status < 300)  {
+							const transformedForm = transformForm(data);
+							setForm(transformedForm);
+						} else {
+							console.log("form getting failed:", data.error);
+						}
+					} catch (error) {
+						console.log("error:", error.response.data.message || error.message);
+					}
 				}
-			} catch (error) {
-				console.log({'error': error.message});
-			}finally {
-				setLoading(false);
 			}
-		}
+
 		fetchData();
 
 	}, []);
 
-	return { form, loading, setLoading }
+	return { form }
 }
 
 export default useGetFormById;

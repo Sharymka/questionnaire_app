@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import {useNavigate} from "react-router-dom";
 
 export const AuthContext = createContext(null);
@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
 		const storedUser = localStorage.getItem("user");
 
 		if (storedUser) {
-			console.log("Данные есть:", JSON.parse(storedUser));
 			setIsAuthenticated(true);
 			navigate('/home');
 		} else {

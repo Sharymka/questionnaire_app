@@ -22,21 +22,31 @@ function QuestionCard({ question, config }) {
 			handleTextFieldOnChange
 	      } = useActionsQuestion(targetQuestion);
 
-	const renderCheckboxes = () => (
-		<List sx={{ width: '100%' }}>
-			<CustomCheckBoxes
-				options={targetQuestion.checkboxes}
-				actions={{ checkboxOnChange }}
-				config={config}
-			/>
-		</List>
-	);
+	const renderCheckboxes = () => {
+			if (targetQuestion.answer) {
+				return (
+					<Typography className='text-field-underline-dashed textField_style color_grey'>
+						{targetQuestion.answer}
+					</Typography>
+				)
+			} else {
+				return (
+					<List sx={{ width: '100%' }}>
+						<CustomCheckBoxes
+							options={targetQuestion.checkboxes}
+							actions={{ checkboxOnChange }}
+							config={config}
+						/>
+					</List>
+				)
+			}
+	};
 
 	const renderTextField = () => {
 		if (config.answer === 'readOnly') {
 			return (
 				<Typography className='text-field-underline-dashed textField_style color_grey' variant="body1">
-					{answerTypeName[targetQuestion.answerType] || "Неизвестное имя"}
+					{targetQuestion.answer || answerTypeName[targetQuestion.answerType] || "Неизвестное имя"}
 				</Typography>
 			);
 		}
@@ -74,7 +84,7 @@ function QuestionCard({ question, config }) {
 						<Typography variant="body1" className="color_grey">
 							{targetQuestion.name || "Неизвестное имя"}
 						</Typography>
-						<div className="mb-3 width-50">
+						<div className="mb-3">
 							{renderAnswerField()}
 						</div>
 					</>

@@ -1,72 +1,45 @@
 import axios from "axios";
 
-export const postData = async (url, data, method = 'POST') => {
-	try {
-		const response = await axios({
-			method: method,
-			url: url,
-			data: data,
+export const postData = async (url, data) => {
+	try{
+		return await axios.post( url, data, {
 			withCredentials: true,
-			headers: {
-				'Content-Type': 'application/json',
-			},
 		});
-
-		return response;
-	} catch (error) {
+	} catch(error){
 		throw error;
 	}
+
 };
 
-export const postFileData = async (url, data, method = 'POST') => {
+export const postFileData = async (url, data) => {
 	try {
-		const response = await axios({
-			method: method,
-			url: url,
-			data: data,
-			withCredentials: true,
+	return await axios.post( url, data, {
+		withCredentials: true,
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},
 		});
-
-		return response;
 	} catch (error) {
 		throw error;
 	}
 };
 
 
-export const getData = async (url, method = 'GET') => {
+export const getData = async (url) => {
 	try {
-		const response = await axios({
-			method: method,
-			url: url,
+		return await axios.get(url, {
 			withCredentials: true,
-			headers: {
-				'Content-Type': 'application/json',
-			},
 		});
-
-		return response;
 	} catch (error) {
 		throw error;
 	}
 };
 
-
-export const deleteData = async (url, method = 'DELETE') => {
+export const deleteData = async (url) => {
 	try {
-		const response = await axios({
-			method: method,
-			url: url,
+		return await axios.delete( url, {
 			withCredentials: true,
-			headers: {
-				'Content-Type': 'application/json',
-			},
 		});
-
-		return response;
 	} catch (error) {
 		throw error;
 	}

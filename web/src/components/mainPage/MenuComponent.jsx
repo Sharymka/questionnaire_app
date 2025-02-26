@@ -12,27 +12,16 @@ function MenuComponent() {
 
     return (
         <>
-            {/* Иконка меню */}
             <IconButton aria-label="menu" onClick={handleOpenMenu}>
                 <MenuIcon />
             </IconButton>
-
-            {/* Выпадающее меню */}
             <Menu anchorEl={showMenu} open={Boolean(showMenu)} onClose={handleCloseMenu}>
-                {menuItems.map((item, index) => (
+                {menuItems?.map((item, index) => (
                     <MenuItem key={index} onClick={item.action}>
                         {item.label}
                     </MenuItem>
                 ))}
             </Menu>
-
-            {/* Модальное окно */}
-            {/*<ModalForm*/}
-            {/*    showModal={showModal}*/}
-            {/*    showForm={showForm}*/}
-            {/*    handleCloseForm={handleCloseForm}*/}
-            {/*    handleCloseModal={handleCloseModal}*/}
-            {/*/>*/}
         </>
     );
 }

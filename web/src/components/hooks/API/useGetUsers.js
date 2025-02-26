@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
-import { postData } from '../../../Requests';
+import {getData} from '../../../Requests';
 import {users} from "../../../const/const";
 
-const useGetUsers = (requestData) => {
+const useGetUsers = () => {
 	const [usersData, setUsersData] = useState(users);
 
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const response = await postData('api/users', requestData);
-				const data = await response.json();
-				if(response.ok) {
+				const { data, status } = await getData('api/users');
+				if (status >= 200 && status < 300)  {
 					setUsersData(data);
 					console.log("users were fetched successfully", data);
 				} else {
 					console.log("users getting failed", data.error);
 				}
 			}catch(error) {
-				console.log("users getting failed", error.message);
+				console.log("error:", error.response.data.message || error.message);
 			}
 		};
 		fetchUsers();

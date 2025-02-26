@@ -4,6 +4,7 @@ import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 import {getDefaultTempConfig} from "../../utilits/getDefaultTempConfig";
 import useGetTemplates from "../hooks/API/useGetTemplates";
 import {useNavigate} from "react-router-dom";
+import useGetUsers from "../hooks/API/useGetUsers";
 
 export const TemplateContext = React.createContext(null);
 
@@ -11,10 +12,12 @@ function TemplateProvider({children}) {
 
 	const navigate = useNavigate();
 	const { temps, refreshTemps, setRefreshTemps } = useGetTemplates();
+	const { usersData} = useGetUsers();
 	const [title, setTitle] = useState('');
 	const [topic, setTopic] = useState('education');
 	const [description, setDescription] = useState('');
 	const [tags, setTags] = useState([]);
+	const [author, setAuthor] = useState('');
 	const [imgUrl, setImgUrl] = useState(null);
 	const [templates, setTemplates] = useState(null);
 	const [filteredTemps, setFilteredTemps] = useState(null);
@@ -123,6 +126,7 @@ function TemplateProvider({children}) {
 		setConfig({ baseConfig: getDefaultTempConfig(currentView), questionList: [] });
 		setQuestionStatus(null);
 		setSelectedTempId(null);
+		setFilledFormId(null);
 		setImgUrl(null);
 		setFilledFormId(null);
 		setMessage('');
@@ -145,6 +149,8 @@ function TemplateProvider({children}) {
 		  topic,
 		  description,
 		  tags,
+		  author,
+		  setAuthor,
 		  imgUrl,
 		  setTitle,
 		  setTopic,
@@ -160,6 +166,7 @@ function TemplateProvider({children}) {
 		  questionStatus,
 		  setQuestionStatus,
 		  temps,
+		  usersData,
 		  setSelectedTempId,
 		  selectedTempId,
 		  filledFormId,

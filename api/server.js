@@ -30,7 +30,7 @@ api.post('/signIn', signIn);
 
 api.post('/signOut', isAuthenticated, signOut);
 
-api.post('/users',isAuthenticated, getUsers);
+api.get('/users',isAuthenticated, getUsers);
 
 api.post('/template',isAuthenticated, create);
 
@@ -42,7 +42,7 @@ api.post('/template/:id',isAuthenticated, update);
 
 api.delete('/template/:id', remove);
 
-api.get('/form',isAuthenticated, getForms);
+api.get('/forms',isAuthenticated, getForms);
 
 api.get('/form/:id',isAuthenticated, getForm);
 
