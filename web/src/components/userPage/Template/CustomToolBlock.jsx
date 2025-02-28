@@ -1,10 +1,10 @@
-import React from 'react';
-import {IconButton} from "@mui/material";
+import React, {useRef} from 'react';
 import {DELETE_ICON_BASKET_URL, EDIT_ICON_URL, SAVE_ICON_URL, SHOW_FORM_LIST} from "../../../url/url";
 import ActionButton from "./AcctionBtn";
 
 function CustomToolBlock(props) {
 
+	const actionBtnRef = useRef(null);
 	const {
 		classes,
 		config, // целый объект вида {id: 1, question:'edit', answer:'readOnly', checkboxMode: 'edit' ...}
@@ -13,6 +13,7 @@ function CustomToolBlock(props) {
 		handleShowForms,
 		showForms = false,
 	} = props;
+
   return (
 	  <div data-component='CustomToolBlock' className={`d-flex justify-content-center ${classes}`}>
 
@@ -42,9 +43,11 @@ function CustomToolBlock(props) {
 		  {
 			  showForms && (
 				  <ActionButton
+					  ref={actionBtnRef}
 					  imgSrc={SHOW_FORM_LIST}
 					  onClick={handleShowForms}
 					  altText="show image modal window"
+					  tooltipTitle="Заполненные формы"
 				  />
 			  )
 		  }
