@@ -16,7 +16,7 @@ function MyTemplates() {
 	const { forms, loading } = useGetFormsByTempId();
 	const { currentView, setSelectedTempId, setQuestionStatus, templates } = useContext(TemplateContext);
 	const { pushView } = useContext(HistoryContext);
-	const authUserData = JSON.parse(localStorage.getItem('user')) ?? { id: 1 };
+	const authUserData = JSON.parse(localStorage.getItem('user')) ?? { user: {id: 1} };
 
 	const [myTemplates, setMyTemplates] = useState([]);
 
@@ -43,7 +43,7 @@ function MyTemplates() {
 
   return (<div>
 	  {
-		  <div class="relativePosition">
+		  <div className="relativePosition">
 			  {
 				   myTemplates.length === 0 ? (
 					  <div>Loading...</div>

@@ -13,6 +13,7 @@
     "@hello-pangea/dnd": "^17.0.0",
     "@mui/icons-material": "^6.1.2",
     "@mui/material": "^6.1.2",
+    "@mui/styles": "^6.4.6",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -40,7 +41,6 @@
     "start": "react-scripts start",
     "prepare:static": "cp -r build ../api",
     "test": "react-scripts test",
-
     "eject": "react-scripts eject",
     "watch:build": "nodemon --watch src --ext js,jsx,scss,json --exec \"craco build && npm run prepare:static\""
   },
