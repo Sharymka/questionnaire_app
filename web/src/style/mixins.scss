@@ -1,9 +1,9 @@
-@mixin flex-row-center {
+
+@mixin flex-row-center-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  @content;
 }
 
 @mixin flex-col-center {

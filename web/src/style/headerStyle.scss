@@ -1,0 +1,55 @@
+@import 'variables';
+@import 'mixins';
+
+.appBar {
+  box-shadow: $box-shadow !important;
+  &.dark {
+    background-color: $dark-bg !important;
+  }
+  &.light {
+    background-color: $light-bg !important;
+  }
+}
+
+.searchBox {
+  @include flex-row-center-center {
+    border-bottom: 1$border-1px;
+    padding: 1px 0 1px 0;
+  }
+}
+
+.searchIcon {
+  margin-right: 4px;
+  &.dark {
+    color: #b9baba;
+  }
+  &.light {
+    color: #727476;
+  }
+}
+
+.darkMode {
+  color: $color-white-blue;
+}
+
+.lightMode {
+  color: $color-light-gray;
+}
+
+.MuiInput-root::before,
+.MuiInput-root::after {
+  border-bottom: none !important;
+}
+
+.searchTextField {
+  &.dark .MuiInputBase-root {
+    border-bottom: 1px solid #b9baba;
+  }
+  &.light .MuiInputBase-root {
+    border-bottom: 0.5px solid #727476;
+  }
+}
+
+.signInBtn {
+  @include flex-row-center-center;
+}

@@ -52,7 +52,7 @@ function Template(props) {
         loading ? (
             <div>Loading... </div>
         ) : (
-            <div class="relativePosition">
+            <div className="relativePosition">
                 <>
                     {renderImageUploadModal()}
                     {renderCardImg()}
