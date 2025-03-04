@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'mixins';
+@import 'headerStyle';
 
 html, body {
   height: 100vh;
@@ -57,7 +58,9 @@ h6, h5, span, p {
 
   .screen_min_425 {
     @include sm-devices-min {
-      @include flex-row-center;
+      @include flex-row-center-center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
   }
 

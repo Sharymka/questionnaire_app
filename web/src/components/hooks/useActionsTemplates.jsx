@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import {deleteData, postData} from "../../Requests";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {getSaveEditedTemplateUrl} from "../../url/url";
@@ -118,9 +118,6 @@ const useActionsTemplates = () => {
 	const filterTemplates = (substring) => {
 		if(substring === '') {
 			setFilteredTemps(templates);
-			setTimeout(() =>{
-				navigate(-1);
-			}, 1000);
 			return;
 		}
 		const filteredTemps = templates.filter((temp) => temp.tags.some((tag) => tag.label.toLowerCase().includes(substring.toLowerCase())));

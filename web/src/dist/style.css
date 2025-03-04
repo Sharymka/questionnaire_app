@@ -1,3 +1,57 @@
+.appBar {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
+}
+.appBar.dark {
+  background-color: #4A5568 !important;
+}
+.appBar.light {
+  background-color: #ffffff !important;
+}
+
+.searchBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1 1px solid #A0AEC0;
+  padding: 1px 0 1px 0;
+}
+
+.searchIcon {
+  margin-right: 4px;
+}
+.searchIcon.dark {
+  color: #b9baba;
+}
+.searchIcon.light {
+  color: #727476;
+}
+
+.darkMode {
+  color: #A0AEC0;
+}
+
+.lightMode {
+  color: #4f4f4f;
+}
+
+.MuiInput-root::before,
+.MuiInput-root::after {
+  border-bottom: none !important;
+}
+
+.searchTextField.dark .MuiInputBase-root {
+  border-bottom: 1px solid #b9baba;
+}
+.searchTextField.light .MuiInputBase-root {
+  border-bottom: 0.5px solid #727476;
+}
+
+.signInBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 html, body {
   height: 100vh;
   margin: 0;
