@@ -10,6 +10,11 @@ export const temp = [
 			{ id: 13, label: 'Экология' },
 			{ id: 1, label: 'Наука' }
 		],
+		user: {
+			first_name: "Иван",
+			last_name: "Иванов",
+			email: "ivan@example.com"
+		},
 		questions: [
 			{
 				id: 1,
@@ -60,6 +65,11 @@ export const temp = [
 			{ id: 21, label: 'Праздник' },
 			{ id: 12, label: 'Мероприятие' }
 		],
+		user: {
+			first_name: "Иван",
+			last_name: "Иванов",
+			email: "ivan@example.com"
+		},
 		questions: [
 			{
 				id: 1,
@@ -114,6 +124,11 @@ export const temp = [
 			{ id: 17, label: 'Семья' },
 			{ id: 18, label: 'Психология' }
 		],
+		user: {
+			first_name: "Иван",
+			last_name: "Иванов",
+			email: "ivan@example.com"
+		},
 		questions: [
 			{
 				id: 1,

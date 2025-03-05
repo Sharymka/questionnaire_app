@@ -1,6 +1,8 @@
 @import 'variables';
 @import 'mixins';
 @import 'headerStyle';
+@import "questionCard";
+@import "questionHead";
 
 html, body {
   height: 100vh;
@@ -168,9 +170,8 @@ h6, h5, span, p {
   flex-grow: 0.6;
 }
 
-.color_grey {
-  color: $TextFieldLabelColor;
-}
+
+
 
 .text-field-underline-none {
   .MuiInput-underline:before {

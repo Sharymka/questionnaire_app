@@ -4,7 +4,7 @@ function withAddParamForTextField(CustomTextField) {
 	return function WrappedWithAddParamForTextField(props) {
 		const { value, ...otherProps } = props;
 
-		const classes = 'text-field-underline-dashed textField_style';
+		const classes = `text-field-underline-dashed textField_style ${value['description']? 'ellipsis-input':''}`;
 		const placeholder = answerTypeName[value.answerType] || "Введите текст";
 		const variant = "standard";
 		const textFieldOptions = {

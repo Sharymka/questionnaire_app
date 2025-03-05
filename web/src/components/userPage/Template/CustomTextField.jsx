@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {styled, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 import withTextFieldWrap from "../../hocs/withTextFieldWrap";
 import {textFieldNames} from "../../../const/const";
 import {getFieldValue} from "../../../utilits/getFieldValue";
@@ -8,8 +8,6 @@ import {getAnswerTypeName} from "../../../utilits/getAnswerTypeName";
 
 
 function CustomTextField(props) {
-
-    // const { markdownHover, handleHoverMarkdown } = useContext(TemplateContext);
 
     const {
         value, //приходит объект типа {title: value}
@@ -40,63 +38,6 @@ function CustomTextField(props) {
     }
 
     const textFieldRef = useRef(null);
-
-    // const foundItem = markdownHover?.find((item) => item.id === optionId);
-
-    // const applyFormat = (format) => {
-    //     const input = textFieldRef.current?.querySelector('textarea') || textFieldRef.current?.querySelector('input');
-    //     const selectionStart = input.selectionStart;
-    //     const selectionEnd = input.selectionEnd;
-    //     const selectedText = value.substring(selectionStart, selectionEnd);
-    //
-    //     if (!selectedText) return;
-    //
-    //     let formattedText = '';
-    //
-    //     switch (format) {
-    //         case 'bold':
-    //             formattedText = `**${selectedText}**`;
-    //             break;
-    //         case 'italic':
-    //             formattedText = `*${selectedText}*`;
-    //             break;
-    //         case 'underline':
-    //             formattedText = `__${selectedText}__`;
-    //             break;
-    //         case 'clear':
-    //             formattedText = selectedText.replace(/(\*\*|\*|__|_)/g, '');
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //
-    //     const newDescription =
-    //         value.slice(0, selectionStart) +
-    //         formattedText +
-    //         value.slice(selectionEnd);
-    //
-    //     onChange(newDescription);
-    //
-    //     setTimeout(() => {
-    //         input.setSelectionRange(selectionStart + formattedText.length, selectionStart + formattedText.length);
-    //         input.focus();
-    //     }, 0);
-    // };
-
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //
-    //         if (!parentBlockRef.current && !parentBlockRef.current.contains(event.target) && btnRef?.current === event.target){
-    //             handleHoverMarkdown();
-    //         }
-    //     };
-    //
-    //     document.addEventListener('mousedown', handleClickOutside);
-    //
-    //     return () => {
-    //         document.removeEventListener('mousedown', handleClickOutside);
-    //     };
-    // }, []);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -135,22 +76,9 @@ function CustomTextField(props) {
             minRows={minRows}
             maxRows={maxRows}
             rows={rows}
-            // onClick={() => handleHoverMarkdown(optionId)}
         />
-        // {/*{*/}
-        // {/*    <div className={`custom-markdown ${foundItem?.value === true ? 'show' : ''}`}>*/}
-        // {/*        {foundItem?.value === true ? (*/}
-        // {/*            <>*/}
-        // {/*                <CustomMarkDown applyFormat={applyFormat}/>*/}
-        // {/*            </>*/}
-        // {/*        ) : (*/}
-        // {/*            <>*/}
-        // {/*                <ReactMarkdown>{value}</ReactMarkdown>*/}
-        // {/*            </>*/}
-        // {/*        )}*/}
-        // {/*    </div>*/}
-        // {/*}*/}
+
     );
 }
 
-export default withAddParamForTextField(withTextFieldWrap(CustomTextField));
+export default withAddParamForTextField(CustomTextField);

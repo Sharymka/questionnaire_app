@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from "react";
 import {getData} from "../../../Requests";
 import {transformForm} from "../../../utilits/transformForm";
 import {TemplateContext} from "../../contexts/TemplateContext";
+import {filledForms} from "../../../const/forms";
 
 const useGetFormById =  () => {
 
@@ -20,6 +21,9 @@ const useGetFormById =  () => {
 							console.log("form getting failed:", data.error);
 						}
 					} catch (error) {
+						const transformedForm = transformForm(filledForms.find((item)=> item.id === filledFormId));
+						console.log('transformedForm', transformedForm);
+						setForm(transformedForm);
 						console.log("error:", error.response.data.message || error.message);
 					}
 				}

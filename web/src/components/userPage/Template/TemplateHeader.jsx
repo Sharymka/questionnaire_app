@@ -54,7 +54,7 @@ function TemplateHeader(props) {
                       />:
                       <div className='d-flex justify-content-between'>
                           <CustomTypography value={{description: data.description}}/>
-                          <CustomTypography value={{user: data.user.first_name + ' ' + data.user.last_name}}/>
+                          <CustomTypography value={{user: data.user?.first_name + ' ' + data.user?.last_name}}/>
                       </div>
 
               }
