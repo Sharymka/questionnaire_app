@@ -11,6 +11,7 @@ export const temp = [
 			{ id: 1, label: 'Наука' }
 		],
 		user: {
+			id: 1,
 			first_name: "Иван",
 			last_name: "Иванов",
 			email: "ivan@example.com"
@@ -19,15 +20,15 @@ export const temp = [
 			{
 				id: 1,
 				name: "Что такое экология?",
-				accessLevel: "public",
+				access: "restricted",
 				answerType: "paragraph",
-				selectedUsers: [],
+				selectedUsers: [{first_name: "Иван", last_name: "Иванов", email: "ivan@example.com"}],
 				checkboxes: []
 			},
 			{
 				id: 2,
 				name: "Как экология влияет на наше здоровье?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -35,7 +36,7 @@ export const temp = [
 			{
 				id: 3,
 				name: "Какие основные проблемы экологии существуют?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -43,7 +44,7 @@ export const temp = [
 			{
 				id: 4,
 				name: "Что можно сделать для улучшения состояния экологии?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -66,6 +67,7 @@ export const temp = [
 			{ id: 12, label: 'Мероприятие' }
 		],
 		user: {
+			id: 1,
 			first_name: "Иван",
 			last_name: "Иванов",
 			email: "ivan@example.com"
@@ -74,7 +76,7 @@ export const temp = [
 			{
 				id: 1,
 				name: "Как вы планируете бюджет свадьбы?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "singleLine",
 				selectedUsers: [],
 				checkboxes: []
@@ -82,7 +84,7 @@ export const temp = [
 			{
 				id: 2,
 				name: "Какие места для проведения свадьбы вы рассматриваете?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "checkboxes",
 				selectedUsers: [],
 				checkboxes: [
@@ -94,7 +96,7 @@ export const temp = [
 			{
 				id: 3,
 				name: "Какой стиль свадьбы вам нравится?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "singleLine",
 				selectedUsers: [],
 				checkboxes: []
@@ -102,7 +104,7 @@ export const temp = [
 			{
 				id: 4,
 				name: "Как вы выбираете дату свадьбы?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -125,6 +127,7 @@ export const temp = [
 			{ id: 18, label: 'Психология' }
 		],
 		user: {
+			id: 1,
 			first_name: "Иван",
 			last_name: "Иванов",
 			email: "ivan@example.com"
@@ -133,7 +136,7 @@ export const temp = [
 			{
 				id: 1,
 				name: "Как вы определяете хорошее родительство?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
@@ -141,7 +144,7 @@ export const temp = [
 			{
 				id: 2,
 				name: "Как вы помогаете своему ребенку развивать навыки?",
-				accessLevel: "restricted",
+				access: "restricted",
 				answerType: "singleLine",
 				selectedUsers: [{ id: 3, first_name: "Светлана", last_name: "Кузнецова", email: "svetlana@example.com" }],
 				checkboxes: []
@@ -149,7 +152,7 @@ export const temp = [
 			{
 				id: 3,
 				name: "Как вы выбираете книги для своего ребенка?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "checkboxes",
 				selectedUsers: [],
 				checkboxes: [
@@ -161,7 +164,7 @@ export const temp = [
 			{
 				id: 4,
 				name: "Что для вас самое важное в воспитании детей?",
-				accessLevel: "public",
+				access: "public",
 				answerType: "paragraph",
 				selectedUsers: [],
 				checkboxes: []
