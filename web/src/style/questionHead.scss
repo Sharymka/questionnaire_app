@@ -1,0 +1,8 @@
+@import 'variables';
+@import 'mixins';
+
+.ellipsis-input .MuiInputBase-input {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

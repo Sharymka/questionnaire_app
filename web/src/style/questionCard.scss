@@ -1,0 +1,7 @@
+@import 'variables';
+@import 'mixins';
+
+.typographyQuestion {
+    color: $TextFieldLabelColor;
+    width: 80%;
+}

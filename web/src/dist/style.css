@@ -52,6 +52,17 @@
   align-items: center;
 }
 
+.typographyQuestion {
+  color: #323333;
+  width: 80%;
+}
+
+.ellipsis-input .MuiInputBase-input {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 html, body {
   height: 100vh;
   margin: 0;
@@ -204,10 +215,6 @@ code {
 
 .flex-grow-06 {
   flex-grow: 0.6;
-}
-
-.color_grey {
-  color: #323333;
 }
 
 .text-field-underline-none .MuiInput-underline:before {

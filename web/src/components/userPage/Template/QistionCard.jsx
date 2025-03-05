@@ -81,7 +81,7 @@ function QuestionCard({ question, config }) {
 
 				{config.question === 'readOnly' ? (
 					<>
-						<Typography variant="body1" className="color_grey">
+						<Typography variant="body1" className="typographyQuestion">
 							{targetQuestion.name || "Неизвестное имя"}
 						</Typography>
 						<div className="mb-3">
