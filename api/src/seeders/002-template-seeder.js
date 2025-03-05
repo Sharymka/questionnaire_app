@@ -65,9 +65,9 @@ module.exports = {
 					{
 						id: 1,
 						name: "Что такое экология?",
-						access: "public",
+						access: "restricted",
 						answerType: "paragraph",
-						selectedUsers: [],
+						selectedUsers: [{ id: 1, first_name: "Ivan", last_name: "Ivanov", email: "ivan@mail.ru"}],
 						checkboxes: []
 					},
 					{
