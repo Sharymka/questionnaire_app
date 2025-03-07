@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1 1px solid #A0AEC0;
+  border-bottom: 1px solid #A0AEC0;
   padding: 1px 0 1px 0;
 }
 
@@ -61,6 +61,30 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.imgUploadBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  min-width: 400px;
+  padding: 30px 14px 30px 14px;
+}
+
+.preViewBox {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 2px;
+  max-height: 300px;
 }
 
 html, body {
@@ -159,15 +183,15 @@ code {
 }
 
 .absolutePosition_0_30px {
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  position: absolute;
   top: 50px;
   right: -80px;
+  background-color: white;
 }
 
 .absolute_right_corner_pos {

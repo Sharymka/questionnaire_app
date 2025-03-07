@@ -35,12 +35,13 @@ function Template(props) {
     const { saveTemplate, updateTemplate } = useActionsTemplates();
 
     const renderImageUploadModal = () => (
-        showModalAnchor && <ImageUploadModal
-            open={showModalAnchor}
-            handleClose={setShowModalAnchor}
-            blobUrl={blobUrl}
-            setBlobUrl={setBlobUrl}
-        />
+        showModalAnchor &&
+            <ImageUploadModal
+                open={showModalAnchor}
+                handleClose={setShowModalAnchor}
+                blobUrl={blobUrl}
+                setBlobUrl={setBlobUrl}
+            />
   );
 
  const renderCardImg = () => {

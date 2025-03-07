@@ -25,7 +25,6 @@ const useActionsCheckboxes = (targetQuestion) => {
 			)
 		);
 	}
-
 	const addOptionOnClick = () => {
 		setQuestions(prevState => {
 			const updatedQuestions = [...prevState];
@@ -36,8 +35,6 @@ const useActionsCheckboxes = (targetQuestion) => {
 			return updatedQuestions;
 		});
 	};
-
-
 	const deleteOptionOnClick = (checkboxId) => {
 		setQuestions(prevState => {
 			const updatedQuestions = [...prevState];
@@ -47,7 +44,6 @@ const useActionsCheckboxes = (targetQuestion) => {
 			return updatedQuestions;
 		});
 	};
-
 	const textFieldOnChange = (value, checkboxId)=> {
 
 		setQuestions(prevState => {

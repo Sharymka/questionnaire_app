@@ -3,6 +3,7 @@
 @import 'headerStyle';
 @import "questionCard";
 @import "questionHead";
+@import "ImgUploadModal";
 
 html, body {
   height: 100vh;
@@ -93,35 +94,14 @@ h6, h5, span, p {
 }
 
 .absolutePosition_0_30px {
-  @include position_absolute;
-  @include sidePanel_style;
+  @include shadowed_rounded_corner_box;
   @include flex_column;
+  @include position_absolute {
     top: 50px;
     right: -80px;
+  }
+  background-color: white;
 }
-
-//.sidePanelPosition {
-//    background-color: white;
-//    border-radius: $border-radius-base;
-//    @include screen_size(768px, 1440px) {
-//      @include position_fixed {
-//        top: 27%;
-//        right: 2%;
-//      }
-//    }
-//  @include screen_size(1450px,1900px) {
-//    @include position_fixed {
-//      top: 27%;
-//      right: 13%;
-//    }
-//  }
-//  @include devices-1900_min {
-//    @include position_fixed {
-//      top: 27%;
-//      right: 23%;
-//    }
-//  }
-//}
 
 .absolute_right_corner_pos {
   @include position_absolute {
@@ -169,9 +149,6 @@ h6, h5, span, p {
 .flex-grow-06 {
   flex-grow: 0.6;
 }
-
-
-
 
 .text-field-underline-none {
   .MuiInput-underline:before {

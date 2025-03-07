@@ -6,6 +6,14 @@
   @content;
 }
 
+@mixin flex-col-center-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @content;
+}
+
 @mixin flex-col-center {
   display: flex;
   flex-direction: column;
@@ -98,11 +106,14 @@
 
 //стили боковой панели
 
-@mixin sidePanel_style {
-  background-color: white;
+@mixin shadowed_rounded_corner_box {
+  @include rounded_corner_box;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@mixin rounded_corner_box {
   border-radius: 5px;
-  padding: 5px;
+  border: 1px solid #ccc;
 }
 
 @mixin flex_column {
@@ -118,5 +129,13 @@
 
 @mixin position_absolute {
   position: absolute;
+  @content;
+}
+
+
+@mixin screen_center_block_position {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   @content;
 }
