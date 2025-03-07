@@ -1,70 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {
-	Button,
-	Modal,
-	Box,
-	Typography,
-	TextField, IconButton,
-} from '@mui/material';
-import { postFileData } from "../../../Requests";
-import { TemplateContext } from "../../contexts/TemplateContext";
+import React from 'react';
+import {Button, Modal, Box, Typography, IconButton} from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
-import imageCompression from 'browser-image-compression';
-
-const style = {
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	minWidth: 400,
-	bgcolor: 'background.paper',
-	border: '1px solid #3e3d3d',
-	borderRadius: '8px',
-	boxShadow: 24,
-	p: 4,
-};
+import useActionsImageUpload from "../../hooks/useActionsImageUpload";
 
 const ImageUploadModal = (props) => {
 
 	const { open, handleClose, setBlobUrl } = props;
-
-	const { setImgUrl, imgUrl } =  useContext(TemplateContext);
-	const [blobImage, setBlobImage] = useState(null);
-	const [localBlobUrl, setLocalBlobUrl] = useState(null);
-
-	useEffect(() => {
-		if (blobImage) {
-			const url = URL.createObjectURL(blobImage);
-			setLocalBlobUrl(url);
-
-			return () => URL.revokeObjectURL(url);
-		}
-	}, [blobImage]);
-
-	const sizeImageChange = async (event) => {
-		const file = event.target.files[0];
-		if (file) {
-			try {
-				const compressedFile = await imageCompression(file, {
-					maxSizeMB: 1,
-					maxWidthOrHeight: 1024,
-					useWebWorker: true,
-				});
-				setBlobImage(compressedFile);
-			} catch (error) {
-				console.error('Error during image compression:', error);
-			}
-		}
-	};
-
-	const handleUpload = () => {
-		setBlobUrl(localBlobUrl);
-		setImgUrl(blobImage);
-		setTimeout(()=> {
-			handleClose(false);
-		}, 200);
-
-	}
+	const { sizeImageChange, handleUpload, localBlobUrl, blobImage } = useActionsImageUpload(handleClose, setBlobUrl);
 
 	return (
 		<Modal
@@ -73,7 +15,7 @@ const ImageUploadModal = (props) => {
 			aria-labelledby="modal-title"
 			aria-describedby="modal-description"
 		>
-			<Box sx={style} className="d-flex flex-column align-items-center justify-content-center ">
+			<Box className="imgUploadBox">
 				<div className="absolute_right_corner_pos">
 					<Box>
 						<IconButton
@@ -83,22 +25,15 @@ const ImageUploadModal = (props) => {
 						</IconButton>
 					</Box>
 				</div>
-				<Typography className="d-flex flex-column align-items-center justify-content-center" id="modal-title"
-				            variant="h6" component="h2">
+				<Typography id="modal-title" variant="h6">
 					Загрузить изображение
 				</Typography>
 				{localBlobUrl && (
 					<Box
+						className="preViewBox"
 						component="img"
 						src={localBlobUrl}
 						alt="Предварительный просмотр"
-						sx={{
-							mt: 2,
-							maxWidth: '100%',
-							maxHeight: '300px',
-							border: '1px solid #ccc',
-							borderRadius: '4px',
-						}}
 					/>
 				)}
 				<input

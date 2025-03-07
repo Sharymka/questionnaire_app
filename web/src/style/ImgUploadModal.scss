@@ -1,0 +1,18 @@
+@import 'variables';
+@import 'mixins';
+
+.imgUploadBox {
+ @include position_absolute;
+ @include screen_center_block_position;
+ @include shadowed_rounded_corner_box;
+ @include  flex-col-center-center;
+  background-color: white;
+  min-width: 400px;
+  padding: 30px 14px 30px 14px;
+ }
+
+.preViewBox {
+  @include rounded_corner_box;
+  margin-top: 2px;
+  max-height: 300px;
+}
