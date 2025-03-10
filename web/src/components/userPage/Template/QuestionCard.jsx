@@ -16,11 +16,7 @@ function QuestionCard({ question, config }) {
 		: questions?.[questions.length - 1];
 
 	const { checkboxOnChange } = useActionsCheckboxes(targetQuestion, 'answer');
-
-	const { handleDeleteOnClick,
-			handleEditOnClick,
-			handleTextFieldOnChange
-	      } = useActionsQuestion(targetQuestion);
+	const { handleDeleteOnClick, handleEditOnClick, handleTextFieldOnChange } = useActionsQuestion(targetQuestion);
 
 	const renderCheckboxes = () => {
 			if (targetQuestion.answer) {

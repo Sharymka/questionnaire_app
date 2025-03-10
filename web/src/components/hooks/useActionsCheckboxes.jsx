@@ -1,10 +1,20 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {recalculateIds} from "../../utilits/recalculateIds";
 
-const useActionsCheckboxes = (targetQuestion) => {
+const useActionsCheckboxes = (targetQuestion, checkboxesList) => {
 
 	const { setQuestions } =useContext(TemplateContext);
+
+	useEffect(() => {
+		setQuestions(prevState => {
+			const updatedQuestions = [...prevState];
+			const targetQuestionIndex = updatedQuestions.findIndex(question => question.id === targetQuestion.id);
+			updatedQuestions[targetQuestionIndex].checkboxes = checkboxesList;
+			return updatedQuestions;
+		});
+	}, [checkboxesList]);
+
 
 	const checkboxOnChange = (checkboxId) => {
 
