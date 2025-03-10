@@ -10,6 +10,7 @@ import useActionsQuestion from "../../hooks/useActionsQuestion";
 import CustomAutoComplete from "./CustomAutoComplete";
 import useActionsSelectPrivateUsers from "../../hooks/useActionsSelectPrivateUsers";
 import {TemplateContext} from "../../contexts/TemplateContext";
+import useDragDropWrapper from "../../hooks/useDragDropWrapper";
 
 function QuestionTemplateBlock(props) {
 
@@ -17,7 +18,8 @@ function QuestionTemplateBlock(props) {
   const { usersData } = useContext(TemplateContext);
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
-
+  const [checkboxesList, setCheckboxesList] = useState(targetQuestion.checkboxes);
+  const withDragDropWrapper = useDragDropWrapper('checkboxesId', config.checkboxMode, targetQuestion.checkboxes, setCheckboxesList);
 
     const {
         handleTextFieldOnChange
@@ -28,7 +30,7 @@ function QuestionTemplateBlock(props) {
       addOptionOnClick,
       deleteOptionOnClick,
       textFieldOnChange
-  } = useActionsCheckboxes(targetQuestion);
+  } = useActionsCheckboxes(targetQuestion, checkboxesList);
 
   const {
       addUser,
@@ -40,43 +42,46 @@ function QuestionTemplateBlock(props) {
   const renderCheckboxes = () => (
       targetQuestion.answerType === 'checkboxes' &&
       <div className="width-50">
-          <div className="width-100">
-              <CustomCheckBoxes
-                  // btnRef={btnRef}
-                  options={targetQuestion.checkboxes}
-                  actions={{
-                      checkboxOnChange: checkboxOnChange,
-                      deleteOptionOnClick: deleteOptionOnClick,
-                      textFieldOnChange: textFieldOnChange
-                  }}
-                  config={config}
-              />
-          </div>
+          {
+              withDragDropWrapper(
+                  <div className="width-100">
+                      <CustomCheckBoxes
+                          // btnRef={btnRef}
+                          options={targetQuestion.checkboxes}
+                          actions={{
+                              checkboxOnChange: checkboxOnChange,
+                              deleteOptionOnClick: deleteOptionOnClick,
+                              textFieldOnChange: textFieldOnChange
+                          }}
+                          config={config}
+                      />
+                  </div>
+              )
+          }
           <CustomBtn
               ref={btnRef}
               btnName="Добавить вариант"
               onClick={addOptionOnClick}
           />
       </div>
-
   )
 
-  const renderUsers = () => (
-      targetQuestion.accessLevel === 'restricted' &&
-          <>
-              <NameOrEmailSorter
-                  sortBy={sortBy}
-                  setSortBy={setSortBy}
-                  selectedUsers={targetQuestion.selectedUsers}
-              />
-              <CustomAutoComplete
-                  value={targetQuestion.selectedUsers}
-                  options={usersData || []}
-                  label={LABEL_USERS}
-                  getOptionLabel={getOptionLabel}
-                  getTagChipLabel={getTagLabel}
-                  addTags={addUser}
-                  deleteTag={deleteSelectedUser}
+    const renderUsers = () => (
+        targetQuestion.accessLevel === 'restricted' &&
+        <>
+            <NameOrEmailSorter
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                selectedUsers={targetQuestion.selectedUsers}
+            />
+            <CustomAutoComplete
+                value={targetQuestion.selectedUsers}
+                options={usersData || []}
+                label={LABEL_USERS}
+                getOptionLabel={getOptionLabel}
+                getTagChipLabel={getTagLabel}
+                addTags={addUser}
+                deleteTag={deleteSelectedUser}
                   placeholder=''
                   sortBy={sortBy}
               />
