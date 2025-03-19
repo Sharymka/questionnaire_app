@@ -9,12 +9,6 @@ async function signUp(req, res) {
 		if(user) {
 			req.session.userId = user.id;
 
-			res.cookie('sessionId', req.sessionID, {
-				httpOnly: true,
-				secure: false,
-				maxAge: 86400000,
-			});
-
 			res.status(200).json({
 				sessionId: req.sessionID,
 				user: user,
@@ -29,9 +23,13 @@ async function signUp(req, res) {
 }
 
 async function signIn(req, res) {
+
 	const { email, password } = req.body;
+	console.log('email', email);
 	try {
 		const user = await findUsers( email, password);
+
+		console.log("Поиск пользователя с email:", user);
 		if(user) {
 			req.session.userId = user.id;
 
@@ -41,10 +39,12 @@ async function signIn(req, res) {
 			});
 
 		}else {
+
 			res.status(401).json({ error: "wrong email or password" });
 		}
 	} catch (error) {
-		res.status(500).json({ error: error.message});
+		console.error('Sign in error:', error);
+		res.status(500).json({ error: error.message || "Internal server error" });
 	}
 }
 

@@ -8,7 +8,23 @@ const db = mysql.createConnection({
 	user: process.env.DB_USER,
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_NAME,
-	port: 3307,
+	port: process.env.NODE_ENV === 'dev'? 3307 : 3306,
+});
+
+// const db = mysql.createConnection({
+// 	host: process.env.DB_ALWAYSDATA_HOST,
+// 	user: process.env.DB_ALWAYSDATA_USER,
+// 	password: process.env.DB_ALWAYSDATA_PASSWORD,
+// 	database: process.env.DB_ALWAYSDATA_NAME,
+// 	port: process.env.DB_ALWAYSDATA_PORT,
+// });
+
+db.connect((err) => {
+	if (err) {
+		console.error('Error bd connection :', err);
+	} else {
+		console.log('bd connection set up successfully');
+	}
 });
 
 const sessionStore = new MySQLStore({
@@ -34,7 +50,7 @@ const sessionMiddleware = session({
 	cookie: {
 		maxAge: 1000 * 60 * 60 * 24,
 		httpOnly: true,  // Защита от XSS
-		// secure: true,     // Только по HTTPS
+		secure: true,
 		signed: true      // Подпись sessionId
 	} // 24 часа
 });

@@ -23,7 +23,7 @@ function SignIn() {
             const { data, status } = await postData('api/signIn', signInData);
 
             if (status >= 200 && status < 300)  {
-                console.log("SignIn successfully:", data);
+                console.log("SignIn successfully:");
                 signIn(data);
             } else {
                 console.log("signIn failed:", data.error);

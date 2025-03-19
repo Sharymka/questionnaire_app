@@ -84,10 +84,6 @@ async function update(req, res) {
 			img
 		} = req.body;
 
-		console.log('---');
-		console.log(req.body.tags);
-		console.log(`data type [${typeof req.body.tags}]`);
-		console.log('---');
 
 		const editedTemplate = {
 			title:title,
