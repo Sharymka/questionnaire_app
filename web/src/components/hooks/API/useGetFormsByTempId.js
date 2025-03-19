@@ -6,6 +6,7 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 const useGetFormsByTempId = () => {
 
 	const { selectedTempId, currentView } = useContext(TemplateContext);
+
 	const [forms, setForms] = useState(filledForms.filter((form) => form.idTemplate === selectedTempId));
 	const [loading, setLoading] = useState(true);
 
@@ -16,7 +17,7 @@ const useGetFormsByTempId = () => {
 		const fetchData = async () => {
 			try {
 				const { data, status } = await getData('api/forms');
-				if (status >= 200 && status < 300)  {
+				if (status >= 200 && status < 300){
 					setForms(data.filter((form) => form.idTemplate === selectedTempId));
 				} else {
 					console.log("forms getting failed:", data.error);

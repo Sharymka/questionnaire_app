@@ -19,7 +19,6 @@ function useDragDropWrapper(droppableId, config, items, setItems) {
 				): (
 				<DragDropContext
 					onDragEnd={handleOnDragEnd}
-					onDragStart={() => console.log('dragStart')}
 				>
 					<Droppable droppableId={droppableId}>
 						{(provided) => (

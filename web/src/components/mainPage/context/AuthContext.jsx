@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 
 export const AuthContext = createContext(null);
@@ -7,6 +7,14 @@ export const AuthProvider = ({ children }) => {
 
 	const navigate = useNavigate();
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+	useEffect(() => {
+		const storedUser = localStorage.getItem("user");
+
+		if(storedUser) {
+			setIsAuthenticated(true);
+		}
+	}, [])
 
 	const signIn = (user) => {
 		localStorage.setItem("user", JSON.stringify(user));
@@ -22,6 +30,7 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const signOut = () => {
+		console.log('signOut');
 		localStorage.removeItem("user");
 
 		const storedUser = localStorage.getItem("user");

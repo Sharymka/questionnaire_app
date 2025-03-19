@@ -10,6 +10,8 @@ function Home() {
 
     const { resetStates } = useContext(HistoryContext);
 
+    const { pushView } = useContext(HistoryContext);
+
     const {
         setCurrentView,
         currentView,
@@ -52,6 +54,7 @@ function Home() {
                       className="card-body flex-grow-1 screen_max_425_block_width text-primary"
                       onClick={()=> {
                           setCurrentView('addTemplate');
+                          pushView('addTemplate');
                       }}
                   >
                       <h5 className="card-title">добавить шаблон</h5>

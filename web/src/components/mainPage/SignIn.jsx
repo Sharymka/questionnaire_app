@@ -6,7 +6,7 @@ import {AuthContext} from "./context/AuthContext";
 
 function SignIn() {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const { signIn , isAuthenticated } = useContext(AuthContext);
     const [signInData, setSignInData] = React.useState({
         email: 'ivan@mail.ru',
@@ -32,13 +32,13 @@ function SignIn() {
             console.log("error:", error.response.data.message || error.message);
         }
     }
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            // console.log(" userId in localStorage" + localStorage.getItem('userId'));
-            navigate('/home');
-        }
-    }, [isAuthenticated, navigate]);
+    //
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //         // console.log(" userId in localStorage" + localStorage.getItem('userId'));
+    //         navigate('/home');
+    //     }
+    // }, [isAuthenticated]);
 
   return (
       <section

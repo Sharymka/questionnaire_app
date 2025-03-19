@@ -13,7 +13,7 @@ const  useGetTemplates = () => {
 				const { data, status } = await getData("api/templates");
 				if (status >= 200 && status < 300)  {
 					setTemps(data);
-					console.log("templates getting success:", data);
+					console.log("templates getting success:");
 				} else {
 					console.log("templates getting failed:", data.error);
 				}

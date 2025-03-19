@@ -15,7 +15,6 @@ const useActionsCheckboxes = (targetQuestion, checkboxesList) => {
 		});
 	}, [checkboxesList]);
 
-
 	const checkboxOnChange = (checkboxId) => {
 
 		setQuestions(prevState =>

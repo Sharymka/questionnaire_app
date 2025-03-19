@@ -12,6 +12,7 @@ function FormsTable(props) {
 	const { setFilledFormId } = useContext(TemplateContext);
 	const handleReadFormIconOnClick = (formId) => {
 		setFilledFormId(formId);
+		localStorage.setItem('formId',  JSON.stringify(formId));
 		pushView('filledForm');
 	}
 

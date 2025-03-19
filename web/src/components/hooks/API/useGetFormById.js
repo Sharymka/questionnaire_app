@@ -14,7 +14,7 @@ const useGetFormById =  () => {
 				if(currentView === 'filledForm') {
 					try {
 						const { data, status } = await getData(`api/form/${filledFormId}`);
-						if (status >= 200 && status < 300)  {
+						if (status >= 200 && status < 300){
 							const transformedForm = transformForm(data);
 							setForm(transformedForm);
 						} else {

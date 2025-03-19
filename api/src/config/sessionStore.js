@@ -12,6 +12,8 @@ const db = mysql.createConnection({
 });
 
 const sessionStore = new MySQLStore({
+	clearExpired: true,
+	checkExpirationInterval: 900000,
 	schema: {
 		tableName: "sessions",
 		columnNames: {
@@ -29,7 +31,12 @@ const sessionMiddleware = session({
 	store: sessionStore,
 	resave: false,
 	saveUninitialized: false,
-	cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 часа
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24,
+		httpOnly: true,  // Защита от XSS
+		// secure: true,     // Только по HTTPS
+		signed: true      // Подпись sessionId
+	} // 24 часа
 });
 
 module.exports = sessionMiddleware;

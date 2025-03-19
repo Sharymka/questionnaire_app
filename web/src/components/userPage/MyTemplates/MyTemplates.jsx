@@ -28,11 +28,13 @@ function MyTemplates() {
 
 	const handleEditOnClick = (id, newView) => {
 		setSelectedTempId(id);
+		localStorage.setItem('id',  JSON.stringify(id));
 		pushView(newView);
 	}
 
 	const handleShowForms = (id, newView, questionState) => {
 		setSelectedTempId(id);
+		localStorage.setItem('tempId',  JSON.stringify(id));
 		pushView(newView);
 		setQuestionStatus(questionState);
 	}

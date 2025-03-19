@@ -9,8 +9,11 @@ import {AuthContext} from "../mainPage/context/AuthContext";
 function SelectedTemplate() {
 
 	const { id } = useParams();
+
 	const { isAuthenticated } = useContext(AuthContext);
+
 	const [showTemplateAnchor, setShowTemplateAnchor] = useState(true);
+
 	const { questionStatus, setSelectedTempId, setQuestionStatus } = useContext(TemplateContext);
 
 	useEffect(() => {
@@ -21,13 +24,13 @@ function SelectedTemplate() {
 				setQuestionStatus('readOnly');
 			}
 			setSelectedTempId(Number(id));
+			localStorage.setItem('tempId',  JSON.stringify(id));
 
 		}
 	}, [id]);
 
 	useEffect(() => {
 		if(questionStatus){
-			console.log('questionStatus:', questionStatus);
 			setShowTemplateAnchor(false);
 		}
 	}, [questionStatus])

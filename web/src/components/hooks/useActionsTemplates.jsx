@@ -45,18 +45,15 @@ const useActionsTemplates = () => {
 			img:cloudinaryImgUrl
 		}
 		try {
-			const response = await postData(url, requestData);
+			const { status, data } = await postData(url, requestData);
 
-			const responseData = await response.json();
-
-			if (response.ok) {
+			if (status >= 200 && status < 300){
 				setMessage({success: "Template was saved successfully"});
-				console.log("Template was saved successfully:", responseData);
+				console.log("Template was saved successfully:", data);
 				setRefreshTemps(!refreshTemps);
-
 			}else {
 				setMessage({error: "Template saving failed"});
-				console.log("Template saving failed:", responseData.error);
+				console.log("Template saving failed:", data.error);
 
 			}
 			setTimeout(() => {
@@ -70,9 +67,9 @@ const useActionsTemplates = () => {
 	}
 	const deleteTemplate = async(id) => {
 		try {
-			const response = await deleteData(`api/template/${id}`);
-			await response.json();
-			if(response.ok) {
+			const { status, data}  = await deleteData(`api/template/${id}`);
+
+			if (status >= 200 && status < 300){
 				setTemplates(prevState =>
 					prevState.filter((item) => item.id !== id));
 				console.log("template was deleted successfully");
@@ -96,9 +93,9 @@ const useActionsTemplates = () => {
 			img:imgUrl
 		}
 		try {
-			const response = await postData(url, requestData);
+			const { status, data} = await postData(url, requestData);
 
-			if(response.ok) {
+			if (status >= 200 && status < 300){
 				setMessage({success: "Template was updated successfully"});
 				console.log("Template was updated successfully");
 				setRefreshTemps(!refreshTemps);
