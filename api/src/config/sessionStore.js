@@ -50,7 +50,7 @@ const sessionMiddleware = session({
 	cookie: {
 		maxAge: 1000 * 60 * 60 * 24,
 		httpOnly: true,  // Защита от XSS
-		secure: true,
+		secure: false,
 		signed: true      // Подпись sessionId
 	} // 24 часа
 });
