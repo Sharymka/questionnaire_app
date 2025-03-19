@@ -18,19 +18,18 @@ function SignUp() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await postData('api/signUp', singUpData);
-			const user = await response.json();
+			const { data, status } = await postData('api/signUp', singUpData);
 
-			if (response.ok) {
-				console.log("Registered successfully:", user);
-				signIn(user);
+			if (status >= 200 && status < 300) {
+				console.log("Registered successfully:");
+				signIn(data);
 				setMessage('');
 			} else {
-				console.log("Registered failed:", user.error);
-				setMessage(user.error);
+				console.log("Registered failed:", data.error);
+				setMessage(data.error);
 			}
 		}catch (error) {
-			console.log("Registered failed:", error.message);
+			console.log("error:", error.response.data.message || error.message);
 		}
 	}
 
