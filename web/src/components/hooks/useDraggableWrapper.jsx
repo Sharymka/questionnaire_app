@@ -8,7 +8,7 @@ const wrapWithDraggable = (config, withHandle = false) => {
 	return (item, index,  wrappedElement) => {
 
 		return (
-			config === 'readOnly' ? (
+			config === 'readOnly' || config === 'select' ? (
 				wrappedElement
 			): (
 				<Draggable key={item.id} draggableId={String(item.id)} index={index}>

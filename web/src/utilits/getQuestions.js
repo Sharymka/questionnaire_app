@@ -3,11 +3,9 @@
 
 	 const user = JSON.parse(localStorage.getItem("user"));
 
-	 // const user = {
-		//  id: 1,
-		//  first_name: "Иван",
-		//  last_name: "Иванов",
-		//  email: "ivan@example.com"
-	 // }
+	 if (!user) {
+		 return questions.filter(question => question.access === 'public');
+	 }
+
 	 return questions.filter((question) => (userId === user.user.id && currentView === 'templateEditor' ) || question.access === 'public' || question.selectedUsers.some(selectedUser => selectedUser.id === user.id));
 }

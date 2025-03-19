@@ -40,11 +40,6 @@ async function create(req, res) {
 			tags
 		} = req.body;
 
-		console.log('---');
-		console.log(req.body.tags);
-		console.log(`data type [${req.body.tags}]`);
-		console.log('---');
-
 		const template = await createTemplate(
 			title,
 			topic,

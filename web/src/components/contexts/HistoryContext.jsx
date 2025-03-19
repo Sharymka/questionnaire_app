@@ -7,12 +7,18 @@ export const HistoryContext = createContext(null);
 
 const HistoryProvider = ({ children }) => {
 
-	const [ history, setHistory ] = useState([null]);
+	const [ history, setHistory ] = useState(() => {
+		// Читаем из localStorage при загрузке
+		const savedHistory = localStorage.getItem("history");
+		return savedHistory ? JSON.parse(savedHistory) : [];
+	});
+
 	const { currentView, setCurrentView } = useContext(TemplateContext);
 
 	useEffect(() => {
 		setCurrentView(history[history.length - 1]);
-	}, [history.length]);
+		localStorage.setItem("history", JSON.stringify(history));
+	}, [history]);
 
 	const resetStates = useCallback(() => {
 		const initialHistory = ['templatesTable'];
@@ -34,7 +40,6 @@ const HistoryProvider = ({ children }) => {
 			}
 			return prevState;
 		});
-
 	}
 
 	return <HistoryContext.Provider

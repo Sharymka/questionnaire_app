@@ -35,12 +35,6 @@ async function signIn(req, res) {
 		if(user) {
 			req.session.userId = user.id;
 
-			res.cookie('sessionId', req.sessionID, {
-				httpOnly: true,
-				secure: false,
-				maxAge: 86400000,
-			});
-
 			res.status(200).json({
 				sessionId: req.sessionID,
 				user: user,
@@ -56,8 +50,18 @@ async function signIn(req, res) {
 
 async function signOut(req, res) {
 	try {
-		req.session.userId = null;
-		res.status(200).json({ message: 'Logged out successfully' });
+		// req.session.userId = null;
+
+		req.session.destroy((err) => {
+			if (err) {
+				console.error("Ошибка при уничтожении сессии:", err);
+				return res.status(500).send("Ошибка сервера");
+			}
+
+			res.clearCookie("session_cookie_name");
+			return res.send("Вы вышли из системы");
+		});
+
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}

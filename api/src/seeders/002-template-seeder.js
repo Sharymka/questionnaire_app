@@ -126,7 +126,7 @@ module.exports = {
 					},
 					{
 						id: 3,
-						name: "Как вы выбираете книги для своего ребенка?",
+						name: "Какие вы выбираете книги для своего ребенка?",
 						access: "public",
 						answerType: "checkboxes",
 						selectedUsers: [],

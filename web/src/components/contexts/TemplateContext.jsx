@@ -19,8 +19,8 @@ function TemplateProvider({children}) {
 	const [tags, setTags] = useState([]);
 	const [author, setAuthor] = useState('');
 	const [imgUrl, setImgUrl] = useState(null);
-	const [templates, setTemplates] = useState(null);
-	const [filteredTemps, setFilteredTemps] = useState(null);
+	const [templates, setTemplates] = useState([]);
+	const [filteredTemps, setFilteredTemps] = useState([]);
 	const [questions, setQuestions] = useState([]);
 	const [currentView, setCurrentView] = useState(null);
 	const [questionStatus, setQuestionStatus] = useState(null);
@@ -28,8 +28,18 @@ function TemplateProvider({children}) {
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
-	const [selectedTempId, setSelectedTempId] = useState(null);
-	const [filledFormId, setFilledFormId] = useState(null);
+	const [selectedTempId, setSelectedTempId] = useState(() => {
+		return JSON.parse(localStorage.getItem('tempId'))? JSON.parse(localStorage.getItem('tempId')) : null;
+	});
+	const [filledFormId, setFilledFormId] = useState(() => {
+		return JSON.parse(localStorage.getItem('formId'))? JSON.parse(localStorage.getItem('formId')) : null;
+	});
+
+	useEffect(() => {
+		if(currentView === 'allTemplates') {
+			navigate('/templates');
+		}
+	}, [currentView])
 
 	useEffect(() => {
 		setTemplates(temps);
@@ -42,6 +52,14 @@ function TemplateProvider({children}) {
 	useEffect(() => {
 		if(currentView === 'addTemplate' || currentView === 'templatesTable' || currentView === 'allTemplates') {
 			resetTemplateStates();
+		}
+
+	}, [currentView]);
+
+	useEffect(() => {
+		if(currentView === 'addTemplate' || currentView === 'templatesTable' || currentView === 'allTemplates') {
+			localStorage.removeItem('tempId');
+			localStorage.removeItem('formId');
 		}
 
 	}, [currentView]);
@@ -88,28 +106,26 @@ function TemplateProvider({children}) {
 			access: item.access,
 		}));
 
+
 		const requestData =  {
 				idTemplate:selectedTempId,
-				idUser: JSON.parse(localStorage.getItem('user')).id,
+				idUser: JSON.parse(localStorage.getItem('user')).user.id,
 				questions: newQuestions
 			}
-
 		try {
-			const response = await postData(fullUrl, requestData);
-			const responseData = await response.json();
+			const { status, data } = await postData(fullUrl, requestData);
 
-			if(response.ok) {
+			if (status >= 200 && status < 300){
 				setMessage({success: "Form was saved successfully"});
-				console.log("Form was saved successfully:", responseData);
+				console.log("Form was saved successfully:", data);
 				setTimeout(()=> {
-					navigate('/home');
+					navigate('/templates');
 					setCurrentView("allTemplates");
-					// setMessage('');
 				}, 2000)
 
 			}else {
 				setMessage({error: "Form saving failed"});
-				console.log("Form saving failed:", responseData.error);
+				console.log("Form saving failed:", data.error);
 
 			}
 		} catch (error) {

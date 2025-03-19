@@ -11,7 +11,6 @@ export function useSetTempDataToState() {
 		setDescription(data.description);
 		setTags(data.tags);
 		setImgUrl(data.img);
-		// setQuestions(data.questions);
 		setQuestions(getQuestions(data.questions, data.userId, currentView));
 		setAuthor(data.user);
 	};

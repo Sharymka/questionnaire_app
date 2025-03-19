@@ -18,20 +18,21 @@ const SidePanel = (props ) => {
 
 	const { handleAddQuestionOnClick } = useActionsQuestion();
 	const { popView } = useContext(HistoryContext);
-	const { setMessage, config } = useContext(TemplateContext);
+	const { setMessage, config, currentView } = useContext(TemplateContext);
 	const { isAuthenticated } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 
 	const handleExitOnClick = () => {
-		if (isAuthenticated) {
-			navigate('/home');
-			setMessage('');
-		}else {
+		if (!isAuthenticated) {
 			navigate('/');
+			setMessage('');
 		}
 		popView();
 
+		// if (currentView === 'allTemplates') {
+		// 	navigate('/templates');
+		// }
 	}
 
 	return (
