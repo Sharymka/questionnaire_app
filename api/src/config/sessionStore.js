@@ -3,12 +3,15 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_NAME,
-	port: process.env.NODE_ENV === 'dev'? 3307 : 3306,
+	port: process.env.NODE_ENV === 'dev' ? 3307 : 3306,
+	waitForConnections: true,
+	connectionLimit: 10,  // можно увеличить при необходимости
+	queueLimit: 0,
 });
 
 // const db = mysql.createConnection({
@@ -19,11 +22,12 @@ const db = mysql.createConnection({
 // 	port: process.env.DB_ALWAYSDATA_PORT,
 // });
 
-db.connect((err) => {
+pool.getConnection((err, connection) => {
 	if (err) {
-		console.error('Error bd connection :', err);
+		console.error('Ошибка подключения к базе данных:', err);
 	} else {
-		console.log('bd connection set up successfully');
+		console.log('Подключение к базе данных успешно');
+		connection.release(); // обязательно освобождаем соединение обратно в пул
 	}
 });
 
@@ -39,7 +43,7 @@ const sessionStore = new MySQLStore({
 		}
 
 	}
-}, db);
+}, pool);
 
 const sessionMiddleware = session({
 	key: "session_cookie_name",
