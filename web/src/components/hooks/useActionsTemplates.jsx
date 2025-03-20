@@ -24,6 +24,7 @@ const useActionsTemplates = () => {
 		refreshTemps,
 		setRefreshTemps,
 		setCurrentView,
+		resetTemplateStates,
 		filteredTemps
 	} = useContext(TemplateContext);
 
@@ -54,10 +55,10 @@ const useActionsTemplates = () => {
 			}else {
 				setMessage({error: "Template saving failed"});
 				console.log("Template saving failed:", data.error);
-
 			}
 			setTimeout(() => {
 				setMessage(null);
+				resetTemplateStates();
 			}, 3000);
 
 		}catch (error) {
