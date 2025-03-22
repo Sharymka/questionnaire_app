@@ -118,7 +118,7 @@ function MyTemplates() {
 							  currentView === 'filledForm' &&
 							  <Template/>
 						  }
-						  <SidePanel/>
+						  {/*<SidePanel/>*/}
 					  </>
 				  )
 			  }
