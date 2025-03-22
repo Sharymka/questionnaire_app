@@ -35,6 +35,7 @@ const useActionsTemplates = () => {
 
 		if(imgUrl) {
 			cloudinaryImgUrl = await uploadImg();
+			console.log('cloudinaryImgUrl:', cloudinaryImgUrl);
 		}
 
 		const requestData = {
@@ -45,6 +46,7 @@ const useActionsTemplates = () => {
 			tags:tags,
 			img:cloudinaryImgUrl
 		}
+
 		try {
 			const { status, data } = await postData(url, requestData);
 
@@ -85,13 +87,20 @@ const useActionsTemplates = () => {
 	const updateTemplate = async(id) => {
 		const url = getSaveEditedTemplateUrl(id);
 
+		let  cloudinaryImgUrl = null;
+
+		if(imgUrl) {
+			cloudinaryImgUrl = await uploadImg();
+			console.log('cloudinaryImgUrl:', cloudinaryImgUrl);
+		}
+
 		const requestData = {
 			title:title,
 			topic:topic,
 			description:description,
 			questions:questions,
 			tags:tags,
-			img:imgUrl
+			img:cloudinaryImgUrl
 		}
 		try {
 			const { status, data} = await postData(url, requestData);
