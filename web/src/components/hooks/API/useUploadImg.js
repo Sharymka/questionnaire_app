@@ -11,10 +11,10 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 
 		 const uploadImg = async () => {
 			 try {
-				 const response = await postFileData('api/upload', formData);
-				 if (response.status === 202) {
-					 const data = await response.json();
-					 console.log('Uploading successfully finished. URL:', data.url);
+				 const { status, data } = await postFileData('api/upload', formData);
+
+				 if (status >= 200 && status < 300){
+					 console.log('Uploading successfully finished. URL:');
 					 return data.url;
 				 }
 			 } catch (error) {

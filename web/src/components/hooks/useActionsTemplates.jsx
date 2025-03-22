@@ -5,7 +5,7 @@ import {getSaveEditedTemplateUrl} from "../../url/url";
 import useUploadImg from "./API/useUploadImg";
 import {useNavigate} from "react-router-dom";
 
-const useActionsTemplates = () => {
+const useActionsTemplates = (blobUrl) => {
 
 	const { uploadImg } =  useUploadImg();
 	const navigate = useNavigate();
@@ -34,7 +34,9 @@ const useActionsTemplates = () => {
 		let  cloudinaryImgUrl = null;
 
 		if(imgUrl) {
+			console.log('imgUrl', imgUrl);
 			cloudinaryImgUrl = await uploadImg();
+			console.log('cloudinaryImgUrl:', cloudinaryImgUrl);
 		}
 
 		const requestData = {
@@ -45,6 +47,7 @@ const useActionsTemplates = () => {
 			tags:tags,
 			img:cloudinaryImgUrl
 		}
+
 		try {
 			const { status, data } = await postData(url, requestData);
 
@@ -85,13 +88,20 @@ const useActionsTemplates = () => {
 	const updateTemplate = async(id) => {
 		const url = getSaveEditedTemplateUrl(id);
 
+		let  cloudinaryImgUrl = null;
+
+		if(blobUrl) {
+			cloudinaryImgUrl = await uploadImg();
+			console.log('cloudinaryImgUrl:', cloudinaryImgUrl);
+		}
+
 		const requestData = {
 			title:title,
 			topic:topic,
 			description:description,
 			questions:questions,
 			tags:tags,
-			img:imgUrl
+			img:cloudinaryImgUrl ?? imgUrl,
 		}
 		try {
 			const { status, data} = await postData(url, requestData);

@@ -32,14 +32,14 @@ function Template(props) {
     const [showModalAnchor, setShowModalAnchor] = useState(false);
 
 
-    const { saveTemplate, updateTemplate } = useActionsTemplates();
+    const { saveTemplate, updateTemplate } = useActionsTemplates(blobUrl);
 
     const renderImageUploadModal = () => (
         showModalAnchor &&
             <ImageUploadModal
                 open={showModalAnchor}
                 handleClose={setShowModalAnchor}
-                blobUrl={blobUrl}
+                // blobUrl={blobUrl}
                 setBlobUrl={setBlobUrl}
             />
   );
