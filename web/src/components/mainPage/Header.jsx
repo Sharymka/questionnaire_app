@@ -5,14 +5,13 @@ import {
 	IconButton,
 	TextField,
 	Switch,
-	Box, Menu,
+	Box,
 } from '@mui/material';
 import { Search as SearchIcon, DarkMode, LightMode } from '@mui/icons-material';
 import SignOutBtn from './SignOutBtn';
 import SignInBtn from './SignInBtn';
 import SignUpBtn from './SignUpBtn';
 import { AuthContext } from './context/AuthContext';
-import LanguageSelector from "./LanguageSelector";
 import MenuComponent from "./MenuComponent";
 import useActionsTemplates from "../hooks/useActionsTemplates";
 import {useNavigate} from "react-router-dom";

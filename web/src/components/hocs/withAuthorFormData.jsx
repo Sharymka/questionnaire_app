@@ -1,6 +1,5 @@
 import {Typography} from "@mui/material";
 import {getFieldValue} from "../../utilits/getFieldValue";
-import {hasNonEmptyValues} from "../../utilits/hasNonEmptyValue";
 import {useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
 

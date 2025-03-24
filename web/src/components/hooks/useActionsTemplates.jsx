@@ -3,12 +3,10 @@ import {deleteData, postData} from "../../Requests";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {getSaveEditedTemplateUrl} from "../../url/url";
 import useUploadImg from "./API/useUploadImg";
-import {useNavigate} from "react-router-dom";
 
 const useActionsTemplates = (blobUrl) => {
 
 	const { uploadImg } =  useUploadImg();
-	const navigate = useNavigate();
 
 	const {
 		title,
@@ -25,7 +23,6 @@ const useActionsTemplates = (blobUrl) => {
 		setRefreshTemps,
 		setCurrentView,
 		resetTemplateStates,
-		filteredTemps
 	} = useContext(TemplateContext);
 
 
@@ -71,7 +68,7 @@ const useActionsTemplates = (blobUrl) => {
 	}
 	const deleteTemplate = async(id) => {
 		try {
-			const { status, data}  = await deleteData(`api/template/${id}`);
+			const { status }  = await deleteData(`api/template/${id}`);
 
 			if (status >= 200 && status < 300){
 				setTemplates(prevState =>
@@ -104,7 +101,7 @@ const useActionsTemplates = (blobUrl) => {
 			img:cloudinaryImgUrl ?? imgUrl,
 		}
 		try {
-			const { status, data} = await postData(url, requestData);
+			const { status } = await postData(url, requestData);
 
 			if (status >= 200 && status < 300){
 				setMessage({success: "Template was updated successfully"});
