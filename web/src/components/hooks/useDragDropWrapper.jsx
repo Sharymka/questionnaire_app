@@ -1,6 +1,4 @@
 import {DragDropContext, Droppable} from "@hello-pangea/dnd";
-import {useContext} from "react";
-import {TemplateContext} from "../contexts/TemplateContext";
 
 function useDragDropWrapper(droppableId, config, items, setItems) {
 

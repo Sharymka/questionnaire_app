@@ -20,14 +20,14 @@ function withData(WrappedComponent) {
 				setTempDataToState(template);
 				setLoading(false);
 			}
-		}, [template]);
+		}, [template, selectedTempId, setTempDataToState]);
 
 		useEffect(() => {
 			if (filledFormId && form) {
 				setTempDataToState(form);
 				setLoading(false);
 			}
-		}, [form]);
+		}, [form, filledFormId, setTempDataToState]);
 
 		const {
 			title,

@@ -18,13 +18,13 @@ const HistoryProvider = ({ children }) => {
 	useEffect(() => {
 		setCurrentView(history[history.length - 1]);
 		localStorage.setItem("history", JSON.stringify(history));
-	}, [history]);
+	}, [history, setCurrentView]);
 
 	const resetStates = useCallback(() => {
 		const initialHistory = ['templatesTable'];
 		setHistory(initialHistory);
 		setCurrentView(initialHistory[initialHistory.length - 1]);
-	}, []);
+	});
 
 	const pushView = (view) => {
 		setHistory((prevState) => {
@@ -35,8 +35,8 @@ const HistoryProvider = ({ children }) => {
 	const popView = () => {
 		setHistory((prevState) => {
 			if (prevState.length > 1) {
-				const updatedHistory = prevState.slice(0, -1);
-				return updatedHistory;
+				return prevState.slice(0, -1);
+
 			}
 			return prevState;
 		});

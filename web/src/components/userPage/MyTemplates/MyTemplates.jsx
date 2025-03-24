@@ -8,7 +8,6 @@ import FormsTable from "./FormsTable";
 import {TemplateContext} from "../../contexts/TemplateContext";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
-import SidePanel from "../Template/SidePanel";
 import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
 
 function MyTemplates() {
@@ -118,7 +117,6 @@ function MyTemplates() {
 							  currentView === 'filledForm' &&
 							  <Template/>
 						  }
-						  {/*<SidePanel/>*/}
 					  </>
 				  )
 			  }

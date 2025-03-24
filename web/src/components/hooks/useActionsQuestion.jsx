@@ -4,7 +4,7 @@ import {recalculateIds} from "../../utilits/recalculateIds";
 
 const useActionsQuestion = (targetQuestion) => {
 
-	const { setQuestions, setConfig, setQuestionStatus } = useContext(TemplateContext);
+	const { setQuestions, configDispatch, config, setQuestionStatus } = useContext(TemplateContext);
 
 	const handleAddQuestionOnClick = () => {
 		setQuestions((prevState) => {
@@ -56,26 +56,11 @@ const useActionsQuestion = (targetQuestion) => {
 	}
 
 	const handleEditOnClick = () => {
-		setConfig((prevState) => {
-			return {
-				...prevState,
-				questionList: prevState.questionList.map((item) => {
-					if (item.id === targetQuestion.id) {
-						if (item.question === 'edit') {
-							return { ...item, question: 'readOnly', checkboxMode:'readOnly' };
-						} else if (item.question === 'readOnly') {
-							return { ...item, question: 'edit', checkboxMode:'edit' };
-						}
-					}
-					return item;
-				}),
-			};
-		});
+		configDispatch({ type: 'TOGGLE_QUESTION_MODE', payload: targetQuestion.id});
 	}
 
 
 	const handleDeleteOnClick = () => {
-		console.log('handleDeleteOnClick');
 		setQuestions((prevState) => {
 			const updatedQuestions = prevState.filter(
 				(question) => question.id !== targetQuestion.id
@@ -87,16 +72,11 @@ const useActionsQuestion = (targetQuestion) => {
 			}));
 		});
 
-		setConfig((prevState) => {
-			const updatedConfigs = prevState.questionList.filter(
-				(question) => question.id !== targetQuestion.id
-			);
+		const updatedConfigs = config.questionList.filter(
+			(question) => question.id !== targetQuestion.id
+		);
 
-			return {...prevState, questionList: updatedConfigs.map((config, index) => ({
-					...config,
-					id: index + 1,
-				}))}
-		});
+		configDispatch({ type: 'REMOVE_QUESTION', payload: updatedConfigs });
 	};
 
 
