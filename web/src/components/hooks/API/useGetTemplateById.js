@@ -4,7 +4,7 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 import {temp} from "../../../const/temp";
 const useGetTemplateById = () => {
 
-	const { selectedTempId, currentView} = useContext(TemplateContext);
+	const { selectedTempId, currentView } = useContext(TemplateContext);
 	const [template, setTemplate] = useState(null);
 
 	useEffect(() => {
@@ -15,9 +15,9 @@ const useGetTemplateById = () => {
 
 					if (status >= 200 && status < 300){
 						setTemplate(data);
-						console.log("template getting success:", data);
+						console.log("getting template was successfully:", data);
 					} else {
-						console.log("template getting failed:", data.error);
+						console.log("getting templates failed:", data.error);
 					}
 				} catch (error) {
 					setTemplate(temp.find(item=> item.id === selectedTempId));

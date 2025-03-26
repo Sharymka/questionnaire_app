@@ -58,7 +58,7 @@ function TemplateProvider({children}) {
 		if(currentView === 'allTemplates') {
 			navigate('/templates');
 		}
-	}, [currentView, navigate])
+	}, [currentView])
 
 	useEffect(() => {
 		setTemplates(temps);
@@ -71,18 +71,11 @@ function TemplateProvider({children}) {
 	useEffect(() => {
 		if(currentView === 'addTemplate' || currentView === 'templatesTable' || currentView === 'allTemplates') {
 			resetTemplateStates();
-		}
-
-	}, [currentView, resetTemplateStates]);
-
-	useEffect(() => {
-		if(currentView === 'addTemplate' || currentView === 'templatesTable' || currentView === 'allTemplates') {
 			localStorage.removeItem('tempId');
 			localStorage.removeItem('formId');
 		}
 
 	}, [currentView]);
-
 
 
 	useEffect(() => {
@@ -143,7 +136,6 @@ function TemplateProvider({children}) {
 			console.log("Saving Form failed:", error.message);
 		}
 	}
-
 
 	const handleHoverMarkdown = (selectedId) => {
 		setMarkdownHover(prevState => prevState.map((option) => {
