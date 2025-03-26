@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
 
 	const navigate = useNavigate();
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	// const { resetTemplateStates } = useContext(TemplateContext);
 
 	useEffect(() => {
 		const storedUser = localStorage.getItem("user");
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }) => {
 		if (!storedUser) {
 			console.log("Данные Удалены:", storedUser);
 			setIsAuthenticated(false);
+			// resetTemplateStates();
 			navigate('/');
 		} else {
 			console.log("Данные в localStorage не удалились:", JSON.parse(storedUser));

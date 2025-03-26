@@ -27,7 +27,7 @@ function MyTemplates() {
 
 	const handleEditOnClick = (id, newView) => {
 		setSelectedTempId(id);
-		localStorage.setItem('id',  JSON.stringify(id));
+		localStorage.setItem('tempId',  JSON.stringify(id));
 		pushView(newView);
 	}
 

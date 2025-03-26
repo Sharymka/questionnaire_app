@@ -13,9 +13,9 @@ const  useGetTemplates = () => {
 				const { data, status } = await getData("api/templates");
 				if (status >= 200 && status < 300)  {
 					setTemps(data);
-					console.log("templates getting success:");
+					console.log("getting templates was successfully:");
 				} else {
-					console.log("templates getting failed:", data.error);
+					console.log("getting templates failed:", data.error);
 				}
 			} catch (error) {
 				console.log("error:", error.response.data.message || error.message);

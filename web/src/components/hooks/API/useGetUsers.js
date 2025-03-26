@@ -11,9 +11,9 @@ const useGetUsers = () => {
 				const { data, status } = await getData('api/users');
 				if (status >= 200 && status < 300)  {
 					setUsersData(data);
-					console.log("users were fetched successfully");
+					console.log("getting users was successfully");
 				} else {
-					console.log("users getting failed", data.error);
+					console.log("getting users failed", data.error);
 				}
 			}catch(error) {
 				console.log("error:", error.response.data.message || error.message);

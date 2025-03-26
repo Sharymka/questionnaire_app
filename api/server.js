@@ -99,6 +99,7 @@ app.post('/api/salesforce/createCustomer', async (req, res) => {
 
 
 app.get('/*', function (req, res) {
+	console.log(path.join(__dirname, 'build', 'index.html'));
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
