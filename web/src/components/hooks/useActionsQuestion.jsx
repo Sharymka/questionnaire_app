@@ -1,11 +1,10 @@
 import {useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {recalculateIds} from "../../utilits/recalculateIds";
-import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 
 const useActionsQuestion = (targetQuestion) => {
 
-	const { setQuestions,questions,  configDispatch, config, setQuestionStatus } = useContext(TemplateContext);
+	const { setQuestions,  configDispatch, config, setQuestionStatus } = useContext(TemplateContext);
 
 	const handleAddQuestionOnClick = () => {
 		setQuestions((prevState) => {
