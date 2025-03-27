@@ -9,12 +9,11 @@ import {TemplateContext} from "../../contexts/TemplateContext";
 import {HistoryContext} from "../../contexts/HistoryContext";
 import useActionsTemplates from "../../hooks/useActionsTemplates";
 import useGetFormsByTempId from "../../hooks/API/useGetFormsByTempId";
-import {getQuestionCardConfig} from "../../../utilits/getQuestionCardConfig";
 
 function MyTemplates() {
 
 	const { forms, loading } = useGetFormsByTempId();
-	const { currentView, setSelectedTempId, setQuestionStatus, templates, configDispatch } = useContext(TemplateContext);
+	const { currentView, setSelectedTempId, setQuestionStatus, templates } = useContext(TemplateContext);
 	const { pushView } = useContext(HistoryContext);
 	const authUserData = JSON.parse(localStorage.getItem('user')) ?? { user: {id: 1} };
 

@@ -1,5 +1,5 @@
-import React, {useContext, useEffect, useState} from "react";
-import { List, Typography } from "@mui/material";
+import React, {useContext, useState} from "react";
+import { Typography } from "@mui/material";
 import CustomToolBlock from "./CustomToolBlock";
 import CustomTextField from "./CustomTextField";
 import useActionsQuestion from "../../hooks/useActionsQuestion";
@@ -11,7 +11,7 @@ import { answerTypeName } from "../../../const/const";
 import useDragDropWrapper from "../../hooks/useDragDropWrapper";
 
 function QuestionCard({ question, config }) {
-	const { questions, setQuestions } = useContext(TemplateContext);
+	const { questions } = useContext(TemplateContext);
 	const targetQuestion = question.id
 		? questions?.find(item => item.id === question.id) || {}
 		: questions?.length ? questions[questions.length - 1] : {};
