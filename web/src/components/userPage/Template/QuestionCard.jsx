@@ -13,8 +13,8 @@ import useDragDropWrapper from "../../hooks/useDragDropWrapper";
 function QuestionCard({ question, config }) {
 	const { questions, setQuestions } = useContext(TemplateContext);
 	const targetQuestion = question.id
-		? questions?.find(item => item.id === question.id)
-		: questions?.[questions.length - 1];
+		? questions?.find(item => item.id === question.id) || {}
+		: questions?.length ? questions[questions.length - 1] : {};
 
 
 	const { handleDeleteOnClick, handleEditOnClick, handleTextFieldOnChange } = useActionsQuestion(targetQuestion);
