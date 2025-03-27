@@ -5,6 +5,11 @@ export const configReducer = (state, action) => {
 				...state,
 				baseConfig: action.payload,
 			};
+		case 'RESET_QUESTION_LIST':
+			return {
+				baseConfig: action.payload,
+				questionList: [],
+			};
 		case 'INIT_QUESTION_LIST':
 			return {
 				...state,
@@ -19,7 +24,7 @@ export const configReducer = (state, action) => {
 			return {
 				...state,
 				questionList: state.questionList.map((item) => {
-					if (item.id === action.payload.id) {
+					if (item.id === action.payload) {
 						if (item.question === 'edit') {
 							return { ...item, question: 'readOnly', checkboxMode:'readOnly' };
 						} else if (item.question === 'readOnly') {
@@ -32,10 +37,7 @@ export const configReducer = (state, action) => {
 		case 'REMOVE_QUESTION':
 			return {
 				...state,
-				questionList: action.payload.map((config, index) => ({
-					...config,
-					id: index + 1,
-				}))
+				questionList: action.payload,
 			}
 	}
 }

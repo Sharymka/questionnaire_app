@@ -45,7 +45,7 @@ function TemplateProvider({children}) {
 		setDescription('');
 		setQuestions([]);
 		setTags([]);
-		configDispatch({type:'BASE_CONFIG', payload: getDefaultTempConfig(currentView)});
+		configDispatch({type:'RESET_QUESTION_LIST', payload: getDefaultTempConfig(currentView)});
 		setQuestionStatus(null);
 		setSelectedTempId(null);
 		setFilledFormId(null);
@@ -77,27 +77,24 @@ function TemplateProvider({children}) {
 
 	}, [currentView]);
 
-
 	useEffect(() => {
 		const baseConfig = getDefaultTempConfig(currentView);
 
 		configDispatch({type:'BASE_CONFIG', payload: baseConfig});
 
-		//инициализируем настройки для списка вопросов, если вопросы подгрузились сразу из готового шаблона
+		//инициализируем настройки для списка вопросов, если вопросы подгрузились сразу из готового шаблона и конфиг при добпвлении первого вопроса проинициализируется тут
 		if (config?.questionList?.length === 0 && questions?.length > 0) {
-
 			configDispatch({ type: 'INIT_QUESTION_LIST', payload: questions.map((question) =>
 					getQuestionCardConfig(questionStatus, question.id)
 				), })
 		}
 
 		//инициализируем настройки для списка вопросов, в процессе добавления нового вопроса
-		if(config?.questionList?.length !== 0 && questions?.length > config.questionList?.length) {
-
+		if(config.questionList?.length !== 0 && questions?.length > config.questionList?.length) {
 			configDispatch({ type: 'ADD_NEW_QUESTION', payload: getQuestionCardConfig('edit', questions[questions?.length - 1]?.id), })
 		}
 
-	}, [questions?.length, currentView, questionStatus, config.questionList?.length, questions]);
+	}, [currentView, questions.length]);
 
 	const saveForm = async (url) => {
 		const fullUrl = `${window.location.origin}/${url}`;

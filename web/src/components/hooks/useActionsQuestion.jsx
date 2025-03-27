@@ -1,10 +1,11 @@
 import {useContext} from "react";
 import {TemplateContext} from "../contexts/TemplateContext";
 import {recalculateIds} from "../../utilits/recalculateIds";
+import {getQuestionCardConfig} from "../../utilits/getQuestionCardConfig";
 
 const useActionsQuestion = (targetQuestion) => {
 
-	const { setQuestions, configDispatch, config, setQuestionStatus } = useContext(TemplateContext);
+	const { setQuestions,questions,  configDispatch, config, setQuestionStatus } = useContext(TemplateContext);
 
 	const handleAddQuestionOnClick = () => {
 		setQuestions((prevState) => {
@@ -61,6 +62,7 @@ const useActionsQuestion = (targetQuestion) => {
 
 
 	const handleDeleteOnClick = () => {
+		console.log('targetQuestion id:', targetQuestion.id);
 		setQuestions((prevState) => {
 			const updatedQuestions = prevState.filter(
 				(question) => question.id !== targetQuestion.id
@@ -72,11 +74,16 @@ const useActionsQuestion = (targetQuestion) => {
 			}));
 		});
 
-		const updatedConfigs = config.questionList.filter(
+		const filteredConfigs = config.questionList.filter(
 			(question) => question.id !== targetQuestion.id
 		);
 
-		configDispatch({ type: 'REMOVE_QUESTION', payload: updatedConfigs });
+		const reIndexedConfig = filteredConfigs.map((question, index) => ({
+			...question,
+				id: index + 1
+		}));
+
+		configDispatch({ type: 'REMOVE_QUESTION', payload: reIndexedConfig });
 	};
 
 
