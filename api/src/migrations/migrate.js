@@ -12,13 +12,17 @@ async function migrate() {
 		await sequelize.authenticate();
 		console.log('Connection has been established successfully.');
 
-		await User.sync({ force:true });
+		// В продакшене используйте force: false (только создаёт таблицы, если их нет)
+		const force = process.env.MIGRATE_FORCE === 'true';
+		if (force) console.log('Внимание: MIGRATE_FORCE=true — таблицы будут пересозданы, данные удалены!');
+
+		await User.sync({ force });
 		console.log('Users table has been created successfully.');
 
-		await Template.sync({ force:true });
+		await Template.sync({ force });
 		console.log('Templates table has been created successfully.');
 
-		await Form.sync({ force:true });
+		await Form.sync({ force });
 		console.log('Form table has been created successfully.');
 
 	} catch (error) {
