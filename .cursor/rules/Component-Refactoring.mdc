@@ -1,0 +1,50 @@
+---
+description: Rules for refactoring and splitting React/Next.js components
+globs: "**/*.{tsx,ts,scss}"
+alwaysApply: false
+---
+
+# Component Refactoring
+
+When refactoring or splitting components, **always verify current best practices via Context7 first** before following existing project patterns.
+
+## Before refactoring, check with Context7:
+
+1. Query `/vercel/next.js` for current Next.js patterns (Server/Client components, data fetching)
+2. Query `/facebook/react` for current React patterns (hooks, composition, state management)
+3. Compare findings with existing project patterns — if they conflict, **prefer the up-to-date docs**
+
+## When splitting business logic from UI:
+
+- Check Context7: "React custom hooks best practices for separating logic from UI"
+- Check Context7: "Next.js app router client vs server component patterns"
+- Verify that `'use client'` is only added where truly needed
+
+## Example Context7 queries to run:
+
+### Architecture & Hooks:
+- "Best practices for custom hooks composition in React"
+- "Next.js app router recommended component architecture"
+- "React Server Components data fetching patterns"
+
+### Responsive / Adaptive:
+- "Next.js Image component responsive sizes and fill prop"
+- "React patterns for responsive rendering without layout shift"
+- "CSS media queries vs JavaScript for responsive components"
+
+### TypeScript — Types & Interfaces:
+- "React TypeScript best practices for component props typing"
+- "TypeScript interface vs type for React props"
+- "Generic React components TypeScript patterns"
+- "React.FC vs function declaration typing in TypeScript"
+
+### Validation:
+- "React Hook Form validation patterns with Zod or Yup"
+- "Next.js server actions form validation best practices"
+- "Client-side vs server-side validation patterns in Next.js"
+
+## After checking docs, then:
+
+- Analyze existing project patterns (model/ui split, FSD structure)
+- Merge fresh best practices with project conventions
+- Flag if existing patterns are outdated

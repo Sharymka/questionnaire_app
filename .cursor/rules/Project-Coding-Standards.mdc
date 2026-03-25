@@ -1,0 +1,217 @@
+---
+alwaysApply: true
+---
+
+# Project Coding Standards
+
+## Architecture — Feature-Sliced Design (FSD)
+
+- Layers: `app` → `widgets` → `features` → `shared`
+- Each slice has `ui/`, `model/`, `lib/` subfolders
+- Imports go only downward: `features` can import from `shared`, never from `widgets` or `app`
+- Public API through `index.ts` barrel exports at slice root
+
+## Component Patterns
+
+### Server vs Client Components (Next.js App Router)
+
+- Components are Server Components by default — keep them that way unless they need interactivity
+- Add `'use client'` only when the component uses: hooks (`useState`, `useEffect`, event handlers, browser APIs)
+- Data fetching belongs in Server Components; pass data down to Client Components as props
+- Use `Suspense` for streaming dynamic content within Server Component pages
+
+```tsx
+// Server Component (page) fetches data, Client Component renders UI
+export default async function Page() {
+  const data = await getData()
+  return <ClientView data={data} />
+}
+```
+
+### Custom Hooks — Business Logic Separation
+
+- Each component's business logic lives in `model/` folder next to the component
+- Hook file: `model/use-<name>.ts`, barrel: `model/index.ts`
+- Hook returns only what the UI needs: computed values, state, handlers, refs
+- Keep hooks focused — split into multiple hooks if responsibilities diverge
+- Custom hooks share logic, not state: each call creates independent state
+
+### Memoization — Automatic Analysis
+
+When writing or reviewing or check a component, **proactively analyze the render tree** and decide whether `React.memo`, `useCallback`, and `useMemo` are needed. Do not wait for the user to ask.
+
+#### Decision algorithm:
+
+1. **Look at each child component the parent renders.** For each child, ask:
+   - Does the parent re-render frequently (state updates, context changes, parent re-renders)?
+   - Is the child expensive to render (complex JSX, many elements, heavy computations)?
+   - Is the child rendered in a list (`.map()`)?
+   - If **yes to any** → wrap the child in `React.memo`
+
+2. **For each function passed as a prop to a `memo`-wrapped child**, ask:
+   - Is it defined inline or recreated on each render?
+   - If **yes** → wrap it in `useCallback`
+
+3. **For each object/array passed as a prop to a `memo`-wrapped child**, ask:
+   - Is it created on each render (literal `{}`, `[]`, `.filter()`, `.map()` result)?
+   - If **yes** → wrap it in `useMemo`
+
+4. **Don't memoize when:**
+   - The component is trivial (a few HTML elements, no children)
+   - Props are always primitives (`string`, `number`, `boolean`) that are already stable
+   - The parent rarely re-renders
+   - React Compiler is enabled (handles memoization automatically)
+
+#### Summary table:
+
+| Situation | Action |
+|---|---|
+| Child in `.map()` with callbacks | `memo(Child)` + `useCallback` for handlers |
+| Child receives object/array prop | `memo(Child)` + `useMemo` for the data |
+| Child receives only primitives, parent re-renders often | `memo(Child)` is enough |
+| Expensive computation in render | `useMemo` (even without `memo` on child) |
+| Simple child, parent rarely updates | No memoization needed |
+
+#### Example — full pattern:
+
+```tsx
+const Parent = ({ items, onSelect }) => {
+  const sorted = useMemo(() => sortItems(items), [items]);
+  const handleSelect = useCallback((id: string) => onSelect(id), [onSelect]);
+
+  return sorted.map(item => (
+    <CardItem key={item.id} item={item} onSelect={handleSelect} />
+  ));
+};
+
+const CardItem = memo(function CardItem({ item, onSelect }) {
+  return <div onClick={() => onSelect(item.id)}>{item.name}</div>;
+});
+```
+
+Always provide correct dependency arrays; never omit them.
+
+## Data Fetching
+
+- Server Components: use `async/await` with `fetch` directly
+- Client Components: use RTK Query hooks (`useQuery`, `useMutation`)
+- Cache strategy: `force-cache` for static, `no-store` for dynamic, `next: { revalidate: N }` for ISR
+- Colocate fetching with the component that needs it — avoid prop drilling through many layers
+
+## State Management
+
+- Global state: Redux Toolkit (`useAppSelector`, `useActions`)
+- Server cache: RTK Query
+- Local UI state: `useState` inside component or custom hook
+- Form state: `react-hook-form` where applicable
+- Avoid duplicating server state in Redux — let RTK Query cache handle it
+
+## Styling
+
+- CSS Modules (`.module.scss`) colocated with component
+- Global styles currently in `src/assets/styles/` (legacy, not FSD-compliant)
+- **Target location:** `src/shared/styles/` — move when refactoring
+- Design tokens: `variables.scss`, layout helpers: `mixins.scss`
+- Import via alias: `@import '@/assets/styles/variables.scss'` (current), target: `@/shared/styles/variables.scss`
+
+## Responsive / Adaptive Design
+
+### Breakpoints (project standard):
+
+- Mobile: `< 768px`
+- Tablet: `768px — 1200px`
+- Desktop: `> 1200px`
+
+### CSS-first approach (preferred):
+
+- Use `@media` queries in `.module.scss` for layout changes — this keeps the component Server-compatible
+- Breakpoint variables should be imported from a shared place, not redefined per file
+
+### Current project reality: Desktop-first (`max-width`)
+
+The project currently uses **desktop-first** (`max-width`) — base styles target desktop, media queries shrink for smaller screens. This is the existing convention.
+
+```scss
+.card {
+  flex-direction: row;              // desktop (base)
+
+  @media (max-width: 768px) {
+    flex-direction: column;          // mobile override
+  }
+}
+```
+
+**Shared breakpoints** are defined in `src/assets/styles/variables.scss`:
+- `$breakpoint-mobile: 768px`
+- `$breakpoint-tablet: 1200px`
+- `$breakpoint-desktop-lg: 1400px`
+- `$breakpoint-landscape-height: 500px`
+
+Always import and use these instead of defining local `$mobile`/`$tablet` per file.
+
+### JS hooks (only when CSS is not enough):
+
+- `useIsMobile()`, `useIsTablet()`, `useIsDesktop()` from `@/shared/lib/hooks`
+- These force `'use client'` — use only when you need to conditionally render entirely different component trees
+- For hiding/showing elements, prefer CSS `display: none` over conditional rendering
+
+### Next.js Image responsive:
+
+- Use `sizes` prop: `sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"`
+- Use `fill` + `sizes` for fluid images within containers
+
+## Internationalization
+
+- All user-facing text through `useT('<Namespace>')` or server-side `getTranslations`
+- Date/number formatting through `useFormatter` from `next-intl`
+
+## Context7 MCP — Setup & Usage
+
+### Prerequisite: установка Context7
+
+Context7 — MCP-сервер, который даёт Cursor доступ к актуальной документации библиотек.
+Каждый разработчик должен настроить его **один раз** на своей машине.
+
+**Требования:** Node.js ≥ 18
+
+**Быстрая установка (рекомендуется):**
+```bash
+npx ctx7 setup --cursor
+```
+Команда автоматически создаст API-ключ и пропишет конфигурацию. После выполнения — перезапустить Cursor.
+
+**Ручная установка:**
+
+Отредактировать `~/.cursor/mcp.json` (создать, если не существует):
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "<YOUR_API_KEY>"
+      }
+    }
+  }
+}
+```
+API-ключ можно получить на https://context7.com. После сохранения — перезапустить Cursor.
+
+> **Важно:** `~/.cursor/mcp.json` — глобальный файл, он не попадает в репозиторий. Каждый разработчик настраивает его самостоятельно.
+
+### Когда использовать Context7
+
+- Library documentation and API references
+- React / Next.js current best practices
+- External package usage patterns
+- Verifying that existing project patterns are not outdated
+
+### Context7 library IDs
+- Next.js: `/vercel/next.js`
+- React: `/reactjs/react.dev`
+
+## Debugging
+
+- Analyze project code first
+- Do not rely on external docs unless needed
+- Check linter output after edits
