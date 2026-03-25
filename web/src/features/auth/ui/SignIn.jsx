@@ -19,7 +19,7 @@ function SignIn() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data, status } = await postData('api/signIn', signInData);
+            const { data, status } = await postData('/signIn', signInData);
 
             if (status >= 200 && status < 300)  {
                 console.log("SignIn successfully:");

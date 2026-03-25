@@ -11,7 +11,7 @@ const useGetTemplateById = () => {
 		const fetchData = async () => {
 			if(currentView === 'templateEditor' || currentView === 'form') {
 				try {
-					const { data, status} = await getData(`/api/template/${selectedTempId}`);
+					const { data, status} = await getData(`/template/${selectedTempId}`);
 
 					if (status >= 200 && status < 300){
 						setTemplate(data);

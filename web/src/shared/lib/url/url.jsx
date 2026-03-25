@@ -9,11 +9,11 @@ export const EDIT_ICON_URL= "https://res.cloudinary.com/dewxfivxh/image/upload/v
 export const READ_ICON_URL = "https://res.cloudinary.com/dewxfivxh/image/upload/v1729712451/read-svgrepo-com_md0ez4.svg";
 export const DELETE_ICON_BASKET_URL = "https://res.cloudinary.com/dewxfivxh/image/upload/v1728644862/delete-svgrepo-com_2_hucmdi.svg";
 
-export const getSaveEditedTemplateUrl = (id) => `api/template/${id}`;
+export const getSaveEditedTemplateUrl = (id) => `/template/${id}`;
 
 
-export const SAVE_TEMPLATE_URL="api/template";
-export const SAVE_FORM_URL="api/form";
+export const SAVE_TEMPLATE_URL="/template";
+export const SAVE_FORM_URL="/form";
 
 export const RU_FLAG_URL = "https://res.cloudinary.com/dewxfivxh/image/upload/v1729971895/flag-ru-svgrepo-com_rbahyy.svg";
 

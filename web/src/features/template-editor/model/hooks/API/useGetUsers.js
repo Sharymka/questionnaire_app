@@ -8,7 +8,7 @@ const useGetUsers = () => {
 	useEffect(() => {
 		const fetchUsers = async () => {
 			try {
-				const { data, status } = await getData('api/users');
+				const { data, status } = await getData('/users');
 				if (status >= 200 && status < 300)  {
 					setUsersData(data);
 					console.log("getting users was successfully");

@@ -97,7 +97,6 @@ function TemplateProvider({children}) {
 	}, [currentView, questions.length]);
 
 	const saveForm = async (url) => {
-		const fullUrl = `${window.location.origin}/${url}`;
 		const newQuestions = questions.map((item) => ({
 			id: item.id,
 			question: item.name,
@@ -114,7 +113,7 @@ function TemplateProvider({children}) {
 				questions: newQuestions
 			}
 		try {
-			const { status, data } = await postData(fullUrl, requestData);
+			const { status, data } = await postData(url, requestData);
 
 			if (status >= 200 && status < 300){
 				setMessage({success: "Form was saved successfully"});

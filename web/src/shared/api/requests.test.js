@@ -1,62 +1,69 @@
-jest.mock('axios', () => ({
-	__esModule: true,
-	default: {
+jest.mock('axios', () => {
+	const instance = {
 		get: jest.fn(),
 		post: jest.fn(),
 		delete: jest.fn(),
-	},
-}));
+		interceptors: {
+			request: { use: jest.fn() },
+			response: { use: jest.fn() },
+		},
+	};
+	return {
+		__esModule: true,
+		default: {
+			create: jest.fn(() => instance),
+		},
+		_instance: instance,
+	};
+});
 
 import axios from 'axios';
 import { deleteData, getData, postData, postFileData } from './requests';
+
+const client = axios._instance;
 
 describe('shared/api/requests', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 	});
 
-	it('getData calls axios.get with withCredentials', async () => {
+	it('getData calls apiClient.get', async () => {
 		const response = { data: { ok: true } };
-		axios.get.mockResolvedValue(response);
+		client.get.mockResolvedValue(response);
 
-		const result = await getData('/api/test');
+		const result = await getData('/test');
 
-		expect(axios.get).toHaveBeenCalledWith('/api/test', { withCredentials: true });
+		expect(client.get).toHaveBeenCalledWith('/test');
 		expect(result).toBe(response);
 	});
 
-	it('postData calls axios.post with withCredentials', async () => {
+	it('postData calls apiClient.post', async () => {
 		const payload = { a: 1 };
 		const response = { data: payload, status: 200 };
-		axios.post.mockResolvedValue(response);
+		client.post.mockResolvedValue(response);
 
-		const result = await postData('/api/save', payload);
+		const result = await postData('/save', payload);
 
-		expect(axios.post).toHaveBeenCalledWith('/api/save', payload, {
-			withCredentials: true,
-		});
+		expect(client.post).toHaveBeenCalledWith('/save', payload);
 		expect(result).toBe(response);
 	});
 
 	it('postFileData sets multipart header', async () => {
 		const formData = new FormData();
-		axios.post.mockResolvedValue({ status: 200 });
+		client.post.mockResolvedValue({ status: 200 });
 
-		await postFileData('/api/upload', formData);
+		await postFileData('/upload', formData);
 
-		expect(axios.post).toHaveBeenCalledWith('/api/upload', formData, {
-			withCredentials: true,
+		expect(client.post).toHaveBeenCalledWith('/upload', formData, {
 			headers: { 'Content-Type': 'multipart/form-data' },
 		});
 	});
 
-	it('deleteData calls axios.delete with withCredentials', async () => {
-		axios.delete.mockResolvedValue({ status: 204 });
+	it('deleteData calls apiClient.delete', async () => {
+		client.delete.mockResolvedValue({ status: 204 });
 
-		await deleteData('/api/item/1');
+		await deleteData('/item/1');
 
-		expect(axios.delete).toHaveBeenCalledWith('/api/item/1', {
-			withCredentials: true,
-		});
+		expect(client.delete).toHaveBeenCalledWith('/item/1');
 	});
 });

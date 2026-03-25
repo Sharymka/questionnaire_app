@@ -11,7 +11,7 @@ import {TemplateContext} from "../../TemplateContext";
 
 		 const uploadImg = async () => {
 			 try {
-				 const { status, data } = await postFileData('api/upload', formData);
+				 const { status, data } = await postFileData('/upload', formData);
 
 				 if (status >= 200 && status < 300){
 					 console.log('Uploading successfully finished. URL:');

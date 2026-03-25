@@ -10,7 +10,7 @@ const  useGetTemplates = () => {
 	useEffect(() => {
 		const fetchTemps = async () => {
 			try {
-				const { data, status } = await getData("api/templates");
+				const { data, status } = await getData("/templates");
 				if (status >= 200 && status < 300)  {
 					setTemps(data);
 					console.log("getting templates was successfully:");

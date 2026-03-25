@@ -68,7 +68,7 @@ const useActionsTemplates = (blobUrl) => {
 	}
 	const deleteTemplate = async(id) => {
 		try {
-			const { status }  = await deleteData(`api/template/${id}`);
+			const { status }  = await deleteData(`/template/${id}`);
 
 			if (status >= 200 && status < 300){
 				setTemplates(prevState =>

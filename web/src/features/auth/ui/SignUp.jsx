@@ -17,7 +17,7 @@ function SignUp() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const { data, status } = await postData('api/signUp', singUpData);
+			const { data, status } = await postData('/signUp', singUpData);
 
 			if (status >= 200 && status < 300) {
 				console.log("Registered successfully:");

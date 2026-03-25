@@ -16,7 +16,7 @@ const useGetFormsByTempId = () => {
 
 		const fetchData = async () => {
 			try {
-				const { data, status } = await getData('api/forms');
+				const { data, status } = await getData('/forms');
 				if (status >= 200 && status < 300){
 					setForms(data.filter((form) => form.idTemplate === selectedTempId));
 				} else {
