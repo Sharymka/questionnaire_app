@@ -73,11 +73,13 @@
 
 ## Слабые места и план улучшений
 
-- Крупный слайс `features/template-editor` (контекст + много UI); позже разбить на `entities/template` и отдельные `features` (редактор, теги, загрузка)
-- `features/history-navigation` зависит от `TemplateContext` — допустимый компромисс; при росте проекта вынести общий стор или роутер-стейт
-- Нет строгого разделения DTO / view-моделей; часть данных захардкожена в конфиге
-- Редьюсер шаблона покрыт тестами частично; стоит добавить интеграционные тесты маршрутов
-- Дальше: RTK Query или единый слой API, унифицировать обработку ошибок, публичные API слайсов через `index.js`
+- `TemplateContext` — god-object (30+ значений в контексте); разбить на несколько контекстов или перейти на Redux для снижения ре-рендеров
+- Крупный слайс `features/template-editor`; позже разбить на `entities/template` и отдельные `features`
+- `questions` и `config.questionList` — параллельные массивы, синхронизируются вручную; рассмотреть объединение в единую структуру
+- Пустые `catch`-блоки в auth и API-хуках — добавить пользовательскую обратную связь при ошибках (особенно `SignIn`)
+- Нет строгого разделения DTO / view-моделей
+- RTK Query или единый API-слой, унифицировать обработку ошибок, публичные API слайсов через `index.js`
+- Интеграционные тесты маршрутов
 
 ## Структура FSD (фронтенд)
 
@@ -114,16 +116,53 @@ web/src/
 ### Security hardening (БЛОК 1)
 
 - Удалены захардкоженные Salesforce-креденшалы из `server.js` — перенесены в `.env` (`SF_CLIENT_ID`, `SF_CLIENT_SECRET`, `SF_USERNAME`, `SF_PASSWORD`)
-- Session secret вынесен в переменную окружения `SESSION_SECRET` (ранее `"your_secret_key"` в коде)
-- Добавлен `helmet` — HTTP-заголовки безопасности
-- Добавлен `cors` — явная настройка CORS с `credentials: true` и переменной `CLIENT_ORIGIN`
-- Добавлен `express-rate-limit` на `/signIn` и `/signUp` (20 попыток / 15 мин)
+- Session secret вынесен в переменную окружения `SESSION_SECRET`
+- Добавлен `helmet`, `cors`, `express-rate-limit` (20 попыток / 15 мин на auth-роуты)
 - Защищены роуты: `DELETE /template/:id`, `POST /upload`, `POST /salesforce/createCustomer` — добавлен `isAuthenticated`
-- Исправлен error handler в `/upload` — ранее клиент не получал ответ при ошибке
-- Добавлена валидация типа и размера файла при upload (JPEG/PNG/GIF/WebP, до 5 MB)
+- Исправлен error handler в `/upload`; добавлена валидация типа и размера файла (JPEG/PNG/GIF/WebP, до 5 MB)
 - Пароль больше не возвращается в JSON-ответах при signIn/signUp
-- Cookie: `sameSite: 'lax'`, `secure` включается в production
-- Создан `.env.example` как шаблон для разработчиков
+- Cookie: `sameSite: 'lax'`, `secure` в production
+- Создан `.env.example`
+
+### API layer (БЛОК 2)
+
+- Централизованный axios instance с `baseURL: '/api'` и `withCredentials`
+- Response interceptor для 401
+- Убраны бесполезные try/catch-обёртки из request-функций
+- Все вызовы API используют пути относительно `/api`
+- Убран `window.location.origin` хак из `TemplateContext.saveForm`
+
+### TemplateContext (БЛОК 3)
+
+- Убран дублирующийся вызов `setFilledFormId(null)`
+- Добавлены корректные dependency arrays во все `useEffect` и `useCallback`
+- `safeParse` хелпер для `localStorage` (защита от краша на невалидных данных)
+- Optional chaining для `user.id` в `saveForm`
+
+### DnD wrappers (БЛОК 4)
+
+- `useDragDropWrapper` → `createDragDropWrapper` (фабричная функция, не хук)
+- `useDraggableWrapper` → `createDraggableWrapper` (фабричная функция, не хук)
+- Убран неиспользуемый импорт `useEffect`
+
+### Code cleanup (БЛОКИ 1-4 ревью)
+
+- Удалены все дебажные `console.log` из фронтенда (38 шт.)
+- Удалены все нарративные комментарии и закомментированный код
+- Исправлены захардкоженные тестовые креденшалы в `SignIn` (заменены на пустые строки)
+- Исправлен unsafe `error.response.data.message` → `error.response?.data?.message`
+- Исправлен `useState([])` → `useState({})` в `SignUp`
+- `FormData` в `useUploadImg` перенесён внутрь функции (ранее захватывал stale `imgUrl`)
+- Убрано логирование PII из серверных контроллеров
+
+### configReducer (БЛОК 5)
+
+- Выделены `CONFIG_ACTIONS` константы в `configActionTypes.js`
+- Все строковые литералы заменены на `CONFIG_ACTIONS.*` в reducer, context, hooks
+- `REMOVE_QUESTION` принимает `id`, фильтрует и переиндексирует внутри через `recalculateIds`
+- `TOGGLE_QUESTION_MODE` — early-return паттерн
+- `RESET_QUESTION_LIST` — добавлен `...state` spread
+- Добавлены тесты: REMOVE (filter + reindex), TOGGLE (оба направления + edge case), RESET
 
 ## Как запустить
 
