@@ -8,7 +8,7 @@ import { TemplateContext } from "@/features/template-editor/model/TemplateContex
 import CustomCheckBoxes from "./CustomCheckBoxes";
 import useActionsCheckboxes from "@/features/template-editor/model/hooks/useActionsCheckboxes";
 import { answerTypeName } from "@/shared/config/const";
-import useDragDropWrapper from "@/features/template-editor/model/hooks/useDragDropWrapper";
+import createDragDropWrapper from "@/features/template-editor/model/hooks/createDragDropWrapper";
 
 function QuestionCard({ question, config }) {
 	const { questions } = useContext(TemplateContext);
@@ -19,7 +19,7 @@ function QuestionCard({ question, config }) {
 
 	const { handleDeleteOnClick, handleEditOnClick, handleTextFieldOnChange } = useActionsQuestion(targetQuestion);
 	const [checkboxesList, setCheckboxesList] = useState(targetQuestion.checkboxes);
-	const withDragDropWrapper = useDragDropWrapper('checkboxesId', config.checkboxMode, targetQuestion.checkboxes, setCheckboxesList);
+	const withDragDropWrapper = createDragDropWrapper('checkboxesId', config.checkboxMode, targetQuestion.checkboxes, setCheckboxesList);
 
 	const { checkboxOnChange } = useActionsCheckboxes(targetQuestion, checkboxesList);
 

@@ -10,7 +10,7 @@ import useActionsQuestion from "@/features/template-editor/model/hooks/useAction
 import CustomAutoComplete from "./CustomAutoComplete";
 import useActionsSelectPrivateUsers from "@/features/template-editor/model/hooks/useActionsSelectPrivateUsers";
 import {TemplateContext} from "@/features/template-editor/model/TemplateContext";
-import useDragDropWrapper from "@/features/template-editor/model/hooks/useDragDropWrapper";
+import createDragDropWrapper from "@/features/template-editor/model/hooks/createDragDropWrapper";
 
 function QuestionTemplateBlock(props) {
 
@@ -19,7 +19,7 @@ function QuestionTemplateBlock(props) {
   const btnRef = useRef(null);
   const [sortBy, setSortBy ] = useState('name');
   const [checkboxesList, setCheckboxesList] = useState(targetQuestion.checkboxes);
-  const withDragDropWrapper = useDragDropWrapper('checkboxesId', config.checkboxMode, targetQuestion.checkboxes, setCheckboxesList);
+  const withDragDropWrapper = createDragDropWrapper('checkboxesId', config.checkboxMode, targetQuestion.checkboxes, setCheckboxesList);
 
     const {
         handleTextFieldOnChange

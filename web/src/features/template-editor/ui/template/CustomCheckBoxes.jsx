@@ -3,7 +3,7 @@ import {FormControlLabel, IconButton, Radio, RadioGroup, Typography} from "@mui/
 import CustomTextField from "./CustomTextField";
 import {DELETE_ICON_URL} from "@/shared/lib/url/url";
 import ActionButton from "./AcctionBtn";
-import useDraggableWrapper from "@/features/template-editor/model/hooks/useDraggableWrapper";
+import createDraggableWrapper from "@/features/template-editor/model/hooks/createDraggableWrapper";
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 function CustomCheckBoxes(props) {
@@ -25,7 +25,7 @@ function CustomCheckBoxes(props) {
       textFieldOnChange
   } = actions;
 
-    const withDraggable = useDraggableWrapper(config.checkboxMode, true);
+    const withDraggable = createDraggableWrapper(config.checkboxMode, true);
 
     const handleChange = (event) => {
         if (typeof(checkboxOnChange) === 'function') {

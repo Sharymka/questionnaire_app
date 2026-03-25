@@ -1,9 +1,8 @@
 import {Draggable} from "@hello-pangea/dnd";
-import {cloneElement, useEffect} from "react";
+import {cloneElement} from "react";
 
 
-const wrapWithDraggable = (config, withHandle = false) => {
-
+const createDraggableWrapper = (config, withHandle = false) => {
 
 	return (item, index,  wrappedElement) => {
 
@@ -32,4 +31,4 @@ const wrapWithDraggable = (config, withHandle = false) => {
 	}
 }
 
-export default wrapWithDraggable;
+export default createDraggableWrapper;

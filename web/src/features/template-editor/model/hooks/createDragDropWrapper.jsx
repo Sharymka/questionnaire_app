@@ -1,6 +1,6 @@
 import {DragDropContext, Droppable} from "@hello-pangea/dnd";
 
-function useDragDropWrapper(droppableId, config, items, setItems) {
+function createDragDropWrapper(droppableId, config, items, setItems) {
 
 	const handleOnDragEnd = (result) => {
 		if (!result.destination) return;
@@ -37,4 +37,4 @@ function useDragDropWrapper(droppableId, config, items, setItems) {
 
 }
 
-export default useDragDropWrapper;
+export default createDragDropWrapper;

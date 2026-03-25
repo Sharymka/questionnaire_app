@@ -1,14 +1,14 @@
 import React, {useContext} from 'react';
 import QuestionCard from "./QuestionCard";
 import {TemplateContext} from "@/features/template-editor/model/TemplateContext";
-import useDraggableWrapper from "@/features/template-editor/model/hooks/useDraggableWrapper";
-import useDragDropWrapper from "@/features/template-editor/model/hooks/useDragDropWrapper";
+import createDraggableWrapper from "@/features/template-editor/model/hooks/createDraggableWrapper";
+import createDragDropWrapper from "@/features/template-editor/model/hooks/createDragDropWrapper";
 
 function QuestionsList() {
 
 	const { config, questions, setQuestions } = useContext(TemplateContext);
-	const wrapWithDraggable = useDraggableWrapper( config.baseConfig.header);
-	const wrapWithDragDrop = useDragDropWrapper( 'questionsList', config.baseConfig.header, questions, setQuestions);
+	const wrapWithDraggable = createDraggableWrapper( config.baseConfig.header);
+	const wrapWithDragDrop = createDragDropWrapper( 'questionsList', config.baseConfig.header, questions, setQuestions);
 
 	const listContent = (
 		<div className='d-flex flex-column gap-2'>
