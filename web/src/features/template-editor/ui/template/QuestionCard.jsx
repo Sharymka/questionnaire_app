@@ -24,7 +24,7 @@ function QuestionCard({ question, config }) {
 	const { checkboxOnChange } = useActionsCheckboxes(targetQuestion, checkboxesList);
 
 	const renderCheckboxes = () => {
-		if (!targetQuestion) return null; // Защита от `undefined`
+		if (!targetQuestion) return null;
 
 		if (targetQuestion.answer && config.answer !== 'fillOut') {
 			return (
@@ -41,7 +41,7 @@ function QuestionCard({ question, config }) {
 			return withDragDropWrapper(
 				<div className="width-100">
 					<CustomCheckBoxes
-						options={targetQuestion.checkboxes || []} // Защита от `undefined`
+						options={targetQuestion.checkboxes || []}
 						actions={{ checkboxOnChange }}
 						config={config}
 					/>

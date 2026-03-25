@@ -8,8 +8,8 @@ function SignIn() {
 
     const { signIn } = useContext(AuthContext);
     const [signInData, setSignInData] = React.useState({
-        email: 'ivan@mail.ru',
-        password: '123'
+        email: '',
+        password: ''
     });
 
     const handleFormChange = (field, value) => {
@@ -22,22 +22,11 @@ function SignIn() {
             const { data, status } = await postData('/signIn', signInData);
 
             if (status >= 200 && status < 300)  {
-                console.log("SignIn successfully:");
                 signIn(data);
-            } else {
-                console.log("signIn failed:", data.error);
             }
         }catch (error) {
-            console.log("error:", error.response.data.message || error.message);
         }
     }
-    //
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         // console.log(" userId in localStorage" + localStorage.getItem('userId'));
-    //         navigate('/home');
-    //     }
-    // }, [isAuthenticated]);
 
   return (
       <section

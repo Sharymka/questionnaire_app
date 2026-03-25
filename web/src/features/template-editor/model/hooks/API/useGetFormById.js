@@ -17,14 +17,10 @@ const useGetFormById =  () => {
 						if (status >= 200 && status < 300){
 							const transformedForm = transformForm(data);
 							setForm(transformedForm);
-						} else {
-							console.log("form getting failed:", data.error);
 						}
 					} catch (error) {
 						const transformedForm = transformForm(filledForms.find((item)=> item.id === filledFormId));
-						console.log('transformedForm', transformedForm);
 						setForm(transformedForm);
-						console.log("error:", error.response.data.message || error.message);
 					}
 				}
 			}

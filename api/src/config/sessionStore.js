@@ -10,24 +10,16 @@ const pool = mysql.createPool({
 	database: process.env.DB_NAME,
 	port: process.env.DB_PORT || (process.env.NODE_ENV === 'dev' ? 3307 : 3306),
 	waitForConnections: true,
-	connectionLimit: 10,  // можно увеличить при необходимости
+	connectionLimit: 10,
 	queueLimit: 0,
 });
-
-// const db = mysql.createConnection({
-// 	host: process.env.DB_ALWAYSDATA_HOST,
-// 	user: process.env.DB_ALWAYSDATA_USER,
-// 	password: process.env.DB_ALWAYSDATA_PASSWORD,
-// 	database: process.env.DB_ALWAYSDATA_NAME,
-// 	port: process.env.DB_ALWAYSDATA_PORT,
-// });
 
 pool.getConnection((err, connection) => {
 	if (err) {
 		console.error('Ошибка подключения к базе данных:', err);
 	} else {
 		console.log('Подключение к базе данных успешно');
-		connection.release(); // обязательно освобождаем соединение обратно в пул
+		connection.release();
 	}
 });
 

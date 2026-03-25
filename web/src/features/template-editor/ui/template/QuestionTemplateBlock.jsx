@@ -46,7 +46,6 @@ function QuestionTemplateBlock(props) {
               withDragDropWrapper(
                   <div className="width-100">
                       <CustomCheckBoxes
-                          // btnRef={btnRef}
                           options={targetQuestion.checkboxes}
                           actions={{
                               checkboxOnChange: checkboxOnChange,

@@ -25,11 +25,9 @@ async function signUp(req, res) {
 async function signIn(req, res) {
 
 	const { email, password } = req.body;
-	console.log('email', email);
 	try {
 		const user = await findUsers( email, password);
 
-		console.log("Поиск пользователя с email:", user);
 		if(user) {
 			req.session.userId = user.id;
 
@@ -50,8 +48,6 @@ async function signIn(req, res) {
 
 async function signOut(req, res) {
 	try {
-		// req.session.userId = null;
-
 		req.session.destroy((err) => {
 			if (err) {
 				console.error("Ошибка при уничтожении сессии:", err);

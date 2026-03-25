@@ -19,11 +19,8 @@ const useGetFormsByTempId = () => {
 				const { data, status } = await getData('/forms');
 				if (status >= 200 && status < 300){
 					setForms(data.filter((form) => form.idTemplate === selectedTempId));
-				} else {
-					console.log("forms getting failed:", data.error);
 				}
 			} catch (error) {
-				console.log("error:", error.response.data.message || error.message);
 			}finally {
 				setLoading(false);
 			}

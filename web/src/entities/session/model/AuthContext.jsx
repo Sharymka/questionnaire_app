@@ -25,24 +25,17 @@ export const AuthProvider = ({ children }) => {
 		if (storedUser) {
 			setIsAuthenticated(true);
 			navigate('/home');
-		} else {
-			console.log("Нет данных в localStorage");
 		}
 	};
 
 	const signOut = () => {
-		console.log('signOut');
 		localStorage.removeItem("user");
 
 		const storedUser = localStorage.getItem("user");
 
 		if (!storedUser) {
-			console.log("Данные Удалены:", storedUser);
 			setIsAuthenticated(false);
-			// resetTemplateStates();
 			navigate('/');
-		} else {
-			console.log("Данные в localStorage не удалились:", JSON.parse(storedUser));
 		}
 	};
 

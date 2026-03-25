@@ -13,12 +13,8 @@ const  useGetTemplates = () => {
 				const { data, status } = await getData("/templates");
 				if (status >= 200 && status < 300)  {
 					setTemps(data);
-					console.log("getting templates was successfully:");
-				} else {
-					console.log("getting templates failed:", data.error);
 				}
 			} catch (error) {
-				console.log("error:", error.response.data.message || error.message);
 			}
 		}
 		fetchTemps();

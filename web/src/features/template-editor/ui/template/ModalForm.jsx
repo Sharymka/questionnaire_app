@@ -47,7 +47,6 @@ function ModalForm(props) {
         handleCloseModal()
       }, 6000);
 
-      console.log('Account and Contact created:', result, result.contactId, result.accountId);
     } else {
       console.error('Error:', result.message);
     }

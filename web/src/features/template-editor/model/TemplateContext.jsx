@@ -6,6 +6,7 @@ import useGetTemplates from "./hooks/API/useGetTemplates";
 import {useNavigate} from "react-router-dom";
 import useGetUsers from "./hooks/API/useGetUsers";
 import {configReducer} from "./configReducer";
+import {CONFIG_ACTIONS} from "./configActionTypes";
 
 const safeParse = (key) => {
 	try {
@@ -49,7 +50,7 @@ function TemplateProvider({children}) {
 		setDescription('');
 		setQuestions([]);
 		setTags([]);
-		configDispatch({type:'RESET_QUESTION_LIST', payload: getDefaultTempConfig(currentView)});
+		configDispatch({type: CONFIG_ACTIONS.RESET_QUESTION_LIST, payload: getDefaultTempConfig(currentView)});
 		setQuestionStatus(null);
 		setSelectedTempId(null);
 		setFilledFormId(null);
@@ -83,18 +84,16 @@ function TemplateProvider({children}) {
 	useEffect(() => {
 		const baseConfig = getDefaultTempConfig(currentView);
 
-		configDispatch({type:'BASE_CONFIG', payload: baseConfig});
+		configDispatch({type: CONFIG_ACTIONS.BASE_CONFIG, payload: baseConfig});
 
-		//инициализируем настройки для списка вопросов, если вопросы подгрузились сразу из готового шаблона и конфиг при добпвлении первого вопроса проинициализируется тут
 		if (config?.questionList?.length === 0 && questions?.length > 0) {
-			configDispatch({ type: 'INIT_QUESTION_LIST', payload: questions.map((question) =>
-					getQuestionCardConfig(questionStatus, question.id)
+			configDispatch({ type: CONFIG_ACTIONS.INIT_QUESTION_LIST, payload: questions.map((question) =>
+				getQuestionCardConfig(questionStatus, question.id)
 				), })
 		}
 
-		//инициализируем настройки для списка вопросов, в процессе добавления нового вопроса
 		if(config.questionList?.length !== 0 && questions?.length > config.questionList?.length) {
-			configDispatch({ type: 'ADD_NEW_QUESTION', payload: getQuestionCardConfig('edit', questions[questions?.length - 1]?.id), })
+			configDispatch({ type: CONFIG_ACTIONS.ADD_NEW_QUESTION, payload: getQuestionCardConfig('edit', questions[questions?.length - 1]?.id), })
 		}
 
 	}, [currentView, questions, questionStatus, config.questionList?.length]);
@@ -120,7 +119,6 @@ function TemplateProvider({children}) {
 
 			if (status >= 200 && status < 300){
 				setMessage({success: "Form was saved successfully"});
-				console.log("Form was saved successfully:", data);
 				setTimeout(()=> {
 					navigate('/templates');
 					setCurrentView("allTemplates");
@@ -128,11 +126,8 @@ function TemplateProvider({children}) {
 
 			}else {
 				setMessage({error: "Form saving failed"});
-				console.log("Form saving failed:", data.error);
-
 			}
 		} catch (error) {
-			console.log("Saving Form failed:", error.message);
 		}
 	}
 

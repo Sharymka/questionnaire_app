@@ -15,13 +15,9 @@ const useGetTemplateById = () => {
 
 					if (status >= 200 && status < 300){
 						setTemplate(data);
-						console.log("getting template was successfully:", data);
-					} else {
-						console.log("getting templates failed:", data.error);
 					}
 				} catch (error) {
 					setTemplate(temp.find(item=> item.id === selectedTempId));
-					console.log("error:", error.response.data.message || error.message);
 				}
 			}
 

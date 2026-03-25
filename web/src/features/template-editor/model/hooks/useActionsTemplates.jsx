@@ -31,9 +31,7 @@ const useActionsTemplates = (blobUrl) => {
 		let  cloudinaryImgUrl = null;
 
 		if(imgUrl) {
-			console.log('imgUrl', imgUrl);
 			cloudinaryImgUrl = await uploadImg();
-			console.log('cloudinaryImgUrl:', cloudinaryImgUrl);
 		}
 
 		const requestData = {
@@ -50,11 +48,9 @@ const useActionsTemplates = (blobUrl) => {
 
 			if (status >= 200 && status < 300){
 				setMessage({success: "Template was saved successfully"});
-				console.log("Template was saved successfully:", data);
 				setRefreshTemps(!refreshTemps);
 			}else {
 				setMessage({error: "Template saving failed"});
-				console.log("Template saving failed:", data.error);
 			}
 			setTimeout(() => {
 				setMessage(null);
@@ -62,7 +58,6 @@ const useActionsTemplates = (blobUrl) => {
 			}, 3000);
 
 		}catch (error) {
-			console.log("Saving Template failed:", error.message);
 		}
 
 	}
@@ -73,12 +68,8 @@ const useActionsTemplates = (blobUrl) => {
 			if (status >= 200 && status < 300){
 				setTemplates(prevState =>
 					prevState.filter((item) => item.id !== id));
-				console.log("template was deleted successfully");
-			}else{
-				console.log("template deleting failed");
 			}
 		}catch (error) {
-			console.log(error);
 		}
 	}
 
@@ -89,7 +80,6 @@ const useActionsTemplates = (blobUrl) => {
 
 		if(blobUrl) {
 			cloudinaryImgUrl = await uploadImg();
-			console.log('cloudinaryImgUrl:', cloudinaryImgUrl);
 		}
 
 		const requestData = {
@@ -105,7 +95,6 @@ const useActionsTemplates = (blobUrl) => {
 
 			if (status >= 200 && status < 300){
 				setMessage({success: "Template was updated successfully"});
-				console.log("Template was updated successfully");
 				setRefreshTemps(!refreshTemps);
 			}else {
 				setMessage({error: "Template updating failed"});
@@ -116,7 +105,6 @@ const useActionsTemplates = (blobUrl) => {
 			}, 3000);
 
 		} catch (error) {
-			console.log("Updating Template failed:", error.message);
 		}
 	}
 

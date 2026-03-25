@@ -7,7 +7,7 @@ import {AuthContext} from "@/entities/session/model/AuthContext";
 function SignUp() {
 
 	const { signIn } = useContext(AuthContext);
-	const [singUpData, setSingUpData] = useState([]);
+	const [singUpData, setSingUpData] = useState({});
 	const [message, setMessage] = useState('');
 
 	const handleFormChange = (field, value) => {
@@ -20,15 +20,13 @@ function SignUp() {
 			const { data, status } = await postData('/signUp', singUpData);
 
 			if (status >= 200 && status < 300) {
-				console.log("Registered successfully:");
 				signIn(data);
 				setMessage('');
 			} else {
-				console.log("Registered failed:", data.error);
 				setMessage(data.error);
 			}
 		}catch (error) {
-			console.log("error:", error.response.data.message || error.message);
+			setMessage(error.response?.data?.message || error.message);
 		}
 	}
 

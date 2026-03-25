@@ -8,13 +8,11 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 function CustomCheckBoxes(props) {
 
-    // const { btnRef } =props;
-
   const {
       options,
-      actions, // объект типа { checkboxOnChange: checkboxOnChange, ...}
+      actions,
       config,
-      field, // поле 'answer'
+      field,
       optionId = null,
       dragHandleProps
   } = props;
@@ -39,7 +37,6 @@ function CustomCheckBoxes(props) {
       >
           <RadioGroup
               onChange={handleChange}
-              // fullWidth
               sx={{
                   width: '100% !important',
               }}
@@ -83,7 +80,6 @@ function CustomCheckBoxes(props) {
                                           imgSrc={DELETE_ICON_URL}
                                       />
 
-                                      {/* Передаём dragHandleProps в IconButton */}
                                       <IconButton
                                           {...dragHandleProps}
                                           style={{ cursor: 'grab' }}

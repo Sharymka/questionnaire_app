@@ -17,7 +17,6 @@ const useActionsSelectPrivateUsers = (targetQuestion,  sortBy) => {
 	}
 
 	const deleteSelectedUser = (selectedUserId)=> {
-		console.log('targetQuestion', targetQuestion);
 		setQuestions((preQuestions) =>
 			preQuestions.map((question) =>
 			question.id === targetQuestion.id

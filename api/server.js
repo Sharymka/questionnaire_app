@@ -23,7 +23,7 @@ const port = process.env.PORT || 3001;
 const api = express.Router();
 
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 const upload = multer({
 	dest: 'uploads/',
@@ -130,7 +130,6 @@ app.post('/api/salesforce/createCustomer', isAuthenticated, async (req, res) => 
 
 
 app.get('/*', function (req, res) {
-	console.log(path.join(__dirname, 'build', 'index.html'));
 	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
