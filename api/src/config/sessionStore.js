@@ -47,16 +47,17 @@ const sessionStore = new MySQLStore({
 
 const sessionMiddleware = session({
 	key: "session_cookie_name",
-	secret: "your_secret_key",
+	secret: process.env.SESSION_SECRET || 'fallback-dev-secret-change-me',
 	store: sessionStore,
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
 		maxAge: 1000 * 60 * 60 * 24,
-		httpOnly: true,  // Защита от XSS
-		secure: false,
-		signed: true      // Подпись sessionId
-	} // 24 часа
+		httpOnly: true,
+		secure: process.env.NODE_ENV === 'production',
+		sameSite: 'lax',
+		signed: true,
+	},
 });
 
 module.exports = sessionMiddleware;

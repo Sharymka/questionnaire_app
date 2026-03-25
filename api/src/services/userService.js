@@ -28,7 +28,7 @@ class UserService {
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 
-		return  await User.create({
+		const user = await User.create({
 			first_name: firstName,
 			last_name: lastName,
 			email: email,
@@ -36,6 +36,9 @@ class UserService {
 			role: 'user',
 			status: 'active',
 		});
+
+		const { password: _, ...userWithoutPassword } = user.toJSON();
+		return userWithoutPassword;
 
 	}
 
@@ -51,7 +54,8 @@ class UserService {
 			throw new Error('Invalid password');
 		}
 
-		return user;
+		const { password: _, ...userWithoutPassword } = user.toJSON();
+		return userWithoutPassword;
 
 	}
 }

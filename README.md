@@ -109,6 +109,22 @@ web/src/
 
 Для обратной совместимости со старыми импортами в корне `web/src` остаются re-export: `Requests.js`, `const/`, `utilits/`, `storage/`, `url/`, `App.js`.
 
+## Changelog
+
+### Security hardening (БЛОК 1)
+
+- Удалены захардкоженные Salesforce-креденшалы из `server.js` — перенесены в `.env` (`SF_CLIENT_ID`, `SF_CLIENT_SECRET`, `SF_USERNAME`, `SF_PASSWORD`)
+- Session secret вынесен в переменную окружения `SESSION_SECRET` (ранее `"your_secret_key"` в коде)
+- Добавлен `helmet` — HTTP-заголовки безопасности
+- Добавлен `cors` — явная настройка CORS с `credentials: true` и переменной `CLIENT_ORIGIN`
+- Добавлен `express-rate-limit` на `/signIn` и `/signUp` (20 попыток / 15 мин)
+- Защищены роуты: `DELETE /template/:id`, `POST /upload`, `POST /salesforce/createCustomer` — добавлен `isAuthenticated`
+- Исправлен error handler в `/upload` — ранее клиент не получал ответ при ошибке
+- Добавлена валидация типа и размера файла при upload (JPEG/PNG/GIF/WebP, до 5 MB)
+- Пароль больше не возвращается в JSON-ответах при signIn/signUp
+- Cookie: `sameSite: 'lax'`, `secure` включается в production
+- Создан `.env.example` как шаблон для разработчиков
+
 ## Как запустить
 
 Из корня репозитория (после `npm run install-dependencies` или ручного `npm install` в `web` и `api`):
