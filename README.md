@@ -111,59 +111,6 @@ web/src/
 
 Для обратной совместимости со старыми импортами в корне `web/src` остаются re-export: `Requests.js`, `const/`, `utilits/`, `storage/`, `url/`, `App.js`.
 
-## Changelog
-
-### Security hardening (БЛОК 1)
-
-- Удалены захардкоженные Salesforce-креденшалы из `server.js` — перенесены в `.env` (`SF_CLIENT_ID`, `SF_CLIENT_SECRET`, `SF_USERNAME`, `SF_PASSWORD`)
-- Session secret вынесен в переменную окружения `SESSION_SECRET`
-- Добавлен `helmet`, `cors`, `express-rate-limit` (20 попыток / 15 мин на auth-роуты)
-- Защищены роуты: `DELETE /template/:id`, `POST /upload`, `POST /salesforce/createCustomer` — добавлен `isAuthenticated`
-- Исправлен error handler в `/upload`; добавлена валидация типа и размера файла (JPEG/PNG/GIF/WebP, до 5 MB)
-- Пароль больше не возвращается в JSON-ответах при signIn/signUp
-- Cookie: `sameSite: 'lax'`, `secure` в production
-- Создан `.env.example`
-
-### API layer (БЛОК 2)
-
-- Централизованный axios instance с `baseURL: '/api'` и `withCredentials`
-- Response interceptor для 401
-- Убраны бесполезные try/catch-обёртки из request-функций
-- Все вызовы API используют пути относительно `/api`
-- Убран `window.location.origin` хак из `TemplateContext.saveForm`
-
-### TemplateContext (БЛОК 3)
-
-- Убран дублирующийся вызов `setFilledFormId(null)`
-- Добавлены корректные dependency arrays во все `useEffect` и `useCallback`
-- `safeParse` хелпер для `localStorage` (защита от краша на невалидных данных)
-- Optional chaining для `user.id` в `saveForm`
-
-### DnD wrappers (БЛОК 4)
-
-- `useDragDropWrapper` → `createDragDropWrapper` (фабричная функция, не хук)
-- `useDraggableWrapper` → `createDraggableWrapper` (фабричная функция, не хук)
-- Убран неиспользуемый импорт `useEffect`
-
-### Code cleanup (БЛОКИ 1-4 ревью)
-
-- Удалены все дебажные `console.log` из фронтенда (38 шт.)
-- Удалены все нарративные комментарии и закомментированный код
-- Исправлены захардкоженные тестовые креденшалы в `SignIn` (заменены на пустые строки)
-- Исправлен unsafe `error.response.data.message` → `error.response?.data?.message`
-- Исправлен `useState([])` → `useState({})` в `SignUp`
-- `FormData` в `useUploadImg` перенесён внутрь функции (ранее захватывал stale `imgUrl`)
-- Убрано логирование PII из серверных контроллеров
-
-### configReducer (БЛОК 5)
-
-- Выделены `CONFIG_ACTIONS` константы в `configActionTypes.js`
-- Все строковые литералы заменены на `CONFIG_ACTIONS.*` в reducer, context, hooks
-- `REMOVE_QUESTION` принимает `id`, фильтрует и переиндексирует внутри через `recalculateIds`
-- `TOGGLE_QUESTION_MODE` — early-return паттерн
-- `RESET_QUESTION_LIST` — добавлен `...state` spread
-- Добавлены тесты: REMOVE (filter + reindex), TOGGLE (оба направления + edge case), RESET
-
 ## Как запустить
 
 Из корня репозитория (после `npm run install-dependencies` или ручного `npm install` в `web` и `api`):
