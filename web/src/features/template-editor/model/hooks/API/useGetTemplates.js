@@ -1,0 +1,36 @@
+import {useEffect, useState} from "react";
+import {getData} from "@/shared/api/requests";
+import {temp} from "@/shared/config/temp";
+
+const  useGetTemplates = () => {
+
+	const [ temps, setTemps] = useState(temp);
+	const [refreshTemps, setRefreshTemps] = useState(false);
+
+	useEffect(() => {
+		const fetchTemps = async () => {
+			try {
+				const { data, status } = await getData("api/templates");
+				if (status >= 200 && status < 300)  {
+					setTemps(data);
+					console.log("getting templates was successfully:");
+				} else {
+					console.log("getting templates failed:", data.error);
+				}
+			} catch (error) {
+				console.log("error:", error.response.data.message || error.message);
+			}
+		}
+		fetchTemps();
+
+	}, [refreshTemps]);
+
+
+	return {
+		temps,
+		refreshTemps,
+		setRefreshTemps
+	}
+};
+
+export default useGetTemplates;

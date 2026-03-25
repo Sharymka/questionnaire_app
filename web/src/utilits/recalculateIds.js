@@ -1,6 +1,1 @@
-export const recalculateIds = (array) => {
-	return array.map((question, index) => ({
-		...question,
-		id: index + 1,
-	}));
-};
+export { recalculateIds } from '@/shared/lib/utilits/recalculateIds';

@@ -39,5 +39,7 @@ export const configReducer = (state, action) => {
 				...state,
 				questionList: action.payload,
 			}
+		default:
+			return state;
 	}
 }

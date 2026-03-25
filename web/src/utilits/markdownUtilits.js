@@ -1,6 +1,1 @@
-import {marked} from 'marked';
-
-
-export function convertMarkdownToHTML(markdownText) {
-	return marked(markdownText);
-}
+export { convertMarkdownToHTML } from '@/shared/lib/utilits/markdownUtilits';
