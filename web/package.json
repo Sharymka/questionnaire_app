@@ -37,10 +37,10 @@
     "webpack": "^5.95.0"
   },
   "scripts": {
-    "build": "GENERATE_SOURCEMAP=true react-scripts build",
-    "start": "react-scripts start",
+    "build": "GENERATE_SOURCEMAP=true craco build",
+    "start": "craco start",
     "prepare:static": "cp -r build ../api",
-    "test": "react-scripts test",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "watch:build": "nodemon --watch src --ext js,jsx,scss,json --exec \"craco build && npm run prepare:static\""
   },
