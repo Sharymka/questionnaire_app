@@ -1,10 +1,11 @@
 import {useContext} from "react";
 import {TemplateContext} from "../TemplateContext";
 import {recalculateIds} from "@/shared/lib/utilits/recalculateIds";
+import {CONFIG_ACTIONS} from "../configActionTypes";
 
 const useActionsQuestion = (targetQuestion) => {
 
-	const { setQuestions,  configDispatch, config, setQuestionStatus } = useContext(TemplateContext);
+	const { setQuestions, configDispatch, setQuestionStatus } = useContext(TemplateContext);
 
 	const handleAddQuestionOnClick = () => {
 		setQuestions((prevState) => {
@@ -56,33 +57,20 @@ const useActionsQuestion = (targetQuestion) => {
 	}
 
 	const handleEditOnClick = () => {
-		configDispatch({ type: 'TOGGLE_QUESTION_MODE', payload: targetQuestion.id});
+		configDispatch({ type: CONFIG_ACTIONS.TOGGLE_QUESTION_MODE, payload: targetQuestion.id});
 	}
 
 
 	const handleDeleteOnClick = () => {
-		console.log('targetQuestion id:', targetQuestion.id);
 		setQuestions((prevState) => {
 			const updatedQuestions = prevState.filter(
 				(question) => question.id !== targetQuestion.id
 			);
 
-			return updatedQuestions.map((question, index) => ({
-				...question,
-				id: index + 1,
-			}));
+			return recalculateIds(updatedQuestions);
 		});
 
-		const filteredConfigs = config.questionList.filter(
-			(question) => question.id !== targetQuestion.id
-		);
-
-		const reIndexedConfig = filteredConfigs.map((question, index) => ({
-			...question,
-				id: index + 1
-		}));
-
-		configDispatch({ type: 'REMOVE_QUESTION', payload: reIndexedConfig });
+		configDispatch({ type: CONFIG_ACTIONS.REMOVE_QUESTION, payload: targetQuestion.id });
 	};
 
 
