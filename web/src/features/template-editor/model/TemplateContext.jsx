@@ -7,6 +7,14 @@ import {useNavigate} from "react-router-dom";
 import useGetUsers from "./hooks/API/useGetUsers";
 import {configReducer} from "./configReducer";
 
+const safeParse = (key) => {
+	try {
+		return JSON.parse(localStorage.getItem(key));
+	} catch {
+		return null;
+	}
+};
+
 export const TemplateContext = React.createContext(null);
 
 function TemplateProvider({children}) {
@@ -32,12 +40,8 @@ function TemplateProvider({children}) {
 	const [message, setMessage] = useState('');
 	const [markdownHover, setMarkdownHover] = useState([]);
 	const [showSelectedTemplate, setShowSelectedTemplate] = useState(false);
-	const [selectedTempId, setSelectedTempId] = useState(() => {
-		return JSON.parse(localStorage.getItem('tempId'))? JSON.parse(localStorage.getItem('tempId')) : null;
-	});
-	const [filledFormId, setFilledFormId] = useState(() => {
-		return JSON.parse(localStorage.getItem('formId'))? JSON.parse(localStorage.getItem('formId')) : null;
-	});
+	const [selectedTempId, setSelectedTempId] = useState(() => safeParse('tempId'));
+	const [filledFormId, setFilledFormId] = useState(() => safeParse('formId'));
 
 	const resetTemplateStates =  useCallback(()=> {
 		setTitle('');
@@ -50,15 +54,14 @@ function TemplateProvider({children}) {
 		setSelectedTempId(null);
 		setFilledFormId(null);
 		setImgUrl(null);
-		setFilledFormId(null);
 		setMessage('');
-	})
+	}, [currentView])
 
 	useEffect(() => {
 		if(currentView === 'allTemplates') {
 			navigate('/templates');
 		}
-	}, [currentView])
+	}, [currentView, navigate])
 
 	useEffect(() => {
 		setTemplates(temps);
@@ -75,7 +78,7 @@ function TemplateProvider({children}) {
 			localStorage.removeItem('formId');
 		}
 
-	}, [currentView]);
+	}, [currentView, resetTemplateStates]);
 
 	useEffect(() => {
 		const baseConfig = getDefaultTempConfig(currentView);
@@ -94,7 +97,7 @@ function TemplateProvider({children}) {
 			configDispatch({ type: 'ADD_NEW_QUESTION', payload: getQuestionCardConfig('edit', questions[questions?.length - 1]?.id), })
 		}
 
-	}, [currentView, questions.length]);
+	}, [currentView, questions, questionStatus, config.questionList?.length]);
 
 	const saveForm = async (url) => {
 		const newQuestions = questions.map((item) => ({
@@ -109,7 +112,7 @@ function TemplateProvider({children}) {
 
 		const requestData =  {
 				idTemplate:selectedTempId,
-				idUser: JSON.parse(localStorage.getItem('user')).user.id,
+				idUser: safeParse('user')?.user?.id,
 				questions: newQuestions
 			}
 		try {
@@ -162,7 +165,6 @@ function TemplateProvider({children}) {
 		  setQuestions,
 		  config,
 		  configDispatch,
-		  // setConfig,
 		  currentView,
 		  setCurrentView,
 		  questionStatus,
